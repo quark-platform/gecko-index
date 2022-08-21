@@ -8,13 +8,17 @@ import {
   Token,
 } from "webidl2";
 import { readFile } from "fs/promises";
-import { writeFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 
 if (process.argv.length == 1) {
   throw new Error("Expected path to gecko-dev to be provided as the first arg");
 }
 
 const geckoDevDir = resolve(process.argv[2]);
+const geckoVersion = readFileSync(
+  resolve(geckoDevDir, "browser", "config", "version.txt"),
+  { encoding: "utf8" }
+).trim();
 
 const voidInterfaceFilter = /interface \w*;/;
 const replaceContentsNewline = /,\n(\n|.)*?\]/gm;
@@ -66,6 +70,7 @@ for (const idl of await glob(join(geckoDevDir, "**/*.webidl"))) {
 interface NamespaceItem {
   name: string;
   trivia: string;
+  introduced: string;
 }
 
 interface NamespaceAttribute extends NamespaceItem {
@@ -83,6 +88,11 @@ interface NamespaceMethod extends NamespaceItem {
 type namespaceRecord = {
   attributes: NamespaceAttribute[];
   methods: NamespaceMethod[];
+};
+
+type NamespaceChangeRecord = {
+  attributes: string[];
+  methods: string[];
 };
 
 function cleanUpComment(comment: string): string {
@@ -126,7 +136,14 @@ function getMemberTrivia(member: IDLNamespaceMemberType): string {
   return trivia;
 }
 
+let originalJSON: Record<string, namespaceRecord> = {};
 let namespacesJson: Record<string, namespaceRecord> = {};
+
+if (existsSync("./namespaces.json")) {
+  originalJSON = JSON.parse(
+    readFileSync("./namespaces.json", { encoding: "utf8" })
+  );
+}
 
 for (const namespace of namespaces.keys()) {
   for (const namespaceObj of namespaces.get(namespace) || []) {
@@ -149,6 +166,12 @@ for (const namespace of namespaces.keys()) {
             readonly: item.readonly,
             valueType: item.idlType,
             trivia: getMemberTrivia(item),
+            introduced:
+              (
+                originalJSON[namespace] || { attributes: [], methods: [] }
+              ).attributes.find(
+                (attr: NamespaceItem) => attr.name === item.name
+              )?.introduced || geckoVersion,
           });
           break;
 
@@ -171,6 +194,12 @@ for (const namespace of namespaces.keys()) {
               readonly: false,
               valueType: item.idlType as any,
               trivia: getMemberTrivia(item),
+              introduced:
+                (
+                  originalJSON[namespace] || { attributes: [], methods: [] }
+                ).attributes.find(
+                  (attr: NamespaceItem) => attr.name === item.name
+                )?.introduced || geckoVersion,
             });
             break;
           }
@@ -182,6 +211,11 @@ for (const namespace of namespaces.keys()) {
             special: item.special,
             return: item.idlType as any,
             trivia: getMemberTrivia(item),
+            introduced:
+              (
+                originalJSON[namespace] || { attributes: [], methods: [] }
+              ).methods.find((attr: NamespaceItem) => attr.name === item.name)
+                ?.introduced || geckoVersion,
           });
 
           break;
@@ -196,3 +230,101 @@ for (const namespace of namespaces.keys()) {
 }
 
 writeFileSync("./namespaces.json", JSON.stringify(namespacesJson, null, 2));
+
+// Calculate removed items
+
+function findRemovedItems(
+  oldItems: NamespaceItem[],
+  newItems: NamespaceItem[]
+): string[] {
+  let removed = [];
+
+  for (const oldItem of oldItems) {
+    const newItem = newItems.find((item) => item.name === oldItem.name);
+    if (!newItem) {
+      removed.push(oldItem.name);
+    }
+  }
+
+  return removed;
+}
+
+let removedNamespaceItems: Record<
+  string,
+  Record<string, NamespaceChangeRecord>
+> = {};
+
+if (existsSync("./removed.json")) {
+  removedNamespaceItems = JSON.parse(
+    readFileSync("./removed.json", { encoding: "utf8" })
+  );
+}
+
+for (const namespaceName in namespacesJson) {
+  if (!removedNamespaceItems[geckoVersion]) {
+    removedNamespaceItems[geckoVersion] = {};
+  }
+
+  if (!removedNamespaceItems[geckoVersion][namespaceName]) {
+    removedNamespaceItems[geckoVersion][namespaceName] = {
+      methods: [],
+      attributes: [],
+    };
+  }
+
+  removedNamespaceItems[geckoVersion][namespaceName].methods = findRemovedItems(
+    originalJSON[namespaceName].methods,
+    namespacesJson[namespaceName].methods
+  );
+  removedNamespaceItems[geckoVersion][namespaceName].attributes =
+    findRemovedItems(
+      originalJSON[namespaceName].attributes,
+      namespacesJson[namespaceName].attributes
+    );
+}
+
+writeFileSync("./removed.json", JSON.stringify(removedNamespaceItems, null, 2));
+
+// Calculate added items
+
+function findAddedItems(
+  oldItems: NamespaceItem[],
+  newItems: NamespaceItem[]
+): string[] {
+  return findRemovedItems(newItems, oldItems);
+}
+
+let addedNamespaceItems: Record<
+  string,
+  Record<string, NamespaceChangeRecord>
+> = {};
+
+if (existsSync("./added.json")) {
+  addedNamespaceItems = JSON.parse(
+    readFileSync("./added.json", { encoding: "utf8" })
+  );
+}
+
+for (const namespaceName in namespacesJson) {
+  if (!addedNamespaceItems[geckoVersion]) {
+    addedNamespaceItems[geckoVersion] = {};
+  }
+
+  if (!addedNamespaceItems[geckoVersion][namespaceName]) {
+    addedNamespaceItems[geckoVersion][namespaceName] = {
+      methods: [],
+      attributes: [],
+    };
+  }
+
+  addedNamespaceItems[geckoVersion][namespaceName].methods = findAddedItems(
+    originalJSON[namespaceName].methods,
+    namespacesJson[namespaceName].methods
+  );
+  addedNamespaceItems[geckoVersion][namespaceName].attributes = findAddedItems(
+    originalJSON[namespaceName].attributes,
+    namespacesJson[namespaceName].attributes
+  );
+}
+
+writeFileSync("./added.json", JSON.stringify(addedNamespaceItems, null, 2));
