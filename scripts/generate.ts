@@ -273,12 +273,12 @@ for (const namespaceName in namespacesJson) {
   }
 
   removedNamespaceItems[geckoVersion][namespaceName].methods = findRemovedItems(
-    originalJSON[namespaceName].methods,
+    originalJSON[namespaceName]?.methods || [],
     namespacesJson[namespaceName].methods
   );
   removedNamespaceItems[geckoVersion][namespaceName].attributes =
     findRemovedItems(
-      originalJSON[namespaceName].attributes,
+      originalJSON[namespaceName]?.attributes || [],
       namespacesJson[namespaceName].attributes
     );
 }
@@ -318,11 +318,11 @@ for (const namespaceName in namespacesJson) {
   }
 
   addedNamespaceItems[geckoVersion][namespaceName].methods = findAddedItems(
-    originalJSON[namespaceName].methods,
+    originalJSON[namespaceName]?.methods || [],
     namespacesJson[namespaceName].methods
   );
   addedNamespaceItems[geckoVersion][namespaceName].attributes = findAddedItems(
-    originalJSON[namespaceName].attributes,
+    originalJSON[namespaceName]?.attributes || [],
     namespacesJson[namespaceName].attributes
   );
 }
