@@ -2,30 +2,30 @@ name: Generator ci
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   schedule:
-  - cron: "0 2 * * 1-5"
+    - cron: "0 2 * * 1-5"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - run: |
-        hg clone https://hg.mozilla.org/releases/mozilla-release mozilla-release
-    
-    - uses: actions/checkout@v3
-      with:
-        path: index
-    
-    - name: Run
-      run: |
-        npm i 
-        npm run generate ../mozilla-release
-    
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Geneate files
-        repository: index
+      - run: |
+          hg clone https://hg.mozilla.org/mozilla-central mozilla
+
+      - uses: actions/checkout@v3
+        with:
+          path: index
+
+      - name: Run
+        run: |
+          npm i
+          npm run generate ../mozilla
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Generate files
+          repository: index
