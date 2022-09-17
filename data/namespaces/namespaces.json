@@ -1,0 +1,3915 @@
+{
+  "ChromeUtils": {
+    "attributes": [
+      {
+        "type": "attribute",
+        "name": "recentJSDevError",
+        "trivia": "If the chrome code has thrown a JavaScript Dev Error\nin the current JSRuntime. the first such error, or `undefined`\notherwise.\n\nA JavaScript Dev Error is an exception thrown by JavaScript\ncode that matches both conditions:\n- it was thrown by chrome code;\n- it is either a `ReferenceError`, a `TypeError` or a `SyntaxError`.\n\nSuch errors are stored regardless of whether they have been\ncaught.\n\nThis mechanism is designed to help ensure that the code of\nFirefox is free from Dev Errors, even if they are accidentally\ncaught by clients.\n\nThe object returned is not an exception. It has fields:\n- DOMString stack\n- DOMString filename\n- DOMString lineNumber\n- DOMString message",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "any"
+        }
+      },
+      {
+        "type": "attribute",
+        "name": "domProcessChild",
+        "trivia": "nsIDOMProcessChild for the current process.",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "nsIDOMProcessChild"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "type": "method",
+        "name": "getObjectNodeId",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "NodeId"
+        }
+      },
+      {
+        "type": "method",
+        "name": "saveHeapSnapshot",
+        "trivia": "Serialize a snapshot of the heap graph, as seen by |JS::ubi::Node| and\nrestricted by |boundaries|, and write it to the provided file path.\n\n@param boundaries        The portion of the heap graph to write.\n\n@returns                 The path to the file the heap snapshot was written\nto. This is guaranteed to be within the temp\ndirectory and its file name will match the regexp\n`\\d+(\\-\\d+)?\\.fxsnapshot`.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "saveHeapSnapshotGetId",
+        "trivia": "This is the same as saveHeapSnapshot, but with a different return value.\n\n@returns                 The snapshot ID of the file. This is the file name\nwithout the temp directory or the trailing\n`.fxsnapshot`.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "readHeapSnapshot",
+        "trivia": "Deserialize a core dump into a HeapSnapshot.\n\n@param filePath          The file path to read the heap snapshot from.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "HeapSnapshot"
+        }
+      },
+      {
+        "type": "method",
+        "name": "nondeterministicGetWeakMapKeys",
+        "trivia": "Return the keys in a weak map.  This operation is\nnon-deterministic because it is affected by the scheduling of the\ngarbage collector and the cycle collector.\n\n@param aMap weak map or other JavaScript value\n@returns If aMap is a weak map object, return the keys of the weak\nmap as an array.  Otherwise, return undefined.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "any"
+        }
+      },
+      {
+        "type": "method",
+        "name": "nondeterministicGetWeakSetKeys",
+        "trivia": "Return the keys in a weak set.  This operation is\nnon-deterministic because it is affected by the scheduling of the\ngarbage collector and the cycle collector.\n\n@param aSet weak set or other JavaScript value\n@returns If aSet is a weak set object, return the keys of the weak\nset as an array.  Otherwise, return undefined.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "any"
+        }
+      },
+      {
+        "type": "method",
+        "name": "base64URLEncode",
+        "trivia": "Converts a buffer to a Base64 URL-encoded string per RFC 4648.\n\n@param source The buffer to encode.\n@param options Additional encoding options.\n@returns The encoded string.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "ByteString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "base64URLDecode",
+        "trivia": "Decodes a Base64 URL-encoded string per RFC 4648.\n\n@param string The string to decode.\n@param options Additional decoding options.\n@returns The decoded buffer.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "ArrayBuffer"
+        }
+      },
+      {
+        "type": "method",
+        "name": "releaseAssert",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "clearRecentJSDevError",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "clearStyleSheetCacheByBaseDomain",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "clearStyleSheetCacheByPrincipal",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "clearStyleSheetCache",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "addProfilerMarker",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getXPCOMErrorName",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "originAttributesToSuffix",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "ByteString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "originAttributesMatchPattern",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "createOriginAttributesFromOrigin",
+        "trivia": "Returns an OriginAttributesDictionary with values from the |origin| suffix\nand unspecified attributes added and assigned default values.\n\n@param origin            The origin URI to create from.\n@returns                 An OriginAttributesDictionary with values from\nthe origin suffix and unspecified attributes\nadded and assigned default values.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "OriginAttributesDictionary"
+        }
+      },
+      {
+        "type": "method",
+        "name": "CreateOriginAttributesFromOriginSuffix",
+        "trivia": "Returns an OriginAttributesDictionary with values from the origin |suffix|\nand unspecified attributes added and assigned default values.\n\n@param suffix            The origin suffix to create from.\n@returns                 An OriginAttributesDictionary with values from\nthe origin suffix and unspecified attributes\nadded and assigned default values.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "OriginAttributesDictionary"
+        }
+      },
+      {
+        "type": "method",
+        "name": "fillNonDefaultOriginAttributes",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "OriginAttributesDictionary"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isOriginAttributesEqual",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getBaseDomainFromPartitionKey",
+        "trivia": "Returns the base domain portion of a given partitionKey.\nReturns the empty string for an empty partitionKey.\nThrows for invalid partition keys.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getPartitionKeyFromURL",
+        "trivia": "Returns the partitionKey for a given URL.\n\nThe function will treat the URL as a first party and construct the\npartitionKey according to the scheme, site and port in the URL.\n\nThrows for invalid urls.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "compileScript",
+        "trivia": "Loads and compiles the script at the given URL and returns an object\nwhich may be used to execute it repeatedly, in different globals, without\nre-parsing.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "PrecompiledScript"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "generateQI",
+        "trivia": "Returns an optimized QueryInterface method which, when called from\nJavaScript, acts as an ordinary QueryInterface function call, and when\ncalled from XPConnect, circumvents JSAPI entirely.\n\nThe list of interfaces may include a mix of JS ID objects and interface\nname strings.\n\nnsISupports is implicitly supported, and must not be included in the\ninterface list.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "MozQueryInterface"
+        }
+      },
+      {
+        "type": "method",
+        "name": "waiveXrays",
+        "trivia": "Waive Xray on a given value. Identity op for primitives.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "any"
+        }
+      },
+      {
+        "type": "method",
+        "name": "unwaiveXrays",
+        "trivia": "Strip off Xray waivers on a given value. Identity op for primitives.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "any"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getClassName",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "shallowClone",
+        "trivia": "Clones the properties of the given object into a new object in the given\ntarget compartment (or the caller compartment if no target is provided).\nProperty values themeselves are not cloned.\n\nIgnores non-enumerable properties, properties on prototypes, and properties\nwith getters or setters.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "object"
+        }
+      },
+      {
+        "type": "method",
+        "name": "idleDispatch",
+        "trivia": "Dispatches the given callback to the main thread when it would be\notherwise idle. Similar to Window.requestIdleCallback, but not bound to a\nparticular DOM windw.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "import",
+        "trivia": "Synchronously loads and evaluates the js file located at\n'aResourceURI' with a new, fully privileged global object.\n\nIf `aTargetObj` is specified all properties exported by the module are\ncopied to that object. This is deprecated and should not be used in\nnew code.\n\n@param aResourceURI A resource:// URI string to load the module from.\n@param aTargetObj the object to install the exported properties on or null.\n@returns the module code's global object.\n\nThe implementation maintains a hash of aResourceURI->global obj.\nSubsequent invocations of import with 'aResourceURI' pointing to\nthe same file will not cause the module to be re-evaluated, but\nthe symbols in EXPORTED_SYMBOLS will be exported into the\nspecified target object and the global object returned as above.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "object"
+        }
+      },
+      {
+        "type": "method",
+        "name": "importESModule",
+        "trivia": "Synchronously loads and evaluates the JS module source located at\n'aResourceURI'.\n\n@param aResourceURI A resource:// URI string to load the module from.\n@returns the module's namespace object.\n\nThe implementation maintains a hash of aResourceURI->global obj.\nSubsequent invocations of import with 'aResourceURI' pointing to\nthe same file will not cause the module to be re-evaluated.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "object"
+        }
+      },
+      {
+        "type": "method",
+        "name": "defineModuleGetter",
+        "trivia": "Defines a property on the given target which lazily imports a JavaScript\nmodule when accessed.\n\nThe first time the property is accessed, the module at the given URL is\nimported, and the property is replaced with the module's exported symbol\nof the same name.\n\nSome points to note when using this utility:\n\n- The cached module export is always stored on the `this` object that was\nused to access the getter. This means that if you define the lazy\ngetter on a prototype, the module will be re-imported every time the\nproperty is accessed on a new instance.\n\n- The getter property may be overwritten by simple assignment, but as\nwith imports, the new property value is always defined on the `this`\nobject that the setter is called with.\n\n- If the module import fails, the getter will throw an error, and the\nproperty will not be replaced. Each subsequent attempt to access the\ngetter will attempt to re-import the object, which will likely continue\nto result in errors.\n\n@param target The target object on which to define the property.\n@param id The name of the property to define, and of the symbol to\nimport.\n@param resourceURI The resource URI of the module, as passed to\nChromeUtils.import.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "defineESModuleGetters",
+        "trivia": "Defines propertys on the given target which lazily imports a ES module\nwhen accessed.\n\n@param target The target object on which to define the property.\n@param modules An object with a property for each module property to be\nimported, where the property name is the name of the\nimported symbol and the value is the module URI.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getCallerLocation",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "object"
+        }
+      },
+      {
+        "type": "method",
+        "name": "createError",
+        "trivia": "Creates a JS Error object with the given message and stack.\n\nIf a stack object is provided, the error object is created in the global\nthat it belongs to.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "object"
+        }
+      },
+      {
+        "type": "method",
+        "name": "requestPerformanceMetrics",
+        "trivia": "Request performance metrics to the current process & all content processes.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "PerformanceInfoDictionary"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "setPerfStatsCollectionMask",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "collectPerfStats",
+        "trivia": "Collect results of detailed performance timing information.\nThe output is a JSON string containing performance timings.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "requestIOActivity",
+        "trivia": "Returns a Promise containing a sequence of I/O activities",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "IOActivityDataDictionary"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "requestProcInfo",
+        "trivia": "Returns a Promise containing all processes info",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "ParentProcInfoDictionary"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "vsyncEnabled",
+        "trivia": "For testing purpose.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "hasReportingHeaderForOrigin",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getPopupControlState",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "PopupBlockerState"
+        }
+      },
+      {
+        "type": "method",
+        "name": "lastExternalProtocolIframeAllowed",
+        "trivia": "Milliseconds from the last iframe loading an external protocol.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "double"
+        }
+      },
+      {
+        "type": "method",
+        "name": "resetLastExternalProtocolIframeAllowed",
+        "trivia": "For testing purpose we need to reset this value.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "registerWindowActor",
+        "trivia": "Register a new toplevel window global actor. This method may only be\ncalled in the parent process. |name| must be globally unique.\n\nSee JSWindowActor.webidl for WindowActorOptions fields documentation.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "unregisterWindowActor",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "registerProcessActor",
+        "trivia": "Register a new toplevel content global actor. This method may only be\ncalled in the parent process. |name| must be globally unique.\n\nSee JSProcessActor.webidl for ProcessActorOptions fields documentation.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "unregisterProcessActor",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isClassifierBlockingErrorCode",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "privateNoteIntentionalCrash",
+        "trivia": "If leak detection is enabled, print a note to the leak log that this\nprocess will intentionally crash. This should be called only on child\nprocesses for testing purpose.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getAllDOMProcesses",
+        "trivia": "nsIDOMProcessParent for all processes.\n\nThe first is for the parent process and all the next are for the content\nprocesses.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "nsIDOMProcessParent"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "consumeInteractionData",
+        "trivia": "Returns a record of user interaction data. Currently only typing,\nbut will include scrolling and potentially other metrics.\n\nValid keys: \"Typing\"",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "record",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "InteractionData"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "collectScrollingData",
+        "trivia": "Returns a record of user scrolling interactions collected from content processes.\n\nValid keys: \"Scrolling\"",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "InteractionData"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getFormAutofillConfidences",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "FormAutofillConfidences"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "IOUtils": {
+    "attributes": [
+      {
+        "type": "attribute",
+        "name": "profileBeforeChange",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "any"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "type": "method",
+        "name": "read",
+        "trivia": "Reads up to |opts.maxBytes| of the file at |path| according to |opts|.\n\nNB: The maximum file size that can be read is UINT32_MAX.\n\n@param path An absolute file path.\n\n@return Resolves with an array of unsigned byte values read from disk,\notherwise rejects with a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "Uint8Array"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "readUTF8",
+        "trivia": "Reads the UTF-8 text file located at |path| and returns the decoded\ncontents as a |DOMString|.\n\nNB: The maximum file size that can be read is UINT32_MAX.\n\n@param path An absolute file path.\n\n@return Resolves with the file contents encoded as a string, otherwise\nrejects with a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "readJSON",
+        "trivia": "Read the UTF-8 text file located at |path| and return the contents\nparsed as JSON into a JS value.\n\nNB: The maximum file size that can be read is UINT32_MAX.\n\n@param path An absolute path.\n\n@return Resolves with the contents of the file parsed as JSON.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "any"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "write",
+        "trivia": "Attempts to safely write |data| to a file at |path|.\n\nThis operation can be made atomic by specifying the |tmpPath| option. If\nspecified, then this method ensures that the destination file is not\nmodified until the data is entirely written to the temporary file, after\nwhich point the |tmpPath| is moved to the specified |path|.\n\nThe target file can also be backed up to a |backupFile| before any writes\nare performed to prevent data loss in case of corruption.\n\n@param path    An absolute file path.\n@param data    Data to write to the file at path.\n\n@return Resolves with the number of bytes successfully written to the file,\notherwise rejects with a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long long"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "writeUTF8",
+        "trivia": "Attempts to encode |string| to UTF-8, then safely write the result to a\nfile at |path|. Works exactly like |write|.\n\n@param path      An absolute file path.\n@param string    A string to write to the file at path.\n@param options   Options for writing the file.\n\n@return Resolves with the number of bytes successfully written to the file,\notherwise rejects with a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long long"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "writeJSON",
+        "trivia": "Attempts to serialize |value| into a JSON string and encode it as into a\nUTF-8 string, then safely write the result to a file at |path|. Works\nexactly like |write|.\n\n@param path      An absolute file path\n@param value     The value to be serialized.\n@param options   Options for writing the file. The \"append\" mode is not supported.\n\n@return Resolves with the number of bytes successfully written to the file,\notherwise rejects with a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long long"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "move",
+        "trivia": "Moves the file from |sourcePath| to |destPath|, creating necessary parents.\nIf |destPath| is a directory, then the source file will be moved into the\ndestination directory.\n\n@param sourcePath An absolute file path identifying the file or directory\nto move.\n@param destPath   An absolute file path identifying the destination\ndirectory and/or file name.\n\n@return Resolves if the file is moved successfully, otherwise rejects with\na DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "remove",
+        "trivia": "Removes a file or directory at |path| according to |options|.\n\n@param path An absolute file path identifying the file or directory to\nremove.\n\n@return Resolves if the file is removed successfully, otherwise rejects\nwith a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "makeDirectory",
+        "trivia": "Creates a new directory at |path| according to |options|.\n\n@param path An absolute file path identifying the directory to create.\n\n@return Resolves if the directory is created successfully, otherwise\nrejects with a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "stat",
+        "trivia": "Obtains information about a file, such as size, modification dates, etc.\n\n@param path An absolute file path identifying the file or directory to\ninspect.\n\n@return Resolves with a |FileInfo| object for the file at path, otherwise\nrejects with a DOMException.\n\n@see FileInfo",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "FileInfo"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "copy",
+        "trivia": "Copies a file or directory from |sourcePath| to |destPath| according to\n|options|.\n\n@param sourcePath An absolute file path identifying the source file to be\ncopied.\n@param destPath   An absolute file path identifying the location for the\ncopy.\n\n@return Resolves if the file was copied successfully, otherwise rejects\nwith a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "setModificationTime",
+        "trivia": "Updates the |modification| time for the file at |path|.\n\n@param path         An absolute file path identifying the file whose\nmodification time is to be set. This file must exist\nand will not be created.\n@param modification An optional modification time for the file expressed in\nmilliseconds since the Unix epoch\n(1970-01-01T00:00:00Z). The current system time is used\nif this parameter is not provided.\n\n@return Resolves with the updated modification time expressed in\nmilliseconds since the Unix epoch, otherwise rejects with a\nDOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "long long"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getChildren",
+        "trivia": "Retrieves a (possibly empty) list of immediate children of the directory at\n|path|.\n\n@param path An absolute file path.\n\n@return Resolves with a sequence of absolute file paths representing the\nchildren of the directory at |path|, otherwise rejects with a\nDOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "DOMString"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "setPermissions",
+        "trivia": "Set the permissions of the file at |path|.\n\nWindows does not make a distinction between user, group, and other\npermissions like UNICES do. If a permission flag is set for any of user,\ngroup, or other has a permission, then all users will have that\npermission. Additionally, Windows does not support setting the\n\"executable\" permission.\n\n@param path        An absolute file path\n@param permissions The UNIX file mode representing the permissions.\n@param honorUmask  If omitted or true, any UNIX file mode value is\nmodified by the process umask. If false, the exact value\nof UNIX file mode will be applied. This value has no effect\non Windows.\n\n@return Resolves if the permissions were set successfully, otherwise\nrejects with a DOMException.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "exists",
+        "trivia": "Return whether or not the file exists at the given path.\n\n@param path An absolute file path.\n\n@return A promise that resolves to whether or not the given file exists.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "createUniqueFile",
+        "trivia": "Create a file with a unique name and return its path.\n\n@param parent An absolute path to the directory where the file is to be\ncreated.\n@param prefix A prefix for the filename.\n\n@return A promise that resolves to a unique filename.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "createUniqueDirectory",
+        "trivia": "Create a directory with a unique name and return its path.\n\n@param parent An absolute path to the directory where the file is to be\ncreated.\n@param prefix A prefix for the directory name.\n\n@return A promise that resolves to a unique directory name.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "computeHexDigest",
+        "trivia": "Compute the hash of a file as a hex digest.\n\n@param path   The absolute path of the file to hash.\n@param method The hashing method to use.\n\n@return A promise that resolves to the hex digest of the file's hash in lowercase.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getWindowsAttributes",
+        "trivia": "Return the Windows-specific file attributes of the file at the given path.\n\n@param path An absolute file path.\n\n@return A promise that resolves to the Windows-specific file attributes.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "WindowsFileAttributes"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "setWindowsAttributes",
+        "trivia": "Set the Windows-specific file attributes of the file at the given path.\n\n@param path An absolute file path.\n@param attrs The attributes to set. Attributes will only be set if they are\n|true| or |false| (i.e., |undefined| attributes are not\nchanged).\n\n@return A promise that resolves is the attributes were set successfully.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "hasMacXAttr",
+        "trivia": "Return whether or not the file has a specific extended attribute.\n\n@param path An absolute path.\n@param attr The attribute to check for.\n\n@return A promise that resolves to whether or not the file has an extended\nattribute, or rejects with an error.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getMacXAttr",
+        "trivia": "Return the value of an extended attribute for a file.\n\n@param path An absolute path.\n@param attr The attribute to get the value of.\n\n@return A promise that resolves to the value of the extended attribute, or\nrejects with an error.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "Uint8Array"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "setMacXAttr",
+        "trivia": "Set the extended attribute on a file.\n\n@param path  An absolute path.\n@param attr  The attribute to set.\n@param value The value of the attribute to set.\n\n@return A promise that resolves to whether or not the file has an extended\nattribute, or rejects with an error.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "delMacXAttr",
+        "trivia": "Delete the extended attribute on a file.\n\n@param path An absolute path.\n@param attr The attribute to delete.\n\n@return A promise that resolves if the attribute was deleted, or rejects\nwith an error.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "openFileForSyncReading",
+        "trivia": "Synchronously opens the file at |path|. This API is only available in workers.\n\n@param path An absolute file path.\n\n@return A |SyncReadFile| object for the file.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "SyncReadFile"
+        }
+      }
+    ]
+  },
+  "InspectorUtils": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "getAllStyleSheets",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "StyleSheet"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getCSSStyleRules",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "CSSStyleRule"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getRuleLine",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getRuleColumn",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getRelativeRuleLine",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long"
+        }
+      },
+      {
+        "type": "method",
+        "name": "hasRulesModifiedByCSSOM",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getSelectorCount",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getSelectorText",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getSpecificity",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long long"
+        }
+      },
+      {
+        "type": "method",
+        "name": "selectorMatchesElement",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isInheritedProperty",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getCSSPropertyNames",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getCSSPropertyPrefs",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "PropertyPref"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getCSSValuesForProperty",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "rgbToColorName",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "colorToRGBA",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "InspectorRGBATuple"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isValidCSSColor",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getSubpropertiesForCSSProperty",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "cssPropertyIsShorthand",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "cssPropertySupportsType",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "supports",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isIgnorableWhitespace",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getParentForNode",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "Node"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getChildrenForNode",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "NodeList"
+        }
+      },
+      {
+        "type": "method",
+        "name": "setContentState",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "removeContentState",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getContentState",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long long"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getUsedFontFaces",
+        "trivia": "Get the font face(s) actually used to render the text in /range/,\nas a collection of InspectorFontFace objects (below).\nIf /maxRanges/ is greater than zero, each InspectorFontFace will record\nup to /maxRanges/ fragments of content that used the face, for the caller\nto access via its .ranges attribute.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "InspectorFontFace"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getCSSPseudoElementNames",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "addPseudoClassLock",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "removePseudoClassLock",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "hasPseudoClassLock",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "clearPseudoClassLocks",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "parseStyleSheet",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isCustomElementName",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isElementThemed",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "containingBlockOf",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "Element"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getOverflowingChildrenOfElement",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "NodeList"
+        }
+      }
+    ]
+  },
+  "L10nOverlays": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "translateElement",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": true,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "L10nOverlaysError"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "MediaControlService": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "generateMediaControlKey",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getCurrentActiveMediaMetadata",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "MediaMetadataInit"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getCurrentMediaSessionPlaybackState",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "MediaSessionPlaybackState"
+        }
+      }
+    ]
+  },
+  "PathUtils": {
+    "attributes": [
+      {
+        "type": "attribute",
+        "name": "profileDir",
+        "trivia": "The profile directory.",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "attribute",
+        "name": "localProfileDir",
+        "trivia": "The local-specific profile directory.",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "attribute",
+        "name": "tempDir",
+        "trivia": "The temporary directory for the process.",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "attribute",
+        "name": "osTempDir",
+        "trivia": "The OS temporary directory.",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "type": "method",
+        "name": "filename",
+        "trivia": "Return the last path component.\n\n@param path An absolute path.\n\n@returns The last path component.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "parent",
+        "trivia": "Return an ancestor directory of the given path.\n\n@param path An absolute path.\n@param depth The number of ancestors to remove, defaulting to 1 (i.e., the\nparent).\n\n@return The ancestor directory.\n\nIf the path provided is a root path (e.g., `C:` on Windows or `/`\non *NIX), then null is returned.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "join",
+        "trivia": "Join the given components into a full path.\n\n@param components The path components. The first component must be an\nabsolute path.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "joinRelative",
+        "trivia": "Join the given relative path to the base path.\n\n@param base The base path. This must be an absolute path.\n@param relativePath A relative path to join to the base path.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "toExtendedWindowsPath",
+        "trivia": "Creates an adjusted path using a path whose length is already close\nto MAX_PATH. For windows only.\n\n@param path An absolute path.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "normalize",
+        "trivia": "Normalize a path by removing multiple separators and `..` and `.`\ndirectories.\n\nOn UNIX platforms, the path must exist as symbolic links will be resolved.\n\n@param path The absolute path to normalize.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "split",
+        "trivia": "Split a path into its components.\n\n@param path An absolute path.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "toFileURI",
+        "trivia": "Transform a file path into a file: URI\n\n@param path An absolute path.\n\n@return The file: URI as a string.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isAbsolute",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getProfileDir",
+        "trivia": "The profile directory.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getLocalProfileDir",
+        "trivia": "The local-specific profile directory.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getTempDir",
+        "trivia": "The temporary directory for the process.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getOSTempDir",
+        "trivia": "The OS temporary directory.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "PlacesObservers": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "addListener",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "addListener",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "removeListener",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "removeListener",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "notifyListeners",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      }
+    ]
+  },
+  "PrioEncoder": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "encode",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "PrioEncodedData"
+        }
+      }
+    ]
+  },
+  "PromiseDebugging": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "getState",
+        "trivia": "The various functions on this interface all expect to take promises but\ndon't want the WebIDL behavior of assimilating random passed-in objects\ninto promises.  They also want to treat Promise subclass instances as\npromises instead of wrapping them in a vanilla Promise, which is what the\nIDL spec says to do.  So we list all our arguments as \"object\" instead of\n\"Promise\" and check for them being a Promise internally.\n\n\n/**\nGet the current state of the given promise.\n/",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "PromiseDebuggingStateHolder"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getPromiseID",
+        "trivia": "Return an identifier for a promise. This identifier is guaranteed\nto be unique to the current process.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getAllocationStack",
+        "trivia": "Return the stack to the promise's allocation point.  This can\nreturn null if the promise was not created from script.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "object"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getRejectionStack",
+        "trivia": "Return the stack to the promise's rejection point, if the\nrejection happened from script.  This can return null if the\npromise has not been rejected or was not rejected from script.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "object"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getFullfillmentStack",
+        "trivia": "Return the stack to the promise's fulfillment point, if the\nfulfillment happened from script.  This can return null if the\npromise has not been fulfilled or was not fulfilled from script.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "object"
+        }
+      },
+      {
+        "type": "method",
+        "name": "addUncaughtRejectionObserver",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "removeUncaughtRejectionObserver",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      }
+    ]
+  },
+  "SessionStoreUtils": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "forEachNonDynamicChildFrame",
+        "trivia": "Calls the given |callback| once for each non-dynamic child frame of the\ngiven |window|.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "addDynamicFrameFilteredListener",
+        "trivia": "Takes the given listener, wraps it in a filter that filters out events from\ndynamic docShells, and adds that filter as a listener for the given event\ntype on the given event target.  The listener that was added is returned\n(as nsISupports) so that it can later be removed via\nremoveDynamicFrameFilteredListener.\n\nThis is implemented as a native filter, rather than a JS-based one, for\nperformance reasons.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "nsISupports"
+        }
+      },
+      {
+        "type": "method",
+        "name": "removeDynamicFrameFilteredListener",
+        "trivia": "Remove the passed-in filtered listener from the given event target, if it's\ncurrently a listener for the given event type there.  The 'listener'\nargument must be something that was returned by\naddDynamicFrameFilteredListener.\n\nThis is needed, instead of the normal removeEventListener, because the\ncaller doesn't actually have something that WebIDL considers an\nEventListener.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "collectDocShellCapabilities",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "ByteString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "restoreDocShellCapabilities",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "collectScrollPosition",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "CollectedData"
+        }
+      },
+      {
+        "type": "method",
+        "name": "restoreScrollPosition",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "collectFormData",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": true,
+          "union": false,
+          "idlType": "CollectedData"
+        }
+      },
+      {
+        "type": "method",
+        "name": "restoreFormData",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "constructSessionStoreRestoreData",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "nsISessionStoreRestoreData"
+        }
+      },
+      {
+        "type": "method",
+        "name": "initializeRestore",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "restoreDocShellState",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "restoreSessionStorageFromParent",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      }
+    ]
+  },
+  "TelemetryStopwatch": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "start",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "running",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "cancel",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "timeElapsed",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "long"
+        }
+      },
+      {
+        "type": "method",
+        "name": "finish",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "startKeyed",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "runningKeyed",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "cancelKeyed",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "timeElapsedKeyed",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "long"
+        }
+      },
+      {
+        "type": "method",
+        "name": "finishKeyed",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "setTestModeEnabled",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      }
+    ]
+  },
+  "UserInteraction": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "start",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "update",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "cancel",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "running",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "finish",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      }
+    ]
+  },
+  "APZHitResultFlags": {
+    "attributes": [],
+    "methods": []
+  },
+  "AddonManagerPermissions": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "isHostPermitted",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      }
+    ]
+  },
+  "CSS": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "supports",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "supports",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "escape",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      }
+    ]
+  },
+  "console": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "assert",
+        "trivia": "NOTE: if you touch this namespace, remember to update the ConsoleInstance\ninterface as well!\nLogging",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "clear",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "count",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "countReset",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "debug",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "error",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "info",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "log",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "table",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "trace",
+        "trivia": "FIXME: The spec is still unclear about this.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "warn",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "dir",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "dirxml",
+        "trivia": "FIXME: This doesn't follow the spec yet.",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "group",
+        "trivia": "Grouping",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "groupCollapsed",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "groupEnd",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "time",
+        "trivia": "Timing",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "timeLog",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "timeEnd",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "exception",
+        "trivia": "Mozilla only or Webcompat methods",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "timeStamp",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "profile",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "profileEnd",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "createInstance",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "ConsoleInstance"
+        }
+      }
+    ]
+  },
+  "TestUtils": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "gc",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "void"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "WebrtcGlobalInformation": {
+    "attributes": [
+      {
+        "type": "attribute",
+        "name": "debugLevel",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "long"
+        }
+      },
+      {
+        "type": "attribute",
+        "name": "aecDebug",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
+      },
+      {
+        "type": "attribute",
+        "name": "aecDebugLogDir",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "type": "method",
+        "name": "getAllStats",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "clearAllStats",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getLogging",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      },
+      {
+        "type": "method",
+        "name": "clearLogging",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      }
+    ]
+  },
+  "WorkerTestUtils": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "currentTimerNestingLevel",
+        "trivia": "",
+        "introduced": "104.0.2",
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long"
+        }
+      }
+    ]
+  }
+}
