@@ -8,7 +8,7 @@ import {
   Token,
   AttributeMemberType,
 } from "webidl2";
-import { readFile } from "fs/promises";
+import { mkdir, readFile } from "fs/promises";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import {
   ChangeMetadata,
@@ -34,6 +34,8 @@ const geckoVersion = readFileSync(
   { encoding: "utf8" }
 ).trim();
 const outFolder = resolve(process.cwd(), "data", "namespaces");
+
+await mkdir(outFolder, { recursive: true });
 
 // =============================================================================
 // Generate the namespace index

@@ -86,6 +86,8 @@ export function getIntroduced(
   name: string,
   currentGeckoVersion: string
 ): string {
+  if (!items) return currentGeckoVersion;
+
   if (items.some((item) => item.name == name)) {
     return (
       items.find((item) => item.name == name)?.introduced || currentGeckoVersion
