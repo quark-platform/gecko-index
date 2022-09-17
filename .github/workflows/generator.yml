@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          path: mozilla
-          repository: mozilla/gecko-dev
+      - name: Download Gecko
+        run: |
+          wget -O mozilla.tar.xz https://moz-latest-release.gluon.dev/source/stable
+          tar --strip-components=1 -xf ./mozilla.tar.xz -C ./mozilla
 
       - uses: actions/checkout@v3
         with:
