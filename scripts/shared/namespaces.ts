@@ -8,6 +8,8 @@ import {
   Token,
   AttributeMemberType,
   OperationMemberType,
+  Argument,
+  ValueDescription,
 } from "webidl2";
 import { readFile } from "fs/promises";
 
@@ -41,10 +43,27 @@ export class NamespaceAttribute extends NamespaceItem {
   }
 }
 
+export class NamespaceMethodArg {
+  defaultValue?: ValueDescription;
+  optional: boolean;
+  varadic: boolean;
+  name: string;
+  type: IDLTypeDescription;
+
+  constructor(arg: Argument) {
+    this.defaultValue = arg.default || undefined;
+    this.optional = arg.optional;
+    this.varadic = arg.variadic;
+    this.name = arg.name;
+    this.type = arg.idlType;
+  }
+}
+
 export class NamespaceMethod extends NamespaceItem {
   type = "method";
   special: "static" | "stringifier" | null;
   return: IDLTypeDescription;
+  arguments: NamespaceMethodArg[] = [];
 
   constructor(object: OperationMemberType, introduced: string) {
     super(object, introduced);
@@ -61,6 +80,10 @@ export class NamespaceMethod extends NamespaceItem {
 
     this.special = object.special;
     this.return = object.idlType as any;
+
+    for (const argument of object.arguments) {
+      this.arguments.push(new NamespaceMethodArg(argument));
+    }
   }
 }
 
