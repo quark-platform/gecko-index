@@ -23,11 +23,16 @@ jobs:
         with:
           path: index
 
+      - name: Install JSDoc
+        run: |
+          npm i -g jsdoc
+
       - name: Run
         run: |
           cd index
           npm i
-          npm run generate ../mozilla
+          npm run namespaces ../mozilla
+          npm run legacyModules ../mozilla
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

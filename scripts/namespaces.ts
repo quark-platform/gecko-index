@@ -1,19 +1,9 @@
-import { join, resolve } from "path";
-import glob from "tiny-glob";
-import {
-  parse,
-  NamespaceType,
-  IDLTypeDescription,
-  IDLNamespaceMemberType,
-  Token,
-  AttributeMemberType,
-} from "webidl2";
-import { mkdir, readFile } from "fs/promises";
+import { join } from "path";
+import { IDLTypeDescription, AttributeMemberType } from "webidl2";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import {
   ChangeMetadata,
   getIntroduced,
-  getMemberTrivia,
   getNamespaces,
   merge,
   NamespaceAttribute,
@@ -22,20 +12,10 @@ import {
   NamespaceMethod,
   NamespaceRecord,
 } from "./shared/namespaces.js";
-
-if (process.argv.length == 1) {
-  throw new Error("Expected path to gecko-dev to be provided as the first arg");
-}
+import { getInfo } from "./shared/general.js";
 
 // Assorted constants related to the input and output
-const geckoDevDir = resolve(process.argv[2]);
-const geckoVersion = readFileSync(
-  resolve(geckoDevDir, "browser", "config", "version.txt"),
-  { encoding: "utf8" }
-).trim();
-const outFolder = resolve(process.cwd(), "data", "namespaces");
-
-await mkdir(outFolder, { recursive: true });
+const { geckoDevDir, geckoVersion, outFolder } = await getInfo("namespaces");
 
 // =============================================================================
 // Generate the namespace index
