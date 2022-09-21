@@ -1945,6 +1945,36 @@
             }
           ]
         }
+      },
+      {
+        "type": "method",
+        "name": "isDarkBackground",
+        "trivia": "",
+        "introduced": "105.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "element",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "Element"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
       }
     ]
   },
@@ -1953,8 +1983,23 @@
       {
         "type": "attribute",
         "name": "profileBeforeChange",
-        "trivia": "",
+        "trivia": "The async shutdown client for the profile-before-change shutdown phase.",
         "introduced": "104.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "any"
+        }
+      },
+      {
+        "type": "attribute",
+        "name": "sendTelemetry",
+        "trivia": "The async shutdown client for the profile-before-change-telemetry shutdown\nphase.\n\nONLY telemetry should register blockers on this client.",
+        "introduced": "105.0",
         "readonly": true,
         "valueType": {
           "type": "attribute-type",
@@ -3378,6 +3423,58 @@
           "nullable": false,
           "union": false,
           "idlType": "SyncReadFile"
+        }
+      },
+      {
+        "type": "method",
+        "name": "launchProcess",
+        "trivia": "Launch a child process; uses `base::LaunchApp` from IPC.  (This WebIDL\nbinding is currently Unix-only; it could also be supported on Windows\nbut it would use u16-based strings, so it would basically be a separate\ncopy of the bindings.)\n\nThis interface was added for use by `Subprocess.jsm`; other would-be\ncallers may want to just use Subprocess instead of calling this directly.\n\n@param argv The command to run and its arguments.\n@param options Various parameters about how the child process is launched\nand its initial environment.\n\n@return The process ID.  Note that various errors (e.g., the\nexecutable to be launched doesn't exist) may not be\nencountered until after the process is created, so a\nsuccessful return doesn't necessarily imply a successful\nlaunch.",
+        "introduced": "105.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "argv",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "UnixString"
+                }
+              ]
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "options",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "LaunchOptions"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long"
         }
       }
     ]
@@ -7402,6 +7499,231 @@
               "nullable": false,
               "union": false,
               "idlType": "boolean"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "void"
+        }
+      }
+    ]
+  },
+  "UniFFIScaffolding": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "callAsync",
+        "trivia": "",
+        "introduced": "105.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "id",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long long"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": true,
+            "name": "args",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "UniFFIScaffoldingType"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "UniFFIScaffoldingCallResult"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "callSync",
+        "trivia": "",
+        "introduced": "105.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "id",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long long"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": true,
+            "name": "args",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "UniFFIScaffoldingType"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "UniFFIScaffoldingCallResult"
+        }
+      },
+      {
+        "type": "method",
+        "name": "readPointer",
+        "trivia": "",
+        "introduced": "105.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "id",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long long"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "buff",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "ArrayBuffer"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "position",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "long"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "UniFFIPointer"
+        }
+      },
+      {
+        "type": "method",
+        "name": "writePointer",
+        "trivia": "",
+        "introduced": "105.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "id",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long long"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "ptr",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "UniFFIPointer"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "buff",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "ArrayBuffer"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "position",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "long"
             }
           }
         ],
