@@ -3429,6 +3429,84 @@
       },
       {
         "type": "method",
+        "name": "getFile",
+        "trivia": "Return a nsIFile whose parent directory exists. The parent directory of the\nfile will be created off main thread if it does not already exist.\n\n@param components The path components. The first component must be an\nabsolute path.\n\n@return A promise that resolves to an nsIFile for the requested file.",
+        "introduced": "108.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": true,
+            "name": "components",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "nsIFile"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getDirectory",
+        "trivia": "Return an nsIFile corresponding to a directory. It will be created\noff-main-thread if it does not already exist.\n\n@param components The path components. The first component must be an\nabsolute path.\n\n@return A promise that resolves to an nsIFile for the requested directory.",
+        "introduced": "108.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": true,
+            "name": "components",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "nsIFile"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
         "name": "openFileForSyncReading",
         "trivia": "Synchronously opens the file at |path|. This API is only available in workers.\n\n@param path An absolute file path.\n\n@return A |SyncReadFile| object for the file.",
         "introduced": "104.0.2",
@@ -3460,7 +3538,7 @@
       {
         "type": "method",
         "name": "launchProcess",
-        "trivia": "Launch a child process; uses `base::LaunchApp` from IPC.  (This WebIDL\nbinding is currently Unix-only; it could also be supported on Windows\nbut it would use u16-based strings, so it would basically be a separate\ncopy of the bindings.)\n\nThis interface was added for use by `Subprocess.jsm`; other would-be\ncallers may want to just use Subprocess instead of calling this directly.\n\n@param argv The command to run and its arguments.\n@param options Various parameters about how the child process is launched\nand its initial environment.\n\n@return The process ID.  Note that various errors (e.g., the\nexecutable to be launched doesn't exist) may not be\nencountered until after the process is created, so a\nsuccessful return doesn't necessarily imply a successful\nlaunch.",
+        "trivia": "Launch a child process; uses `base::LaunchApp` from IPC.  (This WebIDL\nbinding is currently Unix-only; it could also be supported on Windows\nbut it would use u16-based strings, so it would basically be a separate\ncopy of the bindings.)\n\nThis interface was added for use by `Subprocess.sys.jsm`; other would-be\ncallers may want to just use Subprocess instead of calling this directly.\n\n@param argv The command to run and its arguments.\n@param options Various parameters about how the child process is launched\nand its initial environment.\n\n@return The process ID.  Note that various errors (e.g., the\nexecutable to be launched doesn't exist) may not be\nencountered until after the process is created, so a\nsuccessful return doesn't necessarily imply a successful\nlaunch.",
         "introduced": "105.0",
         "arguments": [
           {
@@ -5396,7 +5474,7 @@
       {
         "type": "method",
         "name": "join",
-        "trivia": "Join the given components into a full path.\n\n@param components The path components. The first component must be an\nabsolute path.",
+        "trivia": "Join the given components into a full path.\n\n@param components The path components. The first component must be an\nabsolute path. There must be at least one component.",
         "introduced": "104.0.2",
         "arguments": [
           {
@@ -5543,6 +5621,61 @@
               "nullable": false,
               "union": false,
               "idlType": "DOMString"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "splitRelative",
+        "trivia": "Split a relative path into its components.\n\n@param path A relative path.",
+        "introduced": "108.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "path",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          },
+          {
+            "defaultValue": {
+              "type": "dictionary"
+            },
+            "optional": true,
+            "varadic": false,
+            "name": "options",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "SplitRelativeOptions"
             }
           }
         ],
