@@ -1,33 +1,40 @@
 // Taken from: http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/XPIDL/Syntax.html
-idlfile := {_ | ANY_COMMENT | CDATA | webidl | INCLUDE | interface_main | typedef | native | RAW_CODE_FRAGMENT}* $
+idlfile := contents={_ | ANY_COMMENT | CDATA | webidl | INCLUDE | interface_main | typedef | native | RAW_CODE_FRAGMENT}* $
 
 webidl := 'webidl' _ IDENTIFIER ';'
 typedef := 'typedef' _ IDENTIFIER _ IDENTIFIER _? ';'
 native := {attributes _}? 'native' _ IDENTIFIER _? '\(' {'const' _}? NATIVEID '\);'
-interface_main := {attributes _}? 'interface' _ IDENTIFIER _? ifacebase? ifacebody? ';'
-ifacebase := ':' _? IDENTIFIER
-ifacebody := _? '{' {{_? {SINGLE_LINE_COMMENT | REGULAR_MULTILINE_COMMENT | member | RAW_CODE_FRAGMENT}}* _?}? '}'
+interface_main := attrs=attributes? _? 'interface' _ name=IDENTIFIER _? base=ifacebase? body=ifacebody? ';'
+ifacebase := ':' _? extends=IDENTIFIER
+ifacebody := _? '{' contents={contents={_? contents={member | RAW_CODE_FRAGMENT | ANY_COMMENT}}* _?}? '}'
 
 member := {
-    {DOC_COMMENT | SINGLE_LINE_COMMENT}*
+    docComment={DOC_COMMENT | SINGLE_LINE_COMMENT}*
     _?
-    { 
+    code={ 
         CDATA
-        | {'cenum' _ IDENTIFIER _? ':' _? NUMBER _? '{' {ANY_COMMENT | _}* cenumlist? {ANY_COMMENT | _}* '}' ';'}
-        | {'const' _ IDENTIFIER _ IDENTIFIER _? '=' _? num ';'}
-        | {{attributes _?}? {ANY_COMMENT | _}* {'readonly' _}? 'attribute' _ IDENTIFIER {_ | ANY_COMMENT}+ IDENTIFIER ';'}
-        | {{attributes _?}? IDENTIFIER _ IDENTIFIER _? '\(' _? paramlist? _? '\)' raises? _? ';'}
+        | enum_code
+        | const_code
+        | attribute_code        
+        | func
     }
 }
 
-paramlist := param {_? ',' _? param}*
-raises := 'raises' '\(' IDENTIFIER {_? ',' _? IDENTIFIER}* '\)'
-attributes := '\[' attribute {_? ',' _? attribute}* '\]'
-attribute := IDENTIFIER {_? '\(' {IID | IDENTIFIER} '\)'}?
-param := ANY_COMMENT? {attributes _?}? {'inout' |'in' | 'out'}? _? IDENTIFIER {_ | ANY_COMMENT}+ IDENTIFIER 
+enum_code := 'cenum' _ name=IDENTIFIER _? ':' _? base=NUMBER _? '{' {ANY_COMMENT | _}* values=cenumlist? {ANY_COMMENT | _}* '}' ';'
+const_code := 'const' _ type=IDENTIFIER _ name=IDENTIFIER _? '=' _? value=num ';'
+attribute_code := 
+    attributes=attributes? _? {ANY_COMMENT | _}* readonly='readonly'? _?
+    'attribute' _ type=IDENTIFIER {_ | ANY_COMMENT}+ name=IDENTIFIER ';'
+func := attributes=attributes? _? return_type=IDENTIFIER _ name=IDENTIFIER _? '\(' _? params=paramlist? _? '\)' raises=raises? _? ';'
 
-cenumlist := cenum {',' _? {SINGLE_LINE_COMMENT _?}* cenum}* ','? _? {ANY_COMMENT _?}*
-cenum := DOC_COMMENT* IDENTIFIER {_? '=' _? num}?
+paramlist := first_param=param other={_? ',' _? param=param}*
+raises := 'raises' '\(' IDENTIFIER {_? ',' _? IDENTIFIER}* '\)'
+attributes := '\[' first_attribute=attribute other_attributes={_? ',' _? attr=attribute}* '\]'
+attribute := name=IDENTIFIER param={_? '\(' value={IID | IDENTIFIER} '\)'}?
+param := ANY_COMMENT? attribute=attributes? _? refType={'inout' |'in' | 'out'}? _? type=IDENTIFIER {_ | ANY_COMMENT}+ name=IDENTIFIER 
+
+cenumlist := first_value=cenum other_values={',' _? {SINGLE_LINE_COMMENT _?}* value=cenum}* ','? _? {ANY_COMMENT _?}*
+cenum := comment=DOC_COMMENT* identifier=IDENTIFIER value={_? '=' _? value=num}?
 
 num := 
     {unary _? {'\+' | '-' | '\*'} _? num}
@@ -43,15 +50,15 @@ unary :=
  
 
 // Comments
-ANY_COMMENT := REGULAR_MULTILINE_COMMENT | DOC_COMMENT | SINGLE_LINE_COMMENT
+ANY_COMMENT := {doc=DOC_COMMENT} | REGULAR_MULTILINE_COMMENT | SINGLE_LINE_COMMENT
 REGULAR_MULTILINE_COMMENT := '\/\*(.|\n)*?\*\/' _?
-DOC_COMMENT := '\/\*\*?((\n|.)*?)\*\/' _?
+DOC_COMMENT := contents='\/\*\*?((\n|.)*?)\*\/' _?
 SINGLE_LINE_COMMENT := '\/\/.*\n' _?
 
 // Lexical tokens, I'm going to specify these in regex form
 NUMBER := '-?(0x[0-9A-Fa-f]+)|\d+'
 CDATA := RAW_CODE_FRAGMENT
-INCLUDE := '\#include[ \t]+"[\w\."\n]+"'
+INCLUDE := '\#include' _ '"' ident=IDENTIFIER '\.idl' '"' _?
 NATIVEID_TEXT := '[a-zA-Z_<>&][0-9a-zA-Z_:<>*& ,]*'
 NATIVEID := NATIVEID_TEXT { '\(' NATIVEID_TEXT '\)' NATIVEID_TEXT* }?
 IID := '[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}'

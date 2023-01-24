@@ -3,7 +3,7 @@
 import { join, parse } from 'node:path'
 import glob from 'tiny-glob'
 import Sk from 'skulpt'
-import { readFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 
 import { getInfo } from './shared/general.js'
 import { Class } from './interfaces/types.js'
@@ -73,6 +73,11 @@ for (const interfaceFile of interfaceFiles) {
       interfaceFile.path,
       JSON.stringify(errs, null, 2)
     )
-    process.exit(1)
+    continue
   }
+
+  await writeFile(
+    join(outFolder, `${interfaceFile.name}.json`),
+    JSON.stringify(ast, null, 2)
+  )
 }
