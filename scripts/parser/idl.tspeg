@@ -1,0 +1,60 @@
+// Taken from: http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/XPIDL/Syntax.html
+idlfile := {_ | ANY_COMMENT | CDATA | webidl | INCLUDE | interface_main | typedef | native | RAW_CODE_FRAGMENT}* $
+
+webidl := 'webidl' _ IDENTIFIER ';'
+typedef := 'typedef' _ IDENTIFIER _ IDENTIFIER _? ';'
+native := {attributes _}? 'native' _ IDENTIFIER _? '\(' {'const' _}? NATIVEID '\);'
+interface_main := {attributes _}? 'interface' _ IDENTIFIER _? ifacebase? ifacebody? ';'
+ifacebase := ':' _? IDENTIFIER
+ifacebody := _? '{' {{_? {SINGLE_LINE_COMMENT | REGULAR_MULTILINE_COMMENT | member | RAW_CODE_FRAGMENT}}* _?}? '}'
+
+member := {
+    {DOC_COMMENT | SINGLE_LINE_COMMENT}*
+    _?
+    { 
+        CDATA
+        | {'cenum' _ IDENTIFIER _? ':' _? NUMBER _? '{' {ANY_COMMENT | _}* cenumlist? {ANY_COMMENT | _}* '}' ';'}
+        | {'const' _ IDENTIFIER _ IDENTIFIER _? '=' _? num ';'}
+        | {{attributes _?}? {ANY_COMMENT | _}* {'readonly' _}? 'attribute' _ IDENTIFIER {_ | ANY_COMMENT}+ IDENTIFIER ';'}
+        | {{attributes _?}? IDENTIFIER _ IDENTIFIER _? '\(' _? paramlist? _? '\)' raises? _? ';'}
+    }
+}
+
+paramlist := param {_? ',' _? param}*
+raises := 'raises' '\(' IDENTIFIER {_? ',' _? IDENTIFIER}* '\)'
+attributes := '\[' attribute {_? ',' _? attribute}* '\]'
+attribute := IDENTIFIER {_? '\(' {IID | IDENTIFIER} '\)'}?
+param := ANY_COMMENT? {attributes _?}? {'inout' |'in' | 'out'}? _? IDENTIFIER {_ | ANY_COMMENT}+ IDENTIFIER 
+
+cenumlist := cenum {',' _? {SINGLE_LINE_COMMENT _?}* cenum}* ','? _? {ANY_COMMENT _?}*
+cenum := DOC_COMMENT* IDENTIFIER {_? '=' _? num}?
+
+num := 
+    {unary _? {'\+' | '-' | '\*'} _? num}
+    | {unary _? '\|' _? num} 
+    | {unary _? {'<<' | '>>'} _? num}
+    | unary
+
+unary := 
+    {'\(' num '\)'}
+    | {'-' num}
+    | IDENTIFIER
+    | NUMBER
+ 
+
+// Comments
+ANY_COMMENT := REGULAR_MULTILINE_COMMENT | DOC_COMMENT | SINGLE_LINE_COMMENT
+REGULAR_MULTILINE_COMMENT := '\/\*(.|\n)*?\*\/' _?
+DOC_COMMENT := '\/\*\*?((\n|.)*?)\*\/' _?
+SINGLE_LINE_COMMENT := '\/\/.*\n' _?
+
+// Lexical tokens, I'm going to specify these in regex form
+NUMBER := '-?(0x[0-9A-Fa-f]+)|\d+'
+CDATA := RAW_CODE_FRAGMENT
+INCLUDE := '\#include[ \t]+"[\w\."\n]+"'
+NATIVEID_TEXT := '[a-zA-Z_<>&][0-9a-zA-Z_:<>*& ,]*'
+NATIVEID := NATIVEID_TEXT { '\(' NATIVEID_TEXT '\)' NATIVEID_TEXT* }?
+IID := '[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}'
+IDENTIFIER := {'Array' '<' _? IDENTIFIER _? '>'} | 'unsigned long long' | 'unsigned short' | 'unsigned long' | 'long long' | '[a-zA-Z_][0-9a-zA-Z_]*'
+_ := '[\s\n]+'
+RAW_CODE_FRAGMENT := '%{\s*C\+\+(\n|.)*?%}\s*(C\+\+)?'

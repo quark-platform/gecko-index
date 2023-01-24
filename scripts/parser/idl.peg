@@ -1,0 +1,55 @@
+// Taken from: http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/XPIDL/Syntax.html
+idlfile := {WHITESPACE | REGULAR_MULTILINE_COMMENT | SINGLE_LINE_COMMENT | CDATA | webidl | INCLUDE | interface_main | typedef | native | RAW_CODE_FRAGMENT}* $
+
+webidl := 'webidl' WHITESPACE IDENTIFIER ';'
+typedef := 'typedef' WHITESPACE IDENTIFIER WHITESPACE IDENTIFIER ';'
+native := {attributes WHITESPACE}? 'native' WHITESPACE IDENTIFIER WHITESPACE? '\(' {'const' WHITESPACE}? NATIVEID '\);'
+interface_main := {attributes WHITESPACE}? 'interface' WHITESPACE IDENTIFIER WHITESPACE? ifacebase? ifacebody? ';'
+ifacebase := ':' WHITESPACE? IDENTIFIER
+ifacebody := WHITESPACE? '{' {{WHITESPACE? {SINGLE_LINE_COMMENT | REGULAR_MULTILINE_COMMENT | member | RAW_CODE_FRAGMENT}}* WHITESPACE?}? '}'
+
+member := {
+    {DOC_COMMENT | SINGLE_LINE_COMMENT}*
+    WHITESPACE?
+    { 
+        CDATA
+        | {'cenum' WHITESPACE IDENTIFIER WHITESPACE? ':' WHITESPACE? NUMBER WHITESPACE? '{' WHITESPACE? cenumlist? WHITESPACE? '}' ';'}
+        | {'const' WHITESPACE IDENTIFIER WHITESPACE IDENTIFIER WHITESPACE? '=' WHITESPACE? num ';'}
+        | {{attributes WHITESPACE?}? {'readonly' WHITESPACE}? 'attribute' WHITESPACE IDENTIFIER WHITESPACE IDENTIFIER ';'}
+        | {{attributes WHITESPACE?}? IDENTIFIER WHITESPACE IDENTIFIER WHITESPACE? '\(' WHITESPACE? paramlist? '\)' raises? ';'}
+    }
+}
+
+paramlist := param {WHITESPACE? ',' WHITESPACE? param}*
+raises := 'raises' '\(' IDENTIFIER {WHITESPACE? ',' WHITESPACE? IDENTIFIER}* '\)'
+attributes := '\[' attribute {WHITESPACE? ',' WHITESPACE? attribute}* '\]'
+attribute := IDENTIFIER {'\(' {IID | IDENTIFIER} '\)'}?
+param := {attributes WHITESPACE}? {'in' | 'out' | 'inout'} WHITESPACE IDENTIFIER WHITESPACE IDENTIFIER 
+
+cenumlist := cenum {',' WHITESPACE {SINGLE_LINE_COMMENT WHITESPACE}? cenum}* ','? WHITESPACE? {ANY_COMMENT WHITESPACE?}?
+cenum := DOC_COMMENT* IDENTIFIER {WHITESPACE? '=' WHITESPACE? num}?
+
+num := 
+      {'\(' num '\)'}
+    | {'-' num}
+    | {num WHITESPACE? {'\+' | '-' | '\*'} WHITESPACE? num}
+    | {num WHITESPACE? {'<<' | '>>'} WHITESPACE? num}
+    | {num WHITESPACE? '|' WHITESPACE? num}
+    | NUMBER 
+    | IDENTIFIER
+
+// Comments
+ANY_COMMENT := REGULAR_MULTILINE_COMMENT | DOC_COMMENT | SINGLE_LINE_COMMENT
+REGULAR_MULTILINE_COMMENT := '\/\*(.|\n)*?\*\/' WHITESPACE?
+DOC_COMMENT := '\/\*\*?((\n|.)*?)\*\/' WHITESPACE?
+SINGLE_LINE_COMMENT := '\/\/.*\n'
+
+// Lexical tokens, I'm going to specify these in regex form
+NUMBER := '-?(0x[0-9A-Fa-f]+)|\d+'
+CDATA := RAW_CODE_FRAGMENT
+INCLUDE := '\#include[ \t]+"[\w\."\n]+"'
+NATIVEID := '[a-zA-Z_][0-9a-zA-Z_:<>*]*'
+IID := '[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}'
+IDENTIFIER := {'Array' '<' IDENTIFIER '>'} | 'unsigned long long' | 'unsigned short' | 'unsigned long' | 'long long' | '[a-zA-Z_][0-9a-zA-Z_]*'
+WHITESPACE := '[\s\n]+'
+RAW_CODE_FRAGMENT := '%{\s*C\+\+(\n|.)*?%}'

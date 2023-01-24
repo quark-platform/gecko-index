@@ -7,7 +7,10 @@
   "scripts": {
     "generate": "pnpm namespaces",
     "namespaces": "node --loader ts-node/esm ./scripts/namespaces.ts",
-    "legacyModules": "node --loader ts-node/esm ./scripts/legacyModules.ts"
+    "legacyModules": "node --loader ts-node/esm ./scripts/legacyModules.ts",
+    "interfaces": "pnpm parser:gen && node --loader ts-node/esm ./scripts/interfaces.ts",
+    "parser:gen": "tspeg scripts/parser/idl.tspeg scripts/parser/parser.ts",
+    "test": "pnpm parser:gen && ava scripts"
   },
   "keywords": [],
   "author": "",
@@ -15,15 +18,29 @@
   "devDependencies": {
     "@types/globrex": "^0.1.2",
     "@types/node": "^18.7.6",
+    "@types/workerpool": "^6.1.1",
+    "ava": "^5.1.1",
     "execa": "^6.1.0",
     "tiny-glob": "^0.2.9",
     "tmp-promise": "^3.0.3",
     "ts-node": "^10.9.1",
+    "tspeg": "^3.2.1",
     "typescript": "^4.7.4"
   },
   "dependencies": {
     "@types/webidl2": "^23.13.6",
     "globrex": "^0.1.2",
-    "webidl2": "^24.2.2"
+    "skulpt": "^1.2.0",
+    "webidl2": "^24.2.2",
+    "webidl2ts": "github:trickypr/webidl2ts",
+    "workerpool": "^6.3.1"
+  },
+  "ava": {
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm"
+    ]
   }
 }
