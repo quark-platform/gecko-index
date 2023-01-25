@@ -1,10 +1,10 @@
 // Taken from: http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/XPIDL/Syntax.html
-idlfile := contents={_ | ANY_COMMENT | CDATA | webidl | INCLUDE | interface_main | typedef | native | RAW_CODE_FRAGMENT}* $
+idlfile := contents={_ | CDATA | webidl | INCLUDE | interface_main | typedef | native | RAW_CODE_FRAGMENT | DOC_COMMENT}* $
 
 webidl := 'webidl' _ IDENTIFIER ';'
 typedef := 'typedef' _ IDENTIFIER _ IDENTIFIER _? ';'
 native := {attributes _}? 'native' _ IDENTIFIER _? '\(' {'const' _}? NATIVEID '\);'
-interface_main := attrs=attributes? _? 'interface' _ name=IDENTIFIER _? base=ifacebase? body=ifacebody? ';'
+interface_main := doc_comment=DOC_COMMENT? attrs=attributes? _? 'interface' _ name=IDENTIFIER _? base=ifacebase? body=ifacebody? ';'
 ifacebase := ':' _? extends=IDENTIFIER
 ifacebody := _? '{' contents={contents={_? contents={member | RAW_CODE_FRAGMENT | ANY_COMMENT}}* _?}? '}'
 

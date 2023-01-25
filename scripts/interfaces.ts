@@ -8,6 +8,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { getInfo } from './shared/general.js'
 import { Class } from './interfaces/types.js'
 import { parse as parseIDL } from './parser/index.js'
+import { existsSync } from 'node:fs'
 
 const CLASSES_IDENTIFIER = Sk.ffi.remapToPy('Classes')
 const INVALID_INTERFACES: string[] = [
@@ -39,6 +40,7 @@ const interfaceFiles = interfaceFileLocations
 
 const failedFiles = []
 const classes: Class[] = []
+const typedClasses: Class[] = []
 
 Sk.configure({ output: console.info })
 for (const componentFilePath of componentFiles) {
@@ -52,6 +54,14 @@ for (const componentFilePath of componentFiles) {
     )
 
     for (const moduleClass of moduleClasses) {
+      if (moduleClass.type) {
+        typedClasses.push({
+          componentFile: componentFilePath,
+          ...moduleClass,
+        })
+        continue
+      }
+
       classes.push({
         componentFile: componentFilePath,
         ...moduleClass,
@@ -61,6 +71,8 @@ for (const componentFilePath of componentFiles) {
     failedFiles.push(componentFilePath)
   }
 }
+
+let failedInterfaceFiles = []
 
 for (const interfaceFile of interfaceFiles) {
   console.log(interfaceFile.path)
@@ -73,6 +85,7 @@ for (const interfaceFile of interfaceFiles) {
       interfaceFile.path,
       JSON.stringify(errs, null, 2)
     )
+    failedInterfaceFiles.push({ file: interfaceFile, errs })
     continue
   }
 
@@ -81,3 +94,11 @@ for (const interfaceFile of interfaceFiles) {
     JSON.stringify(ast, null, 2)
   )
 }
+
+if (!existsSync(join(outFolder, '_')))
+  await mkdir(join(outFolder, '_'), { recursive: true })
+
+await writeFile(
+  join(outFolder, '_', 'classes.json'),
+  JSON.stringify({ failedFiles, classes, typedClasses }, null, 2)
+)
