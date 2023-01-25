@@ -1,0 +1,244 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface for access to a buffering stream implementation's underlying\n * memory buffer.\n *\n * Stream implementations that QueryInterface to nsIStreamBufferAccess must\n * ensure that all buffers are aligned on the most restrictive type size for\n * the current architecture (e.g., sizeof(double) for RISCy CPUs).  malloc(3)\n * satisfies this requirement.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "ac923b72-ac87-4892-ac7a-ca385d429435"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIStreamBufferAccess",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get access to a contiguous, aligned run of bytes in the stream's buffer.\n     * Exactly one successful getBuffer call must occur before a putBuffer call\n     * taking the non-null pointer returned by the successful getBuffer.\n     *\n     * The run of bytes are the next bytes (modulo alignment padding) to read\n     * for an input stream, and the next bytes (modulo alignment padding) to\n     * store before (eventually) writing buffered data to an output stream.\n     * There can be space beyond this run of bytes in the buffer for further\n     * accesses before the fill or flush point is reached.\n     *\n     * @param aLength\n     *    Count of contiguous bytes requested at the address A that satisfies\n     *    (A & aAlignMask) == 0 in the buffer, starting from the current stream\n     *    position, mapped to a buffer address B.  The stream implementation\n     *    must pad from B to A by skipping bytes (if input stream) or storing\n     *    zero bytes (if output stream).\n     *\n     * @param aAlignMask\n     *    Bit-mask computed by subtracting 1 from the power-of-two alignment\n     *    modulus (e.g., 3 or sizeof(uint32_t)-1 for uint32_t alignment).\n     *\n     * @return\n     *    The aligned pointer to aLength bytes in the buffer, or null if the\n     *    buffer has no room for aLength bytes starting at the next address A\n     *    after the current position that satisfies (A & aAlignMask) == 0.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "noscript",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "charPtr",
+                  "name": "getBuffer",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint32_t",
+                      "name": "aLength"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aAlignMask"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Relinquish access to the stream's buffer, filling if at end of an input\n     * buffer, flushing if completing an output buffer.  After a getBuffer call\n     * that returns non-null, putBuffer must be called.\n     *\n     * @param aBuffer\n     *    A non-null pointer returned by getBuffer on the same stream buffer\n     *    access object.\n     *\n     * @param aLength\n     *    The same count of contiguous bytes passed to the getBuffer call that\n     *    returned aBuffer.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "noscript",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "putBuffer",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "charPtr",
+                      "name": "aBuffer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aLength"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Disable and enable buffering on the stream implementing this interface.\n     * DisableBuffering flushes an output stream's buffer, and invalidates an\n     * input stream's buffer.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "disableBuffering",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "enableBuffering",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The underlying, unbuffered input or output stream.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsISupports",
+                  "name": "unbufferedStream"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n\n/**\n * These macros get and put a buffer given either an sba parameter that may\n * point to an object implementing nsIStreamBufferAccess, nsIObjectInputStream,\n * or nsIObjectOutputStream.\n */\n#define NS_GET_BUFFER(sba,n,a)  ((sba)->GetBuffer(n, a))\n#define NS_PUT_BUFFER(sba,p,n)  ((sba)->PutBuffer(p, n))\n\n%}\n"
+  ]
+}

@@ -1,0 +1,623 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/*\n * nsICommandParams is used to pass parameters to commands executed\n * via nsICommandManager, and to get command state.\n *\n */"
+      }
+    },
+    "%{C++\nclass nsCommandParams;\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "b1fdf3c4-74e3-4f7d-a14d-2b76bcf53482"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICommandParams",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * List of primitive types for parameter values.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "eNoType",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* Only used for sanity checking */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "eBooleanType",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "eLongType",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "eDoubleType",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "eWStringType",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "eISupportsType",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "eStringType",
+                  "value": "6"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * getValueType\n   *\n   * Get the type of a specified parameter\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "short",
+                  "name": "getValueType",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * get_Value\n   *\n   * Get the value of a specified parameter. Will return\n   * an error if the parameter does not exist, or if the value\n   * is of the wrong type (no coercion is performed for you).\n   *\n   * nsISupports values can contain any XPCOM interface,\n   * as documented for the command. It is permissible\n   * for it to contain nsICommandParams, but not *this*\n   * one (i.e. self-containing is not allowed).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "getBooleanValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "long",
+                  "name": "getLongValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "double",
+                  "name": "getDoubleValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getStringValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getCStringValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsISupports",
+                  "name": "getISupportsValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * set_Value\n   *\n   * Set the value of a specified parameter (thus creating\n   * an entry for it).\n   *\n   * nsISupports values can contain any XPCOM interface,\n   * as documented for the command. It is permissible\n   * for it to contain nsICommandParams, but not *this*\n   * one (i.e. self-containing is not allowed).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setBooleanValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "value"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setLongValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "value"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setDoubleValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "double",
+                          "name": "value"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setStringValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "value"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setCStringValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "value"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setISupportsValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "value"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * removeValue\n   *\n   * Remove the specified parameter from the list.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  /**\n   * In order to avoid circular dependency issues, these methods are defined\n   * in nsCommandParams.h.  Consumers need to #include that header.\n   */\n  inline nsCommandParams* AsCommandParams();\n  inline const nsCommandParams* AsCommandParams() const;\n%}\n"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n"
+  ]
+}

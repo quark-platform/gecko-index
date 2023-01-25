@@ -1,0 +1,325 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "12f60021-e14b-4020-99d1-ed2c795be66a"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsINSSErrorsService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     *  @param aNSPRCode An error code obtained using PR_GetError()\n     *  @return True if it is error code defined by the NSS library\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "isNSSErrorCode",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int32_t",
+                      "name": "aNSPRCode"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     *  Function will fail if aNSPRCode is not an NSS error code.\n     *  @param aNSPRCode An error code obtained using PR_GetError()\n     *  @return The result of the conversion, an XPCOM error code\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsresult",
+                  "name": "getXPCOMFromNSSError",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int32_t",
+                      "name": "aNSPRCode"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     *  Function will fail if aXPCOMErrorCode is not an NSS error code.\n     *  @param aXPCOMErrorCode An error code obtained using getXPCOMFromNSSError\n     *  return A localized human readable error explanation.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getErrorMessage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "aXPCOMErrorCode"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     *  Function will fail if aXPCOMErrorCode is not an NSS error code.\n     *  @param aXPCOMErrorCode An error code obtained using getXPCOMFromNSSError\n     *  return the error class of the code, either ERROR_CLASS_BAD_CERT\n     *         or ERROR_CLASS_SSL_PROTOCOL\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "uint32_t",
+                  "name": "getErrorClass",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "aXPCOMErrorCode"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ERROR_CLASS_SSL_PROTOCOL",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ERROR_CLASS_BAD_CERT",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     *  The following values define the range of NSPR error codes used by NSS.\n     *  NSS remains the authorative source for these numbers, as a result,\n     *  the values might change in the future.\n     *  The security module will perform a runtime check and assertion\n     *  to ensure the values are in synch with NSS.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "NSS_SEC_ERROR_BASE",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "NSS_SEC_ERROR_LIMIT",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "NSS_SSL_ERROR_BASE",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "NSS_SSL_ERROR_LIMIT",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The error codes within each module must fit in 16 bits. We want these\n     * errors to fit in the same module as the NSS errors but not overlap with\n     * any of them. Converting an NSS SEC, NSS SSL, or mozilla::pkix error to\n     * an NS error involves negating the value of the error and then\n     * synthesizing an error in the NS_ERROR_MODULE_SECURITY module. Hence,\n     * mozilla::pkix errors will start at a negative value that both doesn't\n     * overlap with the current value ranges for NSS errors and that will fit\n     * in 16 bits when negated.\n     *\n     * Keep these in sync with pkixnss.h.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "MOZILLA_PKIX_ERROR_BASE",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "MOZILLA_PKIX_ERROR_LIMIT",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

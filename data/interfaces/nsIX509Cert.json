@@ -1,0 +1,885 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIArray",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIX509CertValidity",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICertVerificationListener",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{ C++\nnamespace IPC {\nclass MessageReader;\nclass MessageWriter;\n}\n\n /* forward declaration */\n typedef struct CERTCertificateStr CERTCertificate;\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This represents a X.509 certificate.\n *\n * NOTE: Service workers persist x.509 certs in object form on disk.  If you\n *       change this uuid you probably need a hack in nsBinaryInputStream to\n *       read the old uuid.  If you change the format of the object\n *       serialization then more complex changes will be needed.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "bdc3979a-5422-4cd5-8589-696b6e96ea83"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIX509Cert",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The primary email address of the certificate, if present.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "emailAddress"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Did this certificate ship with the platform as a built-in root?\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "bool",
+                  "name": "isBuiltInRoot"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Obtain a list of all email addresses\n   *  contained in the certificate.\n   *\n   *  @return An array of email addresses.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getEmailAddresses",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Check whether a given address is contained in the certificate.\n   *  The comparison will convert the email address to lowercase.\n   *  The behaviour for non ASCII characters is undefined.\n   *\n   *  @param aEmailAddress The address to search for.\n   *\n   *  @return True if the address is contained in the certificate.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "containsEmailAddress",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aEmailAddress"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The subject owning the certificate.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "subjectName"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The subject's common name.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "commonName"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The subject's organization.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "organization"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The subject's organizational unit.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "organizationalUnit"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The fingerprint of the certificate's DER encoding,\n   *  calculated using the SHA-256 algorithm.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "sha256Fingerprint"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The fingerprint of the certificate's DER encoding,\n   *  calculated using the SHA1 algorithm.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "sha1Fingerprint"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  A human readable name identifying the hardware or\n   *  software token the certificate is stored on.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "tokenName"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The subject identifying the issuer certificate.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "issuerName"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The serial number the issuer assigned to this certificate.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "serialNumber"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The issuer subject's common name.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "issuerCommonName"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The issuer subject's organization.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "issuerOrganization"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The issuer subject's organizational unit.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "issuerOrganizationUnit"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  This certificate's validity period.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIX509CertValidity",
+                  "name": "validity"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  A unique identifier of this certificate within the local storage.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "dbKey"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  A human readable identifier to label this certificate.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "displayName"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Constants to classify the type of a certificate.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "UNKNOWN_CERT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "CA_CERT",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "USER_CERT",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "EMAIL_CERT",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "SERVER_CERT",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ANY_CERT",
+                  "value": "0xffff"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Type of this certificate\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "certType"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Obtain a raw binary encoding of this certificate\n   *  in DER format.\n   *\n   *  @return The bytes representing the DER encoded certificate.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getRawDER",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Obtain a base 64 string representation of this certificate\n   *  in DER format.\n   *\n   *  @return The DER encoded certificate as a string.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "ACString",
+                  "name": "getBase64DERString",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The base64 encoding of the DER encoded public key info using the specified\n   * digest.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "sha256SubjectPublicKeyInfoDigest"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieves the NSS certificate object wrapped by this interface\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "noscript",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "must_use",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "CERTCertificatePtr",
+                  "name": "getCert",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "noscript",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "SerializeToIPC",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "IpcMessageWriterPtr",
+                      "name": "aWriter"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "noscript",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "bool",
+                  "name": "DeserializeFromIPC",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "IpcMessageReaderPtr",
+                      "name": "aReader"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

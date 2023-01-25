@@ -1,0 +1,735 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEditor",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEditorSpellCheckCallback",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a171c25f-e4a8-4d08-adef-b797e6377bdc"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIEditorSpellCheck",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns true if we can enable spellchecking. If there are no available\n   * dictionaries, this will return false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "canSpellCheck",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Turns on the spell checker for the given editor. enableSelectionChecking\n   * set means that we only want to check the current selection in the editor,\n   * (this controls the behavior of GetNextMisspelledWord). For spellchecking\n   * clients with no modal UI (such as inline spellcheckers), this flag doesn't\n   * matter.  Initialization is asynchronous and is not complete until the given\n   * callback is called.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "InitSpellChecker",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIEditor",
+                      "name": "editor"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "enableSelectionChecking"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIEditorSpellCheckCallback",
+                          "name": "callback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * When interactively spell checking the document, this will return the\n   * value of the next word that is misspelled. This also computes the\n   * suggestions which you can get by calling GetSuggestedWord.\n   *\n   * @see mozSpellChecker::GetNextMisspelledWord\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "can_run_script",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "AString",
+                  "name": "GetNextMisspelledWord",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used to get suggestions for the last word that was checked and found to\n   * be misspelled. The first call will give you the first (best) suggestion.\n   * Subsequent calls will iterate through all the suggestions, allowing you\n   * to build a list. When there are no more suggestions, an empty string\n   * (not a null pointer) will be returned.\n   *\n   * @see mozSpellChecker::GetSuggestedWord\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "GetSuggestedWord",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Check a given word. In spite of the name, this function checks the word\n   * you give it, returning true if the word is misspelled. If the word is\n   * misspelled, it will compute the suggestions which you can get from\n   * GetSuggestedWord().\n   *\n   * @see mozSpellChecker::CheckCurrentWord\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "CheckCurrentWord",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "suggestedWord"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Check a given word then returns suggestion words via Promise if a given\n   * word is misspelled. If not misspelled, returns empty string array.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "suggest",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aCheckingWorkd"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aMaxCount"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Use when modally checking the document to replace a word.\n   *\n   * @see mozSpellChecker::CheckCurrentWord\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "can_run_script",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "ReplaceWord",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "misspelledWord"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "replaceWord"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "allOccurrences"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * @see mozSpellChecker::IgnoreAll\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "IgnoreWordAllOccurrences",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "word"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Fills an internal list of words added to the personal dictionary. These\n   * words can be retrieved using GetPersonalDictionaryWord()\n   *\n   * @see mozSpellChecker::GetPersonalDictionary\n   * @see GetPersonalDictionaryWord\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "GetPersonalDictionary",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used after you call GetPersonalDictionary() to iterate through all the\n   * words added to the personal dictionary. Will return the empty string when\n   * there are no more words.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "GetPersonalDictionaryWord",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Adds a word to the current personal dictionary.\n   *\n   * @see mozSpellChecker::AddWordToDictionary\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "AddWordToDictionary",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "word"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Removes a word from the current personal dictionary.\n   *\n   * @see mozSpellChecker::RemoveWordFromPersonalDictionary\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "RemoveWordFromDictionary",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "word"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieves a list of the currently available dictionaries. The strings will\n   * typically be language IDs, like \"en-US\".\n   *\n   * @see mozISpellCheckingEngine::GetDictionaryList\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "GetDictionaryList",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * @see mozSpellChecker::GetCurrentDictionaries\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getCurrentDictionaries",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * @see mozSpellChecker::SetCurrentDictionaries\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "setCurrentDictionaries",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "dictionaries"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Call this to free up the spell checking object. It will also save the\n   * current selected language as the default for future use.\n   *\n   * If you have called CanSpellCheck but not InitSpellChecker, you can still\n   * call this function to clear the cached spell check object, and no\n   * preference saving will happen.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "UninitSpellChecker",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FILTERTYPE_NORMAL",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FILTERTYPE_MAIL",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used to filter the content (for example, to skip blockquotes in email from\n   * spellchecking. Call this before calling InitSpellChecker; calling it\n   * after initialization will have no effect.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setFilterType",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "filterType"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Update the dictionary in use to be sure it corresponds to what the editor\n   * needs.  The update is asynchronous and is not complete until the given\n   * callback is called.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "UpdateCurrentDictionary",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "nsIEditorSpellCheckCallback",
+                      "name": "callback"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "5f0a4bab-8538-4074-89d3-2f0e866a1c0b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIEditorSpellCheckCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "editorSpellCheckDone",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

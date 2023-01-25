@@ -1,0 +1,173 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITimerCallback",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface describing a global application service that allows long\n * duration (e.g. 1-7 or more days, weeks or months) timers to be registered\n * and then fired.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "0765c92c-6145-4253-9db4-594d8023087e"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIUpdateTimerManager",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Register an interval with the timer manager. The timer manager\n   * periodically checks to see if the interval has expired and if it has\n   * calls the specified callback. This is persistent across application\n   * restarts and can handle intervals of long durations. The callback will be\n   * called soon after the first registration unless you ask to skip it.\n   * @param   id\n   *          An id that identifies the interval, used for persistence\n   * @param   callback\n   *          A nsITimerCallback object that is notified when the interval\n   *          expires\n   * @param   interval\n   *          The length of time, in seconds, of the interval\n   * @param   skipFirst\n   *          Whether to skip the initial callback on first registration.\n   *\n   * Note: to avoid having to instantiate a component to call registerTimer\n   * the component can intead register an update-timer category with comma\n   * separated values as a single string:\n   *\n   * contractID,method,id,preference,interval\n   *\n   * via a manifest entry. The values are as follows:\n   *   contractID : the contract ID for the component.\n   *   method     : the method used to instantiate the interface. This should be\n   *                either getService or createInstance depending on your\n   *                component.\n   *   id         : the id that identifies the interval, used for persistence.\n   *   preference : the preference to for timer interval. This value can be\n   *                optional by specifying an empty string for the value.\n   *   interval   : the default interval in seconds for the timer.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerTimer",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "id"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsITimerCallback",
+                          "name": "callback"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "interval"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "skipFirst"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Unregister an existing interval from the timer manager.\n   *\n   * @param   id\n   *          An id that identifies the interval.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unregisterTimer",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "id"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

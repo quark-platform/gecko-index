@@ -1,0 +1,2309 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; c-basic-offset: 2; indent-tabs-mode: nil; tab-width: 8 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIFile"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "3d3b9075-5549-4244-9c08-b64fefa1dd60"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIFetchTelemetryDataCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "complete",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "273d2dd0-6c63-475a-b864-cb65160a1909"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITelemetry",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Histogram types:\n   * HISTOGRAM_EXPONENTIAL - buckets increase exponentially\n   * HISTOGRAM_LINEAR - buckets increase linearly\n   * HISTOGRAM_BOOLEAN - For storing 0/1 values\n   * HISTOGRAM_FLAG - For storing a single value; its count is always == 1.\n   * HISTOGRAM_COUNT - For storing counter values without bucketing.\n   * HISTOGRAM_CATEGORICAL - For storing enumerated values by label.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "HISTOGRAM_EXPONENTIAL",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "HISTOGRAM_LINEAR",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "HISTOGRAM_BOOLEAN",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "HISTOGRAM_FLAG",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "HISTOGRAM_COUNT",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "HISTOGRAM_CATEGORICAL",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Scalar types:\n   * SCALAR_TYPE_COUNT - for storing a numeric value\n   * SCALAR_TYPE_STRING - for storing a string value\n   * SCALAR_TYPE_BOOLEAN - for storing a boolean value\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "SCALAR_TYPE_COUNT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "SCALAR_TYPE_STRING",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "SCALAR_TYPE_BOOLEAN",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Dataset types:\n   * DATASET_ALL_CHANNELS - the basic dataset that is on-by-default on all channels\n   * DATASET_PRERELEASE_CHANNELS - the extended dataset that is opt-in on release,\n   *                                 opt-out on pre-release channels.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DATASET_ALL_CHANNELS",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DATASET_PRERELEASE_CHANNELS",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Serializes the histogram labels for categorical hitograms.\n   * The returned structure looks like:\n   *   { \"histogram1\": [ \"histogram1_label1\", \"histogram1_label2\", ...],\n   *     \"histogram2\": [ \"histogram2_label1\", \"histogram2_label2\", ...]\n   *     ...\n   *     }\n   *\n   * Note that this function should only be used in tests and about:telemetry.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getCategoricalLabels",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Serializes the histograms from the given store to a JSON-style object.\n   * The returned structure looks like:\n   *   { \"process\": { \"name1\": histogramData1, \"name2\": histogramData2 }, ... }\n   *\n   * Each histogram is represented in a packed format and has the following properties:\n   *   bucket_count - Number of buckets of this histogram\n   *   histogram_type - HISTOGRAM_EXPONENTIAL, HISTOGRAM_LINEAR, HISTOGRAM_BOOLEAN,\n   *                    HISTOGRAM_FLAG, HISTOGRAM_COUNT, or HISTOGRAM_CATEGORICAL\n   *   sum - sum of the bucket contents\n   *   range - A 2-item array of minimum and maximum bucket size\n   *   values - Map from bucket to the bucket's count\n   *\n   * @param aStoreName The name of the store to snapshot.\n   *                   Defaults to \"main\".\n   *                   Custom stores are available when probes have them defined.\n   *                   See the `record_into_store` attribute on histograms.\n   *                   @see https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/telemetry/collection/histograms.html#record-into-store\n   * @param aClearStore Whether to clear out the histograms in the named store after snapshotting.\n   *                    Defaults to false.\n   * @param aFilterTest If true, `TELEMETRY_TEST_` histograms will be filtered out.\n                        Filtered histograms are still cleared if `aClearStore` is true.\n   *                    Defaults to false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getSnapshotForHistograms",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aStoreName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aClearStore"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aFilterTest"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Serializes the keyed histograms from the given store to a JSON-style object.\n   * The returned structure looks like:\n   *   { \"process\": { \"name1\": { \"key_1\": histogramData1, \"key_2\": histogramData2 }, ...}, ... }\n   *\n   * @param aStoreName The name of the store to snapshot.\n   *                   Defaults to \"main\".\n   *                   Custom stores are available when probes have them defined.\n   *                   See the `record_into_store` attribute on histograms.\n   *                   @see https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/telemetry/collection/histograms.html#record-into-store\n   * @param aClearStore Whether to clear out the keyed histograms in the named store after snapshotting.\n   *                    Defaults to false.\n   * @param aFilterTest If true, `TELEMETRY_TEST_` histograms will be filtered out.\n                        Filtered histograms are still cleared if `aClearStore` is true.\n   *                    Defaults to false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getSnapshotForKeyedHistograms",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aStoreName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aClearStore"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aFilterTest"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Serializes the scalars from the given store to a JSON-style object.\n   * The returned structure looks like:\n   *   { \"process\": { \"category1.probe\": 1,\"category1.other_probe\": false, ... }, ... }.\n   *\n   * @param aStoreName The name of the store to snapshot.\n   *                   Defaults to \"main\".\n   *                   Custom stores are available when probes have them defined.\n   *                   See the `record_into_store` attribute on scalars.\n   *                   @see https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/telemetry/collection/scalars.html#optional-fields\n   * @param aClearStore Whether to clear out the scalars in the named store after snapshotting.\n   *                    Defaults to false.\n   * @param aFilterTest If true, `telemetry.test` scalars will be filtered out.\n                        Filtered scalars are still cleared if `aClearStore` is true.\n   *                    Defaults to false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getSnapshotForScalars",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aStoreName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aClearStore"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aFilterTest"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Serializes the keyed scalars from the given store to a JSON-style object.\n   * The returned structure looks like:\n   *   { \"process\": { \"category1.probe\": { \"key_1\": 2, \"key_2\": 1, ... }, ... }, ... }\n   *\n   * @param aStoreName The name of the store to snapshot.\n   *                   Defaults to \"main\".\n   *                   Custom stores are available when probes have them defined.\n   *                   See the `record_into_store` attribute on scalars.\n   *                   @see https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/telemetry/collection/scalars.html#optional-fields\n   * @param aClearStore Whether to clear out the keyed scalars in the named store after snapshotting.\n   *                    Defaults to false.\n   * @param aFilterTest If true, `telemetry.test` scalars will be filtered out.\n                        Filtered scalars are still cleared if `aClearStore` is true.\n   *                    Defaults to false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getSnapshotForKeyedScalars",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aStoreName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aClearStore"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aFilterTest"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The amount of time, in milliseconds, that the last session took\n   * to shutdown.  Reads as 0 to indicate failure.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "uint32_t",
+                  "name": "lastShutdownDuration"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The number of failed profile lock attempts that have occurred prior to\n   * successfully locking the profile\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "uint32_t",
+                  "name": "failedProfileLockCount"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * An object containing information about slow SQL statements.\n   *\n   * {\n   *   mainThread: { \"sqlString1\": [<hit count>, <total time>], \"sqlString2\": [...], ... },\n   *   otherThreads: { \"sqlString3\": [<hit count>, <total time>], \"sqlString4\": [...], ... }\n   * }\n   *\n   * where:\n   *   mainThread: Slow statements that executed on the main thread\n   *   otherThreads: Slow statements that executed on a non-main thread\n   *   sqlString - String of the offending statement (see note)\n   *   hit count - The number of times this statement required longer than the threshold time to execute\n   *   total time - The sum of all execution times above the threshold time for this statement\n   *\n   * Note that dynamic SQL strings and SQL strings executed against addon DBs could contain private information.\n   * This property represents such SQL as aggregate database-level stats and the sqlString contains the database\n   * filename instead.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "jsval",
+                  "name": "slowSQL"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * See slowSQL above.\n   *\n   * An object containing full strings of every slow SQL statement if toolkit.telemetry.debugSlowSql = true\n   * The returned SQL strings may contain private information and should not be reported to Telemetry.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "jsval",
+                  "name": "debugSlowSQL"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Flags for getUntrustedModuleLoadEvents.\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag is set to retrieve all data including instances which have been\n   * retrieved before.  If not set, only new instances since the last call\n   * will be returned.\n   * If this flag is set, KEEP_LOADEVENTS_NEW must not be set unless\n   * EXCLUDE_STACKINFO_FROM_LOADEVENTS is set.\n   * (See also MultiGetUntrustedModulesData::Serialize.)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "INCLUDE_OLD_LOADEVENTS",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag is set to keep the returned instances as if they were not\n   * retrieved, meaning those instances will be returned by a next method\n   * call without INCLUDE_OLD_LOADEVENTS.  If not set, the returned instances\n   * can be re-retrieved only when INCLUDE_OLD_LOADEVENTS is specified.\n   * If this flag is set, INCLUDE_OLD_LOADEVENTS must not be set unless\n   * EXCLUDE_STACKINFO_FROM_LOADEVENTS is set.\n   * (See also MultiGetUntrustedModulesData::Serialize.)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEEP_LOADEVENTS_NEW",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag is set to include private fields.\n   * Do not specify this flag to retrieve data to be submitted.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "INCLUDE_PRIVATE_FIELDS_IN_LOADEVENTS",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag is set to exclude the \"combinedStacks\" field.\n   * Without this flag, the flags INCLUDE_OLD_LOADEVENTS and KEEP_LOADEVENTS_NEW\n   * cannot be set at the same time.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "EXCLUDE_STACKINFO_FROM_LOADEVENTS",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * An array of untrusted module load events. Each element describes one or\n   * more modules that were loaded, contextual information at the time of the\n   * event (including stack trace), and flags describing the module's\n   * trustworthiness.\n   *\n   * @param aFlags   Combination (bitwise OR) of the flags specified above.\n   *                 Defaults to 0.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "getUntrustedModuleLoadEvents",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aFlags"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Asynchronously get an array of the modules loaded in the process.\n   *\n   * The data has the following structure:\n   *\n   * [\n   *   {\n   *     \"name\": <string>, // Name of the module file (e.g. xul.dll)\n   *     \"version\": <string>, // Version of the module\n   *     \"debugName\": <string>, // ID of the debug information file\n   *     \"debugID\": <string>, // Name of the debug information file\n   *     \"certSubject\": <string>, // Name of the organization that signed the binary (Optional, only defined when present)\n   *   },\n   *   ...\n   * ]\n   *\n   * @return A promise that resolves to an array of modules or rejects with\n             NS_ERROR_FAILURE on failure.\n   * @throws NS_ERROR_NOT_IMPLEMENTED if the Gecko profiler is not enabled.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "getLoadedModules",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * An object with two fields: memoryMap and stacks.\n   * * memoryMap is a list of loaded libraries.\n   * * stacks is a list of stacks. Each stack is a list of pairs of the form\n   *   [moduleIndex, offset]. The moduleIndex is an index into the memoryMap and\n   *   offset is an offset in the library at memoryMap[moduleIndex].\n   * This format is used to make it easier to send the stacks to the\n   * symbolication server.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "jsval",
+                  "name": "lateWrites"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Create and return a histogram registered in TelemetryHistograms.h.\n   *\n   * @param id - unique identifier from TelemetryHistograms.h\n   * The returned object has the following functions:\n   *   add(value) - Adds a sample of `value` to the histogram.\n                    `value` may be a categorical histogram's label as a string,\n                    a boolean histogram's value as a boolean,\n                    or a number that fits inside a uint32_t.\n   *   snapshot([optional] {store}) - Returns a snapshot of the histogram with the same data fields\n                                      as in getSnapshotForHistograms().\n                                      Defaults to the \"main\" store.\n   *   clear([optional] {store}) - Zeros out the histogram's buckets and sum.\n                                   Defaults to the \"main\" store.\n                                   Note: This is intended to be only used in tests.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getHistogramById",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "id"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Create and return a histogram registered in TelemetryHistograms.h.\n   *\n   * @param id - unique identifier from TelemetryHistograms.h\n   * The returned object has the following functions:\n   *   add(string key, [optional] value) - Adds a sample of `value` to the histogram for that key.\n                                         If no histogram for that key exists yet, it is created.\n                                         `value` may be a categorical histogram's label as a string,\n                                         a boolean histogram's value as a boolean,\n                                         or a number that fits inside a uint32_t.\n   *   snapshot([optional] {store}) - Returns the snapshots of all the registered keys in the form\n                                      {key1: snapshot1, key2: snapshot2, ...} in the specified store.\n   *                                  Defaults to the \"main\" store.\n   *   keys([optional] {store}) - Returns an array with the string keys of the currently registered\n                                  histograms in the given store.\n                                  Defaults to \"main\".\n   *   clear([optional] {store}) - Clears the registered histograms from this.\n   *                               Defaults to the \"main\" store.\n   *                               Note: This is intended to be only used in tests.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getKeyedHistogramById",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "id"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A flag indicating if Telemetry can record base data (FHR data). This is true if the\n   * FHR data reporting service or self-support are enabled.\n   *\n   * In the unlikely event that adding a new base probe is needed, please check the data\n   * collection wiki at https://wiki.mozilla.org/Firefox/Data_Collection and talk to the\n   * Telemetry team.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "canRecordBase"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A flag indicating if Telemetry is allowed to record extended data. Returns false if\n   * the user hasn't opted into \"extended Telemetry\" on the Release channel, when the\n   * user has explicitly opted out of Telemetry on Nightly/Aurora/Beta or if manually\n   * set to false during tests.\n   *\n   * Set this to false in tests to disable gathering of extended telemetry statistics.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "canRecordExtended"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A flag indicating whether Telemetry is recording release data, which is a\n   * smallish subset of our usage data that we're prepared to handle from our\n   * largish release population.\n   *\n   * This is true most of the time.\n   *\n   * This will always return true in the case of a non-content child process.\n   * Only values returned on the parent process are valid.\n   *\n   * This does not indicate whether Telemetry will send any data. That is\n   * governed by user preference and other mechanisms.\n   *\n   * You may use this to determine if it's okay to record your data.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "canRecordReleaseData"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A flag indicating whether Telemetry is recording prerelease data, which is\n   * a largish amount of usage data that we're prepared to handle from our\n   * smallish pre-release population.\n   *\n   * This is true on pre-release branches of Firefox.\n   *\n   * This does not indicate whether Telemetry will send any data. That is\n   * governed by user preference and other mechanisms.\n   *\n   * You may use this to determine if it's okay to record your data.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "canRecordPrereleaseData"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A flag indicating whether Telemetry can submit official results (for base or extended\n   * data). This is true on official, non-debug builds with built in support for Mozilla\n   * Telemetry reporting.\n   *\n   * This will always return true in the case of a non-content child process.\n   * Only values returned on the parent process are valid.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isOfficialTelemetry"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Enable/disable recording for this histogram at runtime.\n   * Recording is enabled by default, unless listed at kRecordingInitiallyDisabledIDs[].\n   * Name must be a valid Histogram identifier, otherwise an assertion will be triggered.\n   *\n   * @param id - unique identifier from histograms.json\n   * @param enabled - whether or not to enable recording from now on.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setHistogramRecordingEnabled",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "id"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "enabled"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Read data from the previous run. After the callback is called, the last\n   * shutdown time is available in lastShutdownDuration and any late\n   * writes in lateWrites.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncFetchTelemetryData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFetchTelemetryDataCallback",
+                      "name": "aCallback"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get statistics of file IO reports, null, if not recorded.\n   *\n   * The statistics are returned as an object whose propoerties are the names\n   * of the files that have been accessed and whose corresponding values are\n   * arrays of size three, representing startup, normal, and shutdown stages.\n   * Each stage's entry is either null or an array with the layout\n   * [total_time, #creates, #reads, #writes, #fsyncs, #stats]\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "jsval",
+                  "name": "fileIOReports"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Return the number of milliseconds since process start using monotonic\n   * timestamps (unaffected by system clock changes). On Windows, this includes\n   * the period of time the device was suspended. On Linux and macOS, this does\n   * not include the period of time the device was suspneded.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "double",
+                  "name": "msSinceProcessStart",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Return the number of milliseconds since process start using monotonic\n   * timestamps (unaffected by system clock changes), including the periods of\n   * time the device was suspended.\n   * @throws NS_ERROR_NOT_AVAILABLE if unavailable.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "double",
+                  "name": "msSinceProcessStartIncludingSuspend",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Return the number of milliseconds since process start using monotonic\n   * timestamps (unaffected by system clock changes), excluding the periods of\n   * time the device was suspended.\n   * @throws NS_ERROR_NOT_AVAILABLE if unavailable.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "double",
+                  "name": "msSinceProcessStartExcludingSuspend",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Time since the system wide epoch. This is not a monotonic timer but\n   * can be used across process boundaries.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "double",
+                  "name": "msSystemNow",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Adds the value to the given scalar.\n   *\n   * @param aName The scalar name.\n   * @param aValue The numeric value to add to the scalar. Only unsigned integers supported.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "scalarAdd",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the scalar to the given value.\n   *\n   * @param aName The scalar name.\n   * @param aValue The value to set the scalar to. If the type of aValue doesn't match the\n   *        type of the scalar, the function will fail. For scalar string types, the this\n   *        is truncated to 50 characters.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "scalarSet",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the scalar to the maximum of the current and the passed value.\n   *\n   * @param aName The scalar name.\n   * @param aValue The numeric value to set the scalar to. Only unsigned integers supported.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "scalarSetMaximum",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Adds the value to the given keyed scalar.\n   *\n   * @param aName The scalar name.\n   * @param aKey The key name.\n   * @param aValue The numeric value to add to the scalar. Only unsigned integers supported.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "keyedScalarAdd",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aKey"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the keyed scalar to the given value.\n   *\n   * @param aName The scalar name.\n   * @param aKey The key name.\n   * @param aValue The value to set the scalar to. If the type of aValue doesn't match the\n   *        type of the scalar, the function will fail.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "keyedScalarSet",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aKey"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the keyed scalar to the maximum of the current and the passed value.\n   *\n   * @param aName The scalar name.\n   * @param aKey The key name.\n   * @param aValue The numeric value to set the scalar to. Only unsigned integers supported.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "keyedScalarSetMaximum",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aKey"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Resets all the stored scalars. This is intended to be only used in tests.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "clearScalars",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Immediately sends any Telemetry batched on this process to the parent\n   * process. This is intended only to be used on process shutdown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "flushBatchedChildTelemetry",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Record an event in Telemetry.\n   *\n   * @param aCategory The category name.\n   * @param aMethod The method name.\n   * @param aObject The object name.\n   * @param aValue An optional string value to record.\n   * @param aExtra An optional object of the form (string -> string).\n   *               It should only contain registered extra keys.\n   *\n   * @throws NS_ERROR_INVALID_ARG When trying to record an unknown event.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "optional_argc",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "recordEvent",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aCategory"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aMethod"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aObject"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aValue"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "extra"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Enable recording of events in a category.\n   * Events default to recording disabled. This allows to toggle recording for all events\n   * in the specified category.\n   *\n   * @param aCategory The category name.\n   * @param aEnabled Whether recording is enabled for events in that category.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setEventRecordingEnabled",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aCategory"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aEnabled"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Serializes the recorded events to a JSON-appropriate array and optionally resets them.\n   * The returned structure looks like this:\n   *   [\n   *     // [timestamp, category, method, object, stringValue, extraValues]\n   *     [43245, \"category1\", \"method1\", \"object1\", \"string value\", null],\n   *     [43258, \"category1\", \"method2\", \"object1\", null, {\"key1\": \"string value\"}],\n   *     ...\n   *   ]\n   *\n   * @param aDataset DATASET_ALL_CHANNELS or DATASET_PRERELEASE_CHANNELS.\n   * @param [aClear=false] Whether to clear out the flushed events after snapshotting.\n   * @param aEventLimit How many events per process to limit the snapshot to contain, all if unspecified.\n   *                    Even if aClear, the leftover event records are not cleared.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "optional_argc",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "jsval",
+                  "name": "snapshotEvents",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint32_t",
+                      "name": "aDataset"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aClear"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aEventLimit"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Register new events to record them from addons. This allows registering multiple\n   * events for a category. They will be valid only for the current Firefox session.\n   * Note that events shipping in Firefox should be registered in Events.yaml.\n   *\n   * @param aCategory The unique category the events are registered in.\n   * @param aEventData An object that contains registration data for 1-N events of the form:\n   *   {\n   *     \"categoryName\": {\n   *       \"methods\": [\"test1\"],\n   *       \"objects\": [\"object1\"],\n   *       \"record_on_release\": false,\n   *       \"extra_keys\": [\"key1\", \"key2\"], // optional\n   *       \"expired\": false // optional, defaults to false.\n   *     },\n   *     ...\n   *   }\n   * @param aEventData.<name>.methods List of methods for this event entry.\n   * @param aEventData.<name>.objects List of objects for this event entry.\n   * @param aEventData.<name>.extra_keys Optional, list of allowed extra keys for this event entry.\n   * @param aEventData.<name>.record_on_release Optional, whether to record this data on release.\n   *                                            Defaults to false.\n   * @param aEventData.<name>.expired Optional, whether this event entry is expired. This allows\n   *                                  recording it without error, but it will be discarded. Defaults to false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "registerEvents",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aCategory"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aEventData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Parent process only. Register dynamic builtin events. The parameters\n   * have the same meaning as the usual |registerEvents| function.\n   *\n   * This function is only meant to be used to support the \"artifact build\"/\n   * \"build faster\" developers by allowing to add new events without rebuilding\n   * the C++ components including the headers files.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "registerBuiltinEvents",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aCategory"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aEventData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Parent process only. Register new scalars to record them from addons. This\n   * allows registering multiple scalars for a category. They will be valid only for\n   * the current Firefox session.\n   * Note that scalars shipping in Firefox should be registered in Scalars.yaml.\n   *\n   * @param aCategoryName The unique category the scalars are registered in.\n   * @param aScalarData An object that contains registration data for multiple scalars in the form:\n   *   {\n   *     \"sample_scalar\": {\n   *       \"kind\": Ci.nsITelemetry.SCALAR_TYPE_COUNT,\n   *       \"keyed\": true, //optional, defaults to false\n   *       \"record_on_release: true, // optional, defaults to false\n   *       \"expired\": false // optional, defaults to false.\n   *     },\n   *     ...\n   *   }\n   * @param aScalarData.<name>.kind One of the scalar types defined in this file (SCALAR_TYPE_*)\n   * @param aScalarData.<name>.keyed Optional, whether this is a keyed scalar or not. Defaults to false.\n   * @param aScalarData.<name>.record_on_release Optional, whether to record this data on release.\n   *                                             Defaults to false.\n   * @param aScalarData.<name>.expired Optional, whether this scalar entry is expired. This allows\n   *                                   recording it without error, but it will be discarded. Defaults to false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "registerScalars",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aCategoryName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aScalarData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Parent process only. Register dynamic builtin scalars. The parameters\n   * have the same meaning as the usual |registerScalars| function.\n   *\n   * This function is only meant to be used to support the \"artifact build\"/\n   * \"build faster\" developers by allowing to add new scalars without rebuilding\n   * the C++ components including the headers files.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "registerBuiltinScalars",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aCategoryName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aScalarData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Resets all the stored events. This is intended to be only used in tests.\n   * Events recorded but not yet flushed to the parent process storage won't be cleared.\n   * Override the pref. `toolkit.telemetry.ipcBatchTimeout` to reduce the time to flush events.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "clearEvents",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get a list of all registered stores.\n   *\n   * The list is deduplicated, but unordered.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getAllStores",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Does early, cheap initialization for native telemetry data providers.\n   * Currently, this includes only MemoryTelemetry.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "earlyInit",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Does late, expensive initialization for native telemetry data providers.\n   * Currently, this includes only MemoryTelemetry.\n   *\n   * This should only be called after startup has completed and the event loop\n   * is idle.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "delayedInit",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Shuts down native telemetry providers. Currently, this includes only\n   * MemoryTelemetry.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "shutdown",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gathers telemetry data for memory usage and records it to the data store.\n   * Returns a promise which resolves when asynchronous data collection has\n   * completed and all data has been recorded.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "gatherMemory",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Serializes the per-origin data in plain text, optionally clearing\n   * the storage. Only to be used by about:telemetry.\n   *\n   * The returned structure looks like:\n   *   { metric: {origin1: count1, origin2: count2, ...}, ...}\n   *\n   * @param aClear Whether to clear the storage. Default false.\n   * @return a snapshot of the per-origin data.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "jsval",
+                  "name": "getOriginSnapshot",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aClear"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Encodes the per-origin information then serializes it.\n   * Returns a Promise.\n   *\n   * @param aClear Whether to clear the storage. Default false.\n   * @return Promise that resolves to the serialized encoded data.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "getEncodedOriginSnapshot",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aClear"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Clears Firefox Origin Telemetry. Only to be used in tests.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "clearOrigins",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIWebProtocolHandlerRegistrar\n *\n * Applications wishing to use web protocol handlers need to implement this\n * interface. Typically they will prompt the user to confirm adding an entry\n * to the local list.\n *\n * The component must have the contract id defined below so that the Navigator\n * implementation can invoke it.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1ce9ef8d-f462-49ca-b8e9-c946c4f37d6e"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIWebProtocolHandlerRegistrar",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * See documentation in Navigator.webidl\n   * The additional contentWindow param for this method represents the dom\n   * content window from which the method has been called, or its browser window.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerProtocolHandler",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "protocol"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "uri"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "title"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "documentURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "windowOrBrowser"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Removes a registered protocol handler\n   *\n   * While registerProtocolHandler is exposed on Navigator, unregistering\n   * is exposed through the UI code.\n   * @param   protocol\n   *          The protocol scheme to remove a service handler for\n   * @param   uri\n   *          The uri of the service handler to remove\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeProtocolHandler",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "protocol"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "uri"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{ C++\n\n#define NS_WEBPROTOCOLHANDLERREGISTRAR_CONTRACTID \"@mozilla.org/embeddor.implemented/web-protocol-handler-registrar;1\"\n%}\n"
+  ]
+}

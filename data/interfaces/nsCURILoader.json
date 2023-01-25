@@ -1,0 +1,24 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIURILoader"
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/*\nnsCURILoader implements:\n-------------------------\nnsIURILoader\n*/"
+      }
+    },
+    "%{ C++\n#define NS_CONTENT_HANDLER_CONTRACTID         \"@mozilla.org/uriloader/content-handler;1\"\n#define NS_CONTENT_HANDLER_CONTRACTID_PREFIX  NS_CONTENT_HANDLER_CONTRACTID \"?type=\"\n\n/**\n * A category where content listeners can register. The name of the entry must\n * be the content that this listener wants to handle, the value must be a\n * contract ID for the listener. It will be created using createInstance (not\n * getService).\n *\n * Listeners added this way are tried after the initial target of the load and\n * after explicitly registered listeners (nsIURILoader::registerContentListener).\n *\n * These listeners must implement at least nsIURIContentListener (and\n * nsISupports).\n *\n * @see nsICategoryManager\n * @see nsIURIContentListener\n */\n#define NS_CONTENT_LISTENER_CATEGORYMANAGER_ENTRY   \"external-uricontentlisteners\"\n\n%}\n"
+  ]
+}

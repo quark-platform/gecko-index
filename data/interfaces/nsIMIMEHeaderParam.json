@@ -1,0 +1,466 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim:expandtab:shiftwidth=4:tabstop=4:\n */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/*\n * This interface allows any module to access the routine\n * for MIME header parameter parsing (RFC 2231/5987)\n */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "9c9252a1-fdaf-40a2-9c2b-a3dc45e28dde"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIMIMEHeaderParam",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given the value of a single header field  (such as\n   * Content-Disposition and Content-Type) and the name of a parameter\n   * (e.g. filename, name, charset), returns the value of the parameter.\n   * The value is obtained by decoding RFC 2231/5987-style encoding,\n   * RFC 2047-style encoding, and converting to UniChar(UTF-16)\n   * from charset specified in RFC 2231/2047 encoding, UTF-8,\n   * <code>aFallbackCharset</code>, the locale charset as fallback if\n   * <code>TryLocaleCharset</code> is set, and null-padding as last resort\n   * if all else fails.\n   *\n   * <p>\n   * This method internally invokes <code>getParameterInternal</code>,\n   * However, it does not stop at decoding RFC 2231 (the task for\n   * <code>getParameterInternal</code> but tries to cope\n   * with several non-standard-compliant cases mentioned below.\n   *\n   * <p>\n   * Note that a lot of MUAs put RFC 2047-encoded parameters. Unfortunately,\n   * this includes Mozilla as of 2003-05-30. Even more standard-ignorant MUAs,\n   * web servers and application servers put 'raw 8bit characters'. This will\n   * try to cope with all these cases as gracefully as possible. Additionally,\n   * it returns the language tag if the parameter is encoded per RFC 2231 and\n   * includes lang.\n   *\n   * <p>\n   * Note that GetParameterHTTP skips some of the workarounds used for\n   * mail (MIME) header fields, and thus SHOULD be used from non-mail\n   * code.\n   *\n   *\n   * @param  aHeaderVal        a header string to get the value of a parameter\n   *                           from.\n   * @param  aParamName        the name of a MIME header parameter (e.g.\n   *                           filename, name, charset). If empty,  returns\n   *                           the first (possibly) _unnamed_ 'parameter'.\n   * @param  aFallbackCharset  fallback charset to try if  the string after\n   *                           RFC 2231/2047 decoding or the raw 8bit\n   *                           string is not UTF-8\n   * @param  aTryLocaleCharset If set, makes yet another attempt\n   *                           with the locale charset.\n   * @param  aLang             If non-null, assigns it to a pointer\n   *                           to a string containing the value of language\n   *                           obtained from RFC 2231 parsing. Caller has to\n   *                           free it.\n   * @return the value of <code>aParamName</code> in Unichar(UTF-16).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getParameter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aHeaderVal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aParamName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aFallbackCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aTryLocaleCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "string",
+                          "name": "aLang"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Like getParameter, but disabling encodings and workarounds specific to\n   * MIME (as opposed to HTTP).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getParameterHTTP",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aHeaderVal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aParamName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aFallbackCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aTryLocaleCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "string",
+                          "name": "aLang"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given the value of a header field parameter using the encoding\n   * defined in RFC 5987, decode the value into a Unicode string, and extract\n   * the optional language parameter.\n   *\n   * <p>\n   * This function is purposefully picky; it will abort for all (most?)\n   * invalid inputs. This is by design. In particular, it does not support\n   * any character encodings other than UTF-8, in order not to promote\n   * non-interoperable usage.\n   *\n   * <p>\n   * Code that parses HTTP header fields (as opposed to MIME header fields)\n   * should use this function.\n   *\n   * @param  aParamVal         a header field parameter to decode.\n   * @param  aLang             will be set to the language part (possibly\n   *                           empty).\n   * @return the decoded parameter value.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "decodeRFC5987Param",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aParamVal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "ACString",
+                          "name": "aLang"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given the value of a single header field  (such as\n   * Content-Disposition and Content-Type) and the name of a parameter\n   * (e.g. filename, name, charset), returns the value of the parameter\n   * after decoding RFC 2231-style encoding.\n   * <p>\n   * For <strong>internal use only</strong>. The only other place where\n   * this needs to be  invoked  is  |MimeHeaders_get_parameter| in\n   * mailnews/mime/src/mimehdrs.cpp defined as\n   * char * MimeHeaders_get_parameter (const char *header_value,\n   *                                   const char *parm_name,\n   *                                   char **charset, char **language)\n   *\n   * Otherwise, this method would have been made static.\n   *\n   * @param  aHeaderVal  a header string to get the value of a parameter from.\n   * @param  aParamName  the name of a MIME header parameter (e.g.\n   *                     filename, name, charset). If empty,  returns\n   *                     the first (possibly) _unnamed_ 'parameter'.\n   * @param  aCharset    If non-null, it gets assigned a new pointer\n   *                     to a string containing the value of charset obtained\n   *                     from RFC 2231 parsing. Caller has to free it.\n   * @param  aLang       If non-null, it gets assigned a new pointer\n   *                     to a string containing the value of language obtained\n   *                     from RFC 2231 parsing. Caller has to free it.\n   * @return             the value of <code>aParamName</code> after\n   *                     RFC 2231 decoding but without charset conversion.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "string",
+                  "name": "getParameterInternal",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aHeaderVal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aParamName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "string",
+                          "name": "aCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "string",
+                          "name": "aLang"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given a header value, decodes RFC 2047-style encoding and\n   * returns the decoded header value in UTF-8 if either it's\n   * RFC-2047-encoded or aDefaultCharset is given. Otherwise,\n   * returns the input header value (in whatever encoding)\n   * as it is except that  RFC 822 (using backslash) quotation and\n   * CRLF (if aEatContinuation is set) are stripped away\n   * <p>\n   * For internal use only. The only other place where this needs to be\n   * invoked  is  <code>MIME_DecodeMimeHeader</code> in\n   * mailnews/mime/src/mimehdrs.cpp defined as\n   * char * Mime_DecodeMimeHeader(char *header_val, const char *charset,\n   *                              bool override, bool eatcontinuation)\n   *\n   * @param aHeaderVal       a header value to decode\n   * @param aDefaultCharset  MIME charset to use in place of MIME charset\n   *                         specified in RFC 2047 style encoding\n   *                         when <code>aOverrideCharset</code> is set.\n   * @param aOverrideCharset When set, overrides MIME charset specified\n   *                         in RFC 2047 style encoding with <code>aDefaultCharset</code>\n   * @param aEatContinuation When set, removes CR/LF\n   * @return                 decoded header value\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "ACString",
+                  "name": "decodeRFC2047Header",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aHeaderVal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aDefaultCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aOverrideCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aEatContinuation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given a header parameter, decodes RFC 2047 style encoding (if it's\n   * not obtained from RFC 2231 encoding),  converts it to\n   * UTF-8 and returns the result in UTF-8 if an attempt to extract\n   * charset info. from a few different sources succeeds.\n   * Otherwise,  returns the input header value (in whatever encoding)\n   * as it is except that  RFC 822 (using backslash) quotation is\n   * stripped off.\n   * <p>\n   * For internal use only. The only other place where this needs to be\n   * invoked  is  <code>mime_decode_filename</code> in\n   * mailnews/mime/src/mimehdrs.cpp defined as\n   * char * mime_decode_filename(char *name, const char *charset,\n   *                             MimeDisplayOptions *opt)\n   *\n   * @param aParamValue      the value of a parameter to decode and convert\n   * @param aCharset         charset obtained from RFC 2231 decoding  in which\n   *                         <code>aParamValue</code> is encoded. If null,\n   *                         indicates that it needs to try RFC 2047, instead.\n   * @param aDefaultCharset  MIME charset to use when aCharset is null and\n   *                         cannot be obtained per RFC 2047 (most likely\n   *                         because 'bare' string is  used.)  Besides, it\n   *                         overrides aCharset/MIME charset obtained from\n   *                         RFC 2047 if <code>aOverrideCharset</code>  is set.\n   * @param aOverrideCharset When set, overrides MIME charset specified\n   *                         in RFC 2047 style encoding with\n   *                         <code>aDefaultCharset</code>\n   * @return                 decoded parameter\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "ACString",
+                  "name": "decodeParameter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aParamValue"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aDefaultCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aOverrideCharset"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n"
+  ]
+}

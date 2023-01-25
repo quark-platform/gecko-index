@@ -1,0 +1,217 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIStreamListener"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIDownloadObserver",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIDownloader\n *\n * A downloader is a special implementation of a nsIStreamListener that will\n * make the contents of the stream available as a file.  This may utilize the\n * disk cache as an optimization to avoid an extra copy of the data on disk.\n * The resulting file is valid from the time the downloader completes until\n * the last reference to the downloader is released.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "fafe41a9-a531-4d6d-89bc-588a6522fb4e"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIDownloader",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIStreamListener"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Initialize this downloader\n     *\n     * @param observer\n     *        the observer to be notified when the download completes.\n     * @param downloadLocation\n     *        the location where the stream contents should be written.\n     *        if null, the downloader will select a location and the\n     *        resulting file will be deleted (or otherwise made invalid)\n     *        when the downloader object is destroyed.  if an explicit\n     *        download location is specified then the resulting file will\n     *        not be deleted, and it will be the callers responsibility\n     *        to keep track of the file, etc.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIDownloadObserver",
+                      "name": "observer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFile",
+                          "name": "downloadLocation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "44b3153e-a54e-4077-a527-b0325e40924e"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIDownloadObserver",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Called to signal a download that has completed.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onDownloadComplete",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIDownloader",
+                      "name": "downloader"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIRequest",
+                          "name": "request"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsresult",
+                          "name": "status"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFile",
+                          "name": "result"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

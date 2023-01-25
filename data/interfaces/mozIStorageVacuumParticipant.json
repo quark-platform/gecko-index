@@ -1,0 +1,155 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n * vim: sw=2 ts=2 et lcs=trail\\:.,tab\\:>~ :\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageConnection",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This interface contains the information that the Storage service needs to\n * vacuum a database.  This interface is created as a service through the\n * category manager with the category \"vacuum-participant\".\n * Please see https://developer.mozilla.org/en/mozIStorageVacuumParticipant for\n * more information.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "8f367508-1d9a-4d3f-be0c-ac11b6dd7dbf"
+              }
+            }
+          }
+        ]
+      },
+      "name": "mozIStorageVacuumParticipant",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The expected page size in bytes for the database.  The vacuum manager will\n   * try to correct the page size during idle based on this value.\n   *\n   * @note If the database is using the WAL journal mode, the page size won't\n  *        be changed to the requested value.  See bug 634374.\n   * @note Valid page size values are powers of 2 between 512 and 65536.\n   *       The suggested value is mozIStorageConnection::defaultPageSize.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "long",
+                  "name": "expectedDatabasePageSize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Connection to the database file to be vacuumed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "mozIStorageConnection",
+                  "name": "databaseConnection"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notifies when a vacuum operation begins.  Listeners should avoid using the\n   * database till onEndVacuum is received.\n   *\n   * @return true to proceed with the vacuum, false if the participant wants to\n   *         opt-out for now, it will be retried later.  Useful when participant\n   *         is running some other heavy operation that can't be interrupted.\n   *\n   * @note When a vacuum operation starts or ends it will also dispatch a global\n   *       \"heavy-io-task\" notification through the observer service with the\n   *       data argument being either \"vacuum-begin\" or \"vacuum-end\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "onBeginVacuum",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notifies when a vacuum operation ends.\n   *\n   * @param aSucceeded\n   *        reports if the vacuum succeeded or failed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onEndVacuum",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aSucceeded"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

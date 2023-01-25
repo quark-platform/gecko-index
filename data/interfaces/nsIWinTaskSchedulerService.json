@@ -1,0 +1,368 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface for Windows Task Scheduler 2.0.\n * Documentation for the underlying APIs can be found at\n * https://docs.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "main_process_scriptable_only",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a8d36901-0b6a-46c3-a214-a9e1d5d6047a"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIWinTaskSchedulerService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Register (create) a task from an XML definition.\n   * The task will be created so that it only runs as the current user\n   * (TASK_LOGON_INTERACTIVE_TOKEN).\n   *\n   * @throws NS_ERROR_FILE_NOT_FOUND if the folder does not exist.\n   * @throws NS_ERROR_FILE_ALREADY_EXISTS if the task already existed and aUpdateExisting is false.\n   *\n   * @param aFolderName     Full name of the folder in which to create the task, starting with \"\\\".\n   *\n   * @param aTaskName       Name of the task.\n   *\n   * @param aDefinitionXML  XML definition of the task. This is passed directly to Task Scheduler,\n   *                        see the schema at\n   *                        https://docs.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-schema\n   *\n   * @param aUpdateExisting Whether to update an existing task with the same name, default false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerTask",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "aFolderName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "aTaskName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "aDefinitionXML"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aUpdateExisting"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Validate the XML task definition with Task Scheduler without creating a task, for testing.\n   * Doesn't throw if only the final ITaskFolder::RegisterTask() fails.\n   *\n   * @param aDefinitionXML      Definition to validate.\n   * @return                    HRESULT from ITaskFolder::RegisterTask()\n   *                            Success should be S_OK (0). XML validation failure could be one of\n   *                            SCHED_E_UNEXPECTED_NODE, SCHED_E_NAMESPACE, SCHED_E_INVALIDVALUE,\n   *                            SCHED_E_MISSINGNODE, SCHED_E_MALFORMEDXML, but there may be others.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "long",
+                  "name": "validateTaskDefinition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "aDefinitionXML"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the registration information for a task.\n   *\n   * @throws NS_ERROR_FILE_NOT_FOUND if the folder or task do not exist.\n   *\n   * @param aFolderName     Full name of the folder containing the task, starting with \"\\\".\n   * @param aTaskName       Name of the task to read.\n   * @return                Registration information for the task, as XML text.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getTaskXML",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "aFolderName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "aTaskName"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Delete a task.\n   *\n   * @throws NS_ERROR_FILE_NOT_FOUND if the folder or task do not exist.\n   *\n   * @param aFolderName     Full name of the folder containing the task, starting with \"\\\".\n   * @param aTaskName       Name of the task to delete.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "deleteTask",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "aFolderName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "aTaskName"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * List the names of all tasks in a task folder.\n   *\n   * @throws NS_ERROR_FILE_NOT_FOUND if the folder doesn't exist.\n   *\n   * @param aFolderName     The full name of the task folder to enumerate, starting with \"\\\".\n   *\n   * @return                An array with the names of the tasks found.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getFolderTasks",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "aFolderName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Create a new task subfolder under a given parent folder.\n   *\n   * @throws NS_ERROR_FILE_NOT_FOUND if the parent folder does not exist.\n   * @throws NS_ERROR_FILE_ALREADY_EXISTS if the subfolder already exists.\n   *\n   * @param aParentFolderName       Immediate parent for the new folder, starting with \"\\\".\n   * @param aSubFolderName          Name of the new folder to create.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "createFolder",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "aParentFolderName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "aSubFolderName"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Delete a folder.\n   *\n   * @throws NS_ERROR_FILE_NOT_FOUND if the parent folder does not exist.\n   * @throws NS_ERROR_FILE_DIR_NOT_EMPTY if the folder was not empty.\n   *\n   * @param aParentFolderName       Immediate parent of the folder to delete, starting with \"\\\".\n   * @param aSubFolderName          Name of the folder to delete.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "deleteFolder",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "aParentFolderName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "aSubFolderName"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

@@ -1,0 +1,1347 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIVariant"
+    },
+    "%{C++\n#define NS_CERTSTORAGE_CONTRACTID \"@mozilla.org/security/certstorage;1\"\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Callback type used to notify callers that an operation performed by\n * nsICertStorage has completed. Indicates the result of the requested\n * operation, as well as any data returned by the operation.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "3f8fe26a-a436-4ad4-9c1c-a53c60973c31"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICertStorageCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "done",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "rv"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIVariant",
+                          "name": "result"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * A base interface for representing the revocation state of a certificate.\n * Implementing this interface by itself is insufficient; your type must\n * implement an inheriting interface that specifies the certificate by issuer\n * and serial number or by subject and public key hash.\n * Set state to nsICertStorage.STATE_UNSET to mark the certificate as not revoked.\n * Set state to nsICertStorage.STATE_ENFORCE to mark the certificate as revoked.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "96db6fd7-6b64-4a5a-955d-310bd9ca4234"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIRevocationState",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "short",
+                  "name": "state"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface representing the revocation state of a certificate by issuer\n * and serial number. Both issuer name and serial number are base64-encoded.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "23ce3546-f1b9-46f6-8de3-77704da5702f"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIIssuerAndSerialRevocationState",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIRevocationState"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "issuer"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "serial"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface representing the revocation state of a certificate by subject\n * and pub key hash (the hash algorithm should be SHA-256). Both subject name\n * and public key hash are base64-encoded.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "e78b51b4-6fa4-41e2-92ce-e9404f541e96"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsISubjectAndPubKeyRevocationState",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIRevocationState"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "subject"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "pubKey"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface representing a set of certificates that are covered by a CRLite\n * filter. The set is represented by a certificate transparency log ID and a\n * pair of timestamps. The timestamps are such that the CRLite aggregator has\n * seen every certificate from the specified log with an SCT between the two\n * timestamps.\n * b64LogID is a base 64-encoded RFC 6962 LogID.\n * minTimestamp is the smallest timestamp that the CRLite filter covers.\n * maxTimestamp is the largest timestamp that the CRLite filter covers.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "416453f7-29bd-4820-a039-9c2e055d3715"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICRLiteCoverage",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "b64LogID"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long long",
+                  "name": "minTimestamp"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long long",
+                  "name": "maxTimestamp"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface representing the id and timestamp fields from an RFC 6962\n * SignedCertificateTimestamp struct.\n * logID is the id field.\n * timestamp is the timestamp field.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "9676cfc4-6e84-11ec-a30d-d3cd0af86e01"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsICRLiteTimestamp",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "logID"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long long",
+                  "name": "timestamp"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface representing a certificate to add to storage. Consists of the\n * base64-encoded DER bytes of the certificate (cert), the base64-encoded DER\n * bytes of the subject distinguished name of the certificate (subject), and the\n * trust of the certificate (one of the nsICertStorage.TRUST_* constants).\n * (Note that this implementation does not validate that the given subject DN\n * actually matches the subject DN of the certificate, nor that the given cert\n * is a valid DER X.509 certificate.)\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "27b66f5e-0faf-403b-95b4-bc11691ac50d"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICertInfo",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "cert"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "subject"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "short",
+                  "name": "trust"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "327100a7-3401-45ef-b160-bf880f1016fd"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICertStorage",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "octet",
+                  "name": "DATA_TYPE_REVOCATION",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "octet",
+                  "name": "DATA_TYPE_CERTIFICATE",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "octet",
+                  "name": "DATA_TYPE_CRLITE",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "octet",
+                  "name": "DATA_TYPE_CRLITE_FILTER_FULL",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "octet",
+                  "name": "DATA_TYPE_CRLITE_FILTER_INCREMENTAL",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously check if the backing storage has stored data of the given\n   * type in the past. This is useful if the backing storage may have had to\n   * have been deleted and recreated (as in bug 1546361 when we discovered that\n   * moving from a 32-bit binary to a 64-bit binary caused the DB to become\n   * unreadable, thus necessitating its deletion and recreation).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "hasPriorData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "octet",
+                      "name": "type"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICertStorageCallback",
+                          "name": "callback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "STATE_UNSET",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "STATE_ENFORCE",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "STATE_NOT_ENROLLED",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "STATE_NOT_COVERED",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "STATE_NO_FILTER",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously set the revocation states of a set of certificates.\n   * The given callback is called with the result of the operation when it\n   * completes.\n   * Must only be called from the main thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setRevocations",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "revocations"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICertStorageCallback",
+                          "name": "callback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the revocation state of a certificate. STATE_UNSET indicates the\n   * certificate is not revoked. STATE_ENFORCE indicates the certificate is\n   * revoked.\n   * issuer - issuer name, DER encoded\n   * serial - serial number, DER encoded\n   * subject - subject name, DER encoded\n   * pubkey - public key, DER encoded\n   * In gecko, must not be called from the main thread. See bug 1541212.\n   * xpcshell tests may call this from the main thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "short",
+                  "name": "getRevocationState",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "issuer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "serial"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "subject"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "pubkey"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given the contents of a new CRLite filter, a list containing\n   * `base64(sha256(subject DN || subject SPKI))` for each enrolled issuer, and\n   * the filter's timestamp coverage, replaces any existing filter with the new\n   * one. Also clears any previously-set incremental revocation updates\n   * (\"stashes\").\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setFullCRLiteFilter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "filter"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "enrolledIssuers"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "coverage"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICertStorageCallback",
+                          "name": "callback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given the DER-encoded issuer distinguished name, DER-encoded issuer subject public key info,\n   * the bytes of the value of the serial number (so, not including the DER tag and length) of a\n   * certificate, and the timestamps from that certificate's embedded SCTs, returns the result of\n   * looking up the corresponding entry in the currently-saved CRLite filter (if any).\n   * Returns\n   *    - STATE_ENFORCE if the lookup indicates the certificate is revoked via CRLite,\n   *    - STATE_UNSET if the lookup indicates the certificate is not revoked via CRLite,\n   *    - STATE_NOT_ENROLLED if the issuer is not enrolled in CRLite, or\n   *    - STATE_NOT_COVERED if the issuer is enrolled but the provided timestamps indicate\n   *      that the serial number is not covered by the current CRLite filter.\n   *    - STATE_NO_FILTER if there is no (usable) CRLite filter.\n   * No lookup is performed in the STATE_NOT_ENROLLED and STATE_NOT_COVERED cases.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "short",
+                  "name": "getCRLiteRevocationState",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "issuer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "issuerSPKI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "serialNumber"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "timestamps"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given the contents of a CRLite incremental revocation update (\"stash\"), adds the revocation\n   * information to the current set of stashed revocations. The basic unit of the stash file is an\n   * issuer subject public key info hash (sha-256) followed by a number of serial numbers\n   * corresponding to revoked certificates issued by that issuer. More specifically, each unit\n   * consists of:\n   *   4 bytes little-endian: the number of serial numbers following the issuer spki hash\n   *   1 byte: the length of the issuer spki hash\n   *   issuer spki hash length bytes: the issuer spki hash\n   *   as many times as the indicated serial numbers:\n   *     1 byte: the length of the serial number\n   *     serial number length bytes: the serial number\n   * The stash file consists of any number of these units concatenated together.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "addCRLiteStash",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "stash"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICertStorageCallback",
+                          "name": "callback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given a DER-encoded issuer subject public key info and the bytes of the value of the serial\n   * number (so, not including the DER tag and length), determines if the certificate identified by\n   * this issuer SPKI and serial number is revoked according to the current set of stashed CRLite\n   * revocation information.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "bool",
+                  "name": "isCertRevokedByStash",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "issuerSPKI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "serialNumber"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Trust flags to use when adding a adding a certificate.\n   * TRUST_INHERIT indicates a certificate inherits trust from another\n   * certificate.\n   * TRUST_ANCHOR indicates the certificate is a root of trust.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "TRUST_INHERIT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "TRUST_ANCHOR",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously add a list of certificates to the backing storage.\n   * See the documentation for nsICertInfo.\n   * The given callback is called with the result of the operation when it\n   * completes.\n   * Must only be called from the main thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "addCerts",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "certs"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICertStorageCallback",
+                          "name": "callback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously remove the certificates with the given sha-256 hashes from\n   * the backing storage.\n   * hashes is an array of base64-encoded bytes of the sha-256 hashes of each\n   * certificate's bytes (DER-encoded).\n   * The given callback is called with the result of the operation when it\n   * completes.\n   * Must only be called from the main thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "removeCertsByHashes",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "hashes"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICertStorageCallback",
+                          "name": "callback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Find all certificates in the backing storage with the given subject\n   * distinguished name.\n   * subject is the DER-encoded bytes of the subject distinguished name.\n   * Returns an array of arrays of bytes, where each inner array corresponds to\n   * the DER-encoded bytes of a certificate that has the given subject (although\n   * as these certificates were presumably added via addCertBySubject, this\n   * aspect is never actually valided by nsICertStorage).\n   * Must not be called from the main thread. See bug 1541212.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "findCertsBySubject",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "subject"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the count of remaining async operations. Called to ensure we don't skip\n   * or interrupt any operations during fast shutdown.\n   * Must only be called from the main thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "int32_t",
+                  "name": "GetRemainingOperationCount",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

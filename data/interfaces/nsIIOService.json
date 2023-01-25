@@ -1,0 +1,1293 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIContentPolicy"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIProtocolHandler",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrincipal",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoadInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIWebTransport",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    "%{C++\n#include \"mozilla/Maybe.h\"\n\nnamespace mozilla {\nnamespace dom {\nclass ClientInfo;\nclass ServiceWorkerDescriptor;\n} // namespace dom\n} // namespace mozilla\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIIOService provides a set of network utility functions.  This interface\n * duplicates many of the nsIProtocolHandler methods in a protocol handler\n * independent way (e.g., NewURI inspects the scheme in order to delegate\n * creation of the new URI to the appropriate protocol handler).  nsIIOService\n * also provides a set of URL parsing utility functions.  These are provided\n * as a convenience to the programmer and in some cases to improve performance\n * by eliminating intermediate data structures and interfaces.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "4286de5a-b2ea-446f-8f70-e2a461f42694"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIIOService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns a protocol handler for a given URI scheme.\n     *\n     * @param aScheme the URI scheme\n     * @return reference to corresponding nsIProtocolHandler\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIProtocolHandler",
+                  "name": "getProtocolHandler",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the protocol flags for a given scheme.\n     *\n     * @param aScheme the URI scheme\n     * @return protocol flags for the corresponding protocol\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "getProtocolFlags",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the dynamic protocol flags for a given URI.\n     *\n     * @param aURI the URI to get all dynamic flags for\n     * @return protocol flags for that URI\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "getDynamicProtocolFlags",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the default port for a given scheme.\n     *\n     * @param aScheme the URI scheme\n     * @return default port for the corresponding protocol\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "long",
+                  "name": "getDefaultPort",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This method constructs a new URI based on the scheme of the URI spec.\n     * QueryInterface can be used on the resulting URI object to obtain a more\n     * specific type of URI.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIURI",
+                  "name": "newURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aSpec"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aOriginCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aBaseURI"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This method constructs a new URI from a nsIFile.\n     *\n     * @param aFile specifies the file path\n     * @return reference to a new nsIURI object\n     *\n     * Note: in the future, for perf reasons we should allow\n     * callers to specify whether this is a file or directory by\n     * splitting this  into newDirURI() and newActualFileURI().\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIURI",
+                  "name": "newFileURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFile",
+                      "name": "aFile"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Converts an internal URI (e.g. one that has a username and password in\n     * it) into one which we can expose to the user, for example on the URL bar.\n     *\n     * @param  aURI The URI to be converted.\n     * @return nsIURI The converted, exposable URI.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIURI",
+                  "name": "createExposableURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Creates a channel for a given URI.\n     *\n     * @param aURI\n     *        nsIURI from which to make a channel\n     * @param aLoadingNode\n     * @param aLoadingPrincipal\n     * @param aTriggeringPrincipal\n     * @param aSecurityFlags\n     * @param aContentPolicyType\n     *        These will be used as values for the nsILoadInfo object on the\n     *        created channel. For details, see nsILoadInfo in nsILoadInfo.idl\n     * @return reference to the new nsIChannel object\n     *\n     * Please note, if you provide both a loadingNode and a loadingPrincipal,\n     * then loadingPrincipal must be equal to loadingNode->NodePrincipal().\n     * But less error prone is to just supply a loadingNode.\n     *\n     * Keep in mind that URIs coming from a webpage should *never* use the\n     * systemPrincipal as the loadingPrincipal.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIChannel",
+                  "name": "newChannelFromURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "Node",
+                          "name": "aLoadingNode"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aLoadingPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aTriggeringPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSecurityFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsContentPolicyType",
+                          "name": "aContentPolicyType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "nsresult",
+                  "name": "NewChannelFromURIWithClientAndController",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "Node",
+                          "name": "aLoadingNode"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aLoadingPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aTriggeringPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "const_MaybeClientInfoRef",
+                          "name": "aLoadingClientInfo"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "const_MaybeServiceWorkerDescriptorRef",
+                          "name": "aController"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSecurityFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsContentPolicyType",
+                          "name": "aContentPolicyType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSandboxFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aSkipCheckForBrokenURLOrZeroSized"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "nsIChannel",
+                          "name": "aResult"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Equivalent to newChannelFromURI(aURI, aLoadingNode, ...)\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIChannel",
+                  "name": "newChannelFromURIWithLoadInfo",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsILoadInfo",
+                          "name": "aLoadInfo"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Equivalent to newChannelFromURI(newURI(...))\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIChannel",
+                  "name": "newChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aSpec"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aOriginCharset"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aBaseURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "Node",
+                          "name": "aLoadingNode"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aLoadingPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aTriggeringPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSecurityFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsContentPolicyType",
+                          "name": "aContentPolicyType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Creates a WebTransport.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIWebTransport",
+                  "name": "newWebTransport",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if networking is in \"offline\" mode. When in offline mode,\n     * attempts to access the network will fail (although this does not\n     * necessarily correlate with whether there is actually a network\n     * available -- that's hard to detect without causing the dialer to\n     * come up).\n     *\n     * Changing this fires observer notifications ... see below.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "offline"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns false if there are no interfaces for a network request\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "connectivity"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Checks if a port number is banned. This involves consulting a list of\n     * unsafe ports, corresponding to network services that may be easily\n     * exploitable. If the given port is considered unsafe, then the protocol\n     * handler (corresponding to aScheme) will be asked whether it wishes to\n     * override the IO service's decision to block the port. This gives the\n     * protocol handler ultimate control over its own security policy while\n     * ensuring reasonable, default protection.\n     *\n     * @see nsIProtocolHandler::allowPort\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "allowPort",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "aPort"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aScheme"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Utility to extract the scheme from a URL string, consistently and\n     * according to spec (see RFC 2396).\n     *\n     * NOTE: Most URL parsing is done via nsIURI, and in fact the scheme\n     * can also be extracted from a URL string via nsIURI.  This method\n     * is provided purely as an optimization.\n     *\n     * @param aSpec the URL string to parse\n     * @return URL scheme, lowercase\n     *\n     * @throws NS_ERROR_MALFORMED_URI if URL string is not of the right form.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "extractScheme",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "urlString"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Checks if a URI host is a local IPv4 or IPv6 address literal.\n     *\n     * @param nsIURI the URI that contains the hostname to check\n     * @return true if the URI hostname is a local IP address\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "hostnameIsLocalIPAddress",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Checks if a URI host is a shared IPv4 address literal.\n     *\n     * @param nsIURI the URI that contains the hostname to check\n     * @return true if the URI hostname is a shared IP address\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "hostnameIsSharedIPAddress",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * While this is set, IOService will monitor an nsINetworkLinkService\n     * (if available) and set its offline status to \"true\" whenever\n     * isLinkUp is false.\n     *\n     * Applications that want to control changes to the IOService's offline\n     * status should set this to false, watch for network:link-status-changed\n     * broadcasts, and change nsIIOService::offline as they see fit. Note\n     * that this means during application startup, IOService may be offline\n     * if there is no link, until application code runs and can turn off\n     * this management.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "manageOfflineStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Creates a channel for a given URI.\n     *\n     * @param aURI\n     *        nsIURI from which to make a channel\n     * @param aProxyURI\n     *        nsIURI to use for proxy resolution. Can be null in which\n     *        case aURI is used\n     * @param aProxyFlags flags from nsIProtocolProxyService to use\n     *        when resolving proxies for this new channel\n     * @param aLoadingNode\n     * @param aLoadingPrincipal\n     * @param aTriggeringPrincipal\n     * @param aSecurityFlags\n     * @param aContentPolicyType\n     *        These will be used as values for the nsILoadInfo object on the\n     *        created channel. For details, see nsILoadInfo in nsILoadInfo.idl\n     * @return reference to the new nsIChannel object\n     *\n     * Please note, if you provide both a loadingNode and a loadingPrincipal,\n     * then loadingPrincipal must be equal to loadingNode->NodePrincipal().\n     * But less error prone is to just supply a loadingNode.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIChannel",
+                  "name": "newChannelFromURIWithProxyFlags",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aProxyURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aProxyFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "Node",
+                          "name": "aLoadingNode"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aLoadingPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aTriggeringPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSecurityFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsContentPolicyType",
+                          "name": "aContentPolicyType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Return true if socket process is launched.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "socketProcessLaunched"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The pid for socket process.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long long",
+                  "name": "socketProcessId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Register a protocol handler at runtime, given protocol flags and a\n     * default port.\n     *\n     * Statically registered protocol handlers cannot be overridden, and an\n     * error will be returned if that is attempted.\n     *\n     * Runtime registered protocol handlers are never QueryInterface-ed into\n     * `nsIProtocolHandlerWithDynamicFlags`, so that interface will be ignored.\n     *\n     * @param aScheme the scheme handled by the protocol handler.\n     * @param aHandler the protocol handler instance.\n     * @param aProtocolFlags protocol flags for this protocol, see\n     *                       nsIProtocolHandler for values.\n     * @param aDefaultPort default port for this scheme, or -1.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerProtocolHandler",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aScheme"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIProtocolHandler",
+                          "name": "aHandler"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aProtocolFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aDefaultPort"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Unregister a protocol handler which was previously registered using\n     * registerProtocolHandler.\n     *\n     * @param aScheme the scheme to unregister a handler for.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unregisterProtocolHandler",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n/**\n * We send notifications through nsIObserverService with topic\n * NS_IOSERVICE_GOING_OFFLINE_TOPIC and data NS_IOSERVICE_OFFLINE\n * when 'offline' has changed from false to true, and we are about\n * to shut down network services such as DNS. When those\n * services have been shut down, we send a notification with\n * topic NS_IOSERVICE_OFFLINE_STATUS_TOPIC and data\n * NS_IOSERVICE_OFFLINE.\n *\n * When 'offline' changes from true to false, then after\n * network services have been restarted, we send a notification\n * with topic NS_IOSERVICE_OFFLINE_STATUS_TOPIC and data\n * NS_IOSERVICE_ONLINE.\n */\n#define NS_IOSERVICE_GOING_OFFLINE_TOPIC  \"network:offline-about-to-go-offline\"\n#define NS_IOSERVICE_OFFLINE_STATUS_TOPIC \"network:offline-status-changed\"\n#define NS_IOSERVICE_OFFLINE              \"offline\"\n#define NS_IOSERVICE_ONLINE               \"online\"\n\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "6633c0bf-d97a-428f-8ece-cb6a655fb95a"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIIOServiceInternal",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This is an internal method that should only be called from ContentChild\n     * in order to pass the connectivity state from the chrome process to the\n     * content process. It throws if called outside the content process.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "SetConnectivity",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "connectivity"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * An internal method to asynchronously run our notifications that happen\n     * when we wake from sleep\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "NotifyWakeup",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

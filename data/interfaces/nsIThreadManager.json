@@ -1,0 +1,562 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim:set ts=2 sw=2 sts=2 et cindent: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEventTarget",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRunnable",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIThread",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "039a227d-0cb7-44a5-a8f9-dbb7071979f2"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsINestedEventLoopCondition",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns true if the current nested event loop should stop spinning.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "isDone",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface for creating and locating nsIThread instances.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1be89eca-e2f7-453b-8d38-c11ba247f6f3"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIThreadManager",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Default number of bytes reserved for a thread's stack, if no stack size\n   * is specified in newThread().\n   *\n   * Defaults can be a little overzealous for many platforms.\n   *\n   * On Linux and OS X, for instance, the default thread stack size is whatever\n   * getrlimit(RLIMIT_STACK) returns, which is often set at 8MB. Or, on Linux,\n   * if the stack size is unlimited, we fall back to 2MB. This causes particular\n   * problems on Linux, which allocates 2MB huge VM pages, and will often\n   * immediately allocate them for any stacks which are 2MB or larger.\n   *\n   * The default on Windows is 1MB, which is a little more reasonable. But the\n   * vast majority of our threads don't need anywhere near that much space.\n   *\n   * ASan, TSan and non-opt builds, however, often need a bit more, so give\n   * them the platform default.\n   */"
+                  }
+                ],
+                "code": "%{C++\n#if defined(MOZ_ASAN) || defined(MOZ_TSAN) || !defined(__OPTIMIZE__)\n  static constexpr uint32_t DEFAULT_STACK_SIZE = 0;\n#else\n  static constexpr uint32_t DEFAULT_STACK_SIZE = 256 * 1024;\n#endif\n\n  static const uint32_t kThreadPoolStackSize = DEFAULT_STACK_SIZE;\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Create a new thread (a global, user PRThread) with the specified name.\n   *\n   * @param name\n   *   The name of the thread. If it is empty the thread will not be named.\n   * @param stackSize\n   *   Number of bytes to reserve for the thread's stack. 0 means use platform\n   *   default.\n   *\n   * @returns\n   *   The newly created nsIThread object.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIThread",
+                  "name": "newNamedThread",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "name"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "stackSize"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the main thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIThread",
+                  "name": "mainThread"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the current thread.  If the calling thread does not already have a\n   * nsIThread associated with it, then a new nsIThread will be created and\n   * associated with the current PRThread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIThread",
+                  "name": "currentThread"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This queues a runnable to the main thread. It's a shortcut for JS callers\n   * to be used instead of\n   *   .mainThread.dispatch(runnable, Ci.nsIEventTarget.DISPATCH_NORMAL);\n   * or\n   *   .currentThread.dispatch(runnable, Ci.nsIEventTarget.DISPATCH_NORMAL);\n   * C++ callers should instead use NS_DispatchToMainThread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "dispatchToMainThread",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRunnable",
+                      "name": "event"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "priority"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Similar to dispatchToMainThread, but wraps the event with extra\n   * runnable that allocates nsAutoMicroTask.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "dispatchToMainThreadWithMicroTask",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRunnable",
+                      "name": "event"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "priority"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This queues a runnable to the main thread's idle queue.\n   *\n   * @param event\n   *   The event to dispatch.\n   * @param timeout\n   *   The time in milliseconds until this event should be moved from the idle\n   *   queue to the regular queue if it hasn't been executed by then.  If not\n   *   passed or a zero value is specified, the event will never be moved to\n   *   the regular queue.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "idleDispatchToMainThread",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRunnable",
+                      "name": "event"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "timeout"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Enter a nested event loop on the current thread, waiting on, and\n   * processing events until condition.isDone() returns true.\n   *\n   * If condition.isDone() throws, this function will throw as well.\n   *\n   * C++ code should not use this function, instead preferring\n   * mozilla::SpinEventLoopUntil.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "spinEventLoopUntil",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aVeryGoodReasonToDoThis"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsINestedEventLoopCondition",
+                          "name": "condition"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Similar to the previous method, but the spinning of the event loop\n   * terminates when the quit application shutting down starts.\n   *\n   * C++ code should not use this function, instead preferring\n   * mozilla::SpinEventLoopUntil.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "spinEventLoopUntilOrQuit",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aVeryGoodReasonToDoThis"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsINestedEventLoopCondition",
+                          "name": "condition"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Spin the current thread's event loop until there are no more pending\n   * events.  This could be done with spinEventLoopUntil, but that would\n   * require access to the current thread from JavaScript, which we are\n   * moving away from.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "spinEventLoopUntilEmpty",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Return the EventTarget for the main thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIEventTarget",
+                  "name": "mainThreadEventTarget"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

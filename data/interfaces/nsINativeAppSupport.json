@@ -1,0 +1,129 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* nsINativeAppSupport\n *\n * This \"pseudo\" (in the XPCOM sense) interface provides for\n * platform-specific general application support\n *\n * Due to the nature of the beast, this interface is not a full-blown\n * XPCOM component.  The primary reason is that objects that implement\n * this interface generally must be operational *before* XPCOM (or any\n * of the rest of Mozilla) are initialized.  As a result, this\n * interface is instantiated by somewhat unconventional means.\n *\n * To create the implementor of this interface, you call the function\n * NS_CreateNativeAppSupport.  This is done in the startup code\n * in nsAppRunner.cpp\n *\n * The interface provides these functions:\n *  start - You call this to inform the native app support that the\n *          application is starting.  In addition, it serves as a\n *          query as to whether the application should continue to\n *          run.\n *\n *          If the returned boolean result is PR_FALSE, then the\n *          application should exit without further processing.  In\n *          such cases, the returned nsresult indicates whether the\n *          reason to exit is due to an error or not.\n *\n *          Win32 Note: In the case of starting a second instance\n *                      of this executable, this function will return\n *                      PR_FALSE and nsresult==NS_OK.  This means that\n *                      the command line arguments have been\n *                      successfully passed to the instance of the\n *                      application acting as a remote server.\n *  quit - Informs the native app support that the application is stopping. The\n *         app support should disable any functionality enabled by start.\n *\n *  onLastWindowClosing -  Called when the last window is closed. Used as a\n *                         \"soft\" shutdown, passwords are flushed.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "5fdf8480-1f98-11d4-8077-00600811a9c3"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsINativeAppSupport",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "start",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "enable",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onLastWindowClosing",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "ReOpen",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

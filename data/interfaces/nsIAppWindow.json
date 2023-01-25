@@ -1,0 +1,854 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The nsIAppWindow\n *\n * When the window is destroyed, it will fire a \"xul-window-destroyed\"\n * notification through the global observer service.\n */"
+      }
+    },
+    "%{C++\n#include \"LiveResizeListener.h\"\n#include \"nsTArray.h\"\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIDocShell",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIDocShellTreeItem",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIXULBrowserWindow",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRemoteTab",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIDOMWindowProxy",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIOpenWindowInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "builtinclass",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "d6d7a014-e28d-4c9d-8727-1cf6d870619b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIAppWindow",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The docshell owning the XUL for this window.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIDocShell",
+                  "name": "docShell"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates if this window is instrinsically sized.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "intrinsicallySized"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The primary content shell.\n   *\n   * Note that this is a docshell tree item and therefore can not be assured of\n   * what object it is. It could be an editor, a docshell, or a browser object.\n   * Or down the road any other object that supports being a DocShellTreeItem\n   * Query accordingly to determine the capabilities.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIDocShellTreeItem",
+                  "name": "primaryContentShell"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * In multiprocess case we may not have primaryContentShell but\n   * primaryRemoteTab.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIRemoteTab",
+                  "name": "primaryRemoteTab"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Helper for getting the BrowsingContext from either `primaryContentShell` or\n   * `primaryRemoteTab` depending on which is available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "BrowsingContext",
+                  "name": "primaryContentBrowsingContext"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "remoteTabAdded",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRemoteTab",
+                      "name": "aTab"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aPrimary"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "remoteTabRemoved",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRemoteTab",
+                      "name": "aTab"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "LiveResizeListenerArray",
+                  "name": "getLiveResizeListeners",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Tell this window that it has picked up a child XUL window\n   * @param aChild the child window being added\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addChildWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIAppWindow",
+                      "name": "aChild"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the difference between the inner window size (client size) and the\n   * outer window size, in CSS pixels.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "outerToInnerHeightDifferenceInCSSPixels"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "outerToInnerWidthDifferenceInCSSPixels"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Tell this window that it has lost a child XUL window\n   * @param aChild the child window being removed\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeChildWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIAppWindow",
+                      "name": "aChild"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Move the window to a centered position.\n   * @param aRelative If not null, the window relative to which the window is\n   *                  moved. See aScreen parameter for details.\n   * @param aScreen   PR_TRUE to center the window relative to the screen\n   *                  containing aRelative if aRelative is not null. If\n   *                  aRelative is null then relative to the screen of the\n   *                  opener window if it was initialized by passing it to\n   *                  nsWebShellWindow::Initialize. Failing that relative to\n   *                  the main screen.\n   *                  PR_FALSE to center it relative to aRelative itself.\n   * @param aAlert    PR_TRUE to move the window to an alert position,\n   *                  generally centered horizontally and 1/3 down from the top.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "center",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIAppWindow",
+                      "name": "aRelative"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aScreen"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aAlert"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Shows the window as a modal window. That is, ensures that it is visible\n   * and runs a local event loop, exiting only once the window has been closed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "showModal",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Locks the aspect ratio for a window.\n   * @param aShouldLock boolean\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "lockAspectRatio",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "bool",
+                      "name": "aShouldLock"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "lowestZ",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "loweredZ",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* \"alwaysLowered\" attribute */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "normalZ",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "raisedZ",
+                  "value": "6"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* \"alwaysRaised\" attribute */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "highestZ",
+                  "value": "9"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "zLevel"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "uint32_t",
+                  "name": "chromeFlags"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Begin assuming |chromeFlags| don't change hereafter, and assert\n   * if they do change.  The state change is one-way and idempotent.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "assumeChromeFlagsAreFrozen",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Create a new window.\n   * @param aChromeFlags see nsIWebBrowserChrome\n   * @param aOpenWindowInfo information about the request for a content window\n   *                        to be opened. Will be null for non-content loads.\n   * @return the newly minted window\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIAppWindow",
+                  "name": "createNewWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int32_t",
+                      "name": "aChromeFlags"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIOpenWindowInfo",
+                          "name": "aOpenWindowInfo"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIXULBrowserWindow",
+                  "name": "XULBrowserWindow"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Back-door method to make sure some stuff is done when the document is\n   * ready for layout, that would cause expensive computation otherwise later.\n   *\n   * Do NOT call this unless you know what you're doing!  In particular,\n   * calling this when this XUL window doesn't yet have a document in its\n   * docshell could cause problems.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "beforeStartLayout",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given the dimensions of some content area held within this\n   * XUL window, and assuming that that content area will change\n   * its dimensions in linear proportion to the dimensions of this\n   * XUL window, changes the size of the XUL window so that the\n   * content area reaches a particular size.\n   *\n   * We need to supply the content area dimensions because sometimes\n   * the child's nsDocShellTreeOwner needs to propagate a SizeShellTo\n   * call to the parent. But the shellItem argument of the call will\n   * not be available on the parent side.\n   *\n   * Note: this is an internal method, other consumers should never call this.\n   *\n   * @param aDesiredWidth\n   *        The desired width of the content area in device pixels.\n   * @param aDesiredHeight\n   *        The desired height of the content area in device pixels.\n   * @param shellItemWidth\n   *        The current width of the content area.\n   * @param shellItemHeight\n   *        The current height of the content area.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "sizeShellToWithLimit",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int32_t",
+                      "name": "aDesiredWidth"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "aDesiredHeight"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "shellItemWidth"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "shellItemHeight"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If the window was opened as a content window, this will return the initial\n   * nsIOpenWindowInfo to use.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIOpenWindowInfo",
+                  "name": "initialOpenWindowInfo"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Request fast snapshot at RenderCompositor of WebRender.\n   * Since readback of Windows DirectComposition is very slow.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "needFastSnaphot",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

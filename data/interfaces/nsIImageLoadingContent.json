@@ -1,0 +1,647 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "imgINotificationObserver"
+    },
+    "%{C++\n#include \"mozilla/Maybe.h\"\n#include \"Visibility.h\"\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "imgIRequest",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIStreamListener",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFrame",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This interface represents a content node that loads images.  The interface\n * exists to allow getting information on the images that the content node\n * loads and to allow registration of observers for the image loads.\n *\n * Implementors of this interface should handle all the mechanics of actually\n * loading an image -- getting the URI, checking with content policies and\n * the security manager to see whether loading the URI is allowed, performing\n * the load, firing any DOM events as needed.\n *\n * An implementation of this interface may support the concepts of a\n * \"current\" image and a \"pending\" image.  If it does, a request to change\n * the currently loaded image will start a \"pending\" request which will\n * become current only when the image is loaded.  It is the responsibility of\n * observers to check which request they are getting notifications for.\n *\n * Please make sure to update the MozImageLoadingContent WebIDL\n * mixin to mirror this interface when changing it.\n */"
+      }
+    },
+    {
+      "kind": "SINGLE_LINE_COMMENT"
+    },
+    {
+      "kind": "SINGLE_LINE_COMMENT"
+    },
+    {
+      "kind": "SINGLE_LINE_COMMENT"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "0357123d-9224-4d12-a47e-868c32689777"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIImageLoadingContent",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "imgINotificationObserver"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Request types.  Image loading content nodes attempt to do atomic\n   * image changes when the image url is changed.  This means that\n   * when the url changes the new image load will start, but the old\n   * image will remain the \"current\" request until the new image is\n   * fully loaded.  At that point, the old \"current\" request will be\n   * discarded and the \"pending\" request will become \"current\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "UNKNOWN_REQUEST",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "CURRENT_REQUEST",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "PENDING_REQUEST",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * setLoadingEnabled is used to enable and disable loading in\n   * situations where loading images is unwanted.  Note that enabling\n   * loading will *not* automatically trigger an image load.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "setLoadingEnabled",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aEnabled"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used to register an image decoder observer.  Typically, this will\n   * be a proxy for a frame that wants to paint the image.\n   * Notifications from ongoing image loads will be passed to all\n   * registered observers.  Notifications for all request types,\n   * current and pending, will be passed through.\n   *\n   * @param aObserver the observer to register\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "addNativeObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "imgINotificationObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used to unregister an image decoder observer.\n   *\n   * @param aObserver the observer to unregister\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "removeNativeObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "imgINotificationObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Accessor to get the image requests\n   *\n   * @param aRequestType a value saying which request is wanted\n   *\n   * @return the imgIRequest object (may be null, even when no error\n   * is thrown)\n   *\n   * @throws NS_ERROR_UNEXPECTED if the request type requested is not\n   * known\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "imgIRequest",
+                  "name": "getRequest",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "aRequestType"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used to notify the image loading content node that a frame has been\n   * created.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "frameCreated",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFrame",
+                      "name": "aFrame"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used to notify the image loading content node that a frame has been\n   * destroyed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "frameDestroyed",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFrame",
+                      "name": "aFrame"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used to find out what type of request one is dealing with (eg\n   * which request got passed through to the imgINotificationObserver\n   * interface of an observer)\n   *\n   * @param aRequest the request whose type we want to know\n   *\n   * @return an enum value saying what type this request is\n   *\n   * @throws NS_ERROR_UNEXPECTED if aRequest is not known\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "long",
+                  "name": "getRequestType",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "imgIRequest",
+                      "name": "aRequest"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets the URI of the current request, if available.\n   * Otherwise, returns the last URI that this content tried to load, or\n   * null if there haven't been any such attempts.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "infallible",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "currentURI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets the sync-decoding hint set by the decoding attribute.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "infallible",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "syncDecodingHint"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * loadImageWithChannel allows data from an existing channel to be\n   * used as the image data for this content node.\n   *\n   * @param aChannel the channel that will deliver the data\n   *\n   * @return a stream listener to pump the image data into\n   *\n   * @see imgILoader::loadImageWithChannel\n   *\n   * @throws NS_ERROR_NULL_POINTER if aChannel is null\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIStreamListener",
+                  "name": "loadImageWithChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called by layout to announce when the frame associated with this content\n   * has changed its visibility state.\n   *\n   * @param aNewVisibility    The new visibility state.\n   * @param aNonvisibleAction A requested action if the frame has become\n   *                          nonvisible. If Nothing(), no action is\n   *                          requested. If DISCARD_IMAGES is specified, the\n   *                          frame is requested to ask any images it's\n   *                          associated with to discard their surfaces if\n   *                          possible.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "onVisibilityChange",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Visibility",
+                      "name": "aNewVisibility"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "MaybeOnNonvisible",
+                          "name": "aNonvisibleAction"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

@@ -1,0 +1,422 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* Interface to the Service for gwetting the Global PrintSettings object\n   or a unique PrintSettings object\n*/"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrintSettings",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{ C++\nnamespace mozilla {\nnamespace embedding {\n  class PrintData;\n}\n}\n%}\n\n",
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Native types\n */"
+      }
+    },
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "841387C8-72E6-484b-9296-BF6EEA80D58A"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIPrintSettingsService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the default print settings as used for printing.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIPrintSettings",
+                  "name": "defaultPrintSettingsForPrinting"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Creates a new nsIPrintSettings object.\n   *\n   * Initializes the settings object from the unprefixed printer\n   * (Note: this may not happen if there is an OS specific implementation.)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIPrintSettings",
+                  "name": "createNewPrintSettings",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The name of the last printer used. Note that this may not be set, or may\n   * no longer be a valid printer. The caller is responsible for checking and\n   * falling back to some other printer (such as the system default printer).\n   *\n   * XXX: make it [infallible] when AString supports that (bug 1491187).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "lastUsedPrinterName"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initializes certain settings from the native printer into the PrintSettings\n   * if aPrinterName is null then it uses the default printer name if it can\n   * These settings include, but are not limited to:\n   *   Page Orientation\n   *   Page Size\n   *   Number of Copies\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "initPrintSettingsFromPrinter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aPrinterName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrintSettings",
+                          "name": "aPrintSettings"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Reads PrintSettings values from Prefs,\n   * the values to be read are indicated by the \"flags\" arg.\n   *\n   * aPrintSettings should be initialized with the name of a printer. First\n   * it reads in the PrintSettings from the last print job. Then it uses the\n   * PrinterName in the PrinterSettings to read any settings that were saved\n   * just for that printer.\n   *\n   * aPS - PrintSettings to have its settings read\n   * aUsePrinterNamePrefix - indicates whether to use the printer name as a prefix\n   * aFlags - indicates which prefs to read, see nsIPrintSettings.idl for the\n   *          const values.\n   *\n   * Items not read:\n   *   startPageRange, endPageRange, scaling, printRange, title\n   *   docURL, isCancelled,\n   *   printSilent, shrinkToFit, numCopies,\n   *   printerName\n   *\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "initPrintSettingsFromPrefs",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrintSettings",
+                      "name": "aPrintSettings"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aUsePrinterNamePrefix"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * As long as the pref print.save_print_settings isn't set to false, this\n   * saves to prefs the settings from aPrintSettings that are indicated by\n   * aFlags.\n   *\n   * If there is no PrinterName in the PrinterSettings\n   * the values are saved as the \"generic\" values not associated with any printer.\n   * If a PrinterName is there, then it saves the items qualified for that Printer\n   *\n   * aPS - PrintSettings to have its settings saved\n   * aFlags - indicates which prefs to save, see nsIPrintSettings.idl for the const values.\n   *\n   * Items not written:\n   *   startPageRange, endPageRange, scaling, printRange, title\n   *   docURL, isCancelled,\n   *   printSilent, shrinkToFit, numCopies\n   *\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "maybeSavePrintSettingsToPrefs",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrintSettings",
+                      "name": "aPrintSettings"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * As long as the pref print.save_print_settings isn't set to false, this\n   * saves the given printer name as the last used printer name.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "maybeSaveLastUsedPrinterNameToPrefs",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aPrinterName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given some nsIPrintSettings,\n   * populates a PrintData representing them which can be sent over IPC. Values\n   * are only ever read from aSettings and aWBP.\n   *\n   * @param aSettings\n   *        An nsIPrintSettings for a print job.\n   * @param data\n   *        Pointer to a pre-existing PrintData to populate.\n   *\n   * @return nsresult\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "SerializeToPrintData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrintSettings",
+                      "name": "aPrintSettings"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PrintDataPtr",
+                          "name": "data"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This function is the opposite of SerializeToPrintData, in that it takes\n   * a PrintData, and populates a pre-existing nsIPrintSettings with the data\n   * from PrintData.\n   *\n   * @param PrintData\n   *        Printing information sent through IPC.\n   * @param settings\n   *        A pre-existing nsIPrintSettings to populate with the PrintData.\n   *\n   * @return nsresult\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "DeserializeToPrintSettings",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "PrintDataRef",
+                      "name": "data"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrintSettings",
+                          "name": "aPrintSettings"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n// {841387C8-72E6-484b-9296-BF6EEA80D58A}\n#define NS_PRINTSETTINGSSERVICE_IID \\\n {0x841387c8, 0x72e6, 0x484b, { 0x92, 0x96, 0xbf, 0x6e, 0xea, 0x80, 0xd5, 0x8a}}\n%}\n"
+  ]
+}

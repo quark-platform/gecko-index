@@ -1,0 +1,216 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIOutputStream",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The nsIStorageStream interface maintains an internal data buffer that can be\n * filled using a single output stream.  One or more independent input streams\n * can be created to read the data from the buffer non-destructively.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "44a200fe-6c2b-4b41-b4e3-63e8c14e7c0d"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIStorageStream",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     *\n     * Initialize the stream, setting up the amount of space that will be\n     * allocated for the stream's backing-store.\n     *\n     * @param segmentSize\n     *        Size of each segment. Must be a power of two.\n     * @param maxSize\n     *        Maximum total size of this stream. length will always be less\n     *        than or equal to this value. Passing UINT32_MAX is safe.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint32_t",
+                      "name": "segmentSize"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "maxSize"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get a reference to the one and only output stream for this instance.\n     * The zero-based startPosition argument is used is used to set the initial\n     * write cursor position.  The startPosition cannot be set larger than the\n     * current buffer length.  Calling this method has the side-effect of\n     * truncating the internal buffer to startPosition bytes.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIOutputStream",
+                  "name": "getOutputStream",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int32_t",
+                      "name": "startPosition"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Create a new input stream to read data (written by the singleton output\n     * stream) from the internal buffer.  Multiple, independent input streams\n     * can be created.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIInputStream",
+                  "name": "newInputStream",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int32_t",
+                      "name": "startPosition"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The length attribute indicates the total number of bytes stored in the\n     * nsIStorageStream internal buffer, regardless of any consumption by input\n     * streams.  Assigning to the length field can be used to truncate the\n     * buffer data, but can not be used when either the instance's output\n     * stream is in use.\n     *\n     * @See #writeInProgress */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "uint32_t",
+                  "name": "length"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * True, when output stream has not yet been Close'ed\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "writeInProgress"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n// Factory method\nnsresult\nNS_NewStorageStream(uint32_t segmentSize, uint32_t maxSize, nsIStorageStream **result);\n%}\n"
+  ]
+}

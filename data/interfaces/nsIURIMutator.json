@@ -1,0 +1,752 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIObjectInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURIMutator",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n#include \"nsString.h\"\n#include \"nsCOMPtr.h\"\n#include <utility>\n\n#undef SetPort  // XXX Windows!\n\nnamespace mozilla {\nclass Encoding;\n}\n\nnamespace mozilla {\nnamespace ipc {\nclass URIParams;\n} // namespace ipc\n} // namespace mozilla\n\ntemplate <class T>\nclass BaseURIMutator\n{\n// This is the base class that can be extended by implementors of nsIURIMutator\n// in order to avoid code duplication\n// Class type T should be the type of the class that implements nsIURI\nprotected:\n  virtual T* Create()\n  {\n    return new T();\n  }\n\n  [[nodiscard]] nsresult InitFromURI(T* aURI)\n  {\n    nsCOMPtr<nsIURI> clone;\n    nsresult rv = aURI->Clone(getter_AddRefs(clone));\n    if (NS_FAILED(rv)) {\n      return rv;\n    }\n    mURI = static_cast<T*>(clone.get());\n    return NS_OK;\n  }\n\n  [[nodiscard]] nsresult InitFromInputStream(nsIObjectInputStream* aStream)\n  {\n    RefPtr<T> uri = Create();\n    nsresult rv = uri->ReadPrivate(aStream);\n    if (NS_FAILED(rv)) {\n      return rv;\n    }\n    mURI = std::move(uri);\n    return NS_OK;\n  }\n\n  [[nodiscard]] nsresult InitFromIPCParams(const mozilla::ipc::URIParams& aParams)\n  {\n    RefPtr<T> uri = Create();\n    bool ret = uri->Deserialize(aParams);\n    if (!ret) {\n      return NS_ERROR_FAILURE;\n    }\n    mURI = std::move(uri);\n    return NS_OK;\n  }\n\n  [[nodiscard]] nsresult InitFromSpec(const nsACString& aSpec)\n  {\n    nsresult rv = NS_OK;\n    RefPtr<T> uri;\n    if (mURI) {\n      // This only works because all other Init methods create a new object\n      mURI.swap(uri);\n    } else {\n      uri = Create();\n    }\n\n    rv = uri->SetSpecInternal(aSpec);\n    if (NS_FAILED(rv)) {\n      return rv;\n    }\n    mURI = std::move(uri);\n    return NS_OK;\n  }\n\n  RefPtr<T> mURI;\n};\n\n// Since most implementations of nsIURIMutator would extend BaseURIMutator,\n// some methods would have the same implementation. We provide a useful macro\n// to avoid code duplication.\n#define NS_DEFINE_NSIMUTATOR_COMMON                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  Deserialize(const mozilla::ipc::URIParams& aParams) override                \\\n  {                                                                           \\\n    return InitFromIPCParams(aParams);                                        \\\n  }                                                                           \\\n                                                                              \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  Finalize(nsIURI** aURI) override                                            \\\n  {                                                                           \\\n    mURI.forget(aURI); return NS_OK;                                          \\\n  }                                                                           \\\n                                                                              \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetSpec(const nsACString& aSpec, nsIURIMutator** aMutator) override         \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return InitFromSpec(aSpec);                                               \\\n  }                                                                           \\\n\n// Implements AddRef, Release and QueryInterface for the mutator\n#define NS_IMPL_NSIURIMUTATOR_ISUPPORTS(aClass, ...)                          \\\n  NS_IMPL_ADDREF(aClass)                                                      \\\n  NS_IMPL_RELEASE(aClass)                                                     \\\n  NS_IMPL_NSIURIMUTATOR_QUERY_INTERFACE(aClass, __VA_ARGS__)                  \\\n\n// The list of interfaces is queried and an AddRef-ed pointer is returned if\n// there is a match. Otherwise, we call QueryInterface on mURI and return.\n// The reason for this specialized QueryInterface implementation is that we\n// we want to be able to instantiate the mutator for a given CID of a\n// nsIURI implementation, call nsISerializable.Read() on the mutator to\n// deserialize the URI then QueryInterface the mutator to an nsIURI interface.\n// See bug 1442239.\n// If you QueryInterface a mutator to an interface of the URI\n// implementation this is similar to calling Finalize.\n#define NS_IMPL_NSIURIMUTATOR_QUERY_INTERFACE(aClass, ...)                    \\\n  static_assert(MOZ_ARG_COUNT(__VA_ARGS__) > 0,                               \\\n                \"Need more arguments\");                                       \\\n  NS_INTERFACE_MAP_BEGIN(aClass)                                              \\\n    nsCOMPtr<nsIURI> uri;                                                     \\\n    NS_INTERFACE_MAP_ENTRY_AMBIGUOUS(nsISupports, nsIURIMutator)              \\\n    MOZ_FOR_EACH(NS_INTERFACE_MAP_ENTRY, (), (__VA_ARGS__))                   \\\n    if (aIID.Equals(NS_GET_IID(nsIClassInfo))) {                              \\\n      foundInterface = nullptr;                                               \\\n    } else                                                                    \\\n    if (mURI &&                                                               \\\n        NS_SUCCEEDED(mURI->QueryInterface(aIID, getter_AddRefs(uri)))) {      \\\n        mURI = nullptr;                                                       \\\n        foundInterface = uri.get();                                           \\\n    } else                                                                    \\\n  NS_INTERFACE_MAP_END                                                        \\\n\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1fc53257-898b-4c5e-b69c-05bc84b4cd8f"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIURISetSpec",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This setter is different from all other setters because it may be used to\n   * initialize the object. We define it separately allowing mutator implementors\n   * to define it separately, while the rest of the setters may be simply\n   * forwarded to the mutable URI.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setSpec",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aSpec"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * These methods allow the mutator to change various parts of the URI.\n * They return the same nsIURIMutator so that we may chain setter operations:\n * Example:\n * let newURI = uri.mutate()\n *                 .setSpec(\"http://example.com\")\n *                 .setQuery(\"hello\")\n *                 .finalize();\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "5403a6ec-99d7-405e-8b45-9f805bbdfcef"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIURISetters",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIURISetSpec"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Setting the scheme outside of a protocol handler implementation is highly\n   * discouraged since that will generally lead to incorrect results.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setScheme",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setUserPass",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aUserPass"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setUsername",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aUsername"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setPassword",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aPassword"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If you setHostPort to a value that only has a host part, the port\n   * will not be reset. To reset the port set it to -1 beforehand.\n   * If setting the host succeeds, this method will return NS_OK, even if\n   * setting the port fails (error in parsing the port, or value out of range)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setHostPort",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHostPort"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setHost",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setPort",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "aPort"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setPathQueryRef",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aPathQueryRef"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setRef",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aRef"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setFilePath",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aFilePath"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setQuery",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aQuery"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "noscript",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "nsIURIMutator",
+                  "name": "setQueryWithEncoding",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "query"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "Encoding",
+                          "name": "encoding"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n\n// Using this macro instead of NS_FORWARD_SAFE_NSIURISETTERS makes chaining\n// setter operations possible.\n#define NS_FORWARD_SAFE_NSIURISETTERS_RET(_to)                                \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetScheme(const nsACString& aScheme, nsIURIMutator** aMutator) override     \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetScheme(aScheme);            \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetUserPass(const nsACString& aUserPass, nsIURIMutator** aMutator) override \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetUserPass(aUserPass);        \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetUsername(const nsACString& aUsername, nsIURIMutator** aMutator) override \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetUsername(aUsername);        \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetPassword(const nsACString& aPassword, nsIURIMutator** aMutator) override \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetPassword(aPassword);        \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetHostPort(const nsACString& aHostPort, nsIURIMutator** aMutator) override \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetHostPort(aHostPort);        \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetHost(const nsACString& aHost, nsIURIMutator** aMutator) override         \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetHost(aHost);                \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetPort(int32_t aPort, nsIURIMutator** aMutator) override                   \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetPort(aPort);                \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetPathQueryRef(const nsACString& aPathQueryRef, nsIURIMutator** aMutator) override \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetPathQueryRef(aPathQueryRef); \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetRef(const nsACString& aRef, nsIURIMutator** aMutator) override           \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetRef(aRef);                  \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetFilePath(const nsACString& aFilePath, nsIURIMutator** aMutator) override \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetFilePath(aFilePath);        \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetQuery(const nsACString& aQuery, nsIURIMutator** aMutator) override       \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetQuery(aQuery);              \\\n  }                                                                           \\\n  [[nodiscard]] NS_IMETHOD                                                    \\\n  SetQueryWithEncoding(const nsACString& query, const mozilla::Encoding *encoding, nsIURIMutator** aMutator) override \\\n  {                                                                           \\\n    if (aMutator) NS_ADDREF(*aMutator = this);                                \\\n    return !_to ? NS_ERROR_NULL_POINTER : _to->SetQueryWithEncoding(query, encoding); \\\n  }                                                                           \\\n\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "4d1f3103-1c44-4dcd-b717-5d22a697a7d9"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIURIMutator",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIURISetters"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initalizes the URI by reading IPC URIParams.\n   * See nsIURI.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "must_use",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "nsresult",
+                  "name": "deserialize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "const_URIParams_ref",
+                      "name": "aParams"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Finishes changing or constructing the URI and returns an immutable URI.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIURI",
+                  "name": "finalize",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n\n// This templated struct is used to extract the class type of the method\ntemplate <typename Method>\nstruct nsMethodTypeTraits;\n\ntemplate <class C, typename R, typename... As>\nstruct nsMethodTypeTraits<R(C::*)(As...)>\n{\n  typedef C class_type;\n};\n\n#ifdef NS_HAVE_STDCALL\ntemplate <class C, typename R, typename... As>\nstruct nsMethodTypeTraits<R(__stdcall C::*)(As...)>\n{\n  typedef C class_type;\n};\n#endif\n\n\n// This class provides a useful helper that allows chaining of setter operations\nclass MOZ_STACK_CLASS NS_MutateURI\n{\npublic:\n  explicit NS_MutateURI(nsIURI* aURI);\n  explicit NS_MutateURI(const char * aContractID);\n\n  explicit NS_MutateURI(nsIURIMutator* m)\n  {\n    mStatus = m ? NS_OK : NS_ERROR_NULL_POINTER;\n    mMutator = m;\n    NS_ENSURE_SUCCESS_VOID(mStatus);\n  }\n\n  NS_MutateURI& SetSpec(const nsACString& aSpec)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetSpec(aSpec, nullptr);\n    return *this;\n  }\n  NS_MutateURI& SetScheme(const nsACString& aScheme)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetScheme(aScheme, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetUserPass(const nsACString& aUserPass)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetUserPass(aUserPass, nullptr);\n    return *this;\n  }\n  NS_MutateURI& SetUsername(const nsACString& aUsername)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetUsername(aUsername, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetPassword(const nsACString& aPassword)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetPassword(aPassword, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetHostPort(const nsACString& aHostPort)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetHostPort(aHostPort, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetHost(const nsACString& aHost)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetHost(aHost, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetPort(int32_t aPort)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetPort(aPort, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetPathQueryRef(const nsACString& aPathQueryRef)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetPathQueryRef(aPathQueryRef, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetRef(const nsACString& aRef)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetRef(aRef, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetFilePath(const nsACString& aFilePath)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetFilePath(aFilePath, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetQuery(const nsACString& aQuery)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetQuery(aQuery, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n  NS_MutateURI& SetQueryWithEncoding(const nsACString& query, const mozilla::Encoding *encoding)\n  {\n    if (NS_FAILED(mStatus)) {\n      return *this;\n    }\n    mStatus = mMutator->SetQueryWithEncoding(query, encoding, nullptr);\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    return *this;\n  }\n\n  /**\n   * This method allows consumers to call the methods declared in other\n   * interfaces implemented by the mutator object.\n   *\n   * Example:\n   * nsCOMPtr<nsIURI> uri;\n   * nsresult rv = NS_MutateURI(new URIClass::Mutator())\n   *                 .SetSpec(aSpec)\n   *                 .Apply(&SomeInterface::Method, arg1, arg2)\n   *                 .Finalize(uri);\n   *\n   * If mMutator does not implement SomeInterface, do_QueryInterface will fail\n   * and the method will not be called.\n   * If aMethod does not exist, or if there is a mismatch between argument\n   * types, or the number of arguments, then there will be a compile error.\n   */\n  template <typename Method, typename... Args>\n  NS_MutateURI& Apply(Method aMethod, Args&&... aArgs)\n  {\n    typedef typename nsMethodTypeTraits<Method>::class_type Interface;\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    nsCOMPtr<Interface> target = do_QueryInterface(mMutator, &mStatus);\n    MOZ_ASSERT(NS_SUCCEEDED(mStatus), \"URL object must implement interface\");\n    NS_ENSURE_SUCCESS(mStatus, *this);\n    mStatus = (target->*aMethod)(std::forward<Args>(aArgs)...);\n    return *this;\n  }\n\n  template <class C>\n  [[nodiscard]] nsresult Finalize(nsCOMPtr<C>& aURI)\n  {\n    NS_ENSURE_SUCCESS(mStatus, mStatus);\n\n    nsCOMPtr<nsIURI> uri;\n    mStatus = mMutator->Finalize(getter_AddRefs(uri));\n    NS_ENSURE_SUCCESS(mStatus, mStatus);\n\n    aURI = do_QueryInterface(uri, &mStatus);\n    NS_ENSURE_SUCCESS(mStatus, mStatus);\n\n    mStatus = NS_ERROR_NOT_AVAILABLE; // Second call to Finalize should fail.\n    return NS_OK;\n  }\n\n  // Overload for nsIURI to avoid query interface.\n  [[nodiscard]] nsresult Finalize(nsCOMPtr<nsIURI>& aURI)\n  {\n    if (NS_FAILED(mStatus)) return mStatus;\n    mStatus = mMutator->Finalize(getter_AddRefs(aURI));\n    NS_ENSURE_SUCCESS(mStatus, mStatus);\n\n    mStatus = NS_ERROR_NOT_AVAILABLE; // Second call to Finalize should fail.\n    return NS_OK;\n  }\n\n  template <class C>\n  [[nodiscard]] nsresult Finalize(C** aURI)\n  {\n    NS_ENSURE_SUCCESS(mStatus, mStatus);\n\n    nsCOMPtr<nsIURI> uri;\n    mStatus = mMutator->Finalize(getter_AddRefs(uri));\n    NS_ENSURE_SUCCESS(mStatus, mStatus);\n\n    nsCOMPtr<C> result = do_QueryInterface(uri, &mStatus);\n    NS_ENSURE_SUCCESS(mStatus, mStatus);\n\n    result.forget(aURI);\n    mStatus = NS_ERROR_NOT_AVAILABLE; // Second call to Finalize should fail.\n    return NS_OK;\n  }\n\n  [[nodiscard]] nsresult Finalize(nsIURI** aURI)\n  {\n    if (NS_FAILED(mStatus)) return mStatus;\n    mStatus = mMutator->Finalize(aURI);\n    NS_ENSURE_SUCCESS(mStatus, mStatus);\n\n    mStatus = NS_ERROR_NOT_AVAILABLE; // Second call to Finalize should fail.\n    return NS_OK;\n  }\n\n  nsresult GetStatus() { return mStatus; }\nprivate:\n  nsresult mStatus;\n  nsCOMPtr<nsIURIMutator> mMutator;\n};\n\n%}\n"
+  ]
+}

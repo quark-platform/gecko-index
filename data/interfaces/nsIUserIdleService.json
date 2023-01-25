@@ -1,0 +1,188 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIObserver",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This interface lets you monitor how long the user has been 'idle',\n * i.e. not used their mouse or keyboard. You can get the idle time directly,\n * but in most cases you will want to register an observer for a predefined\n * interval. The observer will get an 'idle' notification when the user is idle\n * for that interval (or longer), and receive an 'active' notification when the\n * user starts using their computer again.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "cc52f19a-63ae-4a1c-9cc3-e79eace0b471"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIUserIdleService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The amount of time in milliseconds that has passed\n     * since the last user activity.\n     *\n     * If we do not have a valid idle time to report, 0 is returned\n     * (this can happen if the user never interacted with the browser\n     * at all, and if we are also unable to poll for idle time manually).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "idleTime"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Add an observer to be notified when the user idles for some period of\n     * time, and when they get back from that.\n     *\n     * @param observer the observer to be notified\n     * @param time the amount of time in seconds the user should be idle before\n     *             the observer should be notified.\n     *\n     * @note\n     * The subject of the notification the observer will get is always the\n     * nsIUserIdleService itself.\n     * When the user goes idle, the observer topic is \"idle\" and when he gets\n     * back, the observer topic is \"active\".\n     * The data param for the notification contains the current user idle time.\n     *\n     * @note\n     * You can add the same observer twice.\n     * @note\n     * Most implementations need to poll the OS for idle info themselves,\n     * meaning your notifications could arrive with a delay up to the length\n     * of the polling interval in that implementation.\n     * Current implementations use a delay of 5 seconds.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addIdleObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIObserver",
+                      "name": "observer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "time"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Remove an observer registered with addIdleObserver.\n     * @param observer the observer that needs to be removed.\n     * @param time the amount of time they were listening for.\n     * @note\n     * Removing an observer will remove it once, for the idle time you specify.\n     * If you have added an observer multiple times, you will need to remove it\n     * just as many times.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeIdleObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIObserver",
+                      "name": "observer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "time"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If true, the idle service is temporarily disabled, and all idle events\n     * will be ignored.\n     *\n     * This should only be used in automation.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "disabled"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n    /**\n     * Observer topic notification for idle window: OBSERVER_TOPIC_IDLE.\n     * Observer topic notification for active window: OBSERVER_TOPIC_ACTIVE.\n     */\n\n    #define OBSERVER_TOPIC_IDLE \"idle\"\n    #define OBSERVER_TOPIC_ACTIVE \"active\"\n    #define OBSERVER_TOPIC_IDLE_DAILY \"idle-daily\"\n%}\n"
+  ]
+}

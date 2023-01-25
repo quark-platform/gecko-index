@@ -1,0 +1,1732 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISerializable"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIContentPolicy"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEventTarget",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoadInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrincipal",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICSPEventListener",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIContentSecurityPolicy\n * Describes an XPCOM component used to model and enforce CSPs.  Instances of\n * this class may have multiple policies within them, but there should only be\n * one of these per document/principal.\n */"
+      }
+    },
+    "%{C++\nclass nsCSPPolicy;\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1d632008-6c97-48ae-a51c-16e2daa0f4f6"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIContentSecurityPolicy",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISerializable"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Directives supported by Content Security Policy.  These are enums for\n   * the CSPDirective type.\n   * The NO_DIRECTIVE entry is  used for checking default permissions and\n   * returning failure when asking CSP which directive to check.\n   *\n   * NOTE: When implementing a new directive, you will need to add it here but also\n   * add it to the CSPStrDirectives array in nsCSPUtils.h.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "CSPDirective",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "NO_DIRECTIVE",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "0"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DEFAULT_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "1"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "SCRIPT_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "OBJECT_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "3"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "STYLE_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "4"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "IMG_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "5"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "MEDIA_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "6"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "FRAME_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "7"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "FONT_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "8"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "CONNECT_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "9"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "REPORT_URI_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "10"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "FRAME_ANCESTORS_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "11"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "REFLECTED_XSS_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "12"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "BASE_URI_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "13"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "FORM_ACTION_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "14"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "WEB_MANIFEST_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "15"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "UPGRADE_IF_INSECURE_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "16"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "CHILD_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "17"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "BLOCK_ALL_MIXED_CONTENT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "18"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "SANDBOX_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "19"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "WORKER_SRC_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "20"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "NAVIGATE_TO_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "21"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "SCRIPT_SRC_ELEM_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "22"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "SCRIPT_SRC_ATTR_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "23"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "STYLE_SRC_ELEM_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "24"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "STYLE_SRC_ATTR_DIRECTIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "25"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Accessor method for a read-only string version of the policy at a given\n   * index.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "binaryname",
+                      "param": {
+                        "kind": "attribute_$0",
+                        "value": "GetPolicyString"
+                      }
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "AString",
+                  "name": "getPolicy",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "index"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Accessor method for a read-only pointer the policy object at a given\n   * index. Returns a null pointer if the index is larger than the current\n   * policy count.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "CSPPolicyPtr",
+                  "name": "GetPolicy",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "index"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the number of policies attached to this CSP instance.  Useful with\n   * getPolicy().\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "policyCount"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns whether this policy uses the directive upgrade-insecure-requests.\n   * Please note that upgrade-insecure-reqeusts also applies if the parent or\n   * including document (context) makes use of the directive.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "bool",
+                  "name": "upgradeInsecureRequests"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns whether this policy uses the directive block-all-mixed-content.\n   * Please note that block-all-mixed-content takes presedence in case the\n   * directive upgrade-insecure-requests is defined in the same policy and\n   * will therefore block all mixed content without even trying to perform\n   * an upgrade.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "bool",
+                  "name": "blockAllMixedContent"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns whether this policy enforces the frame-ancestors directive.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "bool",
+                  "name": "enforcesFrameAncestors"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Parse and install a CSP policy.\n   * @param aPolicy\n   *        String representation of the policy\n   *        (e.g., header value, meta content)\n   * @param reportOnly\n   *        Should this policy affect content, script and style processing or\n   *        just send reports if it is violated?\n   * @param deliveredViaMetaTag\n   *        Indicates whether the policy was delivered via the meta tag.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "appendPolicy",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "policyString"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "reportOnly"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "deliveredViaMetaTag"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Whether this policy allows inline script or style.\n   * @param aContentPolicyType Either SCRIPT_SRC_(ELEM|ATTR)_DIRECTIVE or\n   *                           STYLE_SRC_(ELEM|ATTR)_DIRECTIVE.\n   * @param aHasUnsafeHash Only hash this when the 'unsafe-hashes' directive is\n   *                       also specified.\n   * @param aNonce The nonce string to check against the policy\n   * @param aParserCreated If the script element was created by the HTML Parser\n   * @param aTriggeringElement The script element of the inline resource to\n   *        hash. It can be null.\n   * @param aContentOfPseudoScript The content of the psuedo-script to compare\n   *                               to hash (and compare to the hashes listed in\n   *                               the policy)\n   * @param aLineNumber The line number of the inline resource\n   *        (used for reporting)\n   * @param aColumnNumber The column number of the inline resource\n   *        (used for reporting)\n   * @return\n   *     Whether or not the effects of the inline style should be allowed\n   *     (block the rules if false).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "getAllowsInline",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIContentSecurityPolicy_CSPDirective",
+                      "name": "aDirective"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aHasUnsafeHash"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aNonce"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aParserCreated"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "Element",
+                          "name": "aTriggeringElement"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICSPEventListener",
+                          "name": "aCSPEventListener"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aContentOfPseudoScript"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aLineNumber"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aColumnNumber"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Whether this policy allows a navigation subject to the navigate-to\n   * policy.\n   * @param aURI The target URI\n   * @param aIsFormSubmission True if the navigation was initiated by a form submission. This\n   *        is important since the form-action directive overrides navigate-to in that case.\n   * @param aWasRedirect True if a redirect has happened. Important for path-sensitivity.\n   * @param aEnforceAllowlist True if the allowlist of allowed targets must be enforced. If\n   *        this is true, the allowlist must be enforced even if 'unsafe-allow-redirects' is\n   *        used. If 'unsafe-allow-redirects' is not used then the allowlist is always enforced\n   * @return\n   *     Whether or not the effects of the navigation is allowed\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "getAllowsNavigateTo",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsFormSubmission"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aWasRedirected"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aEnforceAllowlist"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether this policy allows eval and eval-like functions\n   * such as setTimeout(\"code string\", time).\n   * @param shouldReportViolations\n   *     Whether or not the use of eval should be reported.\n   *     This function returns \"true\" when violating report-only policies, but\n   *     when any policy (report-only or otherwise) is violated,\n   *     shouldReportViolations is true as well.\n   * @return\n   *     Whether or not the effects of the eval call should be allowed\n   *     (block the call if false).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "getAllowsEval",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "boolean",
+                      "name": "shouldReportViolations"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether this policy allows the evaluation (and compilation) of\n   * WASM code from functions like `WebAssembly.compile`.\n  * @param shouldReportViolations\n   *     Whether or not the use of WASM evaluation should be reported.\n   *     This function returns \"true\" when violating report-only policies, but\n   *     when any policy (report-only or otherwise) is violated,\n   *     shouldReportViolations is true as well.\n   * @return\n   *     Whether or not the effects of the WASM evaluation should be allowed\n   *     (block the call if false).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "getAllowsWasmEval",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "boolean",
+                      "name": "shouldReportViolations"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Delegate method called by the service when the protected document is loaded.\n   * Returns the union of all the sandbox flags contained in CSP policies. This is the most\n   * restrictive interpretation of flags set in multiple policies.\n   * See nsSandboxFlags.h for the possible flags.\n   *\n   * @return\n   *    sandbox flags or SANDBOXED_NONE if no sandbox directive exists\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "uint32_t",
+                  "name": "getCSPSandboxFlags",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * For each violated policy (of type violationType), log policy violation on\n   * the Error Console and send a report to report-uris present in the violated\n   * policies.\n   *\n   * @param violationType\n   *     one of the VIOLATION_TYPE_* constants, e.g. eval or wasm-eval\n   * @param triggeringElement\n   *     the element that triggers this CSP violation. It can be null.\n   * @param sourceFile\n   *     name of the source file containing the violation (if available)\n   * @param contentSample\n   *     sample of the violating content (to aid debugging)\n   * @param lineNum\n   *     source line number of the violation (if available)\n   * @param columnNum\n   *     source column number of the violation (if available)\n   * @param aNonce\n   *     (optional) If this is a nonce violation, include the nonce so we can\n   *     recheck to determine which policies were violated and send the\n   *     appropriate reports.\n   * @param aContent\n   *     (optional) If this is a hash violation, include contents of the inline\n   *     resource in the question so we can recheck the hash in order to\n   *     determine which policies were violated and send the appropriate\n   *     reports.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "logViolationDetails",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned short",
+                      "name": "violationType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "Element",
+                          "name": "triggeringElement"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICSPEventListener",
+                          "name": "aCSPEventListener"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "sourceFile"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "scriptSample"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "lineNum"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "columnNum"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "nonce"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "content"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned short",
+                  "name": "VIOLATION_TYPE_EVAL",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned short",
+                  "name": "VIOLATION_TYPE_WASM_EVAL",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called after the CSP object is created to fill in appropriate request\n   * context. Either use\n   *  * aDocument (preferred), or if no document is available, then provide\n   *  * aPrincipal, aSelfURI, aReferrer, aInnerWindowId explicitly.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setRequestContextWithDocument",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Document",
+                      "name": "aDocument"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setRequestContextWithPrincipal",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "aRequestPrincipal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aSelfURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aReferrer"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long long",
+                          "name": "aInnerWindowId"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the various arguments needed to create a new request context for a CSP.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIPrincipal",
+                  "name": "requestPrincipal"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "selfURI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "referrer"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long long",
+                  "name": "innerWindowID"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Warning: Do not set that attribute unless you know exactly what you are doing!\n   *\n   * Primarily used to allow Devtools to edit inline styles!\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "skipAllowInlineStyleCheck"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Ensure we have a nsIEventTarget to use to label CSPReportSenderRunnable\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "ensureEventTarget",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIEventTarget",
+                      "name": "aEventTarget"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Verifies ancestry as permitted by the policy.\n   *\n   * NOTE: Calls to this may trigger violation reports when queried, so this\n   * value should not be cached.\n   *\n   * @param aLoadInfo\n   *    The loadinfo of the channel containing the protected resource\n   * @return\n   *    true if the frame's ancestors are all allowed by policy (except for\n   *    report-only policies, which will send reports and then return true\n   *    here when violated).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "permitsAncestry",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsILoadInfo",
+                      "name": "aLoadInfo"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Checks if a specific directive permits loading of a URI.\n   *\n   * @param aTriggeringElement\n   *    The element that triggers this CSP check. It can be null.\n   * @param aURI\n   *    The URI about to be loaded or used.\n   * @param aDir\n   *    The CSPDirective to query (see above constants *_DIRECTIVE).\n   * @param aSpecific\n   *    If \"true\" and the directive is specified to fall back to \"default-src\"\n   *    when it's not explicitly provided, directivePermits will NOT try\n   *    default-src when the specific directive is not used.  Setting this to\n   *    \"false\" allows CSP to fall back to default-src.  This function\n   *    behaves the same for both values of canUseDefault when querying\n   *    directives that don't fall-back.\n   * @param aSendViolationReports\n   *    If `true` and the uri is not allowed then trigger violation reports.\n   *    This should be `false` for caching or preloads.\n   * @return\n   *    Whether or not the provided URI is allowed by CSP under the given\n   *    directive. (block the pending operation if false).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "permits",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Element",
+                      "name": "aTriggeringElement"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICSPEventListener",
+                          "name": "aCSPEventListener"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIContentSecurityPolicy_CSPDirective",
+                          "name": "aDir"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aSpecific"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aSendViolationReports"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Delegate method called by the service when sub-elements of the protected\n   * document are being loaded.  Given a bit of information about the request,\n   * decides whether or not the policy is satisfied.\n   *\n   * Calls to this may trigger violation reports when queried, so\n   * this value should not be cached.\n   *\n   * aOriginalURIIfRedirect must be passed only if this loading is the result\n   * of a redirect. In this case, aOriginalURIIfRedirect must be the original\n   * URL.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "short",
+                  "name": "shouldLoad",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsContentPolicyType",
+                      "name": "aContentType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICSPEventListener",
+                          "name": "aCSPEventListener"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aContentLocation"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aOriginalURIIfRedirect"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aSendViolationReports"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aNonce"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aParserCreated"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{ C++\n// nsIObserver topic to fire when the policy encounters a violation.\n#define CSP_VIOLATION_TOPIC \"csp-on-violate-policy\"\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the CSP in JSON notation.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "toJSON",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "typedef"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* Listener for security policy violation event */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "function",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "c3163b14-3a8f-46dd-a4af-bd04680364cd"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICSPEventListener",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onCSPViolationEvent",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aJSON"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

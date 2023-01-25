@@ -1,0 +1,215 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Helper interface for nsIProfileMigrator.\n *\n * @provider Toolkit (Startup code)\n * @client   Application (Profile-migration code)\n * @obtainable nsIProfileMigrator.migrate\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "048e5ca1-0eb7-4bb1-a9a2-a36f7d4e0e3c"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIProfileStartup",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The root directory of the semi-current profile, during profile migration.\n   * After nsIProfileMigrator.migrate has returned, this object will not be\n   * useful.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIFile",
+                  "name": "directory"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Do profile-startup by setting NS_APP_USER_PROFILE_50_DIR in the directory\n   * service and notifying the profile-startup observer topics.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "doStartup",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Migrate application settings from an outside source.\n *\n * @provider Application (Profile-migration code)\n * @client   Toolkit (Startup code)\n * @obtainable service, contractid(\"@mozilla.org/toolkit/profile-migrator;1\")\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "3df284a5-2258-4d46-a664-761ecdc04c22"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIProfileMigrator",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Migrate data from an outside source, if possible.  Does nothing\n   * otherwise.\n   *\n   * When this method is called, a default profile has been created;\n   * XPCOM has been initialized such that compreg.dat is in the\n   * profile; the directory service does *not* return a key for\n   * NS_APP_USER_PROFILE_50_DIR or any of the keys depending on an active\n   * profile. To figure out the directory of the \"current\" profile, use\n   * aStartup.directory.\n   *\n   * If your migrator needs to access services that use the profile (to\n   * set profile prefs or bookmarks, for example), use aStartup.doStartup.\n   *\n   * @param  aStartup nsIProfileStartup object to use during migration.\n   * @param  aKey     optional key of a migrator to use to skip source selection.\n   * @param  aProfileName optional name of the profile to use for migration.\n   *\n   * @note The startup code ignores COM exceptions thrown from this method.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "migrate",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIProfileStartup",
+                      "name": "aStartup"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aKey"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aProfileName"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n#define NS_PROFILEMIGRATOR_CONTRACTID \"@mozilla.org/toolkit/profile-migrator;1\"\n%}\n"
+  ]
+}

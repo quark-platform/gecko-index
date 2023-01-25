@@ -1,0 +1,282 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIAuthPromptCallback",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICancelable",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIAuthInformation",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface allowing to prompt for a username and password. This interface\n * is usually acquired using getInterface on notification callbacks or similar.\n * It can be used to prompt users for authentication information, either\n * synchronously or asynchronously.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "651395EB-8612-4876-8AC0-A88D4DCE9E1E"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIAuthPrompt2",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** @name Security Levels */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* @{ */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The password will be sent unencrypted. No security provided.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "LEVEL_NONE",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Password will be sent encrypted, but the connection is otherwise\n   * insecure.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "LEVEL_PW_ENCRYPTED",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The connection, both for password and data, is secure.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "LEVEL_SECURE",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* @} */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Requests a username and a password. Implementations will commonly show a\n   * dialog with a username and password field, depending on flags also a\n   * domain field.\n   *\n   * @param aChannel\n   *        The channel that requires authentication.\n   * @param level\n   *        One of the level constants from above. See there for descriptions\n   *        of the levels.\n   * @param authInfo\n   *        Authentication information object. The implementation should fill in\n   *        this object with the information entered by the user before\n   *        returning.\n   *\n   * @retval true\n   *         Authentication can proceed using the values in the authInfo\n   *         object.\n   * @retval false\n   *         Authentication should be cancelled, usually because the user did\n   *         not provide username/password.\n   *\n   * @note   Exceptions thrown from this function will be treated like a\n   *         return value of false.\n   * @deprecated use asyncPromptAuth\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "promptAuth",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "level"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIAuthInformation",
+                          "name": "authInfo"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously prompt the user for a username and password.\n   * This has largely the same semantics as promptUsernameAndPassword(),\n   * but must return immediately after calling and return the entered\n   * data in a callback.\n   *\n   * If the user closes the dialog using a cancel button or similar,\n   * the callback's nsIAuthPromptCallback::onAuthCancelled method must be\n   * called.\n   * Calling nsICancelable::cancel on the returned object SHOULD close the\n   * dialog and MUST call nsIAuthPromptCallback::onAuthCancelled on the provided\n   * callback.\n   *\n   * This implementation may:\n   *\n   *  1) Coalesce identical prompts.  This means prompts that are guaranteed to\n   *     want the same auth information from the user.  A single prompt will be\n   *     shown; then the callbacks for all the coalesced prompts will be notified\n   *     with the resulting auth information.\n   *  2) Serialize prompts that are all in the same \"context\" (this might mean\n   *     application-wide, for a given window, or something else depending on\n   *     the user interface) so that the user is not deluged with prompts.\n   *\n   * @throw\n   *     This method may throw any exception when the prompt fails to queue e.g\n   *     because of out-of-memory error. It must not throw when the prompt\n   *     could already be potentially shown to the user. In that case information\n   *     about the failure has to come through the callback. This way we\n   *     prevent multiple dialogs shown to the user because consumer may fall\n   *     back to synchronous prompt on synchronous failure of this method.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsICancelable",
+                  "name": "asyncPromptAuth",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIAuthPromptCallback",
+                          "name": "aCallback"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "aContext"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "level"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIAuthInformation",
+                          "name": "authInfo"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

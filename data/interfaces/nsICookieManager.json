@@ -1,0 +1,1102 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsICookie"
+    },
+    "%{ C++\nnamespace mozilla {\nclass OriginAttributes;\n} // mozilla namespace\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An optional interface for accessing or removing the cookies\n * that are in the cookie list\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "AAAB6710-0F2C-11d5-A53B-0010A401EB10"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICookieManager",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to remove all cookies from the cookie list\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeAll",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns an array of cookies in the cookie list.\n   * The objects in the array are of type nsICookie\n   * This array only contains non-private browsing cookies.\n   * To retrieve an array of private browsing cookies, use\n   * getCookiesWithOriginAttributes.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "cookies"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns an array of session cookies in the cookie list.\n   * The objects in the array are of type nsICookie\n   * This array only contains non-private browsing cookies.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "sessionCookies"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns current effective value of the cookieBehavior. It will return the\n   * different pref according to the aIsPrivate. If aIsPrivate is true, it will\n   * return the pref \"network.cookie.cookieBehavior\". Otherwise, it will return\n   * the pref \"network.cookie.cookieBehavior.pbmode\"\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "uint32_t",
+                  "name": "getCookieBehavior",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aIsPrivate"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n    static uint32_t GetCookieBehavior(bool aIsPrivate);\n  %}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to remove an individual cookie from the cookie list, specified\n   * by host, name, and path. If the cookie cannot be found, no exception\n   * is thrown. Typically, the arguments to this method will be obtained\n   * directly from the desired nsICookie object.\n   *\n   * @param aHost The host or domain for which the cookie was set. @see\n   *              nsICookieManager::add for a description of acceptable host\n   *              strings. If the target cookie is a domain cookie, a leading\n   *              dot must be present.\n   * @param aName The name specified in the cookie\n   * @param aPath The path for which the cookie was set\n   * @param aOriginAttributes The originAttributes of this cookie.\n   *\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "remove",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aPath"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aOriginAttributes"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsresult",
+                  "name": "removeNative",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aPath"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "OriginAttributesPtr",
+                          "name": "aOriginAttributes"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Add a cookie. nsICookieService is the normal way to do this. This\n   * method is something of a backdoor.\n   *\n   * @param aHost\n   *        the host or domain for which the cookie is set. presence of a\n   *        leading dot indicates a domain cookie; otherwise, the cookie\n   *        is treated as a non-domain cookie (see RFC2109). The host string\n   *        will be normalized to ASCII or ACE; any trailing dot will be\n   *        stripped. To be a domain cookie, the host must have at least two\n   *        subdomain parts (e.g. '.foo.com', not '.com'), otherwise an\n   *        exception will be thrown. An empty string is acceptable\n   *        (e.g. file:// URI's).\n   * @param aPath\n   *        path within the domain for which the cookie is valid\n   * @param aName\n   *        cookie name\n   * @param aValue\n   *        cookie data\n   * @param aIsSecure\n   *        true if the cookie should only be sent over a secure connection.\n   * @param aIsHttpOnly\n   *        true if the cookie should only be sent to, and can only be\n   *        modified by, an http connection.\n   * @param aIsSession\n   *        true if the cookie should exist for the current session only.\n   *        see aExpiry.\n   * @param aExpiry\n   *        expiration date, in seconds since midnight (00:00:00), January 1,\n   *        1970 UTC. note that expiry time will also be honored for session cookies;\n   *        in this way, the more restrictive of the two will take effect.\n   * @param aOriginAttributes\n   *        the originAttributes of this cookie.\n   * @param aSameSite\n   *        the SameSite attribute.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "add",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aPath"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aValue"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsSecure"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsHttpOnly"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsSession"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int64_t",
+                          "name": "aExpiry"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aOriginAttributes"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "aSameSite"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICookie_schemeType",
+                          "name": "aSchemeMap"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsresult",
+                  "name": "addNative",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aPath"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aValue"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsSecure"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsHttpOnly"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsSession"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int64_t",
+                          "name": "aExpiry"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "OriginAttributesPtr",
+                          "name": "aOriginAttributes"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "aSameSite"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICookie_schemeType",
+                          "name": "aSchemeMap"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Find whether a given cookie already exists.\n   *\n   * @param aHost\n   *        the cookie's host to look for\n   * @param aPath\n   *        the cookie's path to look for\n   * @param aName\n   *        the cookie's name to look for\n   * @param aOriginAttributes\n   *        the cookie's originAttributes to look for\n   *\n   * @return true if a cookie was found which matches the host, path, name and\n   *         originAttributes fields of aCookie\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "cookieExists",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aPath"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aOriginAttributes"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsresult",
+                  "name": "cookieExistsNative",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aPath"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "OriginAttributesPtr",
+                          "name": "aOriginAttributes"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "aExists"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get a specific cookie by host, path, name and OriginAttributes.\n   *\n   * @param aHost\n   *        the cookie's host to look for\n   * @param aPath\n   *        the cookie's path to look for\n   * @param aName\n   *        the cookie's name to look for\n   * @param aOriginAttributes\n   *        the cookie's originAttributes to look for\n   *\n   * @return cookie matching the arguments or nullptr if not existing.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsresult",
+                  "name": "getCookieNative",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aPath"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "OriginAttributesPtr",
+                          "name": "aOriginAttributes"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "nsICookie",
+                          "name": "aCookie"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Count how many cookies exist within the base domain of 'aHost'.\n   * Thus, for a host \"weather.yahoo.com\", the base domain would be \"yahoo.com\",\n   * and any host or domain cookies for \"yahoo.com\" and its subdomains would be\n   * counted.\n   *\n   * @param aHost\n   *        the host string to search for, e.g. \"google.com\". this should consist\n   *        of only the host portion of a URI. see @add for a description of\n   *        acceptable host strings.\n   *\n   * @return the number of cookies found.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "countCookiesFromHost",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns an array of cookies that exist within the base domain of\n   * 'aHost'. Thus, for a host \"weather.yahoo.com\", the base domain would be\n   * \"yahoo.com\", and any host or domain cookies for \"yahoo.com\" and its\n   * subdomains would be returned.\n   *\n   * @param aHost\n   *        the host string to search for, e.g. \"google.com\". this should consist\n   *        of only the host portion of a URI. see @add for a description of\n   *        acceptable host strings.\n   * @param aOriginAttributes The originAttributes of cookies that would be\n   *                          retrived.\n   *\n   * @return an array of nsICookie objects.\n   *\n   * @see countCookiesFromHost\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getCookiesFromHost",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aOriginAttributes"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns an array of all cookies whose origin attributes matches aPattern\n   *\n   * @param aPattern origin attribute pattern in JSON format\n   *\n   * @param aHost\n   *        the host string to search for, e.g. \"google.com\". this should consist\n   *        of only the host portion of a URI. see @add for a description of\n   *        acceptable host strings. This attribute is optional. It will search\n   *        all hosts if this attribute is not given.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getCookiesWithOriginAttributes",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aPattern"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aHost"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Remove all the cookies whose origin attributes matches aPattern\n   *\n   * @param aPattern origin attribute pattern in JSON format\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeCookiesWithOriginAttributes",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aPattern"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aHost"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Remove all the cookies whose origin attributes matches aPattern and the\n   * host is exactly aHost (without subdomain matching).\n   *\n   * @param aHost the host to match\n   * @param aPattern origin attribute pattern in JSON format\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeCookiesFromExactHost",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aPattern"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Removes all cookies that were created on or after aSinceWhen, and returns\n   * a Promise which will be resolved when the last such cookie has been\n   * removed.\n   *\n   * @param aSinceWhen the starting point in time after which no cookies should\n   *        be created when the Promise returned from this method is resolved.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "removeAllSince",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int64_t",
+                      "name": "aSinceWhen"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieves all the cookies that were created on or after aSinceWhen, order\n   * by creation time */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getCookiesSince",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int64_t",
+                      "name": "aSinceWhen"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

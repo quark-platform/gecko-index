@@ -1,0 +1,333 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n  Description: Currently only functions to enhance plain text with HTML tags.\n  <p>\n  Wrapper class for various parsing routines, that convert plain text to HTML.\n  They try to recognize cites, URLs, plain text formattting like *bold* etc.\n  See <http://www.bucksch.org/1/projects/mozilla/16507/> for a description.\n */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIStreamConverter"
+    },
+    "%{C++\n// {77c0e42a-1dd2-11b2-8ebf-edc6606f2f4b}\n#define MOZITXTTOHTMLCONV_CID \\\n    { 0x77c0e42a, 0x1dd2, 0x11b2, \\\n    { 0x8e, 0xbf, 0xed, 0xc6, 0x60, 0x6f, 0x2f, 0x4b } }\n\n#define MOZ_TXTTOHTMLCONV_CONTRACTID \\\n  \"@mozilla.org/txttohtmlconv;1\"\n\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "77c0e42a-1dd2-11b2-8ebf-edc6606f2f4b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "mozITXTToHTMLConv",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIStreamConverter"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "kEntities",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "kURLs",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "kGlyphSubstitution",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "kStructPhrase",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  @param text: plain text to scan. May be a line, paragraph (recommended)\n               or just a substring.<p>\n               Must be non-escaped, pure unicode.<p>\n               <em>Note:</em> ScanTXT(a, o) + ScanTXT(b, o) may be !=\n               Scan(a + b, o)\n  @param whattodo: Bitfield describing the modes of operation\n  @result      \"<\", \">\" and \"&\" are escaped and HTML tags are inserted where\n               appropriate.\n */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "scanTXT",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "text"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "whattodo"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  Adds additional formatting to user edited text, that the user was too lazy\n  or \"unknowledged\" (DELETEME: is that a word?) to make.\n  <p>\n  <em>Note:</em> Don't use kGlyphSubstitution with this function. This option\n  generates tags, that are unuseable for UAs other than Mozilla. This would\n  be a data loss bug.\n\n  @param text: HTML source to scan. May be a line, paragraph (recommended)\n               or just a substring.<p>\n               Must be correct HTML. \"<\", \">\" and \"&\" must be escaped,\n               other chars must be pure unicode.<p>\n               <em>Note:</em> ScanTXT(a, o) + ScanTXT(b, o) may be !=\n               Scan(a + b, o)\n  @param whattodo: Bitfield describing the modes of operation\n  @result      Additional HTML tags are inserted where appropriate.\n */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "scanHTML",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "text"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "whattodo"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  @param line: line in original msg, possibly starting starting with\n               txt quote tags like \">\"\n  @param logLineStart: pos in line, where the real content (logical line)\n               begins, i.e. pos after all txt quote tags.\n               E.g. position of \"t\" in \"> > text\".\n               Initial value must be 0, unless line is not real line.\n  @return      Cite Level, i.e. number of txt quote tags found, i.e. number of\n               nested quotes.\n */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "citeLevelTXT",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "line"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "unsigned long",
+                          "name": "logLineStart"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n @param a wide string to scan for the presence of a URL.\n @param aLength --> the length of the buffer to be scanned\n @param aPos --> the position in the buffer to start scanning for a url\n\n aStartPos --> index into the start of a url (-1 if no url found)\n aEndPos --> index of the last character in the url (-1 if no url found)\n */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "findURLInPlaintext",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "text"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aLength"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aPos"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "aStartPos"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "aEndPos"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

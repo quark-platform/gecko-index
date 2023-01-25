@@ -1,0 +1,478 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "fb9b59db-5a91-4e67-92b6-35e7d6e6d3fd"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIWindowsShellService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Creates a new shortcut (.lnk) file. This shortcut will be recorded in\n   * a new shortcuts log file located in %PROGRAMDATA%\\Mozilla-1de4eec8-1241-4177-a864-e594e8d1fb38\n   * that is named after the currently running application and current user, eg:\n   * Firefox_user123_shortcuts.ini.\n   *\n   * For reasons that we haven't been able to pin down, these shortcuts get created with\n   * extra metadata on them (KnownFolderDataBlock, SpecialFolderDataBlock) that cause\n   * the Windows ShellLink classes to improperly read their target path with certain\n   * parameters. This causes any 32-bit programs that read the links (such as our\n   * installer and uninstaller) to think that 64-bit installs are located in the 32-bit\n   * Program Files directory.\n   * See https://social.msdn.microsoft.com/Forums/windowsdesktop/en-US/6f2e7920-50a9-459d-bfdd-316e459e87c0/ishelllink-getpath-returns-wrong-folder-for-64-bit-application-when-called-from-32-bit-application\n   * for some additional discussion of this.\n   *\n   * @param aBinary Target file of the shortcut.\n   * @param aArguments Arguments to set for the shortcut. May be empty.\n   * @param aDescription The description of the shortcut. The string used here\n   *        shows up as the hover text of the shortcut in Explorer and on the\n   *        Taskbar (if the shortcut is pinned there).\n   * @param aIconFile The file containing the desired icon for the shortcut. This\n   *        can be the same file as aBinary.\n   * @param aIconIndex The index of the in aIconFile. Note that this is 0 based index\n   *        that IShellLinkW requires, _not_ a Resource ID that is sometimes used\n   *        for icons.\n   * @param aAppUserModelId The App User Model ID to set for the shortcut. This will\n   *        affect which icon on the Taskbar the application groups with when first\n   *        launched.\n   * @param aShortcutFolder The special Windows folder to create the shortcut in. One of:\n   *        CommonStartMenu, StartMenu, PublicDesktop, Desktop, or QuickLaunch.\n   * @param aShortcutName The filename of the shortcut within aShortcutFolder.\n   * @return The full native path to the created shortcut.\n   *\n   * @throws NS_ERROR_INVALID_ARG if an invalid shortcut folder is passed\n   * @throws NS_ERROR_FILE_NOT_FOUND if the shortcut file or shortcuts log cannot be\n   *         created or accessed\n   * @throws NS_ERROR_FAILURE for other types of failures\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "createShortcut",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFile",
+                      "name": "aBinary"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "aArguments"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aDescription"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFile",
+                          "name": "aIconFile"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned short",
+                          "name": "aIconIndex"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aAppUserModelId"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aShortcutFolder"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aShortcutName"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Pin the current app to the taskbar. If aPrivateBrowsing is true, the\n   * Private Browsing version of the app (with a different icon and launch\n   * arguments) will be pinned instead.\n   *\n   * This MUST only be used in response to an active request from the user.\n   *\n   * If it exists, uses an existing shortcut on the Desktop or Start Menu,\n   * which would have been created by the installer (for All Users or\n   * Current User). If none can be found, one will be created with the correct\n   * AUMID for proper launching and grouping.\n   *\n   * NOTE: It is possible for the shortcut match to fail even when a\n   * shortcut refers to the current executable, if the paths differ due\n   * to e.g. symlinks. This should be rare.\n   *\n   * This is fully supported on Windows 7, 8, and 11. On Windows 10, it will\n   * definitely fail on a version prior to build 1809 (October 2018 Update).\n   *\n   * NOTE: Can only run on the main thread, but the actual work occurs on a\n   * background thread.\n   *\n   * @throws NS_ERROR_NOT_SAME_THREAD\n   *         if called off main thread.\n   * @throws NS_ERROR_NOT_AVAILABLE\n   *         if OS is not at least Windows 10 build 1809, or if creating the\n   *         Taskband Pin object fails\n   * @throws NS_ERROR_FAILURE\n   *         for unexpected errors\n   *\n   * @rejects NS_ERROR_FILE_NOT_FOUND\n   *         if a shortcut matching this app's AUMID and exe path wasn't found\n   *\n   * @returns {Promise<void>} A promise that resolves to |undefined| if\n   *                          successful or rejects with an nserror.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "pinCurrentAppToTaskbarAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "bool",
+                      "name": "aPrivateBrowsing"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Do a dry run of pinCurrentAppToTaskbar().\n   *\n   * NOTE: Can only be run on the main thread, but the actual work occurs on a\n   * background thread.\n   *\n   * This does all the same checks and setup, throws the same errors, but doesn't\n   * do the final step of creating the pin.\n   *\n   * @throws same as pinCurrentAppToTaskbarAsync()\n   * @rejects same as pinCurrentAppToTaskbarAsync()\n   * @returns same as pinCurrentAppToTaskbarAsync()\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "checkPinCurrentAppToTaskbarAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "bool",
+                      "name": "aPrivateBrowsing"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Search for the current executable among taskbar pins\n   *\n   * NOTE: Can only be run on the main thread, but the actual work occurs on a\n   * background thread.\n   *\n   * NOTE: It is possible for the check to fail even when a taskbar pin refers\n   * to this executable, if the paths differ due to e.g. symlinks.\n   * It is also possible for the check to succeed with a shortcut that doesn't\n   * actually appear on the taskbar.\n   * These cases should be rare.\n   *\n   * @return Promise that always resolves, true if pinned, false otherwise\n   * @throws NS_ERROR_NOT_SAME_THREAD if not run on the main thread\n   *\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "isCurrentAppPinnedToTaskbarAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aumid"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Determine where a given shortcut likely appears in the shell.\n   *\n   * Returns one of:\n   * - \"StartMenu\" or \"StartMenuPrivate\", Current User or All Users Start\n   *    Menu, including pins\n   * - \"Desktop\" or \"DesktopPrivate\", Current User or All Users Desktop\n   * - \"Taskbar\" or \"TaskbarPrivate\", Taskbar Pins\n   * - \"\" otherwise\n   *\n   * If a Private Browsing shortcut was used to launch, the \"Private\"\n   * variant of one of the above entries will be returned.\n   *\n   * NOTE: This tries to avoid I/O, so paths are compared directly as\n   * strings, which may not be accurate in all cases. It is intended\n   * for noncritical telemetry use.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "classifyShortcut",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aPath"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "hasMatchingShortcut",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aAUMID"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aPrivateBrowsing"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Check if setDefaultBrowserUserChoice() is expected to succeed.\n   *\n   * This checks the ProgIDs for this installation, and the hash of the existing\n   * UserChoice association.\n   *\n   * @return true if the check succeeds, false otherwise.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "canSetDefaultBrowserUserChoice",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * checkAllProgIDsExist() and checkBrowserUserChoiceHashes() are components\n   * of canSetDefaultBrowserUserChoice(), broken out for telemetry purposes.\n   *\n   * @return true if the check succeeds, false otherwise.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "checkAllProgIDsExist",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "checkBrowserUserChoiceHashes",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Determines whether or not Firefox is the \"Default Handler\", i.e.,\n   * is registered to handle, the given file extension (like \".pdf\")\n   * or protocol (like \"https\").\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isDefaultHandlerFor",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aFileExtensionOrProtocol"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Return the Windows ProgID currently registered to handle the gven\n   * file extension (like \".pdf\") or protocol (like \"https\").\n   *\n   * @return string ProgID, or \"\" when no association is registered.\n   * @throws NS_ERROR_FAILURE when the file extension or protocol\n   *         cannot be determined.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "queryCurrentDefaultHandlerFor",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aFileExtensionOrProtocol"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

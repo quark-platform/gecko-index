@@ -1,0 +1,1292 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim: set ft=cpp tw=78 sw=2 et ts=8 : */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoadInfo",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Interface for content policy mechanism.  Implementations of this\n * interface can be used to control loading of various types of out-of-line\n * content, or processing of certain types of in-line content.\n *\n * WARNING: do not block the caller from shouldLoad or shouldProcess (e.g.,\n * by launching a dialog to prompt the user for something).\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "caad4f1f-d047-46ac-ae9d-dc598e4fb91b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIContentPolicy",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The type of nsIContentPolicy::TYPE_*\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "nsContentPolicyType",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "TYPE_INVALID",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "0"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Gecko/Firefox developers: Avoid using TYPE_OTHER. Especially for\n     * requests that are coming from webpages. Or requests in general which\n     * you expect that security checks will be done on.\n     * Always use a more specific type if one is available. And do not hesitate\n     * to add more types as appropriate.\n     * But if you are fairly sure that no one would care about your more specific\n     * type, then it's ok to use TYPE_OTHER.\n     *\n     * Extension developers: Whenever it is reasonable, use one of the existing\n     * content types. If none of the existing content types are right for\n     * something you are doing, file a bug in the Core/DOM component that\n     * includes a patch that adds your new content type to the end of the list of\n     * TYPE_* constants here. But, don't start using your new content type until\n     * your patch has been accepted, because it will be uncertain what exact\n     * value and name your new content type will have; in that interim period,\n     * use TYPE_OTHER. In your patch, document your new content type in the style\n     * of the existing ones. In the bug you file, provide a more detailed\n     * description of the new type of content you want Gecko to support, so that\n     * the existing implementations of nsIContentPolicy can be properly modified\n     * to deal with that new type of content.\n     *\n     * Implementations of nsIContentPolicy should treat this the same way they\n     * treat unknown types, because existing users of TYPE_OTHER may be converted\n     * to use new content types.\n     *\n     * Note that the TYPE_INTERNAL_* constants are never passed to content\n     * policy implementations.  They are mapped to other TYPE_* constants, and\n     * are only intended for internal usage inside Gecko.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_OTHER",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "1"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an executable script (such as JavaScript).\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_SCRIPT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an image (e.g., IMG elements).\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_IMAGE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "3"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a stylesheet (e.g., STYLE elements).\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_STYLESHEET",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "4"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a generic object (plugin-handled content typically falls under\n     * this category).\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_OBJECT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "5"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a document at the top-level (i.e., in a browser).\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_DOCUMENT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "6"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a document contained within another document (e.g., IFRAMEs,\n     * FRAMES, and OBJECTs).\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_SUBDOCUMENT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "7"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/*\n     * XXX: nsContentPolicyType = 8 used to inicate a timed refresh request.\n     */"
+                            },
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/*\n     * XXX: nsContentPolicyType = 9 used to inicate an XBL binding request.\n     */"
+                            },
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a ping triggered by a click on <A PING=\"...\"> element.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_PING",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "10"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an XMLHttpRequest. Also used for document.load and for EventSource.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_XMLHTTPREQUEST",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "11"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a request by a plugin.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_OBJECT_SUBREQUEST",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "12"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a DTD loaded by an XML document.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_DTD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "13"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a font loaded via @font-face rule.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_FONT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "14"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a video or audio load.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_MEDIA",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "15"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a WebSocket load.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_WEBSOCKET",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "16"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a Content Security Policy report.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_CSP_REPORT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "17"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a style sheet transformation.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_XSLT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "18"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a beacon post.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_BEACON",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "19"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a load initiated by the fetch() function from the Fetch\n     * specification.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_FETCH",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "20"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a <img srcset> or <picture> request.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_IMAGESET",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "21"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a web manifest.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_WEB_MANIFEST",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "22"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for scripts loaded through script\n     * elements.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_SCRIPT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "23"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for scripts loaded through a dedicated\n     * worker.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_WORKER",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "24"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for scripts loaded through a shared\n     * worker.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_SHARED_WORKER",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "25"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for content loaded from embed elements.\n     *\n     * This will be mapped to TYPE_OBJECT.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_EMBED",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "26"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for content loaded from object elements.\n     *\n     * This will be mapped to TYPE_OBJECT.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_OBJECT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "27"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for content loaded from frame elements.\n     *\n     * This will be mapped to TYPE_SUBDOCUMENT.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_FRAME",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "28"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for content loaded from iframe elements.\n     *\n     * This will be mapped to TYPE_SUBDOCUMENT.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_IFRAME",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "29"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for content loaded from audio elements.\n     *\n     * This will be mapped to TYPE_MEDIA.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_AUDIO",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "30"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for content loaded from video elements.\n     *\n     * This will be mapped to TYPE_MEDIA.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_VIDEO",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "31"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for content loaded from track elements.\n     *\n     * This will be mapped to TYPE_MEDIA.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_TRACK",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "32"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for an XMLHttpRequest.\n     *\n     * This will be mapped to TYPE_XMLHTTPREQUEST.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_XMLHTTPREQUEST",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "33"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for EventSource.\n     *\n     * This will be mapped to TYPE_XMLHTTPREQUEST.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_EVENTSOURCE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "34"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for scripts loaded through a service\n     * worker.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_SERVICE_WORKER",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "35"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for *preloaded* scripts\n     * loaded through script elements.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_SCRIPT_PRELOAD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "36"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for normal images.\n     *\n     * This will be mapped to TYPE_IMAGE before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_IMAGE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "37"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for *preloaded* images.\n     *\n     * This will be mapped to TYPE_IMAGE before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_IMAGE_PRELOAD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "38"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for normal stylesheets.\n     *\n     * This will be mapped to TYPE_STYLESHEET before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_STYLESHEET",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "39"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for *preloaded* stylesheets.\n     *\n     * This will be mapped to TYPE_STYLESHEET before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_STYLESHEET_PRELOAD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "40"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for favicon.\n     *\n     * This will be mapped to TYPE_IMAGE before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_IMAGE_FAVICON",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "41"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an importScripts() inside a worker script.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_WORKER_IMPORT_SCRIPTS",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "42"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an save-as link download from the front-end code.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_SAVEAS_DOWNLOAD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "43"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a speculative connection.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_SPECULATIVE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "44"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for ES6 module scripts\n     * loaded through script elements or an import statement.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_MODULE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "45"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for *preloaded* ES6 module scripts\n     * loaded through script elements or an import statement.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_MODULE_PRELOAD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "46"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a DTD loaded by an XML document the URI of which could\n     * not be mapped to a known local DTD.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_DTD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "47"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a TYPE_INTERNAL_DTD which will not be blocked no matter\n     * what principal is being loaded from.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_FORCE_ALLOWED_DTD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "48"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for scripts loaded through an\n     * audioWorklet.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_AUDIOWORKLET",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "49"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for scripts loaded through an\n     * paintWorklet.\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_PAINTWORKLET",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "50"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Same as TYPE_FONT but indicates this is a <link rel=preload as=font>\n     * preload initiated load.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_FONT_PRELOAD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "51"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates the load of a (Firefox-internal) script through ChromeUtils\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n    */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_CHROMEUTILS_COMPILED_SCRIPT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "52"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates the load of a script through FrameMessageManager\n     *\n     * This will be mapped to TYPE_SCRIPT before being passed to content policy\n     * implementations.\n    */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_FRAME_MESSAGEMANAGER_SCRIPT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "53"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates an internal constant for *preloaded* fetch\n     * loaded through link elements.\n     *\n     * This will be mapped to TYPE_FETCH before being passed\n     * to content policy implementations.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_INTERNAL_FETCH_PRELOAD",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "54"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates a font loaded via @font-face rule in an UA style sheet.\n     * (CSP does not apply.)\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_UA_FONT",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "55"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates the establishment of a TCP or TLS connection via an\n     * http/https proxy that will be used for webrtc media. When no web proxy\n     * is involved, webrtc uses lower level sockets that are not subject to\n     * any sort of content policy.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_PROXIED_WEBRTC_MEDIA",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "56"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n     * Indicates the load of data via the Federated Credential Management API\n     * with data destined for a browser context.\n     */"
+                            }
+                          ],
+                          "identifier": "TYPE_WEB_IDENTITY",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "57"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returned from shouldLoad or shouldProcess if the load or process request\n   * is rejected based on details of the request.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "REJECT_REQUEST",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returned from shouldLoad or shouldProcess if the load/process is rejected\n   * based solely on its type (of the above flags).\n   *\n   * NOTE that it is not meant to stop future requests for this type--only the\n   * current request.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "REJECT_TYPE",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returned from shouldLoad or shouldProcess if the load/process is rejected\n   * based on the server it is hosted on or requested from (aContentLocation or\n   * aRequestOrigin), e.g., if you block an IMAGE because it is served from\n   * goatse.cx (even if you don't necessarily block other types from that\n   * server/domain).\n   *\n   * NOTE that it is not meant to stop future requests for this server--only the\n   * current request.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "REJECT_SERVER",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returned from shouldLoad or shouldProcess if the load/process is rejected\n   * based on some other criteria. Mozilla callers will handle this like\n   * REJECT_REQUEST; third-party implementors may, for example, use this to\n   * direct their own callers to consult the extra parameter for additional\n   * details.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "REJECT_OTHER",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returned from shouldLoad or shouldProcess if the load/process is forbiddden\n   * based on enterprise policy.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "REJECT_POLICY",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returned from shouldLoad or shouldProcess if the load or process request\n   * is not rejected.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "ACCEPT",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Should the resource at this location be loaded?\n   * ShouldLoad will be called before loading the resource at aContentLocation\n   * to determine whether to start the load at all.\n   *\n   * @param aContentLocation  the location of the content being checked; must\n   *                          not be null\n   *\n   * @param aLoadInfo         the loadinfo of the channel being evaluated.\n   *\n   * @param aMimeTypeGuess    OPTIONAL. a guess for the requested content's\n   *                          MIME type, based on information available to\n   *                          the request initiator (e.g., an OBJECT's type\n   *                          attribute); does not reliably reflect the\n   *                          actual MIME type of the requested content\n   *\n   * @return ACCEPT or REJECT_*\n   *\n   * @note shouldLoad can be called while the DOM and layout of the document\n   * involved is in an inconsistent state.  This means that implementors of\n   * this method MUST NOT do any of the following:\n   * 1)  Modify the DOM in any way (e.g. setting attributes is a no-no).\n   * 2)  Query any DOM properties that depend on layout (e.g. offset*\n   *     properties).\n   * 3)  Query any DOM properties that depend on style (e.g. computed style).\n   * 4)  Query any DOM properties that depend on the current state of the DOM\n   *     outside the \"context\" node (e.g. lengths of node lists).\n   * 5)  [JavaScript implementations only] Access properties of any sort on any\n   *     object without using XPCNativeWrapper (either explicitly or\n   *     implicitly).  Due to various DOM0 things, this leads to item 4.\n   * If you do any of these things in your shouldLoad implementation, expect\n   * unpredictable behavior, possibly including crashes, content not showing\n   * up, content showing up doubled, etc.  If you need to do any of the things\n   * above, do them off timeout or event.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "short",
+                  "name": "shouldLoad",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aContentLocation"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsILoadInfo",
+                          "name": "aLoadInfo"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aMimeTypeGuess"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Should the resource be processed?\n   * ShouldProcess will be called once all the information passed to it has\n   * been determined about the resource, typically after part of the resource\n   * has been loaded.\n   *\n   * @param aContentLocation  OPTIONAL; the location of the resource being\n   *                          requested: MAY be, e.g., a post-redirection URI\n   *                          for the resource.\n   *\n   * @param aLoadInfo         the loadinfo of the channel being evaluated.\n   *\n   * @param aMimeType         the MIME type of the requested resource (e.g.,\n   *                          image/png), as reported by the networking library,\n   *                          if available (may be empty if inappropriate for\n   *                          the type).\n   *\n   * @return ACCEPT or REJECT_*\n   *\n   * @note shouldProcess can be called while the DOM and layout of the document\n   * involved is in an inconsistent state.  See the note on shouldLoad to see\n   * what this means for implementors of this method.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "short",
+                  "name": "shouldProcess",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aContentLocation"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsILoadInfo",
+                          "name": "aLoadInfo"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aMimeType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "typedef"
+    },
+    "\n\n",
+    "%{C++\nenum class ExtContentPolicyType : uint8_t {\n  /**\n   * The type of ExtContentPolicy::TYPE_*\n   */\n  TYPE_INVALID = nsIContentPolicy::TYPE_INVALID,\n  TYPE_OTHER = nsIContentPolicy::TYPE_OTHER,\n  TYPE_SCRIPT = nsIContentPolicy::TYPE_SCRIPT,\n  TYPE_IMAGE = nsIContentPolicy::TYPE_IMAGE,\n  TYPE_STYLESHEET = nsIContentPolicy::TYPE_STYLESHEET,\n  TYPE_OBJECT = nsIContentPolicy::TYPE_OBJECT,\n  TYPE_DOCUMENT = nsIContentPolicy::TYPE_DOCUMENT,\n  TYPE_SUBDOCUMENT = nsIContentPolicy::TYPE_SUBDOCUMENT,\n  TYPE_PING = nsIContentPolicy::TYPE_PING,\n  TYPE_XMLHTTPREQUEST = nsIContentPolicy::TYPE_XMLHTTPREQUEST,\n  TYPE_OBJECT_SUBREQUEST = nsIContentPolicy::TYPE_OBJECT_SUBREQUEST,\n  TYPE_DTD = nsIContentPolicy::TYPE_DTD,\n  TYPE_FONT = nsIContentPolicy::TYPE_FONT,\n  TYPE_MEDIA = nsIContentPolicy::TYPE_MEDIA,\n  TYPE_WEBSOCKET = nsIContentPolicy::TYPE_WEBSOCKET,\n  TYPE_CSP_REPORT = nsIContentPolicy::TYPE_CSP_REPORT,\n  TYPE_XSLT = nsIContentPolicy::TYPE_XSLT,\n  TYPE_BEACON = nsIContentPolicy::TYPE_BEACON,\n  TYPE_FETCH = nsIContentPolicy::TYPE_FETCH,\n  TYPE_IMAGESET = nsIContentPolicy::TYPE_IMAGESET,\n  TYPE_WEB_MANIFEST = nsIContentPolicy::TYPE_WEB_MANIFEST,\n  TYPE_SAVEAS_DOWNLOAD = nsIContentPolicy::TYPE_SAVEAS_DOWNLOAD,\n  TYPE_SPECULATIVE = nsIContentPolicy::TYPE_SPECULATIVE,\n  TYPE_UA_FONT = nsIContentPolicy::TYPE_UA_FONT,\n  TYPE_PROXIED_WEBRTC_MEDIA = nsIContentPolicy::TYPE_PROXIED_WEBRTC_MEDIA,\n};\n\ntypedef ExtContentPolicyType ExtContentPolicy;\n%}\n"
+  ]
+}

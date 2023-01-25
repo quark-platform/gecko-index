@@ -1,0 +1,855 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsrootidl"
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/*#include \"nsIWidget.idl\"  Boy this would be nice.*/"
+      }
+    },
+    {
+      "kind": "native"
+    },
+    "\n",
+    "%{C++\n#include \"Units.h\"\n\nclass nsIWidget;\n%}\n\n",
+    {
+      "kind": "typedef"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The nsIBaseWindow describes a generic window and basic operations that\n * can be performed on it.  This is not to be a complete windowing interface\n * but rather a common set that nearly all windowed objects support.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "ca635529-a977-4552-9b8a-66187e54d882"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIBaseWindow",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Allows a client to initialize an object implementing this interface with\n  the usually required window setup information.\n  It is possible to pass null for both parentNativeWindow and parentWidget,\n  but only docshells support this.\n\n  @param parentNativeWindow - This allows a system to pass in the parenting\n    window as a native reference rather than relying on the calling\n    application to have created the parent window as an nsIWidget.  This\n    value will be ignored (should be nullptr) if an nsIWidget is passed in to\n    the parentWidget parameter.\n\n  @param parentWidget - This allows a system to pass in the parenting widget.\n    This allows some objects to optimize themselves and rely on the view\n    system for event flow rather than creating numerous native windows.  If\n    one of these is not available, nullptr should be passed.\n\n  @param x - This is the x co-ordinate relative to the parent to place the\n    window.\n\n  @param y - This is the y co-ordinate relative to the parent to place the\n    window.\n\n  @param cx - This is the width  for the window to be.\n\n  @param cy - This is the height for the window to be.\n\n  @return  NS_OK - Window Init succeeded without a problem.\n        NS_ERROR_UNEXPECTED - Call was unexpected at this time. Perhaps\n          initWindow() had already been called.\n        NS_ERROR_INVALID_ARG - controls that require either a parentNativeWindow\n          or a parentWidget may return invalid arg when they do not\n          receive what they are needing.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "initWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nativeWindow",
+                      "name": "parentNativeWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIWidget",
+                          "name": "parentWidget"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "x"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "y"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "cy"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Tell the window that it should destroy itself.  This call should not be\n  necessary as it will happen implictly when final release occurs on the\n  object.  If for some reaons you want the window destroyed prior to release\n  due to cycle or ordering issues, then this call provides that ability.\n\n  @return  NS_OK - Everything destroyed properly.\n        NS_ERROR_UNEXPECTED - This call was unexpected at this time.\n          Perhaps create() has not been called yet.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "destroy",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Sets the current x and y coordinates of the control.  This is relative to\n  the parent window.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setPosition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "x"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "y"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Ditto, with arguments in global desktop pixels rather than (potentially\n  ambiguous) device pixels\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setPositionDesktopPix",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "x"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "y"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Gets the current x and y coordinates of the control.  This is relative to the\n  parent window.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getPosition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "long",
+                      "name": "x"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "y"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  mozilla::LayoutDeviceIntPoint GetPosition() {\n    int32_t x = 0, y = 0;\n    GetPosition(&x, &y);\n    return mozilla::LayoutDeviceIntPoint(x, y);\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Sets the width and height of the control.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setSize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "cx"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "cy"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "fRepaint"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Gets the width and height of the control.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getSize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "long",
+                      "name": "cx"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "cy"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  mozilla::LayoutDeviceIntSize GetSize() {\n    int32_t w = 0, h = 0;\n    GetSize(&w, &h);\n    return mozilla::LayoutDeviceIntSize(w, h);\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The 'flags' argument to setPositionAndSize is a set of these bits.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "eRepaint",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "eDelayResize",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Convenience function combining the SetPosition and SetSize into one call.\n  Also is more efficient than calling both.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setPositionAndSize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "x"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "y"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "cy"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "flags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Convenience function combining the GetPosition and GetSize into one call.\n  Also is more efficient than calling both.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getPositionAndSize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "long",
+                      "name": "x"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "y"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "cy"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  mozilla::LayoutDeviceIntRect GetPositionAndSize() {\n    int32_t x = 0, y = 0, w = 0, h = 0;\n    GetPositionAndSize(&x, &y, &w, &h);\n    return mozilla::LayoutDeviceIntRect(x, y, w, h);\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Tell the window to repaint itself\n   * @param aForce - if true, repaint immediately\n   *                 if false, the window may defer repainting as it sees fit.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "repaint",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "force"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  This is the parenting widget for the control.  This may be null if the\n  native window was handed in for the parent during initialization.\n  If this  is returned, it should refer to the same object as\n  parentNativeWindow.\n\n  Setting this after Create() has been called may not be supported by some\n  implementations.\n\n  On controls that don't support widgets, setting this will return a\n  NS_ERROR_NOT_IMPLEMENTED error.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "nsIWidget",
+                  "name": "parentWidget"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  This is the native window parent of the control.\n\n  Setting this after Create() has been called may not be supported by some\n  implementations.\n\n  On controls that don't support setting nativeWindow parents, setting this\n  will return a NS_ERROR_NOT_IMPLEMENTED error.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nativeWindow",
+                  "name": "parentNativeWindow"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  This is the handle (HWND, GdkWindow*, ...) to the native window of the\n  control, exposed as an AString.\n\n  @return AString in hex format with \"0x\" prepended, or empty string if\n  mainWidget undefined\n\n  @throws NS_ERROR_NOT_IMPLEMENTED for non-XULWindows\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "nativeHandle"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Attribute controls the visibility of the object behind this interface.\n  Setting this attribute to false will hide the control.  Setting it to\n  true will show it.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "visibility"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  a disabled window should accept no user interaction; it's a dead window,\n  like the parent of a modal window.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "enabled"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Allows you to find out what the widget is of a given object.  Depending\n  on the object, this may return the parent widget in which this object\n  lives if it has not had to create its own widget.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIWidget",
+                  "name": "mainWidget"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  The number of device pixels per CSS pixel used by this window's widget at the\n  default full zoom level.\n  This is the value returned by GetDefaultScale() of the underlying widget.\n  Note that this may change if the window is moved between screens with\n  differing resolutions.\n  NOTE: This is mostly an implementation detail of\n  UnscaledDevicePixelsPerCSSPixel, which is what you probably want to use.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "double",
+                  "name": "widgetCSSToDeviceScale"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  // The number of device pixels per CSS pixel used on this window's current\n  // screen at the default full zoom level.\n  //\n  // This is the widget scale _plus_ the OS zoom scale if appropriate.\n  // Implemented in AppWindow.cpp\n  mozilla::CSSToLayoutDeviceScale UnscaledDevicePixelsPerCSSPixel();\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  The number of device pixels per display pixel on this window's current\n  screen. (The meaning of \"display pixel\" varies across OS environments;\n  it is the pixel units used by the desktop environment to manage screen\n  real estate and window positioning, which may correspond to (per-screen)\n  device pixels, or may be a virtual coordinate space that covers a multi-\n  monitor, mixed-dpi desktop space.)\n  This is the value returned by GetDesktopToDeviceScale() of the underlying\n  widget.\n  Note that this may change if the window is moved between screens with\n  differing resolutions.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "double",
+                  "name": "devicePixelsPerDesktopPixel"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  mozilla::DesktopToLayoutDeviceScale DevicePixelsPerDesktopPixel() {\n    double s = 1.0;\n    GetDevicePixelsPerDesktopPixel(&s);\n    return mozilla::DesktopToLayoutDeviceScale(s);\n  }\n\n  mozilla::CSSToDesktopScale GetUnscaledCSSToDesktopScale() {\n    return UnscaledDevicePixelsPerCSSPixel() / DevicePixelsPerDesktopPixel();\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n  Title of the window.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "AString",
+                  "name": "title"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

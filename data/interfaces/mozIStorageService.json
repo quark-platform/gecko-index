@@ -1,0 +1,609 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: idl; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{C++\n\n#include \"nsLiteralString.h\"\n\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageConnection",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFileURL",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPropertyBag2",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIVariant",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageCompletionCallback",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The mozIStorageService interface is intended to be implemented by\n * a service that can create storage connections (mozIStorageConnection)\n * to either a well-known profile database or to a specific database file.\n *\n * This is the only way to open a database connection.\n *\n * @note The first reference to mozIStorageService must be made on the main\n * thread.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "07b6b2f5-6d97-47b4-9584-e65bc467fe9e"
+              }
+            }
+          }
+        ]
+      },
+      "name": "mozIStorageService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Open the database with default flags in default mode.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OPEN_DEFAULT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Open the database with a shared cache. The shared-cache mode\n   * is more memory-efficient when many connections to the same database\n   * are expected, though, the connections will contend the cache resource.\n   * When performance matters, working without a shared-cache will\n   * improve concurrency.  @see openUnsharedDatabase\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OPEN_SHARED",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Open the underlying database in read-only mode.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OPEN_READONLY",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Allow simultaneous access to an asynchronous read-only database\n   * without any file locking.\n   *\n   * For synchronous database, the flag has no effect.\n   *\n   * Specifying the OPEN_IGNORE_LOCKING_MODE flag will automatically\n   * turn on the OPEN_READONLY flag.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OPEN_IGNORE_LOCKING_MODE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * All optional connection object features are off.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "CONNECTION_DEFAULT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Enable Interrupt-method for the synchronous connection object\n   * returned by openDatabase, openSpecialDatabase, openUnsharedDatabase\n   * or openDatabaseWithFileURL calls.\n   *\n   * When this flag is not set, Interrupt-method of a\n   * synchronous connection must not be used.\n   *\n   * Asynchronous connection is always interruptible and the flag\n   * does not change anything.\n   *\n   * The following are among the potential risks side effects of\n   * calling the Interrupt-method:\n   *   - new queries started on a different thread after the\n   *     interrupt call, but before its completion, are interrupted as if\n   *     they had been running prior to the interrupt call. Thus thread\n   *     synchronization is necessary.\n   *   - calls to close the database will wait until the interruption\n   *     finishes.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "CONNECTION_INTERRUPTIBLE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Open an asynchronous connection to a database.\n   *\n   * This method MUST be called from the main thread. The connection object\n   * returned by this function is not threadsafe. You MUST use it only from\n   * the main thread.\n   *\n   * If you have more than one connection to a file, you MUST use the EXACT\n   * SAME NAME for the file each time, including case. The sqlite code uses\n   * a simple string compare to see if there is already a connection. Opening\n   * a connection to \"Foo.sqlite\" and \"foo.sqlite\" will CORRUPT YOUR DATABASE.\n   *\n   * @param aDatabaseStore Either a nsIFile representing the file that contains\n   * the database or a special string to open a special database. The special\n   * string may be:\n   * - \"memory\" to open an in-memory database.\n   *\n   * @param [optional] aOpenFlags\n   *        A set of flags to open the database with optional features.\n   *        Currently supports OPEN_SHARED, OPEN_READONLY and\n   *        OPEN_IGNORE_LOCKING_MODE flags.\n   *        For full details, please refer to the documentation of the flags.\n   *\n   * @param [optional] aConnectionFlags\n   *        A set of flags to enable optional features for the returned\n   *        asynchronous connection object.\n   *        Currently supports CONNECTION_INTERRUPTIBLE flag.\n   *        For full details, please refer to the documentation of the flag.\n   *\n   * @param aCallback A callback that will receive the result of the operation.\n   *  In case of error, it may receive as status:\n   *  - NS_ERROR_OUT_OF_MEMORY if allocating a new storage object fails.\n   *  - NS_ERROR_FILE_CORRUPTED if the database file is corrupted.\n   *  In case of success, it receives as argument the new database\n   *  connection, as an instance of |mozIStorageAsyncConnection|.\n   *\n   * @throws NS_ERROR_INVALID_ARG if |aDatabaseStore| is neither a file nor\n   *         one of the special strings understood by this method, or if one of\n   *         the options passed through |aOptions| does not have\n   *         the right type.\n   * @throws NS_ERROR_NOT_SAME_THREAD if called from a thread other than the\n   *         main thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "openAsyncDatabase",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIVariant",
+                      "name": "aDatabaseStore"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aOpenFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aConnectionFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "mozIStorageCompletionCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get a connection to a named special database storage.\n   *\n   * @param aStorageKey a string key identifying the type of storage\n   * requested.  Valid values include: \"memory\".\n   *\n   * @param aName an optional string identifying the name of the database.\n   * If omitted, a filename of \":memory:\" will be used which results in a\n   * private in-memory database specific to this connection, making it\n   * impossible to clone the in-memory database. If you want to be able to\n   * clone the connection (or otherwise connect to the in-memory database from\n   * a connection), then you must pick a name that's sufficiently unique within\n   * the process to not collide with other mozStorage users.\n   *\n   * @param [optional] aConnectionFlags\n   *        A set of flags to enable optional features for the returned\n   *        synchronous connection object.\n   *        Currently supports CONNECTION_INTERRUPTIBLE flag.\n   *        For full details, please refer to the documentation of the flag.\n   *\n   * @see openDatabase for restrictions on how database connections may be\n   * used. For the profile database, you should only access it from the main\n   * thread since other callers may also have connections.\n   *\n   * @returns a new mozIStorageConnection for the requested\n   * storage database.\n   *\n   * @throws NS_ERROR_INVALID_ARG if aStorageKey is invalid.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStorageConnection",
+                  "name": "openSpecialDatabase",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aStorageKey"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aConnectionFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Open a connection to the specified file.\n   *\n   * Consumers should check mozIStorageConnection::connectionReady to ensure\n   * that they can use the database.  If this value is false, it is strongly\n   * recommended that the database be backed up with\n   * mozIStorageConnection::backupDB so user data is not lost.\n   *\n   * ==========\n   *   DANGER\n   * ==========\n   *\n   * If you have more than one connection to a file, you MUST use the EXACT\n   * SAME NAME for the file each time, including case. The sqlite code uses\n   * a simple string compare to see if there is already a connection. Opening\n   * a connection to \"Foo.sqlite\" and \"foo.sqlite\" will CORRUPT YOUR DATABASE.\n   *\n   * The connection object returned by this function is not threadsafe. You\n   * must use it only from the thread you created it from.\n   *\n   * @param aDatabaseFile\n   *        A nsIFile that represents the database that is to be opened.\n   * @param [optional] aConnectionFlags\n   *        A set of flags to enable optional features for the returned\n   *        synchronous connection object.\n   *        Currently supports CONNECTION_INTERRUPTIBLE flag.\n   *        For full details, please refer to the documentation of the flag.\n   *\n   * @returns a mozIStorageConnection for the requested database file.\n   *\n   * @throws NS_ERROR_OUT_OF_MEMORY\n   *         If allocating a new storage object fails.\n   * @throws NS_ERROR_FILE_CORRUPTED\n   *         If the database file is corrupted.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStorageConnection",
+                  "name": "openDatabase",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFile",
+                      "name": "aDatabaseFile"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aConnectionFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Open a connection to the specified file that doesn't share a sqlite cache.\n   *\n   * Without a shared-cache, each connection uses its own pages cache, which\n   * may be memory inefficient with a large number of connections, in such a\n   * case so you should use openDatabase instead.  On the other side, if cache\n   * contention may be an issue, for instance when concurrency is important to\n   * ensure responsiveness, using unshared connections may be a\n   * performance win.\n   *\n   * ==========\n   *   DANGER\n   * ==========\n   *\n   * If you have more than one connection to a file, you MUST use the EXACT\n   * SAME NAME for the file each time, including case. The sqlite code uses\n   * a simple string compare to see if there is already a connection. Opening\n   * a connection to \"Foo.sqlite\" and \"foo.sqlite\" will CORRUPT YOUR DATABASE.\n   *\n   * The connection object returned by this function is not threadsafe. You\n   * must use it only from the thread you created it from.\n   *\n   * @param aDatabaseFile\n   *        A nsIFile that represents the database that is to be opened.\n   * @param [optional] aConnectionFlags\n   *        A set of flags to enable optional features for the returned\n   *        synchronous connection object.\n   *        Currently supports CONNECTION_INTERRUPTIBLE flag.\n   *        For full details, please refer to the documentation of the flag.\n   *\n   * @returns a mozIStorageConnection for the requested database file.\n   *\n   * @throws NS_ERROR_OUT_OF_MEMORY\n   *         If allocating a new storage object fails.\n   * @throws NS_ERROR_FILE_CORRUPTED\n   *         If the database file is corrupted.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStorageConnection",
+                  "name": "openUnsharedDatabase",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFile",
+                      "name": "aDatabaseFile"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aConnectionFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * See openDatabase(). Exactly the same only initialized with a file URL.\n   * Custom parameters can be passed to SQLite and VFS implementations through\n   * the query part of the URL.\n   *\n   * @param aURL\n   *        A nsIFileURL that represents the database that is to be opened.\n   * @param [optional] aTelemetryFilename\n   *        The name to use for the database in telemetry. Only needed if the\n   *        actual filename can contain sensitive information.\n   * @param [optional] aConnectionFlags\n   *        A set of flags to enable optional features for the returned\n   *        synchronous connection object.\n   *        Currently supports CONNECTION_INTERRUPTIBLE flag.\n   *        For full details, please refer to the documentation of the flag.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStorageConnection",
+                  "name": "openDatabaseWithFileURL",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFileURL",
+                      "name": "aFileURL"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aTelemetryFilename"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aConnectionFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Utilities\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Copies the specified database file to the specified parent directory with\n   * the specified file name.  If the parent directory is not specified, it\n   * places the backup in the same directory as the current file.  This\n   * function ensures that the file being created is unique.\n   *\n   * @param aDBFile\n   *        The database file that will be backed up.\n   * @param aBackupFileName\n   *        The name of the new backup file to create.\n   * @param [optional] aBackupParentDirectory\n   *        The directory you'd like the backup file to be placed.\n   * @return The nsIFile representing the backup file.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIFile",
+                  "name": "backupDatabaseFile",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFile",
+                      "name": "aDBFile"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aBackupFileName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIFile",
+                          "name": "aBackupParentDirectory"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n\nconstexpr auto kMozStorageMemoryStorageKey = \"memory\"_ns;\n\n%}\n"
+  ]
+}

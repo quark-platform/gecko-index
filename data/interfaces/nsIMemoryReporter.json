@@ -1,0 +1,1800 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim: set ts=8 sts=2 et sw=2 tw=80: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{C++\n#include <stdio.h>\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIDOMWindowProxy",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRunnable",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsISimpleEnumerator",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/*\n * Memory reporters measure Firefox's memory usage.  They are primarily used to\n * generate the about:memory page.  You should read\n * https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Memory_reporting\n * before writing a memory reporter.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "62ef0e1c-dbd6-11e3-aa75-3c970e9f4238"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIHandleReportCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * The arguments to the callback are as follows.\n   *\n   *\n   * |process|  The name of the process containing this reporter.  Each\n   * reporter initially has \"\" in this field, indicating that it applies to the\n   * current process.  (This is true even for reporters in a child process.)\n   * When a reporter from a child process is copied into the main process, the\n   * copy has its 'process' field set appropriately.\n   *\n   *\n   * |path|  The path that this memory usage should be reported under.  Paths\n   * are '/'-delimited, eg. \"a/b/c\".\n   *\n   * Each reporter can be viewed as representing a leaf node in a tree.\n   * Internal nodes of the tree don't have reporters.  So, for example, the\n   * reporters \"explicit/a/b\", \"explicit/a/c\", \"explicit/d/e\", and\n   * \"explicit/d/f\" define this tree:\n   *\n   *   explicit\n   *   |--a\n   *   |  |--b [*]\n   *   |  \\--c [*]\n   *   \\--d\n   *      |--e [*]\n   *      \\--f [*]\n   *\n   * Nodes marked with a [*] have a reporter.  Notice that the internal\n   * nodes are implicitly defined by the paths.\n   *\n   * Nodes within a tree should not overlap measurements, otherwise the\n   * parent node measurements will be double-counted.  So in the example\n   * above, |b| should not count any allocations counted by |c|, and vice\n   * versa.\n   *\n   * All nodes within each tree must have the same units.\n   *\n   * If you want to include a '/' not as a path separator, e.g. because the\n   * path contains a URL, you need to convert each '/' in the URL to a '\\'.\n   * Consumers of the path will undo this change.  Any other '\\' character\n   * in a path will also be changed.  This is clumsy but hasn't caused any\n   * problems so far.\n   *\n   * The paths of all reporters form a set of trees.  Trees can be\n   * \"degenerate\", i.e. contain a single entry with no '/'.\n   *\n   *\n   * |kind|  There are three kinds of memory reporters.\n   *\n   *  - HEAP: reporters measuring memory allocated by the heap allocator,\n   *    e.g. by calling malloc, calloc, realloc, memalign, operator new, or\n   *    operator new[].  Reporters in this category must have units\n   *    UNITS_BYTES.\n   *\n   *  - NONHEAP: reporters measuring memory which the program explicitly\n   *    allocated, but does not live on the heap.  Such memory is commonly\n   *    allocated by calling one of the OS's memory-mapping functions (e.g.\n   *    mmap, VirtualAlloc, or vm_allocate).  Reporters in this category\n   *    must have units UNITS_BYTES.\n   *\n   *  - OTHER: reporters which don't fit into either of these categories.\n   *    They can have any units.\n   *\n   * The kind only matters for reporters in the \"explicit\" tree;\n   * aboutMemory.js uses it to calculate \"heap-unclassified\".\n   *\n   *\n   * |units|  The units on the reporter's amount.  One of the following.\n   *\n   *  - BYTES: The amount contains a number of bytes.\n   *\n   *  - COUNT: The amount is an instantaneous count of things currently in\n   *    existence.  For instance, the number of tabs currently open would have\n   *    units COUNT.\n   *\n   *  - COUNT_CUMULATIVE: The amount contains the number of times some event\n   *    has occurred since the application started up.  For instance, the\n   *    number of times the user has opened a new tab would have units\n   *    COUNT_CUMULATIVE.\n   *\n   *    The amount returned by a reporter with units COUNT_CUMULATIVE must\n   *    never decrease over the lifetime of the application.\n   *\n   *  - PERCENTAGE: The amount contains a fraction that should be expressed as\n   *    a percentage.  NOTE!  The |amount| field should be given a value 100x\n   *    the actual percentage;  this number will be divided by 100 when shown.\n   *    This allows a fractional percentage to be shown even though |amount| is\n   *    an integer.  E.g. if the actual percentage is 12.34%, |amount| should\n   *    be 1234.\n   *\n   *    Values greater than 100% are allowed.\n   *\n   *\n   * |amount|  The numeric value reported by this memory reporter.  Accesses\n   * can fail if something goes wrong when getting the amount.\n   *\n   *\n   * |description|  A human-readable description of this memory usage report.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "callback",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "process"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "path"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "kind"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "units"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int64_t",
+                          "name": "amount"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "description"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "data"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/*\n * An nsIMemoryReporter reports one or more memory measurements via a\n * callback function which is called once for each measurement.\n *\n * An nsIMemoryReporter that reports a single measurement is sometimes called a\n * \"uni-reporter\".  One that reports multiple measurements is sometimes called\n * a \"multi-reporter\".\n *\n * aboutMemory.js is the most important consumer of memory reports.  It\n * places the following constraints on reports.\n *\n * - All reports within a single sub-tree must have the same units.\n *\n * - There may be an \"explicit\" tree.  If present, it represents\n *   non-overlapping regions of memory that have been explicitly allocated with\n *   an OS-level allocation (e.g. mmap/VirtualAlloc/vm_allocate) or a\n *   heap-level allocation (e.g. malloc/calloc/operator new).  Reporters in\n *   this tree must have kind HEAP or NONHEAP, units BYTES.\n *\n * It is preferred, but not required, that report descriptions use complete\n * sentences (i.e. start with a capital letter and end with a period, or\n * similar).\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "92a36db1-46bd-4fe6-988e-47db47236d8b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIMemoryReporter",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Run the reporter.\n   *\n   * If |anonymize| is true, the memory reporter should anonymize any\n   * privacy-sensitive details in memory report paths, by replacing them with a\n   * string such as \"<anonymized>\". Anonymized memory reports may be sent\n   * automatically via crash reports or telemetry.\n   *\n   * The following things are considered privacy-sensitive.\n   *\n   * - Content domains and URLs, and information derived from them.\n   * - Content data, such as strings.\n   * - Details about content code, such as filenames, function names or stack\n   *   traces.\n   * - Details about or data from the user's system, such as filenames.\n   * - Running apps.\n   *\n   * In short, anything that could identify parts of the user's browsing\n   * history is considered privacy-sensitive.\n   *\n   * The following thing are not considered privacy-sensitive.\n   *\n   * - Chrome domains and URLs.\n   * - Information about installed extensions.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "collectReports",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandleReportCallback",
+                      "name": "callback"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "data"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "anonymize"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Kinds. See the |kind| comment in nsIHandleReportCallback.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "KIND_NONHEAP",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "KIND_HEAP",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "KIND_OTHER",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Units. See the |units| comment in nsIHandleReportCallback.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "UNITS_BYTES",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "UNITS_COUNT",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "UNITS_COUNT_CUMULATIVE",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "UNITS_PERCENTAGE",
+                  "value": "3"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "548b3909-c04d-4ca6-8466-b8bee3837457"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIFinishReportingCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "callback",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsISupports",
+                      "name": "data"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1a80cd0f-0d9e-4397-be69-68ad28fe5175"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIHeapAllocatedCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "callback",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int64_t",
+                      "name": "bytesAllocated"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "2998574d-8993-407a-b1a5-8ad7417653e1"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIMemoryReporterManager",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Initialize.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "init",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Register the given nsIMemoryReporter.  The Manager service will hold a\n   * strong reference to the given reporter, and will be responsible for freeing\n   * the reporter at shutdown.  You may manually unregister the reporter with\n   * unregisterStrongReporter() at any point.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerStrongReporter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIMemoryReporter",
+                      "name": "reporter"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerStrongAsyncReporter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIMemoryReporter",
+                      "name": "reporter"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Like registerReporter, but the Manager service will hold a weak reference\n   * via a raw pointer to the given reporter.  The reporter should be\n   * unregistered before shutdown.\n   * You cannot register JavaScript components with this function!  Always\n   * register your JavaScript components with registerStrongReporter().\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerWeakReporter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIMemoryReporter",
+                      "name": "reporter"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerWeakAsyncReporter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIMemoryReporter",
+                      "name": "reporter"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Unregister the given memory reporter, which must have been registered with\n   * registerStrongReporter().  You normally don't need to unregister your\n   * strong reporters, as nsIMemoryReporterManager will take care of that at\n   * shutdown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unregisterStrongReporter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIMemoryReporter",
+                      "name": "reporter"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Unregister the given memory reporter, which must have been registered with\n   * registerWeakReporter().\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unregisterWeakReporter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIMemoryReporter",
+                      "name": "reporter"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * These functions should only be used for testing purposes.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "blockRegistrationAndHideExistingReporters",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unblockRegistrationAndRestoreOriginalReporters",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerStrongReporterEvenIfBlocked",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIMemoryReporter",
+                      "name": "aReporter"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Get memory reports for the current process and all child processes.\n   * |handleReport| is called for each report, and |finishReporting| is called\n   * once all reports have been handled.\n   *\n   * |finishReporting| is called even if, for example, some child processes\n   * fail to report back.  However, calls to this method will silently and\n   * immediately abort -- and |finishReporting| will not be called -- if a\n   * previous getReports() call is still in flight, i.e. if it has not yet\n   * finished invoking |finishReporting|.  The silent abort is because the\n   * in-flight request will finish soon, and the caller would very likely just\n   * catch and ignore any error anyway.\n   *\n   * If |anonymize| is true, it indicates that the memory reporters should\n   * anonymize any privacy-sensitive data (see above).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getReports",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandleReportCallback",
+                      "name": "handleReport"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "handleReportData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFinishReportingCallback",
+                          "name": "finishReporting"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "finishReportingData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "anonymize"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * As above, but: If |minimizeMemoryUsage| is true, then each process will\n   * minimize its memory usage (see the |minimizeMemoryUsage| method) before\n   * gathering its report.  If DMD is enabled and |DMDDumpIdent| is non-empty\n   * then write a DMD report to a file in the usual temporary directory (see\n   * |dumpMemoryInfoToTempDir| in |nsIMemoryInfoDumper|.)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "getReportsExtended",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandleReportCallback",
+                      "name": "handleReport"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "handleReportData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFinishReportingCallback",
+                          "name": "finishReporting"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "finishReportingData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "anonymize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "minimizeMemoryUsage"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "DMDDumpIdent"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * As above, but if DMD is enabled and |DMDFile| is non-null then\n   * write a DMD report to that file and close it.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "getReportsForThisProcessExtended",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandleReportCallback",
+                      "name": "handleReport"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "handleReportData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "anonymize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "FILE",
+                          "name": "DMDFile"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFinishReportingCallback",
+                          "name": "finishReporting"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "finishReportingData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Called by an asynchronous memory reporter upon completion.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "endReport",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * The memory reporter manager, for the most part, treats reporters\n   * registered with it as a black box.  However, there are some\n   * \"distinguished\" amounts (as could be reported by a memory reporter) that\n   * the manager provides as attributes, because they are sufficiently\n   * interesting that we want external code (e.g. telemetry) to be able to rely\n   * on them.\n   *\n   * Note that these are not reporters and so getReports() does not look at\n   * them.  However, distinguished amounts can be embedded in a reporter.\n   *\n   * Access to these attributes can fail.  In particular, some of them are not\n   * available on all platforms.\n   *\n   * If you add a new distinguished amount, please update\n   * toolkit/components/aboutmemory/tests/test_memoryReporters.xul.\n   *\n   * |vsize| (UNITS_BYTES)  The virtual size, i.e. the amount of address space\n   * taken up.\n   *\n   * |vsizeMaxContiguous| (UNITS_BYTES)  The size of the largest contiguous\n   * block of virtual memory.\n   *\n   * |resident| (UNITS_BYTES)  The resident size (a.k.a. RSS or physical memory\n   * used).\n   *\n   * |residentFast| (UNITS_BYTES)  This is like |resident|, but on Mac OS\n   * |resident| can purge pages, which is slow.  It also affects the result of\n   * |residentFast|, and so |resident| and |residentFast| should not be used\n   * together.\n   *\n   * |residentPeak| (UNITS_BYTES)  The peak resident size.\n   *\n   * |residentUnique| (UNITS_BYTES)  The unique set size (a.k.a. USS).\n   *\n   * |heapAllocated| (UNITS_BYTES)  Memory mapped by the heap allocator.\n   *\n   * |heapOverheadFraction| (UNITS_PERCENTAGE)  In the heap allocator, this is\n   * the fraction of committed heap bytes that are overhead. Like all\n   * UNITS_PERCENTAGE measurements, its amount is multiplied by 100x so it can\n   * be represented by an int64_t.\n   *\n   * |JSMainRuntimeGCHeap| (UNITS_BYTES)  Size of the main JS runtime's GC\n   * heap.\n   *\n   * |JSMainRuntimeTemporaryPeak| (UNITS_BYTES)  Peak size of the transient\n   * storage in the main JSRuntime.\n   *\n   * |JSMainRuntimeCompartments{System,User}| (UNITS_COUNT)  The number of\n   * {system,user} compartments in the main JS runtime.\n   *\n   * |JSMainRuntimeRealms{System,User}| (UNITS_COUNT)  The number of\n   * {system,user} realms in the main JS runtime.\n   *\n   * |imagesContentUsedUncompressed| (UNITS_BYTES)  Memory used for decoded\n   * raster images in content.\n   *\n   * |storageSQLite| (UNITS_BYTES)  Memory used by SQLite.\n   *\n   * |lowMemoryEventsPhysical| (UNITS_COUNT_CUMULATIVE)\n   * The number of low-physical-memory events that have occurred since the\n   * process started.\n   *\n   * |ghostWindows| (UNITS_COUNT)  A cached value of the number of ghost\n   * windows. This should have been updated within the past 60s.\n   *\n   * |pageFaultsHard| (UNITS_COUNT_CUMULATIVE)  The number of hard (a.k.a.\n   * major) page faults that have occurred since the process started.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "vsize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "vsizeMaxContiguous"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "resident"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "residentFast"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "residentPeak"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "residentUnique"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "heapAllocated"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "heapOverheadFraction"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "JSMainRuntimeGCHeap"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "JSMainRuntimeTemporaryPeak"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "JSMainRuntimeCompartmentsSystem"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "JSMainRuntimeCompartmentsUser"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "JSMainRuntimeRealmsSystem"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "JSMainRuntimeRealmsUser"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "imagesContentUsedUncompressed"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "storageSQLite"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "lowMemoryEventsPhysical"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "ghostWindows"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "int64_t",
+                  "name": "pageFaultsHard"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * This attribute indicates if moz_malloc_usable_size() works.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "hasMozMallocUsableSize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * These attributes indicate DMD's status. \"Enabled\" means enabled at\n   * build-time.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isDMDEnabled"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isDMDRunning"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Run a series of GC/CC's in an attempt to minimize the application's memory\n   * usage.  When we're finished doing this for the current process, we invoke\n   * the given runnable if it's not null.  We do not wait for any child processes\n   * that might be doing their own minimization via child-mmu-request to finish.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "minimizeMemoryUsage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRunnable",
+                      "name": "callback"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Measure the memory that is known to be owned by this tab, split up into\n   * several broad categories.  Note that this will be an underestimate of the\n   * true number, due to imperfect memory reporter coverage (corresponding to\n   * about:memory's \"heap-unclassified\"), and due to some memory shared between\n   * tabs not being counted.\n   *\n   * The time taken for the measurement (split into JS and non-JS parts) is\n   * also returned.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "sizeOfTab",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindowProxy",
+                      "name": "window"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "int64_t",
+                          "name": "jsObjectsSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "int64_t",
+                          "name": "jsStringsSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "int64_t",
+                          "name": "jsOtherSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "int64_t",
+                          "name": "domSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "int64_t",
+                          "name": "styleSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "int64_t",
+                          "name": "otherSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "int64_t",
+                          "name": "totalSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "double",
+                          "name": "jsMilliseconds"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "double",
+                          "name": "nonJSMilliseconds"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n\n#include \"js/TypeDecls.h\"\n#include \"nsString.h\"\n#include \"nsTArray.h\"\n\nclass nsPIDOMWindowOuter;\n\nnamespace mozilla {\n\n// All the following registration/unregistration functions don't use\n// [[nodiscard]] because ignoring failures is common and reasonable.\n\n// Register a memory reporter.  The manager service will hold a strong\n// reference to this reporter.\nXPCOM_API(nsresult) RegisterStrongMemoryReporter(nsIMemoryReporter* aReporter);\nXPCOM_API(nsresult) RegisterStrongAsyncMemoryReporter(nsIMemoryReporter* aReporter);\n\n// Register a memory reporter.  The manager service will hold a weak reference\n// to this reporter.\nXPCOM_API(nsresult) RegisterWeakMemoryReporter(nsIMemoryReporter* aReporter);\nXPCOM_API(nsresult) RegisterWeakAsyncMemoryReporter(nsIMemoryReporter* aReporter);\n\n// Unregister a strong memory reporter.\nXPCOM_API(nsresult) UnregisterStrongMemoryReporter(nsIMemoryReporter* aReporter);\n\n// Unregister a weak memory reporter.\nXPCOM_API(nsresult) UnregisterWeakMemoryReporter(nsIMemoryReporter* aReporter);\n\n// The memory reporter manager provides access to several distinguished\n// amounts via attributes.  Some of these amounts are provided by Gecko\n// components that cannot be accessed directly from XPCOM code.  So we provide\n// the following functions for those components to be registered with the\n// manager.\n\ntypedef int64_t (*InfallibleAmountFn)();\n\n#define DECL_REGISTER_DISTINGUISHED_AMOUNT(kind, name) \\\n    nsresult Register##name##DistinguishedAmount(kind##AmountFn aAmountFn);\n#define DECL_UNREGISTER_DISTINGUISHED_AMOUNT(name) \\\n    nsresult Unregister##name##DistinguishedAmount();\n\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, JSMainRuntimeGCHeap)\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, JSMainRuntimeTemporaryPeak)\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, JSMainRuntimeCompartmentsSystem)\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, JSMainRuntimeCompartmentsUser)\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, JSMainRuntimeRealmsSystem)\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, JSMainRuntimeRealmsUser)\n\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, ImagesContentUsedUncompressed)\nDECL_UNREGISTER_DISTINGUISHED_AMOUNT(ImagesContentUsedUncompressed)\n\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, StorageSQLite)\nDECL_UNREGISTER_DISTINGUISHED_AMOUNT(StorageSQLite)\n\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, LowMemoryEventsPhysical)\n\nDECL_REGISTER_DISTINGUISHED_AMOUNT(Infallible, GhostWindows)\n\n#undef DECL_REGISTER_DISTINGUISHED_AMOUNT\n#undef DECL_UNREGISTER_DISTINGUISHED_AMOUNT\n\n// Likewise for per-tab measurement.\n\ntypedef nsresult (*JSSizeOfTabFn)(JSObject* aObj,\n                                  size_t* aJsObjectsSize,\n                                  size_t* aJsStringSize,\n                                  size_t* aJsPrivateSize,\n                                  size_t* aJsOtherSize);\ntypedef nsresult (*NonJSSizeOfTabFn)(nsPIDOMWindowOuter* aWindow,\n                                     size_t* aDomSize,\n                                     size_t* aStyleSize,\n                                     size_t* aOtherSize);\n\nnsresult RegisterJSSizeOfTab(JSSizeOfTabFn aSizeOfTabFn);\nnsresult RegisterNonJSSizeOfTab(NonJSSizeOfTabFn aSizeOfTabFn);\n\n}\n\n#if defined(MOZ_DMD)\n#if !defined(MOZ_MEMORY)\n#error \"MOZ_DMD requires MOZ_MEMORY\"\n#endif\n\n#include \"DMD.h\"\n\n#define MOZ_REPORT(ptr)          mozilla::dmd::Report(ptr)\n#define MOZ_REPORT_ON_ALLOC(ptr) mozilla::dmd::ReportOnAlloc(ptr)\n\n#else\n\n#define MOZ_REPORT(ptr)\n#define MOZ_REPORT_ON_ALLOC(ptr)\n\n#endif  // defined(MOZ_DMD)\n\n// Functions generated via this macro should be used by all traversal-based\n// memory reporters.  Such functions return |moz_malloc_size_of(ptr)|;  this\n// will always be zero on some obscure platforms.\n//\n// You might be wondering why we have a macro that creates multiple functions\n// that differ only in their name, instead of a single MallocSizeOf function.\n// It's mostly to help with DMD integration, though it sometimes also helps\n// with debugging and temporary ad hoc profiling.  The function name chosen\n// doesn't matter greatly, but it's best to make it similar to the path used by\n// the relevant memory reporter(s).\n#define MOZ_DEFINE_MALLOC_SIZE_OF(fn)                                         \\\n  static size_t fn(const void* aPtr)                                          \\\n  {                                                                           \\\n      MOZ_REPORT(aPtr);                                                       \\\n      return moz_malloc_size_of(aPtr);                                        \\\n  }\n\n// This is an alternative to MOZ_DEFINE_MALLOC_SIZE_OF that defines a\n// MallocSizeOf function that can handle interior pointers.\n#ifdef MOZ_MEMORY\n\n#include \"mozmemory.h\"\n\n#define MOZ_DEFINE_MALLOC_ENCLOSING_SIZE_OF(fn)                               \\\n  static size_t fn(const void* aPtr)                                          \\\n  {                                                                           \\\n      jemalloc_ptr_info_t info;                                               \\\n      jemalloc_ptr_info(aPtr, &info);                                         \\\n      MOZ_REPORT(info.addr);                                                  \\\n      return jemalloc_ptr_is_live(&info) ? info.size : 0;                     \\\n  }\n\n#else\n\n#define MOZ_DEFINE_MALLOC_ENCLOSING_SIZE_OF(fn)                               \\\n  static size_t fn(const void* aPtr)                                          \\\n  {                                                                           \\\n      return 0;                                                               \\\n  }\n\n#endif\n\n// Functions generated by the next two macros should be used by wrapping\n// allocators that report heap blocks as soon as they are allocated and\n// unreport them as soon as they are freed.  Such allocators are used in cases\n// where we have third-party code that we cannot modify.  The two functions\n// must always be used in tandem.\n#define MOZ_DEFINE_MALLOC_SIZE_OF_ON_ALLOC(fn)                                \\\n  static size_t fn(const void* aPtr)                                          \\\n  {                                                                           \\\n      MOZ_REPORT_ON_ALLOC(aPtr);                                              \\\n      return moz_malloc_size_of(aPtr);                                        \\\n  }\n#define MOZ_DEFINE_MALLOC_SIZE_OF_ON_FREE(fn)                                 \\\n  static size_t fn(const void* aPtr)                                          \\\n  {                                                                           \\\n      return moz_malloc_size_of(aPtr);                                        \\\n  }\n\n// This macro assumes the presence of appropriate |aHandleReport| and |aData|\n// variables. The (void) is there because we should always ignore the return\n// value of the callback, because callback failures aren't fatal.\n#define MOZ_COLLECT_REPORT(path, kind, units, amount, description)            \\\n  (void)aHandleReport->Callback(\"\"_ns, nsLiteralCString(path),     \\\n                                kind, units, amount,                          \\\n                                nsLiteralCString(description), aData)\n\n%}\n"
+  ]
+}

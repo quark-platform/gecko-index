@@ -1,0 +1,174 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface representing a channel which will have to execute some sort of\n * program provided via its URI to compute the data it should return.\n *\n * If a channel implements this interface, the execution of the program in\n * question will be restricted in the following ways:\n *\n * - If the channel does not have an owner principal, the program will not be\n *   executed at all, no matter what.  This is necessary because in this\n *   circumstance we have no way to tell whether script execution is allowed at\n *   all for the originating security context of this channel.\n * - If the channel has an owner principal, how it is executed is controlled by\n *   this interface.  However if the owner principal does not subsume the\n *   principal of the environment in which the program is to be executed the\n *   execution will be forced to happen in a sandbox.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "33234b99-9588-4c7d-9da6-86b8b7cba565"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIScriptChannel",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Possible ways of executing the program.\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Don't execute at all.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "NO_EXECUTION",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * There used to be an EXECUTE_IN_SANDBOX = 1 value.  It has been removed, but\n   * we're not changing the value of EXECUTE_NORMAL to avoid breaking compat.\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Execute against the target environment if the principals allow it.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "EXECUTE_NORMAL",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether and how the program represented by this channel is to be executed.\n   * The default value if this property has never been set on this channel MUST\n   * be either EXECUTE_IN_SANDBOX or NO_EXECUTION.\n   *\n   * @throws NS_ERROR_INVALID_ARG when set to an unrecognized value.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "executionPolicy"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Control whether the program should be executed synchronosly when\n   * the channel's AsyncOpen method is called or whether it should be\n   * executed asynchronously.  In both cases, any data that the\n   * channel returns will be returned asynchronously; the only thing\n   * this property affects is when the program executes.\n   *\n   * The default value of this property is TRUE.\n   *\n   * Setting this property after asyncOpen has been called on the\n   * channel has no effect.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "executeAsync"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Check whether this script channel is a document load.  This is\n   * needed because script channels can lie about their\n   * LOAD_DOCUMENT_URI flag until they have run the script.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isDocumentLoad"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

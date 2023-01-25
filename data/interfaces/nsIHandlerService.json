@@ -1,0 +1,432 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIHandlerInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsISimpleEnumerator",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIMIMEInfo",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "53f0ad17-ec62-46a1-adbc-efccc06babcd"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIHandlerService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously performs any IO that the nsIHandlerService needs to do\n   * before it can be of use.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncInit",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieve a list of all handlers in the datastore.  This list is not\n   * guaranteed to be in any particular order, and callers should not assume\n   * it will remain in the same order in the future.\n   *\n   * @returns a list of all handlers in the datastore\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsISimpleEnumerator",
+                  "name": "enumerate",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Fill a handler info object with information from the datastore.\n   *\n   * Note: because of the way the external helper app service currently mixes\n   * OS and user handler info in the same handler info object, this method\n   * takes an existing handler info object (probably retrieved from the OS)\n   * and \"fills it in\" with information from the datastore, overriding any\n   * existing properties on the object with properties from the datastore.\n   *\n   * Ultimately, however, we're going to separate OS and user handler info\n   * into separate objects, at which point this method should be renamed to\n   * something like \"get\" or \"retrieve\", take a class and type (or perhaps\n   * a type whose class can be determined by querying the type, for example\n   * an nsIContentType which is also an nsIMIMEType or an nsIProtocolScheme),\n   * and return a handler info object representing only the user info.\n   *\n   * Note: if you specify an override type, then the service will fill in\n   * the handler info object with information about that type instead of\n   * the type specified by the object's nsIHandlerInfo::type attribute.\n   *\n   * This is useful when you are trying to retrieve information about a MIME\n   * type that doesn't exist in the datastore, but you have a file extension\n   * for that type, and nsIHandlerService::getTypeFromExtension returns another\n   * MIME type that does exist in the datastore and can handle that extension.\n   *\n   * For example, the user clicks on a link, and the content has a MIME type\n   * that isn't in the datastore, but the link has a file extension, and that\n   * extension is associated with another MIME type in the datastore (perhaps\n   * an unofficial MIME type preceded an official one, like with image/x-png\n   * and image/png).\n   *\n   * In that situation, you can call this method to fill in the handler info\n   * object with information about that other type by passing the other type\n   * as the aOverrideType parameter.\n   *\n   * @param aHandlerInfo   the handler info object\n   * @param aOverrideType  a type to use instead of aHandlerInfo::type\n   *\n   * Note: if there is no information in the datastore about this type,\n   * this method throws NS_ERROR_NOT_AVAILABLE. Callers are encouraged to\n   * check exists() before calling fillHandlerInfo(), to prevent spamming the\n   * console with XPCOM exception errors.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "fillHandlerInfo",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandlerInfo",
+                      "name": "aHandlerInfo"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aOverrideType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Save the preferred action, preferred handler, possible handlers, and\n   * always ask properties of the given handler info object to the datastore.\n   * Updates an existing record or creates a new one if necessary.\n   *\n   * Note: if preferred action is undefined or invalid, then we assume\n   * the default value nsIHandlerInfo::useHelperApp.\n   *\n   * @param aHandlerInfo  the handler info object\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "store",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandlerInfo",
+                      "name": "aHandlerInfo"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether or not a record for the given handler info object exists\n   * in the datastore. If the datastore is corrupt (or some other error\n   * is caught in the implementation), false will be returned.\n   *\n   * @param aHandlerInfo  a handler info object\n   *\n   * @returns whether or not a record exists\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "exists",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandlerInfo",
+                      "name": "aHandlerInfo"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Remove the given handler info object from the datastore.  Deletes all\n   * records associated with the object, including the preferred handler, info,\n   * and type records plus the entry in the list of types, if they exist.\n   * Otherwise, it does nothing and does not return an error.\n   *\n   * @param aHandlerInfo  the handler info object\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "remove",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandlerInfo",
+                      "name": "aHandlerInfo"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the MIME type mapped to the given file extension in the datastore.\n   *\n   * XXX If we ever support extension -> protocol scheme mappings, then this\n   * method should work for those as well.\n   *\n   * Note: in general, you should use nsIMIMEService::getTypeFromExtension\n   * to get a MIME type from a file extension, as that method checks a variety\n   * of other sources besides just the datastore.  Use this only when you want\n   * to specifically get only the mapping available in the datastore.\n   *\n   * @param aFileExtension  the file extension\n   *\n   * @returns the MIME type, if any; otherwise returns an empty string (\"\").\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getTypeFromExtension",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aFileExtension"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether or not there is a handler known to the OS for the\n   * specified protocol type.\n   *\n   * @param aProtocolScheme scheme to check for support\n   *\n   * @returns whether or not a handler exists\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "existsForProtocolOS",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aProtocolScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether or not there is a handler in the datastore or OS for\n   * the specified protocol type. If there is no handler in the datastore,\n   * falls back to a check for an OS handler.\n   *\n   * @param aProtocolScheme scheme to check for support\n   *\n   * @returns whether or not a handler exists\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "existsForProtocol",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aProtocolScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * This method only exists for nsOSHelperAppServiceChild using\n   * the ContentHandlerService implementation.\n   *\n   * Returns an nsIMIMEInfo for the provided MIME type and extension\n   * obtained from an OS lookup. If no handler is found for the type and\n   * extension, returns a generic nsIMIMEInfo object. The MIME type and\n   * extension can be the empty string. When the type and extension don't\n   * map to the same handler, the semantics/resolution are platform\n   * specific. See the platform implementations for details.\n   *\n   * @param aType           The MIME type to get handler information for.\n   * @param aFileExtension  The filename extension to use either alone\n   *                        or with the MIME type to get handler information\n   *                        for. UTF-8 encoded.\n   * @param [out] aFound    Out param indicating whether a MIMEInfo could\n   *                        be found for the provided type and/or extension.\n   *                        Set to false when neither extension nor the MIME\n   *                        type are mapped to a handler.\n   * @return                A nsIMIMEInfo object. This function must return\n   *                        a MIMEInfo object if it can allocate one. The\n   *                        only justifiable reason for not returning one is\n   *                        an out-of-memory error.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIMIMEInfo",
+                  "name": "getMIMEInfoFromOS",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aFileExtension"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "aFound"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Get a description for the application responsible for handling\n   * the provided protocol.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getApplicationDescription",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aProtocolScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

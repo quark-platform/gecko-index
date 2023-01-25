@@ -1,0 +1,587 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICacheEntry",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICacheEntryOpenCallback",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICacheEntryDoomCallback",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICacheStorageVisitor",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Representation of a cache storage. There can be just-in-mem,\n * in-mem+on-disk, in-mem+on-disk+app-cache or just a specific\n * app-cache storage.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "35d104a6-d252-4fd4-8a56-3c14657cad3b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICacheStorage",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Placeholder for specifying \"no special flags\" during open.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "OPEN_NORMALLY",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Rewrite any existing data when opening a URL.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "OPEN_TRUNCATE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Only open an existing entry.  Don't create a new one.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "OPEN_READONLY",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Use for first-paint blocking loads.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "OPEN_PRIORITY",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Bypass the cache load when write is still in progress.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "OPEN_BYPASS_IF_BUSY",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Perform the cache entry check (onCacheEntryCheck invocation) on any thread\n   * for optimal perfomance optimization.  If this flag is not specified it is\n   * ensured that onCacheEntryCheck is called on the same thread as respective\n   * asyncOpen has been called.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "CHECK_MULTITHREADED",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Don't automatically update any 'last used' metadata of the entry.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "OPEN_SECRETLY",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Entry is being opened as part of a service worker interception.  Do not\n   * allow the cache to be disabled in this case.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "OPEN_INTERCEPTED",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously opens a cache entry for the specified URI.\n   * Result is fetched asynchronously via the callback.\n   *\n   * @param aURI\n   *    The URI to search in cache or to open for writting.\n   * @param aIdExtension\n   *    Any string that will extend (distinguish) the entry.  Two entries\n   *    with the same aURI but different aIdExtension will be comletely\n   *    different entries.  If you don't know what aIdExtension should be\n   *    leave it empty.\n   * @param aFlags\n   *    OPEN_NORMALLY - open cache entry normally for read and write\n   *    OPEN_TRUNCATE - delete any existing entry before opening it\n   *    OPEN_READONLY - don't create an entry if there is none\n   *    OPEN_PRIORITY - give this request a priority over others\n   *    OPEN_BYPASS_IF_BUSY - backward compatibility only, LOAD_BYPASS_LOCAL_CACHE_IF_BUSY\n   *    CHECK_MULTITHREADED - onCacheEntryCheck may be called on any thread, consumer\n   *                          implementation is thread-safe\n   * @param aCallback\n   *    The consumer that receives the result.\n   *    IMPORTANT: The callback may be called sooner the method returns.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncOpenURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aIdExtension"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICacheEntryOpenCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Immediately opens a new and empty cache entry in the storage, any existing\n   * entries are immediately doomed.  This is similar to the recreate() method\n   * on nsICacheEntry.\n   *\n   * Storage may not implement this method and throw NS_ERROR_NOT_IMPLEMENTED.\n   * In that case consumer must use asyncOpen with OPEN_TRUNCATE flag and get\n   * the new entry via a callback.\n   *\n   * @param aURI @see asyncOpenURI\n   * @param aIdExtension @see asyncOpenURI\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsICacheEntry",
+                  "name": "openTruncate",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aIdExtension"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Synchronously check on existance of an entry.  In case of disk entries\n   * this uses information from the cache index.  When the index data are not\n   * up to date or index is still building, NS_ERROR_NOT_AVAILABLE is thrown.\n   * The same error may throw any storage implementation that cannot determine\n   * entry state without blocking the caller.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "exists",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aIdExtension"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Synchronously check on existance of alternative data and size of the\n   * content. When the index data are not up to date or index is still building,\n   * NS_ERROR_NOT_AVAILABLE is thrown. The same error may throw any storage\n   * implementation that cannot determine entry state without blocking the caller.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getCacheIndexEntryAttrs",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aIdExtension"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "bool",
+                          "name": "aHasAltData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "uint32_t",
+                          "name": "aSizeInKB"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously removes an entry belonging to the URI from the cache.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncDoomURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aIdExtension"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICacheEntryDoomCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchronously removes all cached entries under this storage.\n   * NOTE: Disk storage also evicts memory storage.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncEvictStorage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsICacheEntryDoomCallback",
+                      "name": "aCallback"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Visits the storage and its entries.\n   * NOTE: Disk storage also visits memory storage.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncVisitStorage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsICacheStorageVisitor",
+                      "name": "aVisitor"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aVisitEntries"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

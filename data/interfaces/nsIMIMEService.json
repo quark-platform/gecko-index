@@ -1,0 +1,618 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIMIMEInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n#define NS_MIMESERVICE_CID                           \\\n{ /* 03af31da-3109-11d3-8cd0-0060b0fc14a3 */         \\\n    0x03af31da,                                      \\\n    0x3109,                                          \\\n    0x11d3,                                          \\\n    {0x8c, 0xd0, 0x00, 0x60, 0xb0, 0xfc, 0x14, 0xa3} \\\n}\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The MIME service is responsible for mapping file extensions to MIME-types\n * (see RFC 2045). It also provides access to nsIMIMEInfo interfaces and\n * acts as a general convenience wrapper of nsIMIMEInfo interfaces.\n *\n * The MIME service maintains a database with a <b>one</b> MIME type <b>to many</b>\n * file extensions rule. Adding the same file extension to multiple MIME types\n * is illegal and behavior is undefined.\n *\n * @see nsIMIMEInfo\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "main_process_scriptable_only",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "5b3675a1-02db-4f8f-a560-b34736635f47"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIMIMEService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Retrieves an nsIMIMEInfo using both the extension\n     * and the type of a file. The type is given preference\n     * during the lookup. One of aMIMEType and aFileExt\n     * can be an empty string. At least one of aMIMEType and aFileExt\n     * must be nonempty.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIMIMEInfo",
+                  "name": "getFromTypeAndExtension",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aMIMEType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aFileExt"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Retrieves a ACString representation of the MIME type\n     * associated with this file extension.\n     *\n     * @param  A file extension (excluding the dot ('.')).\n     * @return The MIME type, if any.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getTypeFromExtension",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aFileExt"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Retrieves a ACString representation of the MIME type\n     * associated with this URI. The association is purely\n     * file extension to MIME type based. No attempt to determine\n     * the type via server headers or byte scanning is made.\n     *\n     * @param  The URI the user wants MIME info on.\n     * @return The MIME type, if any.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getTypeFromURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Retrieves a ACString representation of the MIME type\n     * associated with this file extension.  Only the default\n     * builtin list is examined.  Unless you need a restricted\n     * set use getTypeFromURI.\n     *\n     * @param  The URI the user wants MIME info on.\n     * @return The MIME type, if any.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getDefaultTypeFromURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getTypeFromFile",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFile",
+                      "name": "aFile"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Given a Type/Extension combination, returns the default extension\n     * for this type. This may be identical to the passed-in extension.\n     *\n     * @param aMIMEType The Type to get information on. Must not be empty.\n     * @param aFileExt  File Extension. Can be empty.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AUTF8String",
+                  "name": "getPrimaryExtension",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aMIMEType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aFileExt"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * Returns an nsIMIMEInfo for the provided MIME type and extension\n     * obtained from an OS lookup. If no handler is found for the type and\n     * extension, returns a generic nsIMIMEInfo object. The MIME type and\n     * extension can be the empty string. When the type and extension don't\n     * map to the same handler, the semantics/resolution are platform\n     * specific. See the platform implementations for details.\n     *\n     * @param aType           The MIME type to get handler information for.\n     * @param aFileExtension  The filename extension to use either alone\n     *                        or with the MIME type to get handler information\n     *                        for. UTF-8 encoded.\n     * @param [out] aFound    Out param indicating whether a MIMEInfo could\n     *                        be found for the provided type and/or extension.\n     *                        Set to false when neither extension nor the MIME\n     *                        type are mapped to a handler.\n     * @return                A nsIMIMEInfo object. This function must return\n     *                        a MIMEInfo object if it can allocate one. The\n     *                        only justifiable reason for not returning one is\n     *                        an out-of-memory error.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIMIMEInfo",
+                  "name": "getMIMEInfoFromOS",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aFileExtension"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "aFound"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Default filename validation for getValidFileName and\n     * validateFileNameForSaving where other flags are not true.\n     * That is, the extension is modified to fit the content type,\n     * duplicate whitespace is collapsed, and long filenames are\n     * truncated. A valid content type must be supplied. See the\n     * description of getValidFileName for more details about how\n     * the flags are used.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_DEFAULT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If true, then the filename is only validated to ensure that it is\n     * acceptable for the file system. If false, then the extension is also\n     * checked to ensure that it is valid for the content type. If the\n     * extension is not valid, the filename is modified to have the proper\n     * extension.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_SANITIZE_ONLY",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Don't collapse strings of duplicate whitespace into a single string.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_DONT_COLLAPSE_WHITESPACE",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Don't truncate long filenames.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_DONT_TRUNCATE",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * True to ignore the content type and guess the type from any existing\n     * extension instead. \"application/octet-stream\" is used as the default\n     * if there is no extension or there is no information available for\n     * the extension.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_GUESS_FROM_EXTENSION",
+                  "value": "8"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If the filename is empty, return the empty filename\n     * without modification.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_ALLOW_EMPTY",
+                  "value": "16"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Don't apply a default filename if the non-extension portion of the\n     * filename is empty.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_NO_DEFAULT_FILENAME",
+                  "value": "32"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * When the filename has an invalid extension, force the the filename to\n     * have a valid extension appended to the end of the filename when that\n     * extension would normally be ignored for the given content type. This\n     * primarily is used when saving pages to ensure that the html extension\n     * is applied over any extension that might have been generated from a\n     * page title.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_FORCE_APPEND_EXTENSION",
+                  "value": "64"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Generate a valid filename from the channel that can be used to save\n     * the content of the channel to the local disk.\n     *\n     * The filename is determined from the content disposition, the filename\n     * of the uri, or a default filename. The following modifications are\n     * applied:\n     *  - If the VALIDATE_SANITIZE_ONLY flag is not specified, then the\n     *    extension of the filename is modified to suit the supplied content type.\n     *  - Path separators (typically / and \\) are replaced by underscores (_)\n     *  - Characters that are not valid or would be confusing in filenames are\n     *    replaced by spaces (*, :, etc)\n     *  - Bidi related marks are replaced by underscores (_)\n     *  - Whitespace and periods are removed from the beginning and end.\n     *  - Unless VALIDATE_DONT_COLLAPSE_WHITESPACE is specified, multiple\n     *    consecutive whitespace characters are collapsed to a single space\n     *    character, either ' ' or an ideographic space 0x3000 if present.\n     *  - Unless VALIDATE_DONT_TRUNCATE is specified, the filename is truncated\n     *    to a maximum length, preserving the extension if possible.\n     *  - Some filenames are invalid on certain platforms. These are replaced if\n     *    possible.\n     *\n     * If the VALIDATE_NO_DEFAULT_FILENAME flag is not specified, and after the\n     * rules above are applied, the resulting filename is empty, a default\n     * filename is used.\n     *\n     * If the VALIDATE_ALLOW_EMPTY flag is specified, an empty string may be\n     * returned only if the filename could not be determined or was blank.\n     *\n     * If either the VALIDATE_SANITIZE_ONLY or VALIDATE_GUESS_FROM_EXTENSION flags\n     * are specified, then the content type may be empty. Otherwise, the type must\n     * not be empty.\n     *\n     * The aOriginalURI would be specified if the channel is for a local file but\n     * it was originally sourced from a different uri.\n     *\n     * When saving an image, use validateFileNameForSaving instead and\n     * pass the result of imgIRequest::GetFileName() as the filename to\n     * check.\n     *\n     * @param aChannel The channel of the content to save.\n     * @param aType The MIME type to use, which would usually be the\n     *              same as the content type of the channel.\n     * @param aOriginalURL the source url of the file, but may be null.\n     * @param aFlags one or more of the flags above.\n     * @returns The resulting filename.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getValidFileName",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aOriginalURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Similar to getValidFileName, but used when a specific filename needs\n     * to be validated. The filename is modified as needed based on the \n     * content type in the same manner as getValidFileName.\n     *\n     * If the filename came from a uri, it should not be escaped, that is,\n     * any needed unescaping of the filename should happen before calling\n     * this method.\n     *\n     * @param aType The MIME type to use.\n     * @param aFlags one or more of the flags above.\n     * @param aFileName The filename to validate.\n     * @returns The validated filename.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "validateFileNameForSaving",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aFileName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

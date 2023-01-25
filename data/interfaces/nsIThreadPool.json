@@ -1,0 +1,335 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim:set ts=2 sw=2 sts=2 et cindent: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIEventTarget"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "ef194cab-3f86-4b61-b132-e5e96a79e5d1"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIThreadPoolListener",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called when a new thread is created by the thread pool. The notification\n   * happens on the newly-created thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onThreadCreated",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called when a thread is about to be destroyed by the thread pool. The\n   * notification happens on the thread that is about to be destroyed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onThreadShuttingDown",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An interface to a thread pool.  A thread pool creates a limited number of\n * anonymous (unnamed) worker threads.  An event dispatched to the thread pool\n * will be run on the next available worker thread.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "76ce99c9-8e43-489a-9789-f27cc4424965"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIThreadPool",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIEventTarget"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Shutdown the thread pool.  This method may not be executed from any thread\n   * in the thread pool.  Instead, it is meant to be executed from another\n   * thread (usually the thread that created this thread pool).  When this\n   * function returns, the thread pool and all of its threads will be shutdown,\n   * and it will no longer be possible to dispatch tasks to the thread pool.\n   *\n   * As a side effect, events on the current thread will be processed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "shutdown",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Shutdown the thread pool, but only wait for aTimeoutMs. After the timeout\n   * expires, any threads that have not shutdown yet are leaked and will not\n   * block shutdown.\n   *\n   * This method should only be used at during shutdown to cleanup threads that\n   * made blocking calls to code outside our control, and can't be safely\n   * terminated. We choose to leak them intentionally to avoid a shutdown hang.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "shutdownWithTimeout",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "aTimeoutMs"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get/set the maximum number of threads allowed at one time in this pool.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "threadLimit"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get/set the maximum number of idle threads kept alive.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "idleThreadLimit"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get/set the amount of time in milliseconds before an idle thread is\n   * destroyed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "idleThreadTimeout"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If set to true the idle timeout will be calculated as idleThreadTimeout\n   * divideded by the number of idle threads at the moment.  This may help\n   * save memory allocations but still keep reasonable amount of idle threads.\n   * Default is false, use |idleThreadTimeout| for all threads.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "idleThreadTimeoutRegressive"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get/set the number of bytes reserved for the stack of all threads in\n   * the pool. By default this is nsIThreadManager::DEFAULT_STACK_SIZE.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "threadStackSize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * An optional listener that will be notified when a thread is created or\n   * destroyed in the course of the thread pool's operation.\n   *\n   * A listener will only receive notifications about threads created after the\n   * listener is set so it is recommended that the consumer set the listener\n   * before dispatching the first event. A listener that receives an\n   * onThreadCreated() notification is guaranteed to always receive the\n   * corresponding onThreadShuttingDown() notification.\n   *\n   * The thread pool takes ownership of the listener and releases it when the\n   * shutdown() method is called. Threads created after the listener is set will\n   * also take ownership of the listener so that the listener will be kept alive\n   * long enough to receive the guaranteed onThreadShuttingDown() notification.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIThreadPoolListener",
+                  "name": "listener"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set the label for threads in the pool. All threads will be named\n   * \"<aName> #<n>\", where <n> is a serial number.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setName",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

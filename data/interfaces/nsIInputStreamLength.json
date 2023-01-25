@@ -1,0 +1,241 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEventTarget",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStreamLengthCallback",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Note: Instead of using these interfaces directly, consider to use\n * InputStreamLengthHelper class.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "452d059f-9a9c-4434-8839-e10d1405647c"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIInputStreamLength",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the total length of the stream if known. Otherwise it returns -1.\n   * This is different than calling available() which returns the number of\n   * bytes ready to be read from the stream.\n   * -1 is a valid value for a stream that doesn't know its length. For\n   * instance, a pipe stream could return such value.\n   *\n   * It could throw NS_BASE_STREAM_WOULD_BLOCK if the inputStream is\n   * non-blocking. If this happens, you should use\n   * nsIAsyncInputStreamLength::asyncLengthWait().\n   *\n   * If the stream has already been read (read()/readSegments()/close()/seek()\n   * methods has been called), length() returns NS_ERROR_NOT_AVAILABLE.\n   *\n   * This is not an attribute because a stream can change its length. For\n   * instance, if the stream is a file inputStream and the underlying OS file\n   * changes, its length will change as well.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "long long",
+                  "name": "length",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "b63f9ecf-4668-44a3-93bd-72dbc65a6125"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIAsyncInputStreamLength",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If the stream is non-blocking, nsIInputStreamLength::length() can return\n   * NS_BASE_STREAM_WOULD_BLOCK. The caller must then wait for the stream to\n   * know its length.\n   *\n   * If the stream implements nsIAsyncInputStreamLength, then the caller can\n   * use this interface to request an asynchronous notification when the\n   * stream's length becomes known (via the AsyncLengthWait method).\n   * If the length is already known, the aCallback will be still called\n   * asynchronously.\n   *\n   * If the stream has already been read (read()/readSegments()/close()/seek()\n   * methods has been called), length() returns NS_ERROR_NOT_AVAILABLE.\n   *\n   * @param aCallback\n   *        This object is notified when the length becomes known. This\n   *        parameter may be null to clear an existing callback.\n   * @param aEventTarget\n   *        Specify that the notification must be delivered to a specific event\n   *        target.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncLengthWait",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIInputStreamLengthCallback",
+                      "name": "aCallback"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIEventTarget",
+                          "name": "aEventTarget"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This is a companion interface for\n * nsIAsyncInputStreamLength::asyncLengthWait.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "function",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "9c0c13b9-1b33-445d-8adb-a8a7866a6c06"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIInputStreamLengthCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to inform what the total length of the stream is.\n   *\n   * @param aStream\n   *        The stream whose asyncLengthWait method was called.\n   * @param aLength\n   *        The stream's length. It can be -1 if the stream doesn't know its\n   *        length. For instance, this can happen for a pipe inputStream.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onInputStreamLengthReady",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIAsyncInputStreamLength",
+                      "name": "aStream"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long long",
+                          "name": "aLength"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

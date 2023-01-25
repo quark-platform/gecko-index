@@ -1,0 +1,273 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsICacheInfoChannel"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * A channel may optionally implement this interface to allow clients\n * to affect its behavior with respect to how it uses the cache service.\n *\n * This interface provides:\n *   1) Support for \"stream as file\" semantics (for JAR and plugins).\n *   2) Support for \"pinning\" cached data in the cache (for printing and save-as).\n *   3) Support for uniquely identifying cached data in cases when the URL\n *      is insufficient (e.g., HTTP form submission).\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "dd1d6122-5ecf-4fe4-8f0f-995e7ab3121a"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICachingChannel",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsICacheInfoChannel"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set/get the cache token... uniquely identifies the data in the cache.\n     * Holding a reference to this token prevents the cached data from being\n     * removed.\n     *\n     * A cache token retrieved from a particular instance of nsICachingChannel\n     * could be set on another instance of nsICachingChannel provided the\n     * underlying implementations are compatible.  The implementation of\n     * nsICachingChannel would be expected to only read from the cache entry\n     * identified by the cache token and not try to validate it.\n     *\n     * The cache token can be QI'd to a nsICacheEntryInfo if more detail\n     * about the cache entry is needed (e.g., expiration time).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsISupports",
+                  "name": "cacheToken"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Instructs the channel to only store the metadata of the entry, and not\n     * the content. When reading an existing entry, this automatically sets\n     * LOAD_ONLY_IF_MODIFIED flag.\n     * Must be called before asyncOpen().\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "cacheOnlyMetadata"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Tells the channel to use the pinning storage.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "pin"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Overrides cache validation for a time specified in seconds.\n     *\n     * @param aSecondsToTheFuture\n     *\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "forceCacheEntryValidFor",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aSecondsToTheFuture"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**************************************************************************\n     * Caching channel specific load flags:\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This load flag inhibits fetching from the net.  An error of\n     * NS_ERROR_DOCUMENT_NOT_CACHED will be sent to the listener's\n     * onStopRequest if network IO is necessary to complete the request.\n     *\n     * This flag can be used to find out whether fetching this URL would\n     * cause validation of the cache entry via the network.\n     *\n     * Combining this flag with LOAD_BYPASS_LOCAL_CACHE will cause all\n     * loads to fail.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_NO_NETWORK_IO",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This load flag causes the local cache to be skipped when fetching a\n     * request.  Unlike LOAD_BYPASS_CACHE, it does not force an end-to-end load\n     * (i.e., it does not affect proxy caches).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_BYPASS_LOCAL_CACHE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This load flag causes the local cache to be skipped if the request\n     * would otherwise block waiting to access the cache.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_BYPASS_LOCAL_CACHE_IF_BUSY",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This load flag inhibits fetching from the net if the data in the cache\n     * has been evicted.  An error of NS_ERROR_DOCUMENT_NOT_CACHED will be sent\n     * to the listener's onStopRequest in this case.  This flag is set\n     * automatically when the application is offline.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_ONLY_FROM_CACHE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This load flag controls what happens when a document would be loaded\n     * from the cache to satisfy a call to AsyncOpen.  If this attribute is\n     * set to TRUE, then the document will not be loaded from the cache.  A\n     * stream listener can check nsICachingChannel::isFromCache to determine\n     * if the AsyncOpen will actually result in data being streamed.\n     *\n     * If this flag has been set, and the request can be satisfied via the\n     * cache, then the OnDataAvailable events will be skipped.  The listener\n     * will only see OnStartRequest followed by OnStopRequest.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_ONLY_IF_MODIFIED",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

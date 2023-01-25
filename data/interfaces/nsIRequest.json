@@ -1,0 +1,801 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{ C++\n#include \"nsString.h\"\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoadGroup",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "typedef"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIRequest\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "ef6bfbd2-fd46-48d8-96b7-9f8f0fd387fe"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIRequest",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The name of the request.  Often this is the URI of the request.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "name"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Indicates whether the request is pending. nsIRequest::isPending is\n     * true when there is an outstanding asynchronous event that will make\n     * the request no longer be pending.  Requests do not necessarily start\n     * out pending; in some cases, requests have to be explicitly initiated\n     * (e.g. nsIChannel implementations are only pending once asyncOpen\n     * returns successfully).\n     *\n     * Requests can become pending multiple times during their lifetime.\n     *\n     * @return TRUE if the request has yet to reach completion.\n     * @return FALSE if the request has reached completion (e.g., after\n     *   OnStopRequest has fired).\n     * @note Suspended requests are still considered pending.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isPending",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The error status associated with the request.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsresult",
+                  "name": "status"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Cancels the current request.  This will close any open input or\n     * output streams and terminate any async requests.  Users should\n     * normally pass NS_BINDING_ABORTED, although other errors may also\n     * be passed.  The error passed in will become the value of the\n     * status attribute.\n     *\n     * Implementations must not send any notifications (e.g. via\n     * nsIRequestObserver) synchronously from this function. Similarly,\n     * removal from the load group (if any) must also happen asynchronously.\n     *\n     * Requests that use nsIStreamListener must not call onDataAvailable\n     * anymore after cancel has been called.\n     *\n     * @param aStatus the reason for canceling this request.\n     *\n     * NOTE: most nsIRequest implementations expect aStatus to be a\n     * failure code; however, some implementations may allow aStatus to\n     * be a success code such as NS_OK.  In general, aStatus should be\n     * a failure code.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "cancel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "aStatus"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Suspends the current request.  This may have the effect of closing\n     * any underlying transport (in order to free up resources), although\n     * any open streams remain logically opened and will continue delivering\n     * data when the transport is resumed.\n     *\n     * Calling cancel() on a suspended request must not send any\n     * notifications (such as onstopRequest) until the request is resumed.\n     *\n     * NOTE: some implementations are unable to immediately suspend, and\n     * may continue to deliver events already posted to an event queue. In\n     * general, callers should be capable of handling events even after\n     * suspending a request.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "suspend",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Resumes the current request.  This may have the effect of re-opening\n     * any underlying transport and will resume the delivery of data to\n     * any open streams.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "resume",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The load group of this request.  While pending, the request is a\n     * member of the load group.  It is the responsibility of the request\n     * to implement this policy.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsILoadGroup",
+                  "name": "loadGroup"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The load flags of this request.  Bits 0-15 are reserved.\n     *\n     * When added to a load group, this request's load flags are merged with\n     * the load flags of the load group.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsLoadFlags",
+                  "name": "loadFlags"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Mask defining the bits reserved for nsIRequest LoadFlags\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_REQUESTMASK",
+                  "value": "0xFFFF"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**************************************************************************\n     * Listed below are the various load flags which may be or'd together.\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * No special load flags:\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_NORMAL",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Do not deliver status notifications to the nsIProgressEventSink and\n     * do not block the loadgroup from completing (should this load belong to one).\n     * Note: Progress notifications will still be delivered.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_BACKGROUND",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag marks the request as being made to load the data for an html\n     * <object> tag. This means that the LOAD_DOCUMENT_URI flag may be set after\n     * the channel has been provided with the MIME type.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_HTML_OBJECT_DATA",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag marks the request as belonging to a document that requires access\n     * to the document.cookies API.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_DOCUMENT_NEEDS_COOKIE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "TRRMode",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "TRR_DEFAULT_MODE",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "0"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "TRR_DISABLED_MODE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "1"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "TRR_FIRST_MODE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "TRR_ONLY_MODE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "3"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * These methods encode/decode the TRR mode to/from the loadFlags.\n     * Helper methods Get/SetTRRModeImpl are provided so implementations don't\n     * need to duplicate code.\n     *\n     * Requests with TRR_DEFAULT_MODE will use the mode indicated by the pref\n     *   - see network.trr.mode in all.js\n     * Requests with TRR_DISABLED_MODE will always use native DNS, even if the\n     *   pref is set to mode3 (TRR-only).\n     * Requests with TRR_FIRST_MODE will first use TRR then fallback to regular\n     *   DNS, unless TRR is disabled by setting the pref to mode5, parental\n     *   control being enabled, or the domain being in the exclusion list.\n     * Requests with TRR_ONLY_MODE will only use TRR, unless not allowed by\n     *   the same conditions mentioned above.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIRequest_TRRMode",
+                  "name": "getTRRMode",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setTRRMode",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRequest_TRRMode",
+                      "name": "mode"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n        inline TRRMode GetTRRMode() {\n            TRRMode mode = TRR_DEFAULT_MODE;\n            GetTRRMode(&mode);\n            return mode;\n        }\n\n        inline nsresult GetTRRModeImpl(nsIRequest::TRRMode* aTRRMode) {\n          NS_ENSURE_ARG_POINTER(aTRRMode);\n          nsLoadFlags flags = nsIRequest::LOAD_NORMAL;\n          nsresult rv = GetLoadFlags(&flags);\n          if (NS_FAILED(rv)) {\n            return rv;\n          }\n          *aTRRMode = static_cast<nsIRequest::TRRMode>(\n              (flags & nsIRequest::LOAD_TRR_MASK) >> 3);\n          return NS_OK;\n        }\n\n        inline nsresult SetTRRModeImpl(nsIRequest::TRRMode aTRRMode) {\n          MOZ_ASSERT(aTRRMode <= 3, \"invalid value\");\n          nsLoadFlags flags = nsIRequest::LOAD_NORMAL;\n          nsresult rv = GetLoadFlags(&flags);\n          if (NS_FAILED(rv)) {\n            return rv;\n          }\n          flags = (flags & ~nsIRequest::LOAD_TRR_MASK) | (aTRRMode << 3);\n          return SetLoadFlags(flags);\n        }\n    %}\n\n    "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * These two bits encode the TRR mode.\n     * Do not get/set manually, rather use the getTRRMode/setTRRMode methods.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_TRR_MASK",
+                  "value": {
+                    "kind": "num_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_TRR_DISABLED_MODE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_TRR_FIRST_MODE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_TRR_ONLY_MODE",
+                  "value": {
+                    "kind": "num_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "cancelWithReason",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "aStatus"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aReason"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "ACString",
+                  "name": "canceledReason"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n      protected:\n        nsCString mCanceledReason;\n\n      public:\n        inline nsresult SetCanceledReasonImpl(const nsACString& aReason) {\n          if (mCanceledReason.IsEmpty()) {\n            mCanceledReason.Assign(aReason);\n          }\n\n          return NS_OK;\n        }\n\n        inline nsresult CancelWithReasonImpl(nsresult aStatus,\n                                             const nsACString& aReason) {\n          SetCanceledReasonImpl(aReason);\n          return Cancel(aStatus);\n        }\n\n        inline nsresult GetCanceledReasonImpl(nsACString& aReason) {\n          aReason.Assign(mCanceledReason);\n          return NS_OK;\n        }\n    %}\n\n    "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This is used for a temporary workaround for a web-compat issue. The flag is\n     * only set on CORS preflight request to allowed sending client certificates\n     * on a connection for an anonymous request.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "LOAD_ANONYMOUS_ALLOW_CLIENT_CERT",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Record HTTP_PRELOAD_IMAGE_STARTREQUEST_DELAY telemetry for the delay between\n     * sending OnStartRequest from the socket thread to it being processed by the\n     * main thread.\n     * This is temporary while we collect telemetry around the value of\n     * handling OnStartRequest off the main thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "LOAD_RECORD_START_REQUEST_DELAY",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**************************************************************************\n     * The following flags control the flow of data into the cache.\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag prevents caching of any kind.  It does not, however, prevent\n     * cached content from being used to satisfy this request.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "INHIBIT_CACHING",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag prevents caching on disk (or other persistent media), which\n     * may be needed to preserve privacy.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "INHIBIT_PERSISTENT_CACHING",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**************************************************************************\n     * The following flags control what happens when the cache contains data\n     * that could perhaps satisfy this request.  They are listed in descending\n     * order of precidence.\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Force an end-to-end download of content data from the origin server.\n     * This flag is used for a shift-reload.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_BYPASS_CACHE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Attempt to force a load from the cache, bypassing ALL validation logic\n     * (note: this is stronger than VALIDATE_NEVER, which still validates for\n     * certain conditions).\n     *\n     * If the resource is not present in cache, it will be loaded from the\n     * network.  Combine this flag with LOAD_ONLY_FROM_CACHE if you wish to\n     * perform cache-only loads without validation checks.\n     *\n     * This flag is used when browsing via history.  It is not recommended for\n     * normal browsing as it may likely violate reasonable assumptions made by\n     * the server and confuse users.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FROM_CACHE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The following flags control the frequency of cached content validation\n     * when neither LOAD_BYPASS_CACHE or LOAD_FROM_CACHE are set.  By default,\n     * cached content is automatically validated if necessary before reuse.\n     *\n     * VALIDATE_ALWAYS forces validation of any cached content independent of\n     * its expiration time (unless it is https with Cache-Control: immutable)\n     *\n     * VALIDATE_NEVER disables validation of cached content, unless it arrived\n     * with the \"Cache: no-store\" header, or arrived via HTTPS with the\n     * \"Cache: no-cache\" header.\n     *\n     * VALIDATE_ONCE_PER_SESSION disables validation of expired content,\n     * provided it has already been validated (at least once) since the start\n     * of this session.\n     *\n     * NOTE TO IMPLEMENTORS:\n     *   These flags are intended for normal browsing, and they should therefore\n     *   not apply to content that must be validated before each use.  Consider,\n     *   for example, a HTTP response with a \"Cache-control: no-cache\" header.\n     *   According to RFC2616, this response must be validated before it can\n     *   be taken from a cache.  Breaking this requirement could result in\n     *   incorrect and potentially undesirable side-effects.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "VALIDATE_ALWAYS",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "VALIDATE_NEVER",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "VALIDATE_ONCE_PER_SESSION",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * When set, this flag indicates that no user-specific data should be added\n     * to the request when opened. This means that things like authorization\n     * tokens or cookie headers should not be added.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_ANONYMOUS",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * When set, this flag indicates that caches of network connections,\n     * particularly HTTP persistent connections, should not be used.\n     * Use this together with LOAD_INITIAL_DOCUMENT_URI as otherwise it has no\n     * effect.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FRESH_CONNECTION",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

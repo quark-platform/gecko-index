@@ -1,0 +1,1448 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{C++\n\nnamespace mozilla {\n// Simple C++ getter for nsIXULRuntime::browserTabsRemoteAutostart\n// This getter is a temporary function that checks for special\n// conditions in which e10s support is not great yet, and should\n// therefore be disabled. Bug 1065561 tracks its removal.\nbool BrowserTabsRemoteAutostart();\nuint32_t GetMaxWebProcessCount();\n\n// Returns the value of the fission.autostart pref. Since fission can be\n// disabled on a per-window basis, this should only be used when you need the\n// global value of the pref. For other use cases, you should use\n// nsILoadContext::UseRemoteSubframes instead. This will also check for special\n// conditions, like safe mode, which may require fission to be disabled, or\n// environment variables MOZ_FORCE_ENABLE_FISSION and MOZ_FORCE_DISABLE_FISSION,\n// used by mach run to enable/disable fission regardless of pref settings.\nbool FissionAutostart();\n\n// Returns whether or not we are currently enrolled in the fission experiment.\nbool FissionExperimentEnrolled();\n\n// Returns true if fission.sessionHistoryInParent or FissionAutostart() is true.\nbool SessionHistoryInParent();\n\n// Returns true if SessionHistoryInParent() returns true and\n// fission.bfcacheInParent is true.\nbool BFCacheInParent();\n}\n\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Provides information about the XUL runtime.\n * @status UNSTABLE - This interface is not frozen and will probably change in\n *                    future releases. If you need this functionality to be\n *                    stable/frozen, please contact Benjamin Smedberg.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "03602fac-fa3f-4a50-9baa-b88456fb4a0f"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIXULRuntime",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether the application was launched in safe mode.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "inSafeMode"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The status of a given normandy experiment.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "ExperimentStatus",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "eExperimentStatusUnenrolled",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "0"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eExperimentStatusControl",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "1"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eExperimentStatusTreatment",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eExperimentStatusDisqualified",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "3"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eExperimentStatusRollout",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "4"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eExperimentStatusCount",
+                          "value": null
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "ContentWin32kLockdownState",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "LockdownEnabled",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "1"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "MissingWebRender",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "OperatingSystemNotSupported",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "3"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "PrefNotSet",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "4"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "MissingRemoteWebGL",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "5"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "MissingNonNativeTheming",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "6"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DisabledByEnvVar",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "7"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DisabledBySafeMode",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "8"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DisabledByE10S",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "9"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DisabledByUserPref",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "10"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "EnabledByUserPref",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "11"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DisabledByControlGroup",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "12"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "EnabledByTreatmentGroup",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "13"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DisabledByDefault",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "14"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "EnabledByDefault",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "15"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DecodersArentRemote",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "16"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "IncompatibleMitigationPolicy",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "17"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIXULRuntime_ExperimentStatus",
+                  "name": "win32kExperimentStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIXULRuntime_ContentWin32kLockdownState",
+                  "name": "win32kLiveStatusTestingOnly"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIXULRuntime_ContentWin32kLockdownState",
+                  "name": "win32kSessionStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "FissionDecisionStatus",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "eFissionStatusUnknown",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "0"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionExperimentControl",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "1"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionExperimentTreatment",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionDisabledByE10sEnv",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "3"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionEnabledByEnv",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "4"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionDisabledByEnv",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "5"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionEnabledByDefault",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "7"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionDisabledByDefault",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "8"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionEnabledByUserPref",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "9"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionDisabledByUserPref",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "10"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionDisabledByE10sOther",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "11"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "eFissionEnabledByRollout",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "12"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether Fission should be automatically enabled for new browser windows.\n   * This may not match the value of the 'fission.autostart' pref.\n   *\n   * This value is guaranteed to remain constant for the length of a browser\n   * session.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "fissionAutostart"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The user's enrollment status in the Fission experiment at process startup.\n   * See `ExperimentStatus` for the potential values.\n   *\n   * Only available in the parent process.\n   *\n   * This value is guaranteed to remain constant for the length of a browser\n   * session.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIXULRuntime_ExperimentStatus",
+                  "name": "fissionExperimentStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The deciding factor which caused Fission to be enabled or disabled in\n   * this session. The string version is the same of the name of the constant,\n   * without the leading `eFission`, and with an initial lower-case letter.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIXULRuntime_FissionDecisionStatus",
+                  "name": "fissionDecisionStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "fissionDecisionStatusString"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether session history is stored in the parent process.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "sessionHistoryInParent"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether to write console errors to a log file. If a component\n   * encounters startup errors that might prevent the app from showing\n   * proper UI, it should set this flag to \"true\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "logConsoleErrors"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A string tag identifying the current operating system. This is taken\n   * from the OS_TARGET configure variable. It will always be available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "OS"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A string tag identifying the binary ABI of the current processor and\n   * compiler vtable. This is taken from the TARGET_XPCOM_ABI configure\n   * variable. It may not be available on all platforms, especially\n   * unusual processor or compiler combinations.\n   *\n   * The result takes the form <processor>-<compilerABI>, for example:\n   *   x86-msvc\n   *   ppc-gcc3\n   *\n   * This value should almost always be used in combination with \"OS\".\n   *\n   * @throw NS_ERROR_NOT_AVAILABLE if not available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "XPCOMABI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A string tag identifying the target widget toolkit in use.\n   * This is taken from the MOZ_WIDGET_TOOLKIT configure variable.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "widgetToolkit"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The legal values of processType.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_DEFAULT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_CONTENT",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_IPDLUNITTEST",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_GMPLUGIN",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_GPU",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_VR",
+                  "value": "6"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_RDD",
+                  "value": "7"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_SOCKET",
+                  "value": "8"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_REMOTESANDBOXBROKER",
+                  "value": "9"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_FORKSERVER",
+                  "value": "10"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "PROCESS_TYPE_UTILITY",
+                  "value": "11"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The type of the caller's process.  Returns one of the values above.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "processType"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The system process ID of the caller's process.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "processID"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A globally unique and non-recycled ID of the caller's process.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "uint64_t",
+                  "name": "uniqueProcessID"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The type of remote content process we're running in.\n   * null if we're in the parent/chrome process. This can contain\n   * a URI if Fission is enabled, so don't use it for any kind of\n   * telemetry.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "remoteType"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If true, browser tabs may be opened by default in a different process\n   * from the main browser UI.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "browserTabsRemoteAutostart"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the number of content processes to use for normal web pages. If\n   * this value is > 1, then e10s-multi should be considered to be \"on\".\n   *\n   * NB: If browserTabsRemoteAutostart is false, then this value has no\n   * meaning and e10s should be considered to be \"off\"!\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "uint32_t",
+                  "name": "maxWebProcessCount"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The current e10s-multi experiment number. Set dom.ipc.multiOptOut to (at\n   * least) this to disable it until the next experiment.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "E10S_MULTI_EXPERIMENT",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If true, the accessibility service is running.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "accessibilityEnabled"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If true, the AccessibleHandler dll is used.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "accessibleHandlerUsed"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Executable of Windows service that activated accessibility.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "accessibilityInstantiator"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Temporary, do not use. Indicates if an incompat version of JAWS\n   * screen reader software is loaded in our process space.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "shouldBlockIncompatJaws"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates whether the current Firefox build is 64-bit.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "is64Bit"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates whether or not text recognition of images supported by the OS.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isTextRecognitionSupported"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Signal the apprunner to invalidate caches on the next restart.\n   * This will cause components to be autoregistered and all\n   * fastload data to be re-created.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "invalidateCachesOnRestart",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Starts a child process. This method is intented to pre-start a\n   * content child process so that when it is actually needed, it is\n   * ready to go.\n   *\n   * @throw NS_ERROR_NOT_AVAILABLE if not available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "ensureContentProcess",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Modification time of the profile lock before the profile was locked on\n   * this startup. Used to know the last time the profile was used and not\n   * closed cleanly. This is set to 0 if there was no existing profile lock.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "PRTime",
+                  "name": "replacedLockTime"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The default update channel (MOZ_UPDATE_CHANNEL).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "defaultUpdateChannel"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The distribution ID for this build (MOZ_DISTRIBUTION_ID).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "distributionID"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * True if Windows DLL blocklist initialized correctly. This is\n   * primarily for automated testing purposes.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "windowsDLLBlocklistStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * True if this application was started by the OS as part of an automatic\n   * restart mechanism (such as RegisterApplicationRestart on Windows).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "restartedByOS"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Whether the chrome color-scheme is dark */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "chromeColorSchemeIsDark"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Whether the content color-scheme derived from the app theme is dark */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "contentThemeDerivedColorSchemeIsDark"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Whether we should draw over the titlebar */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "drawInTitlebar"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The path of the shortcut used to start the current process, or \"\" if none.\n   *\n   * Windows Main process only, otherwise throws NS_ERROR_NOT_AVAILABLE\n   *\n   * May be mising in some cases where the user did launch from a shortcut:\n   * - If the updater ran on startup\n   * - If the AUMID was set before the shortcut could be saved\n   *\n   * @throw NS_ERROR_NOT_AVAILABLE if not available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "processStartupShortcut"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns a value corresponding to one of the\n   * |mozilla::LauncherRegistryInfo::EnabledState| values.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "uint32_t",
+                  "name": "launcherProcessState"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the last application version that used the current profile or null\n   * if the last version could not be found (compatibility.ini was either\n   * missing or invalid). Throws NS_ERROR_UNAVAILABLE if called from a content\n   * process.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "lastAppVersion"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the last application build ID that used the current profile or null\n   * if the last build ID could not be found (compatibility.ini was either\n   * missing or invalid). Throws NS_ERROR_UNAVAILABLE if called from a content\n   * process.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "lastAppBuildID"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n\n",
+    "%{C++\n\nnamespace mozilla {\n\nnsIXULRuntime::ContentWin32kLockdownState GetWin32kLockdownState();\n\n}\n\n%}\n"
+  ]
+}

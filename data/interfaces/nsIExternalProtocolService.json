@@ -1,0 +1,460 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrincipal",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInterfaceRequestor",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIHandlerInfo",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The external protocol service is used for finding and launching\n * web handlers (a la registerProtocolHandler in the HTML5 draft) or\n * platform-specific applications for handling particular protocols.\n *\n * You can ask the external protocol service if it has an external\n * handler for a given protocol scheme. And you can ask it to load\n * the url using the default handler.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "70f93b7a-3ec6-4bcb-b093-92d9984c9f83"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIExternalProtocolService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Check whether a handler for a specific protocol exists.  Specifically,\n   * this looks to see whether there are any known possible application handlers\n   * in either the nsIHandlerService datastore or registered with the OS.\n   *\n   * @param aProtocolScheme The scheme from a url: http, ftp, mailto, etc.\n   *\n   * @return true if we have a handler and false otherwise.\n   *\n   * XXX shouldn't aProtocolScheme be an ACString like nsIURI::scheme?\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "externalProtocolHandlerExists",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aProtocolScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Check whether a handler for a specific protocol is \"exposed\" as a visible\n   * feature of the current application.\n   *\n   * An exposed protocol handler is one that can be used in all contexts.  A\n   * non-exposed protocol handler is one that can only be used internally by the\n   * application.  For example, a non-exposed protocol would not be loaded by the\n   * application in response to a link click or a X-remote openURL command.\n   * Instead, it would be deferred to the system's external protocol handler.\n   * XXX shouldn't aProtocolScheme be an ACString like nsIURI::scheme?\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isExposedProtocol",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aProtocolScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieve the handler for the given protocol.  If neither the application\n   * nor the OS knows about a handler for the protocol, the object this method\n   * returns will represent a default handler for unknown content.\n   *\n   * @param aProtocolScheme the scheme from a URL: http, ftp, mailto, etc.\n   *\n   * Note: aProtocolScheme should not include a trailing colon, which is part\n   * of the URI syntax, not part of the scheme itself (i.e. pass \"mailto\" not\n   * \"mailto:\").\n   *\n   * @return the handler, if any; otherwise a default handler\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIHandlerInfo",
+                  "name": "getProtocolHandlerInfo",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aProtocolScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given a scheme, looks up the protocol info from the OS.  This should be\n   * overridden by each OS's implementation.\n   *\n   * @param aScheme The protocol scheme we are looking for.\n   * @param aFound  Was an OS default handler for this scheme found?\n   * @return An nsIHanderInfo for the protocol.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIHandlerInfo",
+                  "name": "getProtocolHandlerInfoFromOS",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aProtocolScheme"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "aFound"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set some sane defaults for a protocol handler object.\n   *\n   * @param aHandlerInfo      nsIHandlerInfo object, as returned by\n   *                          getProtocolHandlerInfoFromOS\n   * @param aOSHandlerExists  was the object above created for an extant\n   *                          OS default handler?  This is generally the\n   *                          value of the aFound out param from\n   *                          getProtocolHandlerInfoFromOS.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setProtocolHandlerDefaults",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHandlerInfo",
+                      "name": "aHandlerInfo"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aOSHandlerExists"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Used to load a URI via an external application. Might prompt the user for\n   * permission to load the external application.\n   *\n   * @param aURI\n   *        The URI to load\n   *\n   * @param aTriggeringPrincipal\n   *        The principal triggering this load.\n   *\n   * @param aRedirectPrincipal\n   *        The last post-redirect principal triggering this load.\n   *        Used for display and permission purposes. If null, we'll\n   *        use the triggering principal.\n   *\n   * @param aBrowsingContext\n   *        The context to parent the dialog against, and, if a web handler\n   *        is chosen, it is loaded in this window as well.  This parameter\n   *        may be ultimately passed nsIURILoader.openURI in the case of a\n   *        web handler, and aWindowContext is null or not present, web\n   *        handlers will fail.  We need to do better than that; bug 394483\n   *        filed in order to track.\n   *\n   * @param aWasTriggeredExternally\n   *        If true, indicates the load was initiated by an external app.\n   *\n   * @param aHasValidUserGestureActivation\n   *        Whether the document that triggered the load had user activation.\n   *        Used for sandbox checks.\n   *\n   * @note  Embedders that do not expose the http protocol should not currently\n   *        use web-based protocol handlers, as handoff won't work correctly\n   *        (bug 394479).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "loadURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aTriggeringPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aRedirectPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "BrowsingContext",
+                          "name": "aBrowsingContext"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aWasTriggeredExternally"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aHasValidUserGestureActivation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets a human-readable description for the application responsible for\n   * handling a specific protocol.\n   *\n   * @param aScheme The scheme to look up. For example, \"mms\".\n   *\n   * @throw NS_ERROR_NOT_IMPLEMENTED\n   *        If getting descriptions for protocol helpers is not supported\n   * @throw NS_ERROR_NOT_AVAILABLE\n   *        If no protocol helper exists for this scheme, or if it is not\n   *        possible to get a description for it.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getApplicationDescription",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Check if this app is registered as the OS default for a given scheme.\n   *\n   * @param aScheme The scheme to look up. For example, \"mms\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "isCurrentAppOSDefaultForProtocol",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aScheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

@@ -1,0 +1,431 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrincipal",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIDOMWindow",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    "%{C++\nnamespace mozilla {\nnamespace dom {\nclass SessionStorageCache;\n}  // namespace dom\n}  // namespace mozilla\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * General purpose interface that has two implementations, for localStorage\n * with \"@mozilla.org/dom/localStorage-manager;1\".\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a20c742e-3ed1-44fb-b897-4080a75b1662"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIDOMStorageManager",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This starts async preloading of a storage cache for scope\n   * defined by the principal and storage principal.\n   *\n   * Because of how multi-e10s support was implemented in bug 1285898, the\n   * StorageCache instance can no longer use a timer to keep itself alive.  So a\n   * Storage instance is returned if precaching believes the storage principal may\n   * have localStorage data.  (Previously the StorageCache would be brought into\n   * existence and kept alive by the timer so that it could be returned if a\n   * call to createStorage was made due to a request by the page.)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Storage",
+                  "name": "precacheStorage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "aPrincipal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aStoragePrincipal"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns instance of DOM storage object for given principal.\n   * A new object is always returned and it is ensured there is\n   * a storage for the scope created.\n   *\n   * @param aWindow\n   *    The parent window.\n   * @param aPrincipal\n   *    Principal to bound storage to.\n   * @param aStoragePrincipal\n   *    StoragePrincipal to bound storage to.\n   * @param aDocumentURI\n   *    URL of the demanding document, used for DOM storage event only.\n   * @param aPrivate\n   *    Whether the demanding document is running in Private Browsing mode or not.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Storage",
+                  "name": "createStorage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindow",
+                      "name": "aWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aStoragePrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aDocumentURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aPrivate"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * DEPRECATED.  The only good reason to use this was if you were writing a\n   * test and wanted to hackily determine if a preload happened.  That's now\n   * covered by `nsILocalStorageManager.isPreloaded` and you should use that if\n   * that's what you want.  If LSNG is in use, this will throw.\n   *\n   * Returns instance of DOM storage object for given principal.\n   * If there is no storage managed for the scope, then null is returned and\n   * no object is created.  Otherwise, an object (new) for the existing storage\n   * scope is returned.\n   *\n   * @param aWindow\n   *    The parent window.\n   * @param aPrincipal\n   *    Principal to bound storage to.\n   * @param aStoragePrincipal\n   *    StoragePrincipal to bound storage to.\n   * @param aPrivate\n   *    Whether the demanding document is running in Private Browsing mode or not.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Storage",
+                  "name": "getStorage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindow",
+                      "name": "aWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aStoragePrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aPrivate"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Clones given storage into this storage manager.\n   *\n   * @param aStorageToCloneFrom\n   *    The storage to copy all items from into this manager.  Manager will then\n   *    return a new and independent object that contains snapshot of data from\n   *    the moment this method was called.  Modification to this new object will\n   *    not affect the original storage content we cloned from and vice versa.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "cloneStorage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Storage",
+                      "name": "aStorageToCloneFrom"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns true if the storage belongs to the given principal and is managed\n   * (i.e. has been created and is cached) by this storage manager.\n   *\n   * @param aPrincipal\n   *    Principal to check the storage against.\n   * @param aStorage\n   *    The storage object to examine.\n   *\n   * @result\n   *    true when the storage object is bound with the principal and is managed\n   *         by this storage manager.\n   *    false otherwise\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "checkStorage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "aPrincipal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "Storage",
+                          "name": "aStorage"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "b3bfbbd0-e738-4cbf-b0f0-b65f25265e82"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIDOMSessionStorageManager",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIDOMStorageManager"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns a SessionStorageCache object for the principal scope.\n   *\n   * @param aPrincipal\n   *    Principal to bound storage to.\n   * @param aStoragePrincipal\n   *    StoragePrincipal to bound storage to.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "SessionStorageCacheAddRefed",
+                  "name": "getSessionStorageCache",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "aPrincipal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aStoragePrincipal"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

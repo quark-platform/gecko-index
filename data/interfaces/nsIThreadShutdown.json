@@ -1,0 +1,166 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim:set ts=2 sw=2 sts=2 et cindent: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRunnable",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Handle for the ongoing shutdown progress of a given thread which can be used\n * to observe and interrupt async shutdown progress. Methods on this interface\n * may generally only be used on the thread which called\n * `nsIThread::beginShutdown`.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "70a43748-6130-4ea6-a440-7c74e1b7dd7c"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIThreadShutdown",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Register a runnable to be executed when the thread has completed shutdown,\n   * or shutdown has been cancelled due to `stopWaitingAndLeakThread()`.\n   *\n   * If the thread has already completed or cancelled shutdown, the runnable\n   * may be executed synchronously.\n   *\n   * May only be called on the thread which invoked `nsIThread::beginShutdown`.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onCompletion",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRunnable",
+                      "name": "aEvent"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Check if the target thread has completed shutdown.\n   *\n   * May only be accessed on the thread which called `nsIThread::beginShutdown`.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "completed"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Give up on waiting for the shutting down thread to exit. Calling this\n   * method will allow the thread to continue running, no longer block shutdown,\n   * and the thread will never be joined or have its resources reclaimed.\n   *\n   * Completion callbacks attached to this `nsIThreadShutdown` may be executed\n   * during this call.\n   *\n   * This method should NOT be called except in exceptional circumstances during\n   * shutdown, as it will cause resources for the shutting down thread to be\n   * leaked.\n   *\n   * May only be called on the thread which called `nsIThread::beginShutdown`\n   *\n   * @throws NS_ERROR_NOT_AVAILABLE\n   *   Indicates that the target thread has already stopped running and a\n   *   request to be joined is already being dispatched to the waiting thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "stopWaitingAndLeakThread",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

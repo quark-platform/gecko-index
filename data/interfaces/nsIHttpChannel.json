@@ -1,0 +1,1420 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIChannel"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIHttpHeaderVisitor",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIReferrerInfo",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n#include \"GeckoProfiler.h\"\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIHttpChannel\n *\n * This interface allows for the modification of HTTP request parameters and\n * the inspection of the resulting HTTP response status and headers when they\n * become available.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "builtinclass",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "c5a4a073-4539-49c7-a3f2-cec3f0619c6c"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIHttpChannel",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIIdentChannel"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**************************************************************************\n     * REQUEST CONFIGURATION\n     *\n     * Modifying request parameters after asyncOpen has been called is an error.\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set/get the HTTP request method (default is \"GET\").  Both setter and\n     * getter are case sensitive.\n     *\n     * This attribute may only be set before the channel is opened.\n     *\n     * NOTE: The data for a \"POST\" or \"PUT\" request can be configured via\n     * nsIUploadChannel; however, after setting the upload data, it may be\n     * necessary to set the request method explicitly.  The documentation\n     * for nsIUploadChannel has further details.\n     *\n     * @throws NS_ERROR_IN_PROGRESS if set after the channel has been opened.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "ACString",
+                  "name": "requestMethod"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get/set the referrer information.  This contains the referrer (URI) of the\n     * resource from which this channel's URI was obtained (see RFC2616 section\n     * 14.36) and the referrer policy applied to the referrer.\n     *\n     * This attribute may only be set before the channel is opened.\n     *\n     * Setting this attribute will clone new referrerInfo object by default.\n     *\n     * NOTE: The channel may silently refuse to set the Referer header if the\n     * URI does not pass certain security checks (e.g., a \"https://\" URL will\n     * never be sent as the referrer for a plaintext HTTP request).  The\n     * implementation is not required to throw an exception when the referrer\n     * URI is rejected.\n     *\n     * @throws NS_ERROR_IN_PROGRESS if set after the channel has been opened.\n     * @throws NS_ERROR_FAILURE if used for setting referrer during\n     *         visitRequestHeaders. Getting the value will not throw.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "infallible",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": null,
+                  "type": "nsIReferrerInfo",
+                  "name": "referrerInfo"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set referrer Info without clone new object.\n     * Use this api only when you are passing a referrerInfo to the channel with\n     * 1-1 relationship. Don't use this api if you will reuse the referrer info\n     * object later. For example when to use:\n     * channel.setReferrerInfoWithoutClone(new ReferrerInfo());\n     *\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "noscript",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "setReferrerInfoWithoutClone",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIReferrerInfo",
+                      "name": "aReferrerInfo"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the network protocol used to fetch the resource as identified\n     * by the ALPN Protocol ID.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "protocolVersion"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * size consumed by the response header fields and the response payload body\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "uint64_t",
+                  "name": "transferSize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * size consumed by the request header fields and the request payload body\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "uint64_t",
+                  "name": "requestSize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The size of the message body received by the client,\n     * after removing any applied content-codings\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "uint64_t",
+                  "name": "decodedBodySize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The size in octets of the payload body, prior to removing content-codings\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "uint64_t",
+                  "name": "encodedBodySize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get the value of a particular request header.\n     *\n     * @param aHeader\n     *        The case-insensitive name of the request header to query (e.g.,\n     *        \"Cache-Control\").\n     *\n     * @return the value of the request header.\n     * @throws NS_ERROR_NOT_AVAILABLE if the header is not set.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "ACString",
+                  "name": "getRequestHeader",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aHeader"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set the value of a particular request header.\n     *\n     * This method allows, for example, the cookies module to add \"Cookie\"\n     * headers to the outgoing HTTP request.\n     *\n     * This method may only be called before the channel is opened.\n     *\n     * @param aHeader\n     *        The case-insensitive name of the request header to set (e.g.,\n     *        \"Cookie\").\n     * @param aValue\n     *        The request header value to set (e.g., \"X=1\").\n     * @param aMerge\n     *        If true, the new header value will be merged with any existing\n     *        values for the specified header.  This flag is ignored if the\n     *        specified header does not support merging (e.g., the \"Content-\n     *        Type\" header can only have one value).  The list of headers for\n     *        which this flag is ignored is an implementation detail.  If this\n     *        flag is false, then the header value will be replaced with the\n     *        contents of |aValue|.\n     *\n     * If aValue is empty and aMerge is false, the header will be cleared.\n     *\n     * @throws NS_ERROR_IN_PROGRESS if called after the channel has been\n     *         opened.\n     * @throws NS_ERROR_FAILURE if called during visitRequestHeaders.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setRequestHeader",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aHeader"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aValue"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aMerge"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Creates and sets new ReferrerInfo object\n     * @param aUrl          referrer url\n     * @param aPolicy       referrer policy of the created object\n     * @param aSendReferrer indicates if the referrer should not be sent or not\n     *                      even when it's available.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setNewReferrerInfo",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aUrl"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIReferrerInfo_ReferrerPolicyIDL",
+                          "name": "aPolicy"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aSendReferrer"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set a request header with empty value.\n     *\n     * This should be used with caution in the cases where the behavior of\n     * setRequestHeader ignoring empty header values is undesirable.\n     *\n     * This method may only be called before the channel is opened.\n     *\n     * @param aHeader\n     *        The case-insensitive name of the request header to set (e.g.,\n     *        \"Cookie\").\n     *\n     * @throws NS_ERROR_IN_PROGRESS if called after the channel has been\n     *         opened.\n     * @throws NS_ERROR_FAILURE if called during visitRequestHeaders.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setEmptyRequestHeader",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aHeader"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Call this method to visit all request headers.  Calling setRequestHeader\n     * while visiting request headers has undefined behavior.  Don't do it!\n     *\n     * @param aVisitor\n     *        the header visitor instance.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "visitRequestHeaders",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpHeaderVisitor",
+                      "name": "aVisitor"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Call this method to visit all non-default (UA-provided) request headers.\n     * Calling setRequestHeader while visiting request headers has undefined\n     * behavior. Don't do it!\n     *\n     * @param aVisitor\n     *        the header visitor instance.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "visitNonDefaultRequestHeaders",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpHeaderVisitor",
+                      "name": "aVisitor"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Call this method to see if we need to strip the request body headers\n     * for the new http channel. This should be called during redirection.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "bool",
+                  "name": "ShouldStripRequestBodyHeader",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aMethod"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This attribute of the channel indicates whether or not\n     * the underlying HTTP transaction should be honor stored Strict Transport\n     * Security directives for its principal. It defaults to true. Using\n     * OCSP to bootstrap the HTTPs is the likely use case for setting it to\n     * false.\n     *\n     * This attribute may only be set before the channel is opened.\n     *\n     * @throws NS_ERROR_IN_PROGRESS or NS_ERROR_ALREADY_OPENED\n     *         if called after the channel has been opened.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "allowSTS"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This attribute specifies the number of redirects this channel is allowed\n     * to make.  If zero, the channel will fail to redirect and will generate\n     * a NS_ERROR_REDIRECT_LOOP failure status.\n     *\n     * NOTE: An HTTP redirect results in a new channel being created.  If the\n     * new channel supports nsIHttpChannel, then it will be assigned a value\n     * to its |redirectionLimit| attribute one less than the value of the\n     * redirected channel's |redirectionLimit| attribute.  The initial value\n     * for this attribute may be a configurable preference (depending on the\n     * implementation).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "redirectionLimit"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**************************************************************************\n     * RESPONSE INFO\n     *\n     * Accessing response info before the onStartRequest event is an error.\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get the HTTP response code (e.g., 200).\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "responseStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get the HTTP response status text (e.g., \"OK\").\n     *\n     * NOTE: This returns the raw (possibly 8-bit) text from the server.  There\n     * are no assumptions made about the charset of the returned text.  You\n     * have been warned!\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "responseStatusText"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the HTTP response code indicates success.  The value of\n     * nsIRequest::status will be NS_OK even when processing a 404 response\n     * because a 404 response may include a message body that (in some cases)\n     * should be shown to the user.\n     *\n     * Use this attribute to distinguish server error pages from normal pages,\n     * instead of comparing the response status manually against the set of\n     * valid response codes, if that is required by your application.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "requestSucceeded"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Indicates whether channel should be treated as the main one for the\n    *  current document.  If manually set to true, will always remain true.  Otherwise,\n    *  will be true if LOAD_DOCUMENT_URI is set in the channel's loadflags.\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "isMainDocumentChannel"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get the value of a particular response header.\n     *\n     * @param aHeader\n     *        The case-insensitive name of the response header to query (e.g.,\n     *        \"Set-Cookie\").\n     *\n     * @return the value of the response header.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest) or if the header is\n     *         not set in the response.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "ACString",
+                  "name": "getResponseHeader",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "header"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set the value of a particular response header.\n     *\n     * This method allows, for example, the HTML content sink to inform the HTTP\n     * channel about HTTP-EQUIV headers found in HTML <META> tags.\n     *\n     * @param aHeader\n     *        The case-insensitive name of the response header to set (e.g.,\n     *        \"Cache-control\").\n     * @param aValue\n     *        The response header value to set (e.g., \"no-cache\").\n     * @param aMerge\n     *        If true, the new header value will be merged with any existing\n     *        values for the specified header.  This flag is ignored if the\n     *        specified header does not support merging (e.g., the \"Content-\n     *        Type\" header can only have one value).  The list of headers for\n     *        which this flag is ignored is an implementation detail.  If this\n     *        flag is false, then the header value will be replaced with the\n     *        contents of |aValue|.\n     *\n     * If aValue is empty and aMerge is false, the header will be cleared.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     * @throws NS_ERROR_ILLEGAL_VALUE if changing the value of this response\n     *         header is not allowed.\n     * @throws NS_ERROR_FAILURE if called during visitResponseHeaders,\n     *         VisitOriginalResponseHeaders or getOriginalResponseHeader.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setResponseHeader",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "header"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "value"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "merge"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Call this method to visit all response headers.  Calling\n     * setResponseHeader while visiting response headers has undefined\n     * behavior.  Don't do it!\n     *\n     * @param aVisitor\n     *        the header visitor instance.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "visitResponseHeaders",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpHeaderVisitor",
+                      "name": "aVisitor"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get the value(s) of a particular response header in the form and order\n     * it has been received from the remote peer. There can be multiple headers\n     * with the same name.\n     *\n     * @param aHeader\n     *        The case-insensitive name of the response header to query (e.g.,\n     *        \"Set-Cookie\").\n     *\n     * @param aVisitor\n     *        the header visitor instance.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest) or if the header is\n     *         not set in the response.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "getOriginalResponseHeader",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aHeader"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIHttpHeaderVisitor",
+                          "name": "aVisitor"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Call this method to visit all response headers in the form and order as\n     * they have been received from the remote peer.\n     * Calling setResponseHeader while visiting response headers has undefined\n     * behavior.  Don't do it!\n     *\n     * @param aVisitor\n     *        the header visitor instance.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "visitOriginalResponseHeaders",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpHeaderVisitor",
+                      "name": "aVisitor"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the server sent a \"Cache-Control: no-store\" response\n     * header.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "isNoStoreResponse",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the server sent the equivalent of a \"Cache-control:\n     * no-cache\" response header.  Equivalent response headers include:\n     * \"Pragma: no-cache\", \"Expires: 0\", and \"Expires\" with a date value\n     * in the past relative to the value of the \"Date\" header.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "isNoCacheResponse",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the server sent a \"Cache-Control: private\" response\n     * header.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called before the response\n     *         has been received (before onStartRequest).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "isPrivateResponse",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Instructs the channel to immediately redirect to a new destination.\n     * Can only be called on channels that have not yet called their\n     * listener's OnStartRequest(). Generally that means the latest time\n     * this can be used is one of:\n     *    \"http-on-examine-response\"\n     *    \"http-on-examine-merged-response\"\n     *    \"http-on-examine-cached-response\"\n     *\n     * When non-null URL is set before AsyncOpen:\n     *  we attempt to redirect to the targetURI before we even start building\n     *  and sending the request to the cache or the origin server.\n     *  If the redirect is vetoed, we fail the channel.\n     *\n     * When set between AsyncOpen and first call to OnStartRequest being called:\n     *  we attempt to redirect before we start delivery of network or cached\n     *  response to the listener.  If vetoed, we continue with delivery of\n     *  the original content to the channel listener.\n     *\n     * When passed aTargetURI is null the channel behaves normally (can be\n     * rewritten).\n     *\n     * This method provides no explicit conflict resolution. The last\n     * caller to call it wins.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called after the channel has already\n     *         started to deliver the content to its listener.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "redirectTo",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aTargetURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Flags a channel to be upgraded to HTTPS.\n     *\n     * Upgrading to a secure channel must happen before or during\n     * \"http-on-modify-request\". If redirectTo is called early as well, it\n     * will win and upgradeToSecure will be a no-op.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE if called after the channel has already\n     *         started to deliver the content to its listener.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "upgradeToSecure",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Identifies the request context for this load.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "must_use",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": null,
+                  "type": "uint64_t",
+                  "name": "requestContextID"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * ID of the top-level document's inner window.  Identifies the content\n     * this channels is being load in.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "uint64_t",
+                  "name": "topLevelContentWindowId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * ID of the top-level browsing context for this channel.\n     *\n     * NOTE: The setter of this attribute is currently for xpcshell test only.\n     *       Don't alter it otherwise.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "uint64_t",
+                  "name": "topBrowsingContextId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * In e10s, the information that the CORS response blocks the load is in the\n     * parent, which doesn't know the true window id of the request, so we may\n     * need to proxy the request to the child.\n     *\n     * @param aMessage\n     *        The message to print in the console.\n     *\n     * @param aCategory\n     *        The category under which the message should be displayed.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "logBlockedCORSRequest",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aMessage"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aCategory"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "logMimeTypeMismatch",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aMessageName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aWarning"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aURL"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aContentType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "setSource",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "UniqueProfileChunkedBuffer",
+                      "name": "aSource"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

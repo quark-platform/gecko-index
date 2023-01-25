@@ -1,0 +1,510 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim: se cin sw=2 ts=2 et : */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIBaseWindow"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIDocShell",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITaskbarTabPreview",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITaskbarWindowPreview",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITaskbarPreviewController",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITaskbarProgress",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITaskbarOverlayIconController",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIJumpListBuilder",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIDOMWindow",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/*\n * nsIWinTaskbar\n *\n * This interface represents a service which exposes the APIs provided by the\n * Windows taskbar to applications.\n *\n * Starting in Windows 7, applications gain some control over their appearance\n * in the taskbar. By default, there is one taskbar preview per top level\n * window (excluding popups). This preview is represented by an\n * nsITaskbarWindowPreview object.\n *\n * An application can register its own \"tab\" previews. Such previews will hide\n * the corresponding nsITaskbarWindowPreview automatically (though this is not\n * reflected in the visible attribute of the nsITaskbarWindowPreview). These\n * tab previews do not have to correspond to tabs in the application - they can\n * vary in size, shape and location. They do not even need to be actual GUI\n * elements on the window. Unlike window previews, tab previews require most of\n * the functionality of the nsITaskbarPreviewController to be implemented.\n *\n * Applications can also show progress on their taskbar icon. This does not\n * interact with the taskbar previews except if the nsITaskbarWindowPreview is\n * made invisible in which case the progress is naturally not shown on that\n * window.\n *\n * When taskbar icons are combined as is the default in Windows 7, the progress\n * for those windows is also combined as defined here:\n * http://msdn.microsoft.com/en-us/library/dd391697%28VS.85%29.aspx\n *\n * Applications may also define custom taskbar jump lists on application shortcuts.\n * See nsIJumpListBuilder for more information.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "11751471-9246-4c72-a80f-0c7df765d640"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIWinTaskbar",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns true if the operating system supports Win7+ taskbar features.\n   * This property acts as a replacement for in-place os version checking.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "available"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the default application user model identity the application\n   * registers with the system. This id is used by the taskbar in grouping\n   * windows and in associating pinned shortcuts with running instances and\n   * jump lists.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "defaultGroupId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Same as above, but a different value so that Private Browsing windows\n   * can be separated in the Taskbar.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "defaultPrivateGroupId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Taskbar window and tab preview management\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Creates a taskbar preview. The docshell should be a toplevel docshell and\n   * is used to find the toplevel window. See the documentation for\n   * nsITaskbarTabPreview for more information.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsITaskbarTabPreview",
+                  "name": "createTaskbarTabPreview",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIDocShell",
+                      "name": "shell"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsITaskbarPreviewController",
+                          "name": "controller"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets the taskbar preview for a window. The docshell is used to find the\n   * toplevel window. See the documentation for nsITaskbarTabPreview for more\n   * information.\n   *\n   * Note: to implement custom drawing or buttons, a controller is required.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsITaskbarWindowPreview",
+                  "name": "getTaskbarWindowPreview",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIDocShell",
+                      "name": "shell"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Taskbar icon progress indicator\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets the taskbar progress for a window. The docshell is used to find the\n   * toplevel window. See the documentation for nsITaskbarProgress for more\n   * information.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsITaskbarProgress",
+                  "name": "getTaskbarProgress",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIDocShell",
+                      "name": "shell"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Taskbar icon overlay\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets the taskbar icon overlay controller for a window. The docshell is used\n   * to find the toplevel window. See the documentation in\n   * nsITaskbarOverlayIconController for more details.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsITaskbarOverlayIconController",
+                  "name": "getOverlayIconController",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIDocShell",
+                      "name": "shell"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Taskbar and start menu jump list management\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieve a taskbar jump list builder\n   *\n   * Fails if a jump list build operation has already been initiated, developers\n   * should make use of a single instance of nsIJumpListBuilder for building lists\n   * within an application.\n   *\n   * @throw NS_ERROR_ALREADY_INITIALIZED if an nsIJumpListBuilder instance is\n   * currently building a list.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIJumpListBuilder",
+                  "name": "createJumpListBuilder",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aPrivateBrowsing"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Application window taskbar group settings\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set the grouping id for a window.\n   *\n   * The runtime sets a default, global grouping id for all windows on startup.\n   * setGroupIdForWindow allows individual windows to be grouped independently\n   * on the taskbar. Ids should be unique to the app and window to insure\n   * conflicts with other pinned applications do no arise.\n   *\n   * The default group id is based on application.ini vendor, application, and\n   * version values, with a format of 'vendor.app.version'. The default can be\n   * retrieved via defaultGroupId.\n   *\n   * Note, when a window changes taskbar window stacks, it is placed at the\n   * bottom of the new stack.\n   *\n   * @throw NS_ERROR_INVALID_ARG if the window is not a valid top level window\n   * associated with a widget.\n   * @throw NS_ERROR_FAILURE if the property on the window could not be set.\n   * @throw NS_ERROR_UNEXPECTED for general failures.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setGroupIdForWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindow",
+                      "name": "aParent"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aIdentifier"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notify the taskbar that a window is about to enter full screen mode.\n   *\n   * A Windows autohide taskbar will not behave correctly in all cases if\n   * it is not notified when full screen operations start and end.\n   *\n   * @throw NS_ERROR_INVALID_ARG if the window is not a valid top level window\n   * @throw NS_ERROR_UNEXPECTED for general failures.\n   * @throw NS_ERROR_NOT_AVAILABLE if the taskbar cannot be obtained.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "prepareFullScreen",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindow",
+                      "name": "aWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aFullScreen"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notify the taskbar that a window identified by its HWND is about to enter\n   * full screen mode.\n   *\n   * A Windows autohide taskbar will not behave correctly in all cases if\n   * it is not notified when full screen operations start and end.\n   *\n   * @throw NS_ERROR_INVALID_ARG if the window is not a valid top level window\n   * @throw NS_ERROR_UNEXPECTED for general failures.\n   * @throw NS_ERROR_NOT_AVAILABLE if the taskbar cannot be obtained.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "prepareFullScreenHWND",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "voidPtr",
+                      "name": "aWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aFullScreen"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

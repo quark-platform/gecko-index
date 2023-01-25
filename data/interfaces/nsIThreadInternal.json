@@ -1,0 +1,312 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim:set ts=2 sw=2 sts=2 et cindent: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIThread"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRunnable",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIThreadObserver",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The XPCOM thread object implements this interface, which allows a consumer\n * to observe dispatch activity on the thread.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "builtinclass",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a3a72e5f-71d9-4add-8f30-59a78fb6d5eb"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIThreadInternal",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIThread"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get/set the current thread observer (may be null).  This attribute may be\n   * read from any thread, but must only be set on the thread corresponding to\n   * this thread object.  The observer will be released on the thread\n   * corresponding to this thread object after all other events have been\n   * processed during a call to Shutdown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIThreadObserver",
+                  "name": "observer"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Add an observer that will *only* receive onProcessNextEvent,\n   * beforeProcessNextEvent. and afterProcessNextEvent callbacks. Always called\n   * on the target thread, and the implementation does not have to be\n   * threadsafe. Order of callbacks is not guaranteed (i.e.\n   * afterProcessNextEvent may be called first depending on whether or not the\n   * observer is added in a nested loop). Holds a strong ref.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIThreadObserver",
+                      "name": "observer"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Remove an observer added via the addObserver call. Once removed the\n   * observer will never be called again by the thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIThreadObserver",
+                      "name": "observer"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This interface provides the observer with hooks to implement a layered\n * event queue.  For example, it is possible to overlay processing events\n * for a GUI toolkit on top of the events for a thread:\n *\n *   var NativeQueue;\n *   Observer = {\n *     onDispatchedEvent() {\n *       NativeQueue.signal();\n *     }\n *     onProcessNextEvent(thread, mayWait) {\n *       if (NativeQueue.hasNextEvent())\n *         NativeQueue.processNextEvent();\n *       while (mayWait && !thread.hasPendingEvent()) {\n *         NativeQueue.wait();\n *         NativeQueue.processNextEvent();\n *       }\n *     }\n *   };\n *\n * NOTE: The implementation of this interface must be threadsafe.\n *\n * NOTE: It is valid to change the thread's observer during a call to an\n *       observer method.\n *\n * NOTE: Will be split into two interfaces soon: one for onProcessNextEvent and\n *       afterProcessNextEvent, then another that inherits the first and adds\n *       onDispatchedEvent.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "cc8da053-1776-44c2-9199-b5a629d0a19d"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIThreadObserver",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This method is called after an event has been dispatched to the thread.\n   * This method may be called from any thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onDispatchedEvent",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This method is called when nsIThread::ProcessNextEvent is called.  It does\n   * not guarantee that an event is actually going to be processed.  This method\n   * is only called on the target thread.\n   *\n   * @param thread\n   *   The thread being asked to process another event.\n   * @param mayWait\n   *   Indicates whether or not the method is allowed to block the calling\n   *   thread.  For example, this parameter is false during thread shutdown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onProcessNextEvent",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIThreadInternal",
+                      "name": "thread"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "mayWait"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This method is called (from nsIThread::ProcessNextEvent) after an event\n   * is processed.  It does not guarantee that an event was actually processed\n   * (depends on the value of |eventWasProcessed|.  This method is only called\n   * on the target thread.  DO NOT EVER RUN SCRIPT FROM THIS CALLBACK!!!\n   *\n   * @param thread\n   *   The thread that processed another event.\n   * @param eventWasProcessed\n   *   Indicates whether an event was actually processed. May be false if the\n   *   |mayWait| flag was false when calling nsIThread::ProcessNextEvent().\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "afterProcessNextEvent",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIThreadInternal",
+                      "name": "thread"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "eventWasProcessed"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

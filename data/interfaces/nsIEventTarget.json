@@ -1,0 +1,507 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim:set ts=2 sw=2 sts=2 et cindent: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIRunnable"
+    },
+    "%{C++\n#include \"nsCOMPtr.h\"\n#include \"mozilla/AlreadyAddRefed.h\"\n#include \"mozilla/Atomics.h\"\n\nclass nsITargetShutdownTask;\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "builtinclass",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a03b8b63-af8b-4164-b0e5-c41e8b2b7cfa"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIEventTarget",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* until we can get rid of all uses, keep the non-alreadyAddRefed<> version */"
+                  }
+                ],
+                "code": "%{C++\n    nsresult Dispatch(nsIRunnable* aEvent, uint32_t aFlags) {\n      return Dispatch(nsCOMPtr<nsIRunnable>(aEvent).forget(), aFlags);\n    }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies the default mode of event dispatch, whereby the event\n   * is simply queued for later processing.  When this flag is specified,\n   * dispatch returns immediately after the event is queued.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DISPATCH_NORMAL",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies the synchronous mode of event dispatch, in which the\n   * dispatch method does not return until the event has been processed.\n   *\n   * NOTE: passing this flag to dispatch may have the side-effect of causing\n   * other events on the current thread to be processed while waiting for the\n   * given event to be processed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DISPATCH_SYNC",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the dispatch is occurring from a running event\n   * that was dispatched to the same event target, and that event is about to\n   * finish.\n   *\n   * A thread pool can use this as an optimization hint to not spin up\n   * another thread, since the current thread is about to become idle.\n   *\n   * These events are always async.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DISPATCH_AT_END",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the dispatched event may block the thread on\n   * which it executes, usually by doing some sort of I/O.  This information\n   * may be used by the event target to execute the job on a thread\n   * specifically dedicated to doing I/O, leaving other threads available for\n   * CPU-intensive work.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DISPATCH_EVENT_MAY_BLOCK",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * IsOnCurrentThread() should return true if events dispatched to this target\n   * can possibly run on the current thread, and false otherwise. In the case\n   * of an nsIEventTarget for a thread pool, it should return true on all\n   * threads in the pool. In the case of a non-thread nsIEventTarget such as\n   * ThrottledEventQueue, it should return true on the thread where events are\n   * expected to be processed, even if no events from the queue are actually\n   * being processed right now.\n   *\n   * When called on an nsISerialEventTarget, IsOnCurrentThread can be used to\n   * ensure that no other thread has \"ownership\" of the event target. As such,\n   * it's useful for asserting that an object is only used on a particular\n   * thread. IsOnCurrentThread can't guarantee that the current event has been\n   * dispatched through a particular event target.\n   *\n   * The infallible version of IsOnCurrentThread() is optimized to avoid a\n   * virtual call for non-thread event targets. Thread targets should set\n   * mThread to their virtual PRThread. Non-thread targets should leave\n   * mThread null and implement IsOnCurrentThreadInfallible() to\n   * return the correct answer.\n   *\n   * The fallible version of IsOnCurrentThread may return errors, such as during\n   * shutdown. If it does not return an error, it should return the same result\n   * as the infallible version. The infallible method should return the correct\n   * result regardless of whether the fallible method returns an error.\n   */"
+                  }
+                ],
+                "code": "%{C++\npublic:\n  // Infallible. Defined in nsThreadUtils.cpp. Delegates to\n  // IsOnCurrentThreadInfallible when mThread is null.\n  bool IsOnCurrentThread();\n\nprotected:\n  mozilla::Atomic<PRThread*> mThread;\n\n  nsIEventTarget() : mThread(nullptr) {}\n  %}\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "isOnCurrentThreadInfallible",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\npublic:\n  %}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isOnCurrentThread",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Dispatch an event to this event target.  This function may be called from\n   * any thread, and it may be called re-entrantly.\n   *\n   * @param event\n   *   The alreadyAddRefed<> event to dispatch.\n   *   NOTE that the event will be leaked if it fails to dispatch.\n   * @param flags\n   *   The flags modifying event dispatch.  The flags are described in detail\n   *   below.\n   *\n   * @throws NS_ERROR_INVALID_ARG\n   *   Indicates that event is null.\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that the thread is shutting down and has finished processing\n   * events, so this event would never run and has not been dispatched.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "Dispatch"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "dispatchFromC",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "alreadyAddRefed_nsIRunnable",
+                      "name": "event"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "default",
+                              "param": {
+                                "kind": "attribute_$0",
+                                "value": "DISPATCH_NORMAL"
+                              }
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "flags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Version of Dispatch to expose to JS, which doesn't require an alreadyAddRefed<>\n   * (it will be converted to that internally)\n   *\n   * @param event\n   *   The (raw) event to dispatch.\n   * @param flags\n   *   The flags modifying event dispatch.  The flags are described in detail\n   *   below.\n   *\n   * @throws NS_ERROR_INVALID_ARG\n   *   Indicates that event is null.\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that the thread is shutting down and has finished processing\n   * events, so this event would never run and has not been dispatched.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "binaryname",
+                      "param": {
+                        "kind": "attribute_$0",
+                        "value": "DispatchFromScript"
+                      }
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "dispatch",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRunnable",
+                      "name": "event"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "flags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Dispatch an event to this event target, but do not run it before delay\n   * milliseconds have passed.  This function may be called from any thread.\n   *\n   * @param event\n   *   The alreadyAddrefed<> event to dispatch.\n   * @param delay\n   *   The delay (in ms) before running the event.  If event does not rise to\n   *   the top of the event queue before the delay has passed, it will be set\n   *   aside to execute once the delay has passed.  Otherwise, it will be\n   *   executed immediately.\n   *\n   * @throws NS_ERROR_INVALID_ARG\n   *   Indicates that event is null.\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that the thread is shutting down and has finished processing\n   * events, so this event would never run and has not been dispatched, or\n   * that delay is zero.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "delayedDispatch",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "alreadyAddRefed_nsIRunnable",
+                      "name": "event"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "delay"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Register an task to be run on this event target when it begins shutting\n   * down.  Shutdown tasks may be run in any order, and this function may be\n   * called from any thread.\n   *\n   * The event target may or may not continue accepting events during or after\n   * the shutdown task. The precise behaviour here depends on the event target.\n   *\n   * @param task\n   *   The task to be registered to the target thread.\n   *   NOTE that unlike `dispatch`, this will not leak the task if it fails.\n   *\n   * @throws NS_ERROR_INVALID_ARG\n   *   Indicates that task is null.\n   * @throws NS_ERROR_NOT_IMPLEMENTED\n   *   Indicates that this event target doesn't support shutdown tasks.\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that the thread is already shutting down, and no longer\n   *   accepting events.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "registerShutdownTask",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITargetShutdownTask",
+                      "name": "task"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Unregisters an task previously registered with registerShutdownTask.  This\n   * function may be called from any thread.\n   *\n   * @param task\n   *   The task previously registered with registerShutdownTask\n   *\n   * @throws NS_ERROR_INVALID_ARG\n   *   Indicates that task is null.\n   * @throws NS_ERROR_NOT_IMPLEMENTED\n   *   Indicates that this event target doesn't support shutdown tasks.\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that the thread is already shutting down, and no longer\n   *   accepting events, or that the shutdown task cannot be found.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "unregisterShutdownTask",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITargetShutdownTask",
+                      "name": "task"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n// convenient aliases:\n#define NS_DISPATCH_NORMAL nsIEventTarget::DISPATCH_NORMAL\n#define NS_DISPATCH_SYNC   nsIEventTarget::DISPATCH_SYNC\n#define NS_DISPATCH_AT_END nsIEventTarget::DISPATCH_AT_END\n#define NS_DISPATCH_EVENT_MAY_BLOCK nsIEventTarget::DISPATCH_EVENT_MAY_BLOCK\n\n// Convenient NS_DECL variant that includes some C++-only methods.\n#define NS_DECL_NSIEVENTTARGET_FULL                                   \\\n    NS_DECL_NSIEVENTTARGET                                            \\\n    /* Avoid hiding these methods */                                  \\\n    using nsIEventTarget::Dispatch;                                   \\\n    using nsIEventTarget::IsOnCurrentThread;\n%}\n"
+  ]
+}

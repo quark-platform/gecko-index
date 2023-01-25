@@ -1,0 +1,2038 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* Defines the abstract interface for a principal. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIContentSecurityPolicy"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISerializable"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIAboutModule"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIReferrerInfo"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "INCLUDE",
+      "ident": "mozIDOMWindow"
+    },
+    "%{C++\nstruct JSPrincipals;\n#include \"nsCOMPtr.h\"\n#include \"nsTArray.h\"\n#include \"nsString.h\"\n#include \"mozilla/DebugOnly.h\"\nnamespace mozilla {\nclass OriginAttributes;\n}\n\n/**\n * Some methods have a fast path for the case when we're comparing a principal\n * to itself. The situation may happen for example with about:blank documents.\n */\n\n#define DECL_FAST_INLINE_HELPER(method_)                       \\\n  inline bool method_(nsIPrincipal* aOther)                    \\\n  {                                                            \\\n    mozilla::DebugOnly<bool> val = false;                      \\\n    MOZ_ASSERT_IF(this == aOther,                              \\\n                  NS_SUCCEEDED(method_(aOther, &val)) && val); \\\n                                                               \\\n    bool retVal = false;                                       \\\n    return                                                     \\\n      this == aOther ||                                        \\\n      (NS_SUCCEEDED(method_(aOther, &retVal)) && retVal);      \\\n  }\n\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "f75f502d-79fd-48be-a079-e5a7b8f80c8b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIPrincipal",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns whether the other principal is equivalent to this principal.\n     * Principals are considered equal if they are the same principal, or\n     * they have the same origin.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "equals",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "other"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns whether the other principal is equivalent to this principal\n     * for permission purposes\n     * Matches {originAttributes ,equalsURIForPermission}\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "equalsForPermission",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "other"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aExactHost"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Like equals, but takes document.domain changes into account.\n     *\n     * May be called from any thread, though document.domain may racily change\n     * during the comparison when called from off-main-thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "equalsConsideringDomain",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "other"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n      DECL_FAST_INLINE_HELPER(Equals)\n      DECL_FAST_INLINE_HELPER(EqualsConsideringDomain)\n    %}\n\n    "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * Returns whether the Principals URI is equal to the other URI\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "equalsURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aOtherURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns a hash value for the principal.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "hashValue"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The principal URI to which this principal pertains.  This is\n     * generally the document URI.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "URI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The domain URI to which this principal pertains.\n     * This is null unless script successfully sets document.domain to our URI\n     * or a superdomain of our URI.\n     * Setting this has no effect on the URI.\n     * See https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#Changing_origin\n     *\n     * The getter may be called from any thread, but may only be set on the main thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "nsIURI",
+                  "name": "domain"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns whether the other principal is equal to or weaker than this\n     * principal. Principals are equal if they are the same object or they\n     * have the same origin.\n     *\n     * Thus a principal always subsumes itself.\n     *\n     * The system principal subsumes itself and all other principals.\n     *\n     * A null principal (corresponding to an unknown, hence assumed minimally\n     * privileged, security context) is not equal to any other principal\n     * (including other null principals), and therefore does not subsume\n     * anything but itself.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "subsumes",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "other"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Same as the previous method, subsumes(), but takes document.domain into\n     * account.\n     *\n     * May be called from any thread, though document.domain may racily change\n     * during the comparison when called from off-main-thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "subsumesConsideringDomain",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "other"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Same as the subsumesConsideringDomain(), but ignores the first party\n     * domain in its originAttributes.\n     *\n     * May be called from any thread, though document.domain may racily change\n     * during the comparison when called from off-main-thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "subsumesConsideringDomainIgnoringFPD",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "other"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n      DECL_FAST_INLINE_HELPER(Subsumes)\n      DECL_FAST_INLINE_HELPER(SubsumesConsideringDomain)\n      DECL_FAST_INLINE_HELPER(SubsumesConsideringDomainIgnoringFPD)\n#undef DECL_FAST_INLINE_HELPER\n    %}\n\n    "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Checks whether this principal is allowed to load the network resource\n     * located at the given URI under the same-origin policy. This means that\n     * content principals are only allowed to load resources from the same\n     * domain, the system principal is allowed to load anything, and null\n     * principals can only load URIs where they are the principal. This is\n     * changed by the optional flag allowIfInheritsPrincipal (which defaults to\n     * false) which allows URIs that inherit their loader's principal.\n     *\n     * If the load is allowed this function does nothing. If the load is not\n     * allowed the function throws NS_ERROR_DOM_BAD_URI.\n     *\n     * NOTE: Other policies might override this, such as the Access-Control\n     *       specification.\n     * NOTE: The 'domain' attribute has no effect on the behaviour of this\n     *       function.\n     * NOTE: Main-Thread Only.\n     *\n     *\n     * @param uri    The URI about to be loaded.\n     * @param allowIfInheritsPrincipal   If true, the load is allowed if the\n     *                                   loadee inherits the principal of the\n     *                                   loader.\n     * @throws NS_ERROR_DOM_BAD_URI if the load is not allowed.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "checkMayLoad",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "uri"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "allowIfInheritsPrincipal"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Like checkMayLoad, but if returning an error will also report that error\n     * to the console, using the provided window id.  The window id may be 0 to\n     * report to just the browser console, not web consoles.\n     *\n     * NOTE: Main-Thread Only.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "checkMayLoadWithReporting",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "uri"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "allowIfInheritsPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long long",
+                          "name": "innerWindowID"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Checks if the provided URI is considered third-party to the\n     * URI of the principal.\n     * Returns true if the URI is third-party.\n     *\n     * May be called from any thread.\n     *\n     * @param uri - The URI to check\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isThirdPartyURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "uri"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Checks if the provided principal is considered third-party to the\n     * URI of the Principal.\n     * Returns true if the principal is third-party.\n     *\n     * May be called from any thread.\n     *\n     * @param principal - The principal to check\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isThirdPartyPrincipal",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "principal"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Checks if the provided channel is considered third-party to the\n     * URI of the principal.\n     * Returns true if the channel is third-party.\n     * Returns false if the Principal is a System Principal\n     *\n     * NOTE: Main-Thread Only.\n     *\n     * @param channel - The Channel to check\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isThirdPartyChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "channel"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * A dictionary of the non-default origin attributes associated with this\n     * nsIPrincipal.\n     *\n     * Attributes are tokens that are taken into account when determining whether\n     * two principals are same-origin - if any attributes differ, the principals\n     * are cross-origin, even if the scheme, host, and port are the same.\n     * Attributes should also be considered for all security and bucketing decisions,\n     * even those which make non-standard comparisons (like cookies, which ignore\n     * scheme, or quotas, which ignore subdomains).\n     *\n     * If you're looking for an easy-to-use canonical stringification of the origin\n     * attributes, see |originSuffix| below.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "jsval",
+                  "name": "originAttributes"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "OriginAttributesRef"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "const_OriginAttributes",
+                  "name": "OriginAttributesRef",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * A canonical representation of the origin for this principal. This\n     * consists of a base string (which, for content principals, is of the\n     * format scheme://host:port), concatenated with |originAttributes| (see\n     * below).\n     *\n     * We maintain the invariant that principalA.equals(principalB) if and only\n     * if principalA.origin == principalB.origin.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "origin"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns an ASCII compatible representation\n     * of the principals Origin\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "asciiOrigin"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the \"host:port\" portion of the\n     * Principals URI, if any.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "hostPort"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the \"host:port\" portion of the\n     * Principals URI, if any.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "asciiHost"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the \"host\" portion of the\n     * Principals URI, if any.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "host"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the prePath of the principals uri\n     * follows the format scheme:\n     * \"scheme://username:password@hostname:portnumber/\"\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "prePath"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the filePath of the principals uri. See nsIURI.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "filePath"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the ASCII Spec from the Principals URI.\n     * Might return the empty string, e.g. for the case of\n     * a SystemPrincipal or an EpxandedPrincipal.\n     *\n     * May be called from any thread.\n     *\n     * WARNING: DO NOT USE FOR SECURITY CHECKS.\n     * just for logging purposes!\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "asciiSpec"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the Spec from the Principals URI.\n     * Might return the empty string, e.g. for the case of\n     * a SystemPrincipal or an EpxandedPrincipal.\n     *\n     * May be called from any thread.\n     *\n     * WARNING: Do not land new Code using, as this will be removed soon\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "spec"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the Pre Path of the Principals URI with\n     * user:pass stripped for privacy and spoof prevention\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "exposablePrePath"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the Spec of the Principals URI with\n     * user/pass/ref/query stripped for privacy and spoof prevention\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "exposableSpec"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Return the scheme of the principals URI\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "scheme"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Checks if the Principal's URI Scheme matches with the parameter\n     *\n     * May be called from any thread.\n     *\n     * @param scheme    The scheme to be checked\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "schemeIs",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "scheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * Checks if the Principal's URI is contained in the given Pref\n     *\n     * NOTE: Main-Thread Only.\n     *\n     * @param pref    The pref to be checked\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "isURIInPrefList",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "pref"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Check if the Principal's URI is contained in the given list\n     *\n     * May be called from any thread.\n     *\n     * @param list The list to be checked\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "isURIInList",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "list"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Uses NS_Security Compare to determine if the\n     * other URI is same-origin as the uri of the Principal\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "isSameOrigin",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "otherURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * Checks if the Principal is allowed to load the Provided file:// URI\n     * using NS_RelaxStrictFileOriginPolicy\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "allowsRelaxStrictFileOriginPolicy",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * Generates a Cache-Key for the Cors-Preflight Cache\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "ACString",
+                  "name": "getPrefLightCacheKey",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aWithCredentials"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "const_OriginAttributes",
+                          "name": "aOriginAttributes"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * Checks if the Principals URI has first party storage access\n     * when loaded inside the provided 3rd party resource window.\n     * See also: ContentBlocking::ShouldAllowAccessFor\n     *\n     * NOTE: Main-Thread Only.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "hasFirstpartyStorageAccess",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindow",
+                      "name": "aWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "uint32_t",
+                          "name": "rejectedReason"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * Returns a Key for the LocalStorage Manager, used to\n     * check the Principals Origin Storage usage.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "localStorageQuotaKey"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Implementation of\n     * https://w3c.github.io/webappsec-secure-contexts/#is-origin-trustworthy\n     *\n     * The value returned by this method feeds into the the Secure Context\n     * algorithm that determins the value of Window.isSecureContext and\n     * WorkerGlobalScope.isSecureContext.\n     *\n     * This method returns false instead of throwing upon errors.\n     *\n     * NOTE: Main-Thread Only.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isOriginPotentiallyTrustworthy"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * NOTE: Main-Thread Only.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isLoopbackHost"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the Flags of the Principals\n     * associated AboutModule, in case there is one.\n     *\n     * NOTE: Main-Thread Only.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "uint32_t",
+                  "name": "getAboutModuleFlags",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the Key to access the Principals\n     * Origin Local/Session Storage\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "storageOriginKey"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Creates and Returns a new ReferrerInfo with the \n     * Principals URI\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIReferrerInfo",
+                  "name": "createReferrerInfo",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ReferrerPolicy",
+                      "name": "aReferrerPolicy"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The base part of |origin| without the concatenation with |originSuffix|.\n     * This doesn't have the important invariants described above with |origin|,\n     * and as such should only be used for legacy situations.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "originNoSuffix"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * A string of the form ^key1=value1&key2=value2, where each pair represents\n     * an attribute with a non-default value. If all attributes have default\n     * values, this is the empty string.\n     *\n     * The value of .originSuffix is automatically serialized into .origin, so any\n     * consumers using that are automatically origin-attribute-aware. Consumers with\n     * special requirements must inspect and compare .originSuffix manually.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "originSuffix"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * A canonical representation of the site-origin for this principal.\n     * This string has the same format as |origin| (see above). Two principals\n     * with differing |siteOrigin| values will never compare equal, even when\n     * considering domain mutations.\n     *\n     * For most principals, |siteOrigin| matches |origin| precisely. Only\n     * principals which allow mutating |domain|, such as ContentPrincipal,\n     * override the default implementation in BasePrincipal.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "siteOrigin"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The base part of |siteOrigin| without the concatenation with\n     * |originSuffix|.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "siteOriginNoSuffix"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The base domain of the principal URI to which this principal pertains\n     * (generally the document URI), handling null principals and\n     * non-hierarchical schemes correctly.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "baseDomain"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Gets the ID of the add-on this principal belongs to.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "addonId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Gets the WebExtensionPolicy of the add-on this principal belongs to.\n     *\n     * NOTE: Main-Thread Only.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "WebExtensionPolicy",
+                  "name": "addonPolicy"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Gets the id of the user context this principal is inside.  If this\n     * principal is inside the default userContext, this returns\n     * nsIScriptSecurityManager::DEFAULT_USER_CONTEXT_ID.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "userContextId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Gets the id of the private browsing state of the context containing\n     * this principal. If the principal has a private browsing value of 0, it\n     * is not in private browsing.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "privateBrowsingId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true iff the principal is inside an isolated mozbrowser element.\n     * <xul:browser> is not considered to be a mozbrowser element.\n     * <iframe mozbrowser noisolation> does not count as isolated since\n     * isolation is disabled.  Isolation can only be disabled if the\n     * containing document is chrome.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isInIsolatedMozBrowserElement"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true iff this is a null principal (corresponding to an\n     * unknown, hence assumed minimally privileged, security context).\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isNullPrincipal"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true iff this principal corresponds to a principal origin.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isContentPrincipal"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true iff this is an expanded principal.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isExpandedPrincipal"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true iff this is the system principal.  C++ callers should use\n     * IsSystemPrincipal() instead of this scriptable accessor.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isSystemPrincipal"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Faster and nicer version callable from C++.  Callers must include\n     * BasePrincipal.h, where it's implemented.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": "%{C++\n      inline bool IsSystemPrincipal() const;\n    %}\n\n    "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true iff the principal is either an addon principal or\n     * an expanded principal, which contains at least one addon principal.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isAddonOrExpandedAddonPrincipal"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n    // MOZ_DBG support (threadsafe)\n    friend std::ostream& operator<<(std::ostream& aOut, const nsIPrincipal& aPrincipal) {\n      nsIPrincipal* principal = const_cast<nsIPrincipal*>(&aPrincipal);\n      nsAutoCString origin;\n      mozilla::DebugOnly<nsresult> rv = principal->GetOrigin(origin);\n      MOZ_ASSERT(NS_SUCCEEDED(rv));\n      return aOut << \"nsIPrincipal { \" << origin << \" }\";\n    }\n    %}\n\n    "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the URI is an Onion URI.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isOnion"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the Domain Policy allows js execution\n     * for the Principal's URI\n     *\n     * NOTE: Main-Thread Only.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isScriptAllowedByPolicy"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the Principal can acess l10n\n     * features for the Provided DocumentURI\n     *\n     * NOTE: Main-Thread Only.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isL10nAllowed",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aDocumentURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns a nsIPrincipal, with one less Subdomain Segment\n     * Returns `nullptr` if there are no more segments to remove.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIPrincipal",
+                  "name": "nextSubDomainPrincipal"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns if the principal is for an IP address.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isIpAddress"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns if the principal is for a local IP address.\n     *\n     * May be called from any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isLocalIpAddress"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If this principal is a null principal, reconstruct the precursor\n     * principal which this null principal was derived from. This may be null,\n     * in which case this is not a null principal, there is no known precursor\n     * to this null principal, it was created by a privileged context, or there\n     * was a bugged origin in the precursor string.\n     *\n     * May be called from any thread.\n     *\n     * WARNING: Be careful when using this principal, as it is not part of the\n     * security properties of the null principal, and should NOT be used to\n     * grant a resource with a null principal access to resources from its\n     * precursor origin. This is only to be used for places where tracking how\n     * null principals were created is necessary.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIPrincipal",
+                  "name": "precursorPrincipal"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * If SystemPrincipal is too risky to use, but we want a principal to access\n * more than one origin, ExpandedPrincipals letting us define an array of\n * principals it subsumes. So script with an ExpandedPrincipals will gain\n * same origin access when at least one of its principals it contains gained\n * sameorigin acccess. An ExpandedPrincipal will be subsumed by the system\n * principal, and by another ExpandedPrincipal that has all its principals.\n * It is added for jetpack content-scripts to let them interact with the\n * content and a well defined set of other domains, without the risk of\n * leaking out a system principal to the content. See: Bug 734891\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "f3e177Df-6a5e-489f-80a7-2dd1481471d8"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIExpandedPrincipal",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * An array of principals that the expanded principal subsumes.\n   *\n   * When an expanded principal is used as a triggering principal for a\n   * request that inherits a security context, one of its constitutent\n   * principals is inherited rather than the expanded principal itself. The\n   * last principal in the allowlist is the default principal to inherit.\n   *\n   * Note: this list is not reference counted, it is shared, so\n   * should not be changed and should only be used ephemerally.\n   *\n   * May be called from any thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "PrincipalArray",
+                  "name": "AllowList",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Bug 1548468: Move CSP off ExpandedPrincipal.\n   *\n   * A Content Security Policy associated with this principal. Use this function\n   * to query the associated CSP with this principal.\n   *\n   * NOTE: Main-Thread Only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIContentSecurityPolicy",
+                  "name": "csp"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{ C++\n  inline already_AddRefed<nsIContentSecurityPolicy> GetCsp()\n  {\n    nsCOMPtr<nsIContentSecurityPolicy> result;\n    mozilla::DebugOnly<nsresult> rv = GetCsp(getter_AddRefs(result));\n    MOZ_ASSERT(NS_SUCCEEDED(rv));\n    return result.forget();\n  }\n%}\n\n"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

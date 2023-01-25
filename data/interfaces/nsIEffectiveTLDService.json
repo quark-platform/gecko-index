@@ -1,0 +1,420 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "68067eb5-ad8d-43cb-a043-1cc85ebe06e7"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIEffectiveTLDService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the public suffix of a URI. A public suffix is the highest-level domain\n     * under which individual domains may be registered; it may therefore contain one\n     * or more dots. For example, the public suffix for \"www.bbc.co.uk\" is \"co.uk\",\n     * because the .uk TLD does not allow the registration of domains at the\n     * second level (\"bbc.uk\" is forbidden).\n     *\n     * The public suffix will be returned encoded in ASCII/ACE and will be normalized\n     * according to RFC 3454, i.e. the same encoding returned by nsIURI::GetAsciiHost().\n     * If consumers wish to compare the result of this method against the host from\n     * another nsIURI, the host should be obtained using nsIURI::GetAsciiHost().\n     * In the case of nested URIs, the innermost URI will be used.\n     *\n     * @param   aURI   The URI to be analyzed\n     *\n     * @returns the public suffix\n     *\n     * @throws NS_ERROR_UNEXPECTED\n     *         or other error returned by nsIIDNService::normalize when\n     *         the hostname contains characters disallowed in URIs\n     * @throws NS_ERROR_HOST_IS_IP_ADDRESS\n     *         if the host is a numeric IPv4 or IPv6 address (as determined by\n     *         the success of a call to PR_StringToNetAddr()).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getPublicSuffix",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Similar to getPublicSuffix, but the suffix is validated against\n     * the Public Suffix List. If the suffix is unknown this will return\n     * an empty string.\n     *\n     * @param   aURI   The URI to be analyzed\n     * @returns the public suffix if known, an empty string otherwise\n     * @see     getPublicSuffixFromHost()\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getKnownPublicSuffix",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the base domain of a URI; that is, the public suffix with a given\n     * number of additional domain name parts. For example, the result of this method\n     * for \"www.bbc.co.uk\", depending on the value of aAdditionalParts parameter, will\n     * be:\n     *\n     *    0 (default) -> bbc.co.uk\n     *    1           -> www.bbc.co.uk\n     *\n     * Similarly, the public suffix for \"www.developer.mozilla.org\" is \"org\", and the base\n     * domain will be:\n     *\n     *    0 (default) -> mozilla.org\n     *    1           -> developer.mozilla.org\n     *    2           -> www.developer.mozilla.org\n     *\n     * The base domain will be returned encoded in ASCII/ACE and will be normalized\n     * according to RFC 3454, i.e. the same encoding returned by nsIURI::GetAsciiHost().\n     * If consumers wish to compare the result of this method against the host from\n     * another nsIURI, the host should be obtained using nsIURI::GetAsciiHost().\n     * In the case of nested URIs, the innermost URI will be used.\n     *\n     * @param   aURI               The URI to be analyzed\n     * @param   aAdditionalParts   Number of domain name parts to be\n     *                             returned in addition to the public suffix\n     *\n     * @returns the base domain (public suffix plus the requested number of additional parts)\n     *\n     * @throws NS_ERROR_UNEXPECTED\n     *         or other error returned by nsIIDNService::normalize when\n     *         the hostname contains characters disallowed in URIs\n     * @throws NS_ERROR_INSUFFICIENT_DOMAIN_LEVELS\n     *         when there are insufficient subdomain levels in the hostname to satisfy the\n     *         requested aAdditionalParts value.\n     * @throws NS_ERROR_HOST_IS_IP_ADDRESS\n     *         if aHost is a numeric IPv4 or IPv6 address (as determined by\n     *         the success of a call to PR_StringToNetAddr()).\n     *\n     * @see    getPublicSuffix()\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getBaseDomain",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aAdditionalParts"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get the Site without the scheme for the origin of aURI; e.g. for\n     * \"https://www.bbc.co.uk/index.html\", this would be \"bbc.co.uk\".\n     * This uses getBaseDomain() internally. This is appropriately permissive,\n     * and will return a schemeless site for aliased hostnames and IP addresses\n     * and will therefore not throw NS_ERROR_INSUFFICIENT_DOMAIN_LEVELS or\n     * NS_ERROR_HOST_IS_IP_ADDRESS, e.g. \"http://localhost/index.html\" will\n     * return \"localhost\" successfully, rather than throwing an error.\n     *\n     * @param aHostURI\n     *        The URI to analyze.\n     *\n     * @return the Site.\n     *\n     * @throws NS_ERROR_UNEXPECTED\n     *         or other error returned by nsIIDNService::normalize when\n     *         the hostname contains characters disallowed in URIs\n     *\n     * @see    getBaseDomain()\n     * @see    getSite()\n     *\n     * @warning This function should not be used without good reason. Please\n     * use getSite() or the Origin if you are not absolutely certain.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getSchemelessSite",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get the Site for the origin of aURI; e.g. for\n     * \"https://www.bbc.co.uk/index.html\", this would be \"https://bbc.co.uk\".\n     * This uses getBaseDomain() internally. This is appropriately permissive,\n     * and will return a scheme for alaised hostnames and IP addresses and will\n     * therefore not throw NS_ERROR_INSUFFICIENT_DOMAIN_LEVELS or\n     * NS_ERROR_HOST_IS_IP_ADDRESS, e.g. \"http://localhost/index.html\" will\n     * return \"http://localhost\" successfully, rather than throwing an error.\n     *\n     * @param aHostURI\n     *        The URI to analyze.\n     *\n     * @return the Site.\n     *\n     * @throws NS_ERROR_UNEXPECTED\n     *         or other error returned by nsIIDNService::normalize when\n     *         the hostname contains characters disallowed in URIs\n     *\n     * @see    getBaseDomain()\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getSite",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * NOTE: It is strongly recommended to use getPublicSuffix() above if a suitable\n     * nsIURI is available. Only use this method if this is not the case.\n     *\n     * Returns the public suffix of a host string. Otherwise identical to getPublicSuffix().\n     *\n     * @param   aHost   The host to be analyzed. Any additional parts (e.g. scheme,\n     *                  port, or path) will cause this method to throw. ASCII/ACE and\n     *                  UTF8 encodings are acceptable as input; normalization will\n     *                  be performed as specified in getBaseDomain().\n     *\n     * @see     getPublicSuffix()\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getPublicSuffixFromHost",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Similar to getPublicSuffixFromHost, but the suffix is validated against\n     * the Public Suffix List. If the suffix is unknown this will return\n     * an empty string.\n     *\n     * @param   aHost   The host to be analyzed.\n     * @returns the public suffix if known, an empty string otherwise\n     * @see     getPublicSuffixFromHost()\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getKnownPublicSuffixFromHost",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * NOTE: It is strongly recommended to use getBaseDomain() above if a suitable\n     * nsIURI is available. Only use this method if this is not the case.\n     *\n     * Returns the base domain of a host string. Otherwise identical to getBaseDomain().\n     *\n     * @param   aHost   The host to be analyzed. Any additional parts (e.g. scheme,\n     *                  port, or path) will cause this method to throw. ASCII/ACE and\n     *                  UTF8 encodings are acceptable as input; normalization will\n     *                  be performed as specified in getBaseDomain().\n     *\n     * @see     getBaseDomain()\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getBaseDomainFromHost",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aAdditionalParts"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the parent sub-domain of a host string. If the host is a base\n     * domain, it will throw NS_ERROR_INSUFFICIENT_DOMAIN_LEVELS.\n     *\n     * For example: \"player.bbc.co.uk\" would return \"bbc.co.uk\" and\n     *              \"bbc.co.uk\" would throw NS_ERROR_INSUFFICIENT_DOMAIN_LEVELS.\n     *\n     * @param   aHost   The host to be analyzed. Any additional parts (e.g. scheme,\n     *                  port, or path) will cause this method to throw. ASCII/ACE and\n     *                  UTF8 encodings are acceptable as input; normalization will\n     *                  be performed as specified in getBaseDomain().\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getNextSubDomain",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aHost"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the |aInput| in is part of the root domain of |aHost|.\n     * For example, if |aInput| is \"www.mozilla.org\", and we pass in\n     * \"mozilla.org\" as |aHost|, this will return true.  It would return false\n     * the other way around.\n     *\n     * @param aInput The host to be analyzed.\n     * @param aHost  The host to compare to.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "hasRootDomain",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aInput"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aHost"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n"
+  ]
+}

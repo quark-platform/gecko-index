@@ -1,0 +1,695 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{C++\n#include \"mozilla/DebugOnly.h\"\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * mozIStorageValueArray wraps an array of SQL values, such as a single database\n * row.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "6e6306f4-ffa7-40f5-96ca-36159ce8f431"
+              }
+            }
+          }
+        ]
+      },
+      "name": "mozIStorageValueArray",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * These type values are returned by getTypeOfIndex\n   * to indicate what type of value is present at\n   * a given column.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALUE_TYPE_NULL",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALUE_TYPE_INTEGER",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALUE_TYPE_FLOAT",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALUE_TYPE_TEXT",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALUE_TYPE_BLOB",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * numEntries\n   *\n   * number of entries in the array (each corresponding to a column\n   * in the database row)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "numEntries"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the type of the value at the given column index;\n   * one of VALUE_TYPE_NULL, VALUE_TYPE_INTEGER, VALUE_TYPE_FLOAT,\n   * VALUE_TYPE_TEXT, VALUE_TYPE_BLOB.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "long",
+                  "name": "getTypeOfIndex",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Obtain a value for the given entry (column) index.\n   * Due to SQLite's type conversion rules, any of these are valid\n   * for any column regardless of the column's data type.  However,\n   * if the specific type matters, getTypeOfIndex should be used\n   * first to identify the column type, and then the appropriate\n   * get method should be called.\n   *\n   * If you ask for a string value for a NULL column, you will get an empty\n   * string with IsVoid set to distinguish it from an explicitly set empty\n   * string.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "long",
+                  "name": "getInt32",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "long long",
+                  "name": "getInt64",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "double",
+                  "name": "getDouble",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AUTF8String",
+                  "name": "getUTF8String",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getString",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getBlob",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "unsigned long",
+                          "name": "aDataSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "array",
+                              "param": null
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "size_is",
+                                  "param": {
+                                    "kind": "attribute_$0",
+                                    "value": "aDataSize"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "out",
+                          "type": "octet",
+                          "name": "aData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "getBlobAsString",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AUTF8String",
+                  "name": "getBlobAsUTF8String",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "getIsNull",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns a shared string pointer.\n   *\n   * @param aIndex\n   *        0-based colummn index.\n   * @param aByteLength\n   *        The number of bytes in the string or blob. This is the same as the\n   *        number of characters for UTF-8 strings, and twice the number of\n   *        characters for UTF-16 strings.\n   * @param aResult\n   *        A pointer to the string or blob.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "getSharedUTF8String",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "unsigned long",
+                          "name": "aByteLength"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "shared",
+                              "param": null
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "retval",
+                                  "param": null
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "out",
+                          "type": "string",
+                          "name": "aResult"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "getSharedString",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "unsigned long",
+                          "name": "aByteLength"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "shared",
+                              "param": null
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "retval",
+                                  "param": null
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "out",
+                          "type": "wstring",
+                          "name": "aResult"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "getSharedBlob",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aIndex"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "unsigned long",
+                          "name": "aByteLength"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "shared",
+                              "param": null
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "retval",
+                                  "param": null
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "out",
+                          "type": "octetPtr",
+                          "name": "aResult"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Getters for native code that return their values as\n   * the return type, for convenience and sanity.\n   *\n   * Not virtual; no vtable bloat.\n   */"
+                  }
+                ],
+                "code": "%{C++\n  inline int32_t AsInt32(uint32_t idx) {\n    int32_t v = 0;\n    mozilla::DebugOnly<nsresult> rv = GetInt32(idx, &v);\n    MOZ_ASSERT(NS_SUCCEEDED(rv) || IsNull(idx),\n               \"Getting value failed, wrong column index?\");\n    return v;\n  }\n\n  inline int64_t AsInt64(uint32_t idx) {\n    int64_t v = 0;\n    mozilla::DebugOnly<nsresult> rv = GetInt64(idx, &v);\n    MOZ_ASSERT(NS_SUCCEEDED(rv) || IsNull(idx),\n               \"Getting value failed, wrong column index?\");\n    return v;\n  }\n\n  inline double AsDouble(uint32_t idx) {\n    double v = 0.0;\n    mozilla::DebugOnly<nsresult> rv = GetDouble(idx, &v);\n    MOZ_ASSERT(NS_SUCCEEDED(rv) || IsNull(idx),\n               \"Getting value failed, wrong column index?\");\n    return v;\n  }\n\n  inline const char* AsSharedUTF8String(uint32_t idx, uint32_t *len) {\n    const char *str = nullptr;\n    *len = 0;\n    mozilla::DebugOnly<nsresult> rv = GetSharedUTF8String(idx, len, &str);\n    MOZ_ASSERT(NS_SUCCEEDED(rv) || IsNull(idx),\n               \"Getting value failed, wrong column index?\");\n    return str;\n  }\n\n  inline const char16_t* AsSharedWString(uint32_t idx, uint32_t *len) {\n    const char16_t *str = nullptr;\n    *len = 0;\n    mozilla::DebugOnly<nsresult> rv = GetSharedString(idx, len, &str);\n    MOZ_ASSERT(NS_SUCCEEDED(rv) || IsNull(idx),\n               \"Getting value failed, wrong column index?\");\n    return str;\n  }\n\n  inline const uint8_t* AsSharedBlob(uint32_t idx, uint32_t *len) {\n    const uint8_t *blob = nullptr;\n    *len = 0;\n    mozilla::DebugOnly<nsresult> rv = GetSharedBlob(idx, len, &blob);\n    MOZ_ASSERT(NS_SUCCEEDED(rv) || IsNull(idx),\n               \"Getting value failed, wrong column index?\");\n    return blob;\n  }\n\n  inline bool IsNull(uint32_t idx) {\n    bool b = false;\n    mozilla::DebugOnly<nsresult> rv = GetIsNull(idx, &b);\n    MOZ_ASSERT(NS_SUCCEEDED(rv),\n               \"Getting value failed, wrong column index?\");\n    return b;\n  }\n\n%}\n\n"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

@@ -1,0 +1,611 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIHttpAuthenticableChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIHttpAuthenticatorCallback",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICancelable",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIHttpAuthenticator\n *\n * Interface designed to allow for pluggable HTTP authentication modules.\n * Implementations are registered under the ContractID:\n *\n *   \"@mozilla.org/network/http-authenticator;1?scheme=<auth-scheme>\"\n *\n * where <auth-scheme> is the lower-cased value of the authentication scheme\n * found in the server challenge per the rules of RFC 2617.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "fef7db8a-a4e2-49d1-9685-19ed7e309b7d"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIHttpAuthenticator",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Upon receipt of a server challenge, this function is called to determine\n     * whether or not the current user identity has been rejected.  If true,\n     * then the user will be prompted by the channel to enter (or revise) their\n     * identity.  Following this, generateCredentials will be called.\n     *\n     * If the IDENTITY_IGNORED auth flag is set, then the aInvalidateIdentity\n     * return value will be ignored, and user prompting will be suppressed.\n     *\n     * @param aChannel\n     *        the http channel that received the challenge.\n     * @param aChallenge\n     *        the challenge from the WWW-Authenticate/Proxy-Authenticate\n     *        server response header.  (possibly from the auth cache.)\n     * @param aProxyAuth\n     *        flag indicating whether or not aChallenge is from a proxy.\n     * @param aSessionState\n     *        see description below for generateCredentials.\n     * @param aContinuationState\n     *        see description below for generateCredentials.\n     * @param aInvalidateIdentity\n     *        return value indicating whether or not to prompt the user for a\n     *        revised identity.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "challengeReceived",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpAuthenticableChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aChallenge"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aProxyAuth"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "inout",
+                          "type": "nsISupports",
+                          "name": "aSessionState"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "inout",
+                          "type": "nsISupports",
+                          "name": "aContinuationState"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "aInvalidatesIdentity"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Called to generate the authentication credentials for a particular\n     * server/proxy challenge asynchronously. Credentials will be sent back\n     * to the server via an Authorization/Proxy-Authorization header.\n     *\n     * @param aChannel\n     *        the http channel requesting credentials\n     * @param aCallback\n     *        callback function to be called when credentials are available\n     * @param aChallenge\n     *        the challenge from the WWW-Authenticate/Proxy-Authenticate\n     *        server response header.  (possibly from the auth cache.)\n     * @param aProxyAuth\n     *        flag indicating whether or not aChallenge is from a proxy.\n     * @param aDomain\n     *        string containing the domain name (if appropriate)\n     * @param aUser\n     *        string containing the user name\n     * @param aPassword\n     *        string containing the password\n     * @param aSessionState\n     *        state stored along side the user's identity in the auth cache\n     *        for the lifetime of the browser session.  if a new auth cache\n     *        entry is created for this challenge, then this parameter will\n     *        be null.  on return, the result will be stored in the new auth\n     *        cache entry.  this parameter is non-null when an auth cache entry\n     *        is being reused. currently modification of session state is not\n     *        communicated to caller, thus caching credentials obtained by\n     *        asynchronous way is not supported.\n     * @param aContinuationState\n     *        state held by the channel between consecutive calls to\n     *        generateCredentials, assuming multiple calls are required\n     *        to authenticate.  this state is held for at most the lifetime of\n     *        the channel.\n     * @pram aCancel\n     *        returns cancellable runnable object which caller can use to cancel\n     *        calling aCallback when finished.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "generateCredentialsAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpAuthenticableChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIHttpAuthenticatorCallback",
+                          "name": "aCallback"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aChallenge"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aProxyAuth"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aDomain"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aUser"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aPassword"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "aSessionState"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "aContinuationState"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "nsICancelable",
+                          "name": "aCancel"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Called to generate the authentication credentials for a particular\n     * server/proxy challenge.  This is the value that will be sent back\n     * to the server via an Authorization/Proxy-Authorization header.\n     *\n     * This function may be called using a cached challenge provided the\n     * authenticator sets the REUSABLE_CHALLENGE flag.\n     *\n     * @param aChannel\n     *        the http channel requesting credentials\n     * @param aChallenge\n     *        the challenge from the WWW-Authenticate/Proxy-Authenticate\n     *        server response header.  (possibly from the auth cache.)\n     * @param aProxyAuth\n     *        flag indicating whether or not aChallenge is from a proxy.\n     * @param aDomain\n     *        string containing the domain name (if appropriate)\n     * @param aUser\n     *        string containing the user name\n     * @param aPassword\n     *        string containing the password\n     * @param aSessionState\n     *        state stored along side the user's identity in the auth cache\n     *        for the lifetime of the browser session.  if a new auth cache\n     *        entry is created for this challenge, then this parameter will\n     *        be null.  on return, the result will be stored in the new auth\n     *        cache entry.  this parameter is non-null when an auth cache entry\n     *        is being reused.\n     * @param aContinuationState\n     *        state held by the channel between consecutive calls to\n     *        generateCredentials, assuming multiple calls are required\n     *        to authenticate.  this state is held for at most the lifetime of\n     *        the channel.\n     * @param aFlags\n     *        authenticator may return one of the generate flags bellow.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "ACString",
+                  "name": "generateCredentials",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpAuthenticableChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aChallenge"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aProxyAuth"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aDomain"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aUser"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aPassword"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "inout",
+                          "type": "nsISupports",
+                          "name": "aSessionState"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "inout",
+                          "type": "nsISupports",
+                          "name": "aContinuationState"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Generate flags\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Indicates that the authenticator has used an out-of-band or internal\n     * source of identity and tells the consumer that it must not cache\n     * the returned identity because it might not be valid and would overwrite\n     * the cached identity.  See bug 542318 comment 32.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "USING_INTERNAL_IDENTITY",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Flags defining various properties of the authenticator.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "authFlags"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * A request based authentication scheme only authenticates an individual\n     * request (or a set of requests under the same authentication domain as\n     * defined by RFC 2617).  BASIC and DIGEST are request based authentication\n     * schemes.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "REQUEST_BASED",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * A connection based authentication scheme authenticates an individual\n     * connection.  Multiple requests may be issued over the connection without\n     * repeating the authentication steps.  Connection based authentication\n     * schemes can associate state with the connection being authenticated via\n     * the aContinuationState parameter (see generateCredentials).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "CONNECTION_BASED",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The credentials returned from generateCredentials may be reused with any\n     * other URLs within \"the protection space\" as defined by RFC 2617 section\n     * 1.2.  If this flag is not set, then generateCredentials must be called\n     * for each request within the protection space.  REUSABLE_CREDENTIALS\n     * implies REUSABLE_CHALLENGE.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "REUSABLE_CREDENTIALS",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * A challenge may be reused to later generate credentials in anticipation\n     * of a duplicate server challenge for URLs within \"the protection space\"\n     * as defined by RFC 2617 section 1.2.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "REUSABLE_CHALLENGE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag indicates that the identity of the user is not required by\n     * this authentication scheme.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "IDENTITY_IGNORED",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag indicates that the identity of the user includes a domain\n     * attribute that the user must supply.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "IDENTITY_INCLUDES_DOMAIN",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag indicates that the identity will be sent encrypted. It does\n     * not make sense to combine this flag with IDENTITY_IGNORED.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "IDENTITY_ENCRYPTED",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

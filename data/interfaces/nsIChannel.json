@@ -1,0 +1,775 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIRequest"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsILoadInfo"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInterfaceRequestor",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIStreamListener",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITransportSecurityInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n#include \"nsCOMPtr.h\"\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The nsIChannel interface allows clients to construct \"GET\" requests for\n * specific protocols, and manage them in a uniform way.  Once a channel is\n * created (via nsIIOService::newChannel), parameters for that request may\n * be set by using the channel attributes, or by QI'ing to a subclass of\n * nsIChannel for protocol-specific parameters.  Then, the URI can be fetched\n * by calling nsIChannel::open or nsIChannel::asyncOpen.\n *\n * After a request has been completed, the channel is still valid for accessing\n * protocol-specific results.  For example, QI'ing to nsIHttpChannel allows\n * response headers to be retrieved for the corresponding http transaction.\n *\n * This interface must be used only from the XPCOM main thread.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "2c389865-23db-4aa7-9fe5-60cc7b00697e"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIChannel",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIRequest"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The original URI used to construct the channel. This is used in\n     * the case of a redirect or URI \"resolution\" (e.g. resolving a\n     * resource: URI to a file: URI) so that the original pre-redirect\n     * URI can still be obtained.  This is never null.  Attempts to\n     * set it to null must throw.\n     *\n     * NOTE: this is distinctly different from the http Referer (referring URI),\n     * which is typically the page that contained the original URI (accessible\n     * from nsIHttpChannel).\n     *\n     * NOTE: originalURI isn't yet set on the new channel when\n     * asyncOnChannelRedirect is called.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIURI",
+                  "name": "originalURI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URI corresponding to the channel.  Its value is immutable.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "URI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The owner, corresponding to the entity that is responsible for this\n     * channel.  Used by the security manager to grant or deny privileges to\n     * mobile code loaded from this channel.\n     *\n     * NOTE: this is a strong reference to the owner, so if the owner is also\n     * holding a strong reference to the channel, care must be taken to\n     * explicitly drop its reference to the channel.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsISupports",
+                  "name": "owner"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The notification callbacks for the channel.  This is set by clients, who\n     * wish to provide a means to receive progress, status and protocol-specific\n     * notifications.  If this value is NULL, the channel implementation may use\n     * the notification callbacks from its load group.  The channel may also\n     * query the notification callbacks from its load group if its notification\n     * callbacks do not supply the requested interface.\n     *\n     * Interfaces commonly requested include: nsIProgressEventSink, nsIPrompt,\n     * and nsIAuthPrompt/nsIAuthPrompt2.\n     *\n     * When the channel is done, it must not continue holding references to\n     * this object.\n     *\n     * NOTE: A channel implementation should take care when \"caching\" an\n     * interface pointer queried from its notification callbacks.  If the\n     * notification callbacks are changed, then a cached interface pointer may\n     * become invalid and may therefore need to be re-queried.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIInterfaceRequestor",
+                  "name": "notificationCallbacks"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Transport-level security information (if any) corresponding to the\n     * channel.\n     *\n     * NOTE: In some circumstances TLS information is propagated onto\n     * non-nsIHttpChannel objects to indicate that their contents were likely\n     * delivered over TLS all the same.\n     *\n     * FIXME(bz, bug 1528449) is that still true now that\n     * document.open() doesn't do this?\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsITransportSecurityInfo",
+                  "name": "securityInfo"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The MIME type of the channel's content if available.\n     *\n     * NOTE: the content type can often be wrongly specified (e.g., wrong file\n     * extension, wrong MIME type, wrong document type stored on a server, etc.),\n     * and the caller most likely wants to verify with the actual data.\n     *\n     * Setting contentType before the channel has been opened provides a hint\n     * to the channel as to what the MIME type is.  The channel may ignore this\n     * hint in deciding on the actual MIME type that it will report.\n     *\n     * Setting contentType after onStartRequest has been fired or after open()\n     * is called will override the type determined by the channel.\n     *\n     * Setting contentType between the time that asyncOpen() is called and the\n     * time when onStartRequest is fired has undefined behavior at this time.\n     *\n     * The value of the contentType attribute is a lowercase string.  A value\n     * assigned to this attribute will be parsed and normalized as follows:\n     *  1- any parameters (delimited with a ';') will be stripped.\n     *  2- if a charset parameter is given, then its value will replace the\n     *     the contentCharset attribute of the channel.\n     *  3- the stripped contentType will be lowercased.\n     * Any implementation of nsIChannel must follow these rules.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "ACString",
+                  "name": "contentType"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The character set of the channel's content if available and if applicable.\n     * This attribute only applies to textual data.\n     *\n     * The value of the contentCharset attribute is a mixedcase string.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "ACString",
+                  "name": "contentCharset"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The length of the data associated with the channel if available.  A value\n     * of -1 indicates that the content length is unknown. Note that this is a\n     * 64-bit value and obsoletes the \"content-length\" property used on some\n     * channels.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "int64_t",
+                  "name": "contentLength"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Synchronously open the channel.\n     *\n     * @return blocking input stream to the channel's data.\n     *\n     * NOTE: nsIChannel implementations are not required to implement this\n     * method.  Moreover, since this method may block the calling thread, it\n     * should not be called on a thread that processes UI events.  Like any\n     * other nsIChannel method it must not be called on any thread other\n     * than the XPCOM main thread.\n     *\n     * NOTE: Implementations should throw NS_ERROR_IN_PROGRESS if the channel\n     * is reopened.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIInputStream",
+                  "name": "open",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Asynchronously open this channel.  Data is fed to the specified stream\n     * listener as it becomes available.  The stream listener's methods are\n     * called on the thread that calls asyncOpen and are not called until\n     * after asyncOpen returns.  If asyncOpen returns successfully, the\n     * channel promises to call at least onStartRequest and onStopRequest.\n     *\n     * If the nsIRequest object passed to the stream listener's methods is not\n     * this channel, an appropriate onChannelRedirect notification needs to be\n     * sent to the notification callbacks before onStartRequest is called.\n     * Once onStartRequest is called, all following method calls on aListener\n     * will get the request that was passed to onStartRequest.\n     *\n     * If the channel's and loadgroup's notification callbacks do not provide\n     * an nsIChannelEventSink when onChannelRedirect would be called, that's\n     * equivalent to having called onChannelRedirect.\n     *\n     * If asyncOpen returns successfully, the channel is responsible for\n     * keeping itself alive until it has called onStopRequest on aListener or\n     * called onChannelRedirect.\n     *\n     * Implementations are allowed to synchronously add themselves to the\n     * associated load group (if any).\n     *\n     * NOTE: Implementations should throw NS_ERROR_ALREADY_OPENED if the\n     * channel is reopened.\n     * NOTE: Implementations should throw an error if the channel has been\n     * cancelled prior asyncOpen being called.\n     *\n     * @param aListener the nsIStreamListener implementation\n     * @see nsIChannelEventSink for onChannelRedirect\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncOpen",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIStreamListener",
+                      "name": "aListener"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * True if the channel has been canceled.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "canceled"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**************************************************************************\n     * Channel specific load flags:\n     *\n     * Bits 16-31 are reserved for future use by this interface or one of its\n     * derivatives (e.g., see nsICachingChannel).\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set (e.g., by the docshell) to indicate whether or not the channel\n     * corresponds to a document URI.\n     * While setting this flag is sufficient to mark a channel as a document\n     * load, _checking_ whether the channel is a document load requires the use\n     * of the new channel.isDocument\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_DOCUMENT_URI",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If the end consumer for this load has been retargeted after discovering\n     * its content, this flag will be set:\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_RETARGETED_DOCUMENT_URI",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag is set to indicate that this channel is replacing another\n     * channel.  This means that:\n     *\n     * 1) the stream listener this channel will be notifying was initially\n     *    passed to the asyncOpen method of some other channel\n     *\n     *   and\n     *\n     * 2) this channel's URI is a better identifier of the resource being\n     *    accessed than this channel's originalURI.\n     *\n     * This flag can be set, for example, for redirects or for cases when a\n     * single channel has multiple parts to it (and thus can follow\n     * onStopRequest with another onStartRequest/onStopRequest pair, each pair\n     * for a different request).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_REPLACE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set (e.g., by the docshell) to indicate whether or not the channel\n     * corresponds to an initial document URI load (e.g., link click).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_INITIAL_DOCUMENT_URI",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set (e.g., by the URILoader) to indicate whether or not the end consumer\n     * for this load has been determined.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_TARGETED",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If this flag is set, the channel should call the content sniffers as\n     * described in nsNetCID.h about NS_CONTENT_SNIFFER_CATEGORY.\n     *\n     * Note: Channels may ignore this flag; however, new channel implementations\n     * should only do so with good reason.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_CALL_CONTENT_SNIFFERS",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This flag tells the channel to bypass URL classifier service check\n     * when opening the channel.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_BYPASS_URL_CLASSIFIER",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If this flag is set, the media-type content sniffer will be allowed\n     * to override any server-set content-type. Otherwise it will only\n     * be allowed to override \"no content type\" and application/octet-stream.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_MEDIA_SNIFFER_OVERRIDES_CONTENT_TYPE",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set to let explicitely provided credentials be used over credentials\n     * we have cached previously. In some situations like form login using HTTP\n     * auth via XMLHttpRequest we need to let consumers override the cached\n     * credentials explicitely. For form login 403 response instead of 401 is\n     * usually used to prevent an auth dialog. But any code other then 401/7\n     * will leave original credentials in the cache and there is then no way\n     * to override them for the same user name.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_EXPLICIT_CREDENTIALS",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set to force bypass of any service worker interception of the channel.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_BYPASS_SERVICE_WORKER",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Access to the type implied or stated by the Content-Disposition header\n     * if available and if applicable. This allows determining inline versus\n     * attachment.\n     *\n     * Setting contentDisposition provides a hint to the channel about the\n     * disposition.  If the hint is DISPOSITION_ATTACHMENT and a normal\n     * Content-Disposition header is present, the hinted value will always be\n     * used. If the hint is DISPOSITION_FORCE_INLINE then the disposition is\n     * inline and the header is not used. The value from Content-Disposition\n     * header is only used when the hinted value is not DISPOSITION_INLINE or\n     * DISPOSITION_FORCE_INLINE.\n     * If the header is missing the hinted value will be used if set.\n     *\n     * Implementations should throw NS_ERROR_NOT_AVAILABLE if the header either\n     * doesn't exist for this type of channel or is empty, and return\n     * DISPOSITION_ATTACHMENT if an invalid/noncompliant value is present.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "contentDisposition"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DISPOSITION_INLINE",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DISPOSITION_ATTACHMENT",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DISPOSITION_FORCE_INLINE",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Access to the filename portion of the Content-Disposition header if\n     * available and if applicable. This allows getting the preferred filename\n     * without having to parse it out yourself.\n     *\n     * Setting contentDispositionFilename provides a hint to the channel about\n     * the disposition.  If a normal Content-Disposition header is present its\n     * value will always be used.  If it is missing the hinted value will be\n     * used if set.\n     *\n     * Implementations should throw NS_ERROR_NOT_AVAILABLE if the header doesn't\n     * exist for this type of channel, if the header is empty, if the header\n     * doesn't contain a filename portion, or the value of the filename\n     * attribute is empty/missing.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "AString",
+                  "name": "contentDispositionFilename"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Access to the raw Content-Disposition header if available and applicable.\n     *\n     * Implementations should throw NS_ERROR_NOT_AVAILABLE if the header either\n     * doesn't exist for this type of channel or is empty.\n     *\n     * @deprecated Use contentDisposition/contentDispositionFilename instead.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "contentDispositionHeader"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The LoadInfo object contains information about a network load, why it\n     * was started, and how we plan on using the resulting response.\n     * If a network request is redirected, the new channel will receive a new\n     * LoadInfo object. The new object will contain mostly the same\n     * information as the pre-redirect one, but updated as appropriate.\n     * For detailed information about what parts of LoadInfo are updated on\n     * redirect, see documentation on individual properties.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsILoadInfo",
+                  "name": "loadInfo"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns true if the channel is used to create a document.\n     * It returns true if the loadFlags have LOAD_DOCUMENT_URI set, or if\n     * LOAD_HTML_OBJECT_DATA is set and the channel has the appropriate\n     * MIME type.\n     * Note: May have the wrong value if called before OnStartRequest as we\n     * don't know the MIME type yet.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "bool",
+                  "name": "isDocument"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{ C++\n  inline bool IsDocument()\n  {\n    bool isDocument = false;\n    if (NS_SUCCEEDED(GetIsDocument(&isDocument)) && isDocument) {\n      return true;\n    }\n    return false;\n  }\n\n  inline already_AddRefed<nsILoadInfo> LoadInfo()\n  {\n    nsCOMPtr<nsILoadInfo> result;\n    mozilla::DebugOnly<nsresult> rv = GetLoadInfo(getter_AddRefs(result));\n    MOZ_ASSERT(NS_SUCCEEDED(rv) && result);\n    return result.forget();\n  }\n%}\n\n"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "builtinclass",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1ebbff64-d742-4f4a-aad5-4df2d1eb937a"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIIdentChannel",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIChannel"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Unique ID of the channel, shared between parent and child. Needed if\n     * the channel activity needs to be monitored across process boundaries,\n     * like in devtools net monitor. See bug 1274556.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "uint64_t",
+                  "name": "channelId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{ C++\n  inline uint64_t ChannelId()\n  {\n    uint64_t value = 0;\n    if (NS_SUCCEEDED(GetChannelId(&value))) {\n      return value;\n    }\n    return 0;\n  }\n%}\n"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

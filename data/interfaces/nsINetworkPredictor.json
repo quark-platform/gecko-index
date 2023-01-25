@@ -1,0 +1,516 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim: set ts=2 sts=2 et sw=2: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsINetworkPredictorVerifier",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "typedef"
+    },
+    "\n",
+    {
+      "kind": "typedef"
+    },
+    "\n\n",
+    "%{C++\nnamespace mozilla {\n\nclass OriginAttributes;\n\n}\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsINetworkPredictor - learn about pages users visit, and allow us to take\n *                       predictive actions upon future visits.\n *                       NOTE: nsINetworkPredictor should only\n *                       be used on the main thread.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "acc88e7c-3f39-42c7-ac31-6377c2c3d73e"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsINetworkPredictor",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Prediction reasons\n   *\n   * PREDICT_LINK - we are being asked to take predictive action because\n   * the user is hovering over a link.\n   *\n   * PREDICT_LOAD - we are being asked to take predictive action because\n   * the user has initiated a pageload.\n   *\n   * PREDICT_STARTUP - we are being asked to take predictive action\n   * because the browser is starting up.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "PredictorPredictReason",
+                  "name": "PREDICT_LINK",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "PredictorPredictReason",
+                  "name": "PREDICT_LOAD",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "PredictorPredictReason",
+                  "name": "PREDICT_STARTUP",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Start taking predictive actions\n   *\n   * Calling this will cause the predictor to (possibly) start\n   * taking actions such as DNS prefetch and/or TCP preconnect based on\n   * (1) the host name that we are given, and (2) the reason we are being\n   * asked to take actions.\n   *\n   * @param targetURI - The URI we are being asked to take actions based on.\n   * @param sourceURI - The URI that is currently loaded. This is so we can\n   *   avoid doing predictive actions for link hover on an HTTPS page (for\n   *   example).\n   * @param reason - The reason we are being asked to take actions. Can be\n   *   any of the PREDICT_* values above.\n   *   In the case of PREDICT_LINK, targetURI should be the URI of the link\n   *   that is being hovered over, and sourceURI should be the URI of the page\n   *   on which the link appears.\n   *   In the case of PREDICT_LOAD, targetURI should be the URI of the page that\n   *   is being loaded and sourceURI should be null.\n   *   In the case of PREDICT_STARTUP, both targetURI and sourceURI should be\n   *   null.\n   * @param originAttributes - The originAttributes of the page load we are\n   *   predicting about.\n   * @param verifier - An nsINetworkPredictorVerifier used in testing to ensure\n   *   we're predicting the way we expect to. Not necessary (or desired) for\n   *   normal operation.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "predict",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "targetURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "sourceURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PredictorPredictReason",
+                          "name": "reason"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "originAttributes"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsINetworkPredictorVerifier",
+                          "name": "verifier"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsresult",
+                  "name": "predictNative",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "targetURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "sourceURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PredictorPredictReason",
+                          "name": "reason"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "OriginAttributes",
+                          "name": "originAttributes"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsINetworkPredictorVerifier",
+                          "name": "verifier"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Reasons we are learning something\n   *\n   * LEARN_LOAD_TOPLEVEL - we are learning about the toplevel resource of a\n   *                       pageload (NOTE: this should ONLY be used by tests)\n   *\n   * LEARN_LOAD_SUBRESOURCE - we are learning a subresource from a pageload\n   *\n   * LEARN_LOAD_REDIRECT - we are learning about the re-direct of a URI\n   *\n   * LEARN_STARTUP - we are learning about a page loaded during startup\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "PredictorLearnReason",
+                  "name": "LEARN_LOAD_TOPLEVEL",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "PredictorLearnReason",
+                  "name": "LEARN_LOAD_SUBRESOURCE",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "PredictorLearnReason",
+                  "name": "LEARN_LOAD_REDIRECT",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "PredictorLearnReason",
+                  "name": "LEARN_STARTUP",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Add to our compendium of knowledge\n   *\n   * This adds to our prediction database to make things (hopefully)\n   * smarter next time we predict something.\n   *\n   * @param targetURI - The URI that was loaded that we are keeping track of.\n   * @param sourceURI - The URI that caused targetURI to be loaded (for page\n   *   loads). This means the DOCUMENT URI.\n   * @param reason - The reason we are learning this bit of knowledge.\n   *   Reason can be any of the LEARN_* values.\n   *   In the case of LEARN_LOAD_SUBRESOURCE, targetURI should be the URI of a\n   *   subresource of a page, and sourceURI should be the top-level URI.\n   *   In the case of LEARN_LOAD_REDIRECT, targetURI is the NEW URI of a\n   *   top-level resource that was redirected to, and sourceURI is the\n   *   ORIGINAL URI of said top-level resource.\n   *   In the case of LEARN_STARTUP, targetURI should be the URI of a page\n   *   that was loaded immediately after browser startup, and sourceURI should\n   *   be null.\n   * @param originAttributes - The originAttributes for the page load that we\n   *   are learning about.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "learn",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "targetURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "sourceURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PredictorLearnReason",
+                          "name": "reason"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "originAttributes"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsresult",
+                  "name": "learnNative",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "targetURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "sourceURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PredictorLearnReason",
+                          "name": "reason"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "OriginAttributes",
+                          "name": "originAttributes"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Clear out all our learned knowledge\n   *\n   * This removes everything from our database so that any predictions begun\n   * after this completes will start from a blank slate.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "reset",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n// Wrapper functions to make use of the predictor easier and less invasive\nclass nsIChannel;\n\nclass nsILoadContext;\nclass nsILoadGroup;\nclass nsINetworkPredictorVerifier;\n\nnamespace mozilla {\n\nclass OriginAttributes;\n\nnamespace net {\n\nnsresult PredictorPredict(nsIURI *targetURI,\n                          nsIURI *sourceURI,\n                          PredictorPredictReason reason,\n                          const OriginAttributes& originAttributes,\n                          nsINetworkPredictorVerifier *verifier);\n\nnsresult PredictorLearn(nsIURI *targetURI,\n                        nsIURI *sourceURI,\n                        PredictorLearnReason reason,\n                        const OriginAttributes& originAttributes);\n\nnsresult PredictorLearn(nsIURI *targetURI,\n                        nsIURI *sourceURI,\n                        PredictorLearnReason reason,\n                        nsILoadGroup *loadGroup);\n\nnsresult PredictorLearn(nsIURI *targetURI,\n                        nsIURI *sourceURI,\n                        PredictorLearnReason reason,\n                        dom::Document *document);\n\nnsresult PredictorLearnRedirect(nsIURI *targetURI,\n                                nsIChannel *channel,\n                                const OriginAttributes& originAttributes);\n\n} // mozilla::net\n} // mozilla\n%}\n"
+  ]
+}

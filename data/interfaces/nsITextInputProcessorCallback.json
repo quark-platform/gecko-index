@@ -1,0 +1,481 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITextInputProcessor",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsITextInputProcessorNotification stores the type of notification to IME and\n * its detail.  See each explanation of attribute for the detail.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "c0ce1add-82bb-45ab-b99a-42cfba7fd5d7"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITextInputProcessorNotification",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * type attribute represents what's notified or requested.  Value must be\n   * one of following values:\n   *\n   * \"request-to-commit\"  (required to be handled)\n   *   This is requested when Gecko believes that active composition should be\n   *   committed.  nsITextInputProcessorCallback::onNotify() has to handle this\n   *   notification.\n   *\n   * \"request-to-cancel\" (required to be handled)\n   *   This is requested when Gecko believes that active composition should be\n   *   canceled.  I.e., composition should be committed with empty string.\n   *   nsITextInputProcessorCallback::onNotify() has to handle this\n   *   notification.\n   *\n   * \"notify-end-input-transaction\" (optional)\n   *   This is notified when the callback is detached from\n   *   nsITextInputProcessor.  I.e., the TextInputProcessor lost the rights\n   *   to input text and needs to call .beginInputTransaction() before next\n   *   input.\n   *\n   * \"notify-focus\" (optional)\n   *   This is notified when an editable editor gets focus and Gecko starts\n   *   to observe changes in the content. E.g., selection changes.\n   *   IME shouldn't change DOM tree, focus nor something when this is notified.\n   *\n   * \"notify-blur\" (optional)\n   *   This is notified when an editable editor loses focus and Gecko stops\n   *   observing the changes in the content.\n   *\n   * \"notify-text-change\" (optional)\n   *   This is notified when text in the focused editor is modified.\n   *   Some attributes below are available to retrieve the detail.\n   *   IME shouldn't change DOM tree, focus nor something when this is notified.\n   *   Note that when there is no chance to notify you of some text changes\n   *   safely, this represents all changes as a change.\n   *\n   * \"notify-selection-change\" (optional)\n   *   This is notified when selection in the focused editor is changed.\n   *   Some attributes below are available to retrieve the detail.\n   *   IME shouldn't change DOM tree, focus nor something when this is notified.\n   *   Note that when there was no chance to notify you of this safely, this\n   *   represents the latest selection change.\n   *\n   * \"notify-position-change\" (optional)\n   *   This is notified when layout is changed in the editor or the window\n   *   is moved.\n   *   IME shouldn't change DOM tree, focus nor something when this is notified.\n   *   Note that when there was no chance to notify you of this safely, this\n   *   represents the latest layout change.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "type"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a vaild value when type is \"notify-selection-change\".\n   * This is true if selection has a range.  Otherwise, i.e., there is no\n   * range such as after calling Selection.removeAllRanges, this is false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "bool",
+                  "name": "hasRange"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Be careful, line breakers in the editor are treated as native line\n   * breakers.  I.e., on Windows, a line breaker is \"\\r\\n\" (CRLF).  On the\n   * others, it is \"\\n\" (LF).  If you want TextInputProcessor to treat line\n   * breakers on Windows as XP line breakers (LF), please file a bug with\n   * the reason why you need the behavior.\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-text-change\", or\n   * is \"notify-selection-change\" and hasRange is true.\n   * This is offset of the start of modified text range if type is\n   * \"notify-text-change\".  Or offset of start of selection if type is\n   * \"notify-selection-change\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "offset"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-selection-change\"\n   * and hasRange is true.\n   * This is selected text.  I.e., the length is selected length and\n   * it's empty if the selection is collapsed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "text"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-selection-change\".\n   * This is set to true when the selection is collapsed or no range.\n   * Otherwise, false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "collapsed"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-selection-change\"\n   * and hasRange is true.\n   * This is selected length.  I.e., if this is 0, collapsed is set to true.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "uint32_t",
+                  "name": "length"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-selection-change\"\n   * and hasRange is true.\n   * When selection is created from latter point to former point, this is\n   * set to true.  Otherwise, false.\n   * I.e., if this is true, offset + length is the anchor of selection.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "reversed"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-selection-change\".\n   * This indicates the start of the selection's writing mode.\n   * The value can be \"horizontal-tb\", \"vertical-rl\" or \"vertical-lr\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "writingMode"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-selection-change\".\n   * If the selection change was caused by composition, this is set to true.\n   * Otherwise, false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "causedByComposition"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-selection-change\".\n   * If the selection change was caused by selection event, this is set to true.\n   * Otherwise, false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "causedBySelectionEvent"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-selection-change\".\n   * If the selection change occurred during composition, this is set to true.\n   * Otherwise, false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "occurredDuringComposition"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-text-change\".\n   * This is removed text length by the change(s).  If this is empty, new text\n   * was just inserted.  Otherwise, the text is replaced with new text.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "removedLength"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-text-change\".\n   * This is added text length by the change(s).  If this is empty, old text\n   * was just deleted.  Otherwise, the text replaces the old text.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "addedLength"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-text-change\".\n   * If the text change(s) was caused only by composition, this is set to true.\n   * Otherwise, false.  I.e., if one of text changes are caused by JS or\n   * modifying without composition, this is set to false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "causedOnlyByComposition"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-text-change\".\n   * If at least one text change not caused by composition occurred during\n   * composition, this is set to true.  Otherwise, false.\n   * Note that this is set to false when new change is caused by neither\n   * composition nor occurred during composition because it's outdated for\n   * new composition.\n   * In other words, when text changes not caused by composition occurred\n   * during composition and it may cause committing composition, this is\n   * set to true.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "includingChangesDuringComposition"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This attribute has a valid value when type is \"notify-text-change\".\n   * If at least one text change occurred when there was no composition, this\n   * is set to true.  Otherwise, false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "includingChangesWithoutComposition"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsITextInputProcessorCallback is a callback interface for JS to implement\n * IME.  IME implemented by JS can implement onNotify() function and must send\n * it to nsITextInputProcessor at initializing.  Then, onNotify() will be\n * called with nsITextInputProcessorNotification instance.\n * The reason why onNotify() uses string simply is that if we will support\n * other notifications such as text changes and selection changes, we need to\n * notify IME of some other information.  Then, only changing\n * nsITextInputProcessorNotification interface is better for compatibility.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "23d5f242-adb5-46f1-8766-90d1bf0383df"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITextInputProcessorCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * When Gecko notifies IME of something or requests something to IME,\n   * this is called.\n   *\n   * @param aTextInputProcessor Reference to the nsITextInputProcessor service\n   *                            which is the original receiver of the request\n   *                            or notification.\n   * @param aNotification       Stores type of notifications and additional\n   *                            information.\n   * @return                    Return true if it succeeded or does nothing.\n   *                            Otherwise, return false.\n   *\n   * Example #1 The simplest implementation of nsITextInputProcessorCallback is:\n   *\n   *   function simpleCallback(aTIP, aNotification)\n   *   {\n   *     try {\n   *       switch (aNotification.type) {\n   *         case \"request-to-commit\":\n   *           aTIP.commitComposition();\n   *           break;\n   *         case \"request-to-cancel\":\n   *           aTIP.cancelComposition();\n   *           break;\n   *       }\n   *     } catch (e) {\n   *       return false;\n   *     }\n   *     return true;\n   *   }\n   *\n   *   var TIP = Components.classes[\"@mozilla.org/text-input-processor;1\"].\n   *               createInstance(Components.interfaces.nsITextInputProcessor);\n   *   if (!TIP.init(window, simpleCallback)) {\n   *     return;\n   *   }\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "onNotify",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITextInputProcessor",
+                      "name": "aTextInputProcessor"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsITextInputProcessorNotification",
+                          "name": "aNotification"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

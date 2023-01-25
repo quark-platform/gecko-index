@@ -1,0 +1,471 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * @see nsICookieService::runInTransaction\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "0fc41ffb-f1b7-42d9-9a42-8dc420c158c1"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICookieTransactionCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "callback",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsICookieService\n *\n * Provides methods for setting and getting cookies in the context of a\n * page load.  See nsICookieManager for methods to manipulate the cookie\n * database directly.  This separation of interface is mainly historical.\n *\n * This service broadcasts the notifications detailed below when the cookie\n * list is changed, or a cookie is rejected.\n *\n * NOTE: observers of these notifications *must* not attempt to change profile\n *       or switch into or out of private browsing mode from within the\n *       observer. Doing so will cause undefined behavior. Mutating the cookie\n *       list (e.g. by calling methods on nsICookieService and friends) is\n *       allowed, but beware that there may be pending notifications you haven't\n *       seen yet -- for instance, a \"batch-deleted\" notification will likely be\n *       immediately followed by \"added\". You may check the state of the cookie\n *       list to determine if this is the case.\n *\n * topic  : \"cookie-changed\"\n *          broadcast whenever the cookie list changes in some way. see\n *          explanation of data strings below.\n * subject: see below.\n * data   : \"deleted\"\n *          a cookie was deleted. the subject is an nsICookie representing\n *          the deleted cookie.\n *          \"added\"\n *          a cookie was added. the subject is an nsICookie representing\n *          the added cookie.\n *          \"changed\"\n *          a cookie was changed. the subject is an nsICookie representing\n *          the new cookie. (note that host, path, and name are invariant\n *          for a given cookie; other parameters may change.)\n *          \"batch-deleted\"\n *          a set of cookies was purged (typically, because they have either\n *          expired or because the cookie list has grown too large). The subject\n *          is an nsIArray of nsICookie's representing the deleted cookies.\n *          Note that the array could contain a single cookie.\n *          \"cleared\"\n *          the entire cookie list was cleared. the subject is null.\n *\n * topic  : \"cookie-rejected\"\n *          broadcast whenever a cookie was rejected from being set as a\n *          result of user prefs.\n * subject: an nsIURI interface pointer representing the URI that attempted\n *          to set the cookie.\n * data   : none.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1e94e283-2811-4f43-b947-d22b1549d824"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICookieService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Possible values for the \"network.cookie.cookieBehavior\" preference.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "BEHAVIOR_ACCEPT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "BEHAVIOR_REJECT_FOREIGN",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "BEHAVIOR_REJECT",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "BEHAVIOR_LIMIT_FOREIGN",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "BEHAVIOR_REJECT_TRACKER",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "BEHAVIOR_REJECT_TRACKER_AND_PARTITION_FOREIGN",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "BEHAVIOR_LAST",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Get the complete cookie string associated with the document's principal.\n   * This method is meant to be used for `document.cookie` only. Any security\n   * check about storage-access permission and cookie behavior must be done by\n   * the caller.\n   *\n   * @param aDocument\n   *        The document.\n   *\n   * @return the resulting cookie string\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getCookieStringFromDocument",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Document",
+                      "name": "aDocument"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Get the complete cookie string associated with the URI.\n   *\n   * This function is NOT redundant with getCookieString, as the result\n   * will be different based on httponly (see bug 178993)\n   *\n   * @param aURI\n   *        The URI of the document for which cookies are being queried.\n   *        file:// URIs (i.e. with an empty host) are allowed, but any other\n   *        scheme must have a non-empty host. A trailing dot in the host\n   *        is acceptable, and will be stripped. This argument must not be null.\n   * @param aChannel\n   *        the channel used to load the document.\n   *\n   * @return the resulting cookie string\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getCookieStringFromHttp",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIChannel",
+                          "name": "aChannel"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Set the cookie string associated with a Document. This method is meant to\n   * be used for `document.cookie` only. Any security check about\n   * storage-access permission and cookie behavior must be done by the caller.\n   *\n   * @param aDocument\n   *        The document.\n   * @param aCookie\n   *        the cookie string to set.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setCookieStringFromDocument",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Document",
+                      "name": "aDocument"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aCookie"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Set the cookie string and expires associated with the URI.\n   *\n   * This function is NOT redundant with setCookieString, as the result\n   * will be different based on httponly (see bug 178993)\n   *\n   * @param aURI\n   *        The URI of the document for which cookies are being queried.\n   *        file:// URIs (i.e. with an empty host) are allowed, but any other\n   *        scheme must have a non-empty host. A trailing dot in the host\n   *        is acceptable, and will be stripped. This argument must not be null.\n   * @param aCookie\n   *        the cookie string to set.\n   * @param aChannel\n   *        the channel used to load the document.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setCookieStringFromHttp",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aCookie"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIChannel",
+                          "name": "aChannel"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Batch SQLite operations into one transaction. By default each call to\n   * CookieService that affects the underlying SQLite database (add, remove,\n   * setCookieString etc.) runs in a separate transaction.  If you do this many\n   * times in a row, it's faster and suggested to wrap them all in a single\n   * transaction by setting all the operations into the callback parameter.\n   * Example: test scripts that need to construct a large cookie database.\n   * @param aCallback\n   *        nsICookieTransactionCallback interface to call\n   * @throws NS_ERROR_FAILURE if aCallback() fails.\n   * @throws NS_ERROR_NOT_AVAILABLE if the connection is not established.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "runInTransaction",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsICookieTransactionCallback",
+                      "name": "aCallback"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

@@ -1,0 +1,742 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * URIs are essentially structured names for things -- anything. This interface\n * provides accessors to get the most basic components of an URI.\n * If you need to change some parts of the URI use nsIURIMutator.\n * Subclasses, including nsIURL, impose greater structure on the URI.\n *\n * This interface follows Tim Berners-Lee's URI spec (RFC3986) [1], where the\n * basic URI components are defined as such:\n * <pre>\n *      ftp://username:password@hostname:portnumber/pathname?query#ref\n *      \\ /   \\               / \\      / \\        /\\       / \\   / \\ /\n *       -     ---------------   ------   --------  -------   ---   -\n *       |            |             |        |         |       |    |\n *       |            |             |        |      FilePath Query Ref\n *       |            |             |       Port       \\            /\n *       |            |            Host      /          ------------\n *       |         UserPass                 /                |\n *     Scheme                              /                Path\n *       \\                                /\n *        --------------------------------\n *                       |\n *                    PrePath\n * </pre>\n * The definition of the URI components has been extended to allow for\n * internationalized domain names [2] and the more generic IRI structure [3].\n *\n * [1] https://tools.ietf.org/html/rfc3986\n * [2] https://tools.ietf.org/html/rfc5890\n * [3] https://tools.ietf.org/html/rfc3987\n */"
+      }
+    },
+    "%{C++\n#include \"nsString.h\"\n\n#undef GetPort  // XXX Windows!\n#undef SetPort  // XXX Windows!\n\nnamespace mozilla {\nclass Encoding;\nnamespace ipc {\nclass URIParams;\n}  // namespace ipc\n}  // namespace mozilla\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURIMutator",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIURI - interface for an uniform resource identifier w/ i18n support.\n *\n * AUTF8String attributes may contain unescaped UTF-8 characters.\n * Consumers should be careful to escape the UTF-8 strings as necessary, but\n * should always try to \"display\" the UTF-8 version as provided by this\n * interface.\n *\n * AUTF8String attributes may also contain escaped characters.\n *\n * Unescaping URI segments is unadvised unless there is intimate\n * knowledge of the underlying charset or there is no plan to display (or\n * otherwise enforce a charset on) the resulting URI substring.\n *\n * The correct way to create an nsIURI from a string is via\n * nsIIOService.newURI.\n *\n * NOTE: nsBinaryInputStream::ReadObject contains a hackaround to intercept the\n * old (pre-gecko6) nsIURI IID and swap in the current IID instead, in order\n * for sessionstore to work after an upgrade.  If this IID is revved further,\n * we will need to add additional checks there for all intermediate IIDs, until\n * ContentPrincipal is fixed to serialize its URIs as nsISupports (bug 662693).\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "92073a54-6d78-4f30-913a-b871813208c6"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIURI",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/************************************************************************\n     * The URI is broken down into the following principal components:\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns a string representation of the URI.\n     *\n     * Some characters may be escaped.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "spec"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{ C++\n    // An infallible wrapper for GetSpec() that returns a failure indication\n    // string if GetSpec() fails. It is most useful for creating\n    // logging/warning/error messages produced for human consumption, and when\n    // matching a URI spec against a fixed spec such as about:blank.\n    nsCString GetSpecOrDefault()\n    {\n        nsCString spec;\n        nsresult rv = GetSpec(spec);\n        if (NS_FAILED(rv)) {\n            spec.AssignLiteral(\"[nsIURI::GetSpec failed]\");\n        }\n        return spec;\n    }\n%}\n\n    "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The prePath (eg. scheme://user:password@host:port) returns the string\n     * before the path.  This is useful for authentication or managing sessions.\n     *\n     * Some characters may be escaped.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "prePath"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The Scheme is the protocol to which this URI refers.  The scheme is\n     * restricted to the US-ASCII charset per RFC3986.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "scheme"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The username:password (or username only if value doesn't contain a ':')\n     *\n     * Some characters may be escaped.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "userPass"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The optional username and password, assuming the preHost consists of\n     * username:password.\n     *\n     * Some characters may be escaped.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "username"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "password"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The host:port (or simply the host, if port == -1).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "hostPort"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The host is the internet domain name to which this URI refers.  It could\n     * be an IPv4 (or IPv6) address literal. Otherwise it is an ASCII or punycode\n     * encoded string.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "host"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * A port value of -1 corresponds to the protocol's default port (eg. -1\n     * implies port 80 for http URIs).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "long",
+                  "name": "port"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The path, typically including at least a leading '/' (but may also be\n     * empty, depending on the protocol).\n     *\n     * Some characters may be escaped.\n     *\n     * This attribute contains query and ref parts for historical reasons.\n     * Use the 'filePath' attribute if you do not want those parts included.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "pathQueryRef"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/************************************************************************\n     * An URI supports the following methods:\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * URI equivalence test (not a strict string comparison).\n     *\n     * eg. http://foo.com:80/ == http://foo.com/\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "equals",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "other"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * An optimization to do scheme checks without requiring the users of nsIURI\n     * to GetScheme, thereby saving extra allocating and freeing. Returns true if\n     * the schemes match (case ignored).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "schemeIs",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "scheme"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This method resolves a relative string into an absolute URI string,\n     * using this URI as the base.\n     *\n     * NOTE: some implementations may have no concept of a relative URI.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AUTF8String",
+                  "name": "resolve",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "relativePath"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/************************************************************************\n     * Additional attributes:\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URI spec with an ASCII compatible encoding.  Host portion follows\n     * the IDNA draft spec.  Other parts are URL-escaped per the rules of\n     * RFC2396.  The result is strictly ASCII.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "asciiSpec"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The host:port (or simply the host, if port == -1), with an ASCII compatible\n     * encoding.  Host portion follows the IDNA draft spec.  The result is strictly\n     * ASCII.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "asciiHostPort"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URI host with an ASCII compatible encoding.  Follows the IDNA\n     * draft spec for converting internationalized domain names (UTF-8) to\n     * ASCII for compatibility with existing internet infrasture.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "asciiHost"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/************************************************************************\n     * Additional attribute & methods added for .ref support:\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the reference portion (the part after the \"#\") of the URI.\n     * If there isn't one, an empty string is returned.\n     *\n     * Some characters may be escaped.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "ref"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * URI equivalence test (not a strict string comparison), ignoring\n     * the value of the .ref member.\n     *\n     * eg. http://foo.com/# == http://foo.com/\n     *     http://foo.com/#aaa == http://foo.com/#bbb\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "equalsExceptRef",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "other"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * returns a string for the current URI with the ref element cleared.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "specIgnoringRef"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns if there is a reference portion (the part after the \"#\") of the URI.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "hasRef"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/************************************************************************\n     * Additional attributes added for .query support:\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns a path including the directory and file portions of a\n     * URL.  For example, the filePath of \"http://host/foo/bar.html#baz\"\n     * is \"/foo/bar.html\".\n     *\n     * Some characters may be escaped.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "filePath"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the query portion (the part after the \"?\") of the URL.\n     * If there isn't one, an empty string is returned.\n     *\n     * Some characters may be escaped.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "query"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If the URI has a punycode encoded hostname, this will hold the UTF8\n     * representation of that hostname (if that representation doesn't contain\n     * blacklisted characters, and the network.IDN_show_punycode pref is false)\n     * Otherwise, if the hostname is ASCII, it will return the same as .asciiHost\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "displayHost"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The displayHost:port (or simply the displayHost, if port == -1).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "displayHostPort"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the same as calling .spec, only with a UTF8 encoded hostname\n     * (if that hostname doesn't contain blacklisted characters, and\n     * the network.IDN_show_punycode pref is false)\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "displaySpec"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns the same as calling .prePath, only with a UTF8 encoded hostname\n     * (if that hostname doesn't contain blacklisted characters, and\n     * the network.IDN_show_punycode pref is false)\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "displayPrePath"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Returns an nsIURIMutator that can be used to make changes to the URI.\n     * After performing the setter operations on the mutator, one may call\n     * mutator.finalize() to get a new immutable URI with the desired\n     * properties.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIURIMutator",
+                  "name": "mutate",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Serializes a URI object to a URIParams data structure in order for being\n     * passed over IPC.  For deserialization, see nsIURIMutator.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "serialize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "URIParams",
+                      "name": "aParams"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n    // MOZ_DBG support\n    friend std::ostream& operator<<(std::ostream& aOut, const nsIURI& aURI) {\n      nsIURI* uri = const_cast<nsIURI*>(&aURI);\n      return aOut << \"nsIURI { \" << uri->GetSpecOrDefault() << \" }\";\n    }\n    %}\n"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

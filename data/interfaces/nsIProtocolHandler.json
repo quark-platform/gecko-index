@@ -1,0 +1,820 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{C++\n#include \"nsCOMPtr.h\"\n\n/**\n * Protocol handlers are registered with XPCOM under the following CONTRACTID prefix:\n */\n#define NS_NETWORK_PROTOCOL_CONTRACTID_PREFIX \"@mozilla.org/network/protocol;1?name=\"\n/**\n * For example, \"@mozilla.org/network/protocol;1?name=http\"\n */\n\n#if defined(MOZ_THUNDERBIRD) || defined(MOZ_SUITE)\n#define IS_ORIGIN_IS_FULL_SPEC_DEFINED 1\n#endif\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoadInfo",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIProtocolHandlerWithDynamicFlags\n *\n * Protocols that wish to return different flags depending on the URI should\n * implement this interface.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "65a8e823-0591-4fc0-a56a-03265e0a4ce8"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIProtocolHandlerWithDynamicFlags",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * Returns protocol flags for the given URI, which may be different from the\n     * flags for another URI of the same scheme.\n     *\n     * Only DYNAMIC_URI_FLAGS may be different from the registered flags for the\n     * protocol handler.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "getFlagsForURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIProtocolHandler\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a87210e6-7c8c-41f7-864d-df809015193e"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIProtocolHandler",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The scheme of this protocol (e.g., \"file\").\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "scheme"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Constructs a new channel from the given URI for this protocol handler and\n     * sets the loadInfo for the constructed channel.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIChannel",
+                  "name": "newChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsILoadInfo",
+                          "name": "aLoadinfo"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Allows a protocol to override blacklisted ports.\n     *\n     * This method will be called when there is an attempt to connect to a port\n     * that is blacklisted.  For example, for most protocols, port 25 (Simple Mail\n     * Transfer) is banned.  When a URI containing this \"known-to-do-bad-things\"\n     * port number is encountered, this function will be called to ask if the\n     * protocol handler wants to override the ban.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "allowPort",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "port"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "scheme"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**************************************************************************\n     * Constants for the protocol flags (the first is the default mask, the\n     * others are deviations):\n     *\n     * NOTE: Protocol flags are provided when the protocol handler is\n     * registered, either through a static component or dynamically with\n     * `nsIIOService.registerProtocolHandler`.\n     *\n     * NOTE: Implementation must ignore any flags they do not understand.\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * standard full URI with authority component and concept of relative\n     * URIs (http, ...)\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_STD",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * no concept of relative URIs (about, javascript, finger, ...)\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_NORELATIVE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * no authority component (file, ...)\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_NOAUTH",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This protocol handler can be proxied via a proxy (socks or http)\n     * (e.g., irc, smtp, http, etc.).  If the protocol supports transparent\n     * proxying, the handler should implement nsIProxiedProtocolHandler.\n     *\n     * If it supports only HTTP proxying, then it need not support\n     * nsIProxiedProtocolHandler, but should instead set the ALLOWS_PROXY_HTTP\n     * flag (see below).\n     *\n     * @see nsIProxiedProtocolHandler\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ALLOWS_PROXY",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This protocol handler can be proxied using a http proxy (e.g., http,\n     * etc.).  nsIIOService::newChannelFromURI will feed URIs from this\n     * protocol handler to the HTTP protocol handler instead.  This flag is\n     * ignored if ALLOWS_PROXY is not set.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ALLOWS_PROXY_HTTP",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URIs for this protocol have no inherent security context, so\n     * documents loaded via this protocol should inherit the security context\n     * from the document that loads them.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_INHERITS_SECURITY_CONTEXT",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * \"Automatic\" loads that would replace the document (e.g. <meta> refresh,\n     * certain types of XLinks, possibly other loads that the application\n     * decides are not user triggered) are not allowed if the originating (NOT\n     * the target) URI has this protocol flag.  Note that the decision as to\n     * what constitutes an \"automatic\" load is made externally, by the caller\n     * of nsIScriptSecurityManager::CheckLoadURI.  See documentation for that\n     * method for more information.\n     *\n     * A typical protocol that might want to set this flag is a protocol that\n     * shows highly untrusted content in a viewing area that the user expects\n     * to have a lot of control over, such as an e-mail reader.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_FORBIDS_AUTOMATIC_DOCUMENT_REPLACEMENT",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * +-------------------------------------------------------------------+\n     * |                                                                   |\n     * |  ALL PROTOCOL HANDLERS MUST SET ONE OF THE FOLLOWING FIVE FLAGS.  |\n     * |                                                                   |\n     * +-------------------------------------------------------------------+\n     *\n     *    * URI_LOADABLE_BY_ANYONE\n     *    * URI_DANGEROUS_TO_LOAD\n     *    * URI_IS_UI_RESOURCE\n     *    * URI_IS_LOCAL_FILE\n     *    * URI_LOADABLE_BY_SUBSUMERS\n     *\n     * These flags are used to determine who is allowed to load URIs for this\n     * protocol.  Note that if a URI is nested, only the flags for the\n     * innermost URI matter.  See nsINestedURI.\n     *\n     * If none of these five flags are set, the ContentSecurityManager will\n     * deny the load.\n     */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URIs for this protocol can be loaded by anyone.  For example, any\n     * website should be allowed to trigger a load of a URI for this protocol.\n     * Web-safe protocols like \"http\" should set this flag.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_LOADABLE_BY_ANYONE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URIs for this protocol are UNSAFE if loaded by untrusted (web)\n     * content and may only be loaded by privileged code (for example, code\n     * which has the system principal).  Various internal protocols should set\n     * this flag.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_DANGEROUS_TO_LOAD",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URIs for this protocol point to resources that are part of the\n     * application's user interface.  There are cases when such resources may\n     * be made accessible to untrusted content such as web pages, so this is\n     * less restrictive than URI_DANGEROUS_TO_LOAD but more restrictive than\n     * URI_LOADABLE_BY_ANYONE.  See the documentation for\n     * nsIScriptSecurityManager::CheckLoadURI.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_IS_UI_RESOURCE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Loading of URIs for this protocol from other origins should only be\n     * allowed if those origins should have access to the local filesystem.\n     * It's up to the application to decide what origins should have such\n     * access.  Protocols like \"file\" that point to local data should set this\n     * flag.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_IS_LOCAL_FILE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URIs for this protocol can be loaded only by callers with a\n     * principal that subsumes this uri. For example, privileged code and\n     * websites that are same origin as this uri.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_LOADABLE_BY_SUBSUMERS",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Channels using this protocol never call OnDataAvailable\n     * on the listener passed to AsyncOpen and they therefore\n     * do not return any data that we can use.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_DOES_NOT_RETURN_DATA",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * URIs for this protocol are considered to be local resources.  This could\n     * be a local file (URI_IS_LOCAL_FILE), a UI resource (URI_IS_UI_RESOURCE),\n     * or something else that would not hit the network.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_IS_LOCAL_RESOURCE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * URIs for this protocol execute script when they are opened.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_OPENING_EXECUTES_SCRIPT",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Loading channels from this protocol has side-effects that make\n     * it unsuitable for saving to a local file.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_NON_PERSISTABLE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * URIs for this protocol require the webapps permission on the principal\n     * when opening URIs for a different domain. See bug#773886\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_CROSS_ORIGIN_NEEDS_WEBAPPS_PERM",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Channels for this protocol don't need to spin the event loop to handle\n     * Open() and reads on the resulting stream.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_SYNC_LOAD_IS_OK",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * All the origins whose URI has this scheme are considered potentially\n     * trustworthy.\n     * Per the SecureContext spec, https: and wss: should be considered\n     * a priori secure, and implementations may consider other,\n     * implementation-specific URI schemes as secure.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_IS_POTENTIALLY_TRUSTWORTHY",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This URI may be fetched and the contents are visible to anyone. This is\n     * semantically equivalent to the resource being served with all-access CORS\n     * headers.  This is only used in MV2 Extensions and should not otherwise\n     * be used.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_FETCHABLE_BY_ANYONE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If this flag is set, then the origin for this protocol is the full URI\n     * spec, not just the scheme + host + port.\n     *\n     * Note: this is not supported in Firefox.  It is currently only available\n     * in Thunderbird and SeaMonkey.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ORIGIN_IS_FULL_SPEC",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If this flag is set, the URI does not always allow content using the same\n     * protocol to link to it.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_SCHEME_NOT_SELF_LINKABLE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URIs for this protocol can be loaded by extensions.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_LOADABLE_BY_EXTENSIONS",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The URIs for this protocol can not be loaded into private contexts.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_DISALLOW_IN_PRIVATE_CONTEXT",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This protocol handler forbids accessing cookies e.g. for mail related\n     * protocols. Only used in Mailnews (comm-central).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "URI_FORBIDS_COOKIE_ACCESS",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This is an extension web accessible uri that is loadable if checked\n     * against an allowlist using ExtensionPolicyService::SourceMayLoadExtensionURI.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "WEBEXT_URI_WEB_ACCESSIBLE",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Flags which are allowed to be different from the static flags when\n     * returned from `nsIProtocolHandlerWithDynamicFlags::getFlagsForURI`.\n     *\n     * All other flags must match the flags provided when the protocol handler\n     * was registered.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DYNAMIC_URI_FLAGS",
+                  "value": {
+                    "kind": "num_$1"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

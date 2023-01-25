@@ -1,0 +1,895 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrincipal",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIPlacesPendingOperation",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFaviconDataCallback",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "e81e0b0c-b9f1-4c2e-8f3c-b809933cf73c"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIFaviconService",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FAVICON_LOAD_PRIVATE",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FAVICON_LOAD_NON_PRIVATE",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The limit in bytes of the size of favicons in memory and passed via the\n   * favicon protocol.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "MAX_FAVICON_BUFFER_SIZE",
+                  "value": "65536"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * For a given icon URI, this will return a URI that will result in the image.\n   * In most cases, this is an annotation URI.  For chrome URIs, this will do\n   * nothing but returning the input URI.\n   *\n   * No validity checking is done. If you pass an icon URI that we've never\n   * seen, you'll get back a URI that references an invalid icon. The moz-anno\n   * protocol handler's special case for \"favicon\" annotations will resolve\n   * invalid icons to the default icon, although without caching.\n   * For invalid chrome URIs, you'll get a broken image.\n   *\n   * @param aFaviconURI\n   *        The URI of an icon in the favicon service.\n   * @return A URI that will give you the icon image.  This is NOT the URI of\n   *         the icon as set on the page, but a URI that will give you the\n   *         data out of the favicon service.  For a normal page with a\n   *         favicon we've stored, this will be an annotation URI which will\n   *         then cause the corresponding favicon data to be loaded async from\n   *         this service.  For pages where we don't have a favicon, this will\n   *         be a chrome URI of the default icon. For chrome URIs, the\n   *         output will be the same as the input.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIURI",
+                  "name": "getFaviconLinkForIcon",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aFaviconURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Expire all known favicons from the database.\n   *\n   * @note This is an async method.\n   *       On successful completion a \"places-favicons-expired\" notification is\n   *       dispatched through observer's service.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "expireAllFavicons",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the default size returned by preferredSizeFromURI when the uri doesn't\n   * specify a size ref. If this is not invoked first, or 0 is passed to it,\n   * preferredSizeFromURI() will return UINT16_MAX, that matches the biggest\n   * icon available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setDefaultIconURIPreferredSize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned short",
+                      "name": "aDefaultSize"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Tries to extract the preferred size from an icon uri ref fragment.\n   *\n   * @param aURI\n   *        The URI to parse.\n   * @return The preferred size, or a default size set through\n   *         setDefaultIconURIPreferredSize, or UINT16_MAX if neither are set.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned short",
+                  "name": "preferredSizeFromURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The default favicon URI\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "defaultFavicon"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The default favicon mimeType\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "defaultFaviconMimeType"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Declares that a given page uses a favicon with the given URI and\n   * attempts to fetch and save the icon data by loading the favicon URI\n   * through an async network request.\n   *\n   * If the icon data already exists, we won't try to reload the icon unless\n   * aForceReload is true.  Similarly, if the icon is in the failed favicon\n   * cache we won't do anything unless aForceReload is true, in which case\n   * we'll try to reload the favicon.\n   *\n   * This function will only save favicons for pages that are already stored in\n   * the database, like visited pages or bookmarks.  For any other URIs, it\n   * will succeed but do nothing.  This function will also ignore the error\n   * page favicon URI (see FAVICON_ERRORPAGE_URL below).\n   *\n   * Icons that fail to load will automatically be added to the failed favicon\n   * cache, and this function will not save favicons for non-bookmarked URIs\n   * when history is disabled.\n   *\n   * @note This function is identical to\n   *       nsIFaviconService::setAndLoadFaviconForPage.\n   *\n   * @param aPageURI\n   *        URI of the page whose favicon is being set.\n   * @param aFaviconURI\n   *        URI of the favicon to associate with the page.\n   * @param aForceReload\n   *        If aForceReload is false, we try to reload the favicon only if we\n   *        don't have it or it has expired from the cache.  Setting\n   *        aForceReload to true causes us to reload the favicon even if we\n   *        have a usable copy.\n   * @param aFaviconLoadType\n   *        Set to FAVICON_LOAD_PRIVATE if the favicon is loaded from a private\n   *        browsing window.  Set to FAVICON_LOAD_NON_PRIVATE otherwise.\n   * @param [optional] aCallback\n   *        Once we're done setting and/or fetching the favicon, we invoke this\n   *        callback.\n   * @param [optional] aLoadingPrincipal\n   *        Principal of the page whose favicon is being set. If this argument\n   *        is omitted, the loadingPrincipal defaults to the nullPrincipal.\n   * @param [optional] aRequestContextID\n   *        used to inform Necko of how to link the\n   *        favicon request with other requests in the same tab.\n   *\n   * @see nsIFaviconDataCallback in nsIFaviconService.idl.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIPlacesPendingOperation",
+                  "name": "setAndFetchFaviconForPage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aPageURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aFaviconURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aForceReload"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFaviconLoadType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIFaviconDataCallback",
+                          "name": "aCallback"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aLoadingPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long long",
+                          "name": "aRequestContextID"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the data for a given favicon URI either by replacing existing data in\n   * the database or taking the place of otherwise fetched icon data when\n   * calling setAndFetchFaviconForPage later.\n   *\n   * Favicon data for favicon URIs that are not associated with a page URI via\n   * setAndFetchFaviconForPage will be stored in memory, but may be expired at\n   * any time, so you should make an effort to associate favicon URIs with page\n   * URIs as soon as possible.\n   *\n   * It's better to not use this function for chrome: icon URIs since you can\n   * reference the chrome image yourself. getFaviconLinkForIcon/Page will ignore\n   * any associated data if the favicon URI is \"chrome:\" and just return the\n   * same chrome URI.\n   *\n   * This function does NOT send out notifications that the data has changed.\n   * Pages using this favicons that are visible in history or bookmarks views\n   * will keep the old icon until they have been refreshed by other means.\n   *\n   * This function tries to optimize the favicon size, if it is bigger\n   * than a defined limit we will try to convert it to a 16x16 png image.\n   * If the conversion fails and favicon is still bigger than our max accepted\n   * size it won't be saved.\n   *\n   * @param aFaviconURI\n   *        URI of the favicon whose data is being set.\n   * @param aData\n   *        Binary contents of the favicon to save\n   * @param aMimeType\n   *        MIME type of the data to store.  This is important so that we know\n   *        what to report when the favicon is used.  You should always set this\n   *        param unless you are clearing an icon.\n   * @param [optional] aExpiration\n   *        Time in microseconds since the epoch when this favicon expires.\n   *        Until this time, we won't try to load it again.\n   * @throws NS_ERROR_FAILURE\n   *         Thrown if the favicon is overbloated and won't be saved to the db.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "replaceFaviconData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aFaviconURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "aData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aMimeType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aExpiration"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Same as replaceFaviconData but the data is provided by a string\n   * containing a data URL.\n   *\n   * @see replaceFaviconData\n   *\n   * @param aFaviconURI\n   *        URI of the favicon whose data is being set.\n   * @param aDataURL\n   *        string containing a data URL that represents the contents of\n   *        the favicon to save\n   * @param [optional] aExpiration\n   *        Time in microseconds since the epoch when this favicon expires.\n   *        Until this time, we won't try to load it again.\n   * @param [optional] aLoadingPrincipal\n   *        Principal of the page whose favicon is being set. If this argument\n   *        is omitted, the loadingPrincipal defaults to the nullPrincipal.\n   * @throws NS_ERROR_FAILURE\n   *         Thrown if the favicon is overbloated and won't be saved to the db.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "replaceFaviconDataFromDataURL",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aFaviconURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aDataURL"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aExpiration"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aLoadingPrincipal"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieves the favicon URI associated to the given page, if any.\n   *\n   * @param aPageURI\n   *        URI of the page whose favicon URI we're looking up.\n   * @param aCallback\n   *        This callback is always invoked to notify the result of the lookup.\n   *        The aURI parameter will be the favicon URI, or null when no favicon\n   *        is associated with the page or an error occurred while fetching it.\n   *        aDataLen will be always 0, aData will be an empty array, and\n   *        aMimeType will be an empty string, regardless of whether a favicon\n   *        was found.\n   * @param [optional] aPreferredWidth\n   *        The preferred icon width, skip or pass 0 for the default value,\n   *        set through setDefaultIconURIPreferredSize.\n   *\n   * @note If a favicon specific to this page cannot be found, this will try to\n   *       fallback to the /favicon.ico for the root domain.\n   *\n   * @see nsIFaviconDataCallback in nsIFaviconService.idl.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getFaviconURLForPage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aPageURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFaviconDataCallback",
+                          "name": "aCallback"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned short",
+                          "name": "aPreferredWidth"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieves the favicon URI and data associated to the given page, if any.\n   * If the page icon is not available, it will try to return the root domain\n   * icon data, when it's known.\n   *\n   * @param aPageURI\n   *        URI of the page whose favicon URI and data we're looking up.\n   * @param aCallback\n   *        This callback is always invoked to notify the result of the lookup.  The aURI\n   *        parameter will be the favicon URI, or null when no favicon is\n   *        associated with the page or an error occurred while fetching it.  If\n   *        aURI is not null, the other parameters may contain the favicon data.\n   *        However, if no favicon data is currently associated with the favicon\n   *        URI, aDataLen will be 0, aData will be an empty array, and aMimeType\n   *        will be an empty string.\n   * @param [optional] aPreferredWidth\n   *        The preferred icon width, skip or pass 0 for the default value,\n   *        set through setDefaultIconURIPreferredSize.\n   * @note If a favicon specific to this page cannot be found, this will try to\n   *       fallback to the /favicon.ico for the root domain.\n   *\n   * @see nsIFaviconDataCallback in nsIFaviconService.idl.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getFaviconDataForPage",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aPageURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFaviconDataCallback",
+                          "name": "aCallback"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned short",
+                          "name": "aPreferredWidth"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Copies cached favicons from a page to another one.\n   *\n   * @param aFromPageURI\n   *        URI of the originating page.\n   * @param aToPageURI\n   *        URI of the destination page.\n   * @param aFaviconLoadType\n   *        Set to FAVICON_LOAD_PRIVATE if the copy is started from a private\n   *        browsing window.  Set to FAVICON_LOAD_NON_PRIVATE otherwise.\n   * @param [optional] aCallback\n   *        Once we're done copying the favicon, we invoke this callback.\n   *        If a copy has been done, the callback will report one of the\n   *        favicons uri as aFaviconURI, otherwise all the params will be null.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "copyFavicons",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aFromPageURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aToPageURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFaviconLoadType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIFaviconDataCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "c85e5c82-b70f-4621-9528-beb2aa47fb44"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIFaviconDataCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called when the required favicon's information is available.\n   *\n   * It's up to the invoking method to state if the callback is always invoked,\n   * or called on success only.  Check the method documentation to ensure that.\n   *\n   * The caller will receive the most information we can gather on the icon,\n   * but it's not guaranteed that all of them will be set.  For some method\n   * we could not know the favicon's data (it could just be too expensive to\n   * get it, or the method does not require we actually have any data).\n   * It's up to the caller to check aDataLen > 0 before using any data-related\n   * information like mime-type or data itself.\n   *\n   * @param aFaviconURI\n   *        Receives the \"favicon URI\" (not the \"favicon link URI\") associated\n   *        to the requested page.  This can be null if there is no associated\n   *        favicon URI, or the callback is notifying a failure.\n   * @param aDataLen\n   *        Size of the icon data in bytes.  Notice that a value of 0 does not\n   *        necessarily mean that we don't have an icon.\n   * @param aData\n   *        Icon data, or an empty array if aDataLen is 0.\n   * @param aMimeType\n   *        Mime type of the icon, or an empty string if aDataLen is 0.\n   * @param aWidth\n   *        Width of the icon. 0 if the width is unknown or if the icon is\n   *        vectorial.\n   *\n   * @note If you want to open a network channel to access the favicon, it's\n   *       recommended that you call the getFaviconLinkForIcon method to convert\n   *       the \"favicon URI\" into a \"favicon link URI\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onComplete",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aFaviconURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aDataLen"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "array",
+                                  "param": null
+                                }
+                              },
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "size_is",
+                                  "param": {
+                                    "kind": "attribute_$0",
+                                    "value": "aDataLen"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "in",
+                          "type": "octet",
+                          "name": "aData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aMimeType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned short",
+                          "name": "aWidth"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n\n/**\n * Notification sent when all favicons are expired.\n */\n#define NS_PLACES_FAVICONS_EXPIRED_TOPIC_ID \"places-favicons-expired\"\n\n#define FAVICON_DEFAULT_URL \"chrome://global/skin/icons/defaultFavicon.svg\"\n#define FAVICON_DEFAULT_MIMETYPE \"image/svg+xml\"\n\n#define FAVICON_ERRORPAGE_URL \"chrome://global/skin/icons/info.svg\"\n#define FAVICON_CERTERRORPAGE_URL \"chrome://global/skin/icons/warning.svg\"\n\n%}\n"
+  ]
+}

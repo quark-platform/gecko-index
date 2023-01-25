@@ -1,0 +1,895 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoginInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPropertyBag",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "43429075-ede6-41eb-ac69-a8cd4376b041"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsILoginSearchCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called when a search is complete and the results are ready.\n   *\n   * @param aLogins\n   *        Logins found in the search.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onSearchComplete",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "aLogins"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "38c7f6af-7df9-49c7-b558-2776b24e6cc1"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsILoginManager",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This promise is resolved when initialization is complete, and is rejected\n   * in case initialization failed.  This includes the initial loading of the\n   * login data as well as any migration from previous versions.\n   *\n   * Calling any method of nsILoginManager before this promise is resolved\n   * might trigger the synchronous initialization fallback.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "Promise",
+                  "name": "initializationPromise"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Store a new login in the login manager.\n   *\n   * @param aLogin\n   *        The login to be added.\n   * @return a clone of the login info with the guid set (even if it was not provided)\n   *\n   * Default values for the login's nsILoginMetaInfo properties will be\n   * created. However, if the caller specifies non-default values, they will\n   * be used instead.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsILoginInfo",
+                  "name": "addLogin",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsILoginInfo",
+                      "name": "aLogin"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Like addLogin, but asynchronous and for many logins.\n   *\n   * @param aLogins\n   *        A JS Array of nsILoginInfos to add.\n   * @return A promise which resolves with a JS Array of cloned logins with\n   *         the guids set.\n   *\n   * Default values for each login's nsILoginMetaInfo properties will be\n   * created. However, if the caller specifies non-default values, they will\n   * be used instead.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "addLogins",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "jsval",
+                      "name": "aLogins"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Remove a login from the login manager.\n   *\n   * @param aLogin\n   *        The login to be removed.\n   *\n   * The specified login must exactly match a stored login. However, the\n   * values of any nsILoginMetaInfo properties are ignored.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeLogin",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsILoginInfo",
+                      "name": "aLogin"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Modify an existing login in the login manager.\n   *\n   * @param oldLogin\n   *        The login to be modified.\n   * @param newLoginData\n   *        The new login values (either a nsILoginInfo or nsIProperyBag)\n   *\n   * If newLoginData is a nsILoginInfo, all of the old login's nsILoginInfo\n   * properties are changed to the values from newLoginData (but the old\n   * login's nsILoginMetaInfo properties are unmodified).\n   *\n   * If newLoginData is a nsIPropertyBag, only the specified properties\n   * will be changed. The nsILoginMetaInfo properties of oldLogin can be\n   * changed in this manner.\n   *\n   * If the propertybag contains an item named \"timesUsedIncrement\", the\n   * login's timesUsed property will be incremented by the item's value.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "modifyLogin",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsILoginInfo",
+                      "name": "oldLogin"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "newLoginData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Record that the password of a saved login was used (e.g. submitted or copied).\n   *\n   * @param {nsILoginInfo} aLogin\n   *        The login record of the password that was used.\n   * @param {boolean} aPrivateContextWithoutExplicitConsent\n   *        If the use was in private browsing AND without the user explicitly choosing to save/update.\n   *        Login use metadata will not be updated in this case but it will stil be counted for telemetry.\n   * @param {AString} aLoginType\n   *        One of \"form_login\", \"form_password\", \"auth_login\", or \"prompt_login\".\n   *        See saved_login_used in Events.yaml.\n   *        Don't assume that an auth. login is never used in a form and vice-versa. This argument\n   *        indicates the context of how it was used.\n   * @param {boolean} aFilled\n   *        Whether the login was filled, rather than being typed manually.\n   *\n   * If only the username was used, this method shouldn't be called as we don't\n   * want to double-count the use if both the username and password are copied.\n   * Copying of the username normally precedes the copying of the password anyways.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "recordPasswordUse",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsILoginInfo",
+                      "name": "aLogin"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aPrivateContextWithoutExplicitConsent"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aLoginType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aFilled"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Remove all stored user facing logins.\n   *\n   * This will remove all the logins that a user can access through about:logins.\n   * This will not remove the FxA Sync key which is stored with the rest of a user's logins\n   * but is not accessible through about:logins\n   *\n   * The browser sanitization feature allows the user to clear any stored\n   * passwords. This interface allows that to be done without getting each\n   * login first.\n   *\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeAllUserFacingLogins",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Completely remove all logins, including the user's FxA Sync key.\n   *\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeAllLogins",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Fetch all logins in the login manager. An array is always returned;\n   * if there are no logins the array is empty.\n   *\n   * @deprecated Use `getAllLoginsAsync` instead.\n   *\n   * @return An array of nsILoginInfo objects.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getAllLogins",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Like getAllLogins, but asynchronous. This method is faster when large\n   * amounts of logins are present since it will handle decryption in one batch.\n   *\n   * @return A promise which resolves with a JS Array of nsILoginInfo objects.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "getAllLoginsAsync",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Like getAllLoginsAsync, but with a callback returning the search results.\n   *\n   * @param {nsILoginSearchCallback} aCallback\n   *        The interface to notify when the search is complete.\n   *\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getAllLoginsWithCallbackAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsILoginSearchCallback",
+                      "name": "aCallback"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Obtain a list of all origins for which password saving is disabled.\n   *\n   * @return An array of origin strings. For example: [\"https://www.site.com\"].\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getAllDisabledHosts",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Check to see if saving logins has been disabled for an origin.\n   *\n   * @param aHost\n   *        The origin to check. For example: \"http://foo.com\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "getLoginSavingEnabled",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aHost"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Disable (or enable) storing logins for the specified origin. When\n   * disabled, the login manager will not prompt to store logins for\n   * that origin. Existing logins are not affected.\n   *\n   * @param aHost\n   *        The origin to set. For example: \"http://foo.com\".\n   * @param isEnabled\n   *        Specify if saving logins should be enabled (true) or\n   *        disabled (false)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setLoginSavingEnabled",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "isEnabled"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Search for logins matching the specified criteria. Called when looking\n   * for logins that might be applicable to a form or authentication request.\n   *\n   * @deprecated Use `searchLoginsAsync` instead.\n   *\n   * @param aOrigin\n   *        The origin to restrict searches to. For example: \"http://www.site.com\".\n   *        To find logins for a given nsIURI, you would typically pass in\n   *        its prePath (excluding userPass).\n   * @param aActionOrigin\n   *        For form logins, this argument should be the origin to which the\n   *        form will be submitted, not the whole URL.\n   *        For HTTP auth. logins, specify null.\n   *        An empty string (\"\") will match any value (except null).\n   * @param aHttpRealm\n   *        For HTTP auth. logins, this argument should be the HTTP Realm\n   *        for which the login applies. This is obtained from the\n   *        WWW-Authenticate header. See RFC2617. For form logins,\n   *        specify null.\n   *        An empty string (\"\") will match any value (except null).\n   * @return An array of nsILoginInfo objects.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "findLogins",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aOrigin"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aActionOrigin"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aHttpRealm"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Search for logins matching the specified criteria, as with\n   * findLogins(). This interface only returns the number of matching\n   * logins (and not the logins themselves), which allows a caller to\n   * check for logins without causing the user to be prompted for a primary\n   * password to decrypt the logins.\n   *\n   * @param aOrigin\n   *        The origin to restrict searches to. Specify an empty string\n   *        to match all origins. A null value will not match any logins, and\n   *        will thus always return a count of 0.\n   * @param aActionOrigin\n   *        The origin to which a form login will be submitted. To match any\n   *        form login, specify an empty string. To not match any form\n   *        login, specify null.\n   * @param aHttpRealm\n   *        The HTTP Realm for which the login applies. To match logins for\n   *        any realm, specify an empty string. To not match logins for any\n   *        realm, specify null.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "countLogins",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aOrigin"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aActionOrigin"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aHttpRealm"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Asynchonously search for logins in the login manager. The Promise always\n   * resolves to an array; if there are no logins the array is empty.\n   *\n   * @param {object} matchData\n   *        The data used to search as a JS object. This does not follow the same\n   *        requirements as findLogins for those fields. Wildcard matches are\n   *        simply not specified. If a `guid` is specified then no other properties\n   *        are used (outside of GeckoView).\n   * @return A promise resolving to an array of nsILoginInfo objects.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "searchLoginsAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "jsval",
+                      "name": "matchData"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Search for logins in the login manager. An array is always returned;\n   * if there are no logins the array is empty.\n   * @deprecated New code should use `searchLoginsAsync`.\n   *             Only autocomplete, prompt, and test code still use this.\n   *\n   * @param matchData\n   *        The data used to search. This does not follow the same\n   *        requirements as findLogins for those fields. Wildcard matches are\n   *        simply not specified. If a `guid` is specified then no other properties\n   *        are used (outside of GeckoView).\n   * @return An array of nsILoginInfo objects.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "searchLogins",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPropertyBag",
+                      "name": "matchData"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the \"sync id\" used by Sync to know whether the store is current with\n   * respect to the sync servers.\n   *\n   * Returns null if the data doesn't exist or if the data can't be\n   * decrypted (including if the primary-password prompt is cancelled). This is\n   * OK for Sync as it can't even begin syncing if the primary-password is\n   * locked as the sync encrytion keys are stored in this login manager.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "getSyncID",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the \"sync id\" used by Sync to know whether the store is current with\n   * respect to the sync servers. May be set to null.\n   *\n   * Throws if the data can't be encrypted (including if the primary-password\n   * prompt is cancelled)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "setSyncID",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "syncID"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns the timestamp of the last sync as a double (in seconds since Epoch\n   * rounded to two decimal places), or 0.0 if the data doesn't exist.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "getLastSync",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the timestamp of the last sync.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "setLastSync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "double",
+                      "name": "timestamp"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Ensures that the local sync ID for the engine matches the sync ID for\n   * the collection on the server. If they don't match, then we set\n    * the local sync ID to newSyncID and reset the last sync timestamp.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "ensureCurrentSyncID",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "newSyncID"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * True when a primary password prompt is being displayed.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "uiBusy"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * True when the primary password has already been entered, and so a caller\n  * can ask for decrypted logins without triggering a prompt.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isLoggedIn"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n\n#define NS_LOGINMANAGER_CONTRACTID \"@mozilla.org/login-manager;1\"\n\n%}\n"
+  ]
+}

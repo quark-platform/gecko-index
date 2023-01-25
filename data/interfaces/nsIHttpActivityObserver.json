@@ -1,0 +1,882 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{ C++\nnamespace mozilla {\nnamespace net {\nclass HttpActivityArgs;\n} // namespace net\n} // namespace mozilla\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIHttpActivityObserver\n *\n * This interface provides a way for http activities to be reported\n * to observers.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "412880C8-6C36-48d8-BF8F-84F91F892503"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIHttpActivityObserver",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * observe activity from the http transport\n     *\n     * @param aHttpChannel\n     *        nsISupports interface for the the http channel that\n     *        generated this activity\n     * @param aActivityType\n     *        The value of this aActivityType will be one of\n     *          ACTIVITY_TYPE_SOCKET_TRANSPORT or\n     *          ACTIVITY_TYPE_HTTP_TRANSACTION\n     * @param aActivitySubtype\n     *        The value of this aActivitySubtype, will be depend\n     *        on the value of aActivityType. When aActivityType\n     *        is ACTIVITY_TYPE_SOCKET_TRANSPORT\n     *          aActivitySubtype will be one of the\n     *          nsISocketTransport::STATUS_???? values defined in\n     *          nsISocketTransport.idl\n     *        OR when aActivityType\n     *        is ACTIVITY_TYPE_HTTP_TRANSACTION\n     *          aActivitySubtype will be one of the\n     *          nsIHttpActivityObserver::ACTIVITY_SUBTYPE_???? values\n     *          defined below\n     * @param aTimestamp\n     *        microseconds past the epoch of Jan 1, 1970\n     * @param aExtraSizeData\n     *        Any extra size data optionally available with\n     *        this activity\n     * @param aExtraStringData\n     *        Any extra string data optionally available with\n     *        this activity\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "observeActivity",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsISupports",
+                      "name": "aHttpChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aActivityType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aActivitySubtype"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aTimestamp"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint64_t",
+                          "name": "aExtraSizeData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aExtraStringData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This attribute is true when this interface is active and should\n     * observe http activities. When false, observeActivity() should not\n     * be called. It is present for compatibility reasons and should be\n     * implemented only by nsHttpActivityDistributor.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isActive"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This function is for internal use only. Every time a http transaction\n     * is created in socket process, we use this function to set the value of\n     * |isActive|. We need this since the real value of |isActive| is\n     * only available in parent process.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setIsActive",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aActived"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This function is used when the real http channel is not available.\n     * We use the information in |HttpActivityArgs| to get the http channel or\n     * create a |NullHttpChannel|.\n     *\n     * @param aArgs\n     *        See the definition of |HttpActivityArgs| in PSocketProcess.ipdl.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "must_use",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "observeActivityWithArgs",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "HttpActivityArgs",
+                      "name": "aArgs"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aActivityType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aActivitySubtype"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aTimestamp"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint64_t",
+                          "name": "aExtraSizeData"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aExtraStringData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This function is for testing only. We use this function to observe the\n     * activities of HTTP connections. To receive this notification,\n     * observeConnection should be set to true.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "observeConnectionActivity",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aHost"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "aPort"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aSSL"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aHasECH"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsHttp3"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aActivityType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aActivitySubtype"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aTimestamp"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aExtraStringData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_TYPE_SOCKET_TRANSPORT",
+                  "value": "0x0001"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_TYPE_HTTP_TRANSACTION",
+                  "value": "0x0002"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_TYPE_HTTP_CONNECTION",
+                  "value": "0x0003"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_REQUEST_HEADER",
+                  "value": "0x5001"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_REQUEST_BODY_SENT",
+                  "value": "0x5002"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_RESPONSE_START",
+                  "value": "0x5003"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_RESPONSE_HEADER",
+                  "value": "0x5004"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_RESPONSE_COMPLETE",
+                  "value": "0x5005"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_TRANSACTION_CLOSE",
+                  "value": "0x5006"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_PROXY_RESPONSE_HEADER",
+                  "value": "0x5007"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_DNSANDSOCKET_CREATED",
+                  "value": "0x5008"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_SPECULATIVE_DNSANDSOCKET_CREATED",
+                  "value": "0x5009"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_ECH_SET",
+                  "value": "0x500A"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ACTIVITY_SUBTYPE_CONNECTION_CREATED",
+                  "value": "0x500B"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "ANY_COMMENT_$0",
+                "doc": {
+                  "kind": "DOC_COMMENT",
+                  "contents": "/**\n     *  When aActivityType is ACTIVITY_TYPE_SOCKET_TRANSPORT\n     *  and aActivitySubtype is STATUS_SENDING_TO\n     *  aExtraSizeData will contain the count of bytes sent\n     *  There may be more than one of these activities reported\n     *  for a single http transaction, each aExtraSizeData\n     *  represents only that portion of the total bytes sent\n     *\n     *  When aActivityType is ACTIVITY_TYPE_HTTP_TRANSACTION\n     *  and aActivitySubtype is ACTIVITY_SUBTYPE_REQUEST_HEADER\n     *  aExtraStringData will contain the text of the header\n     *\n     *  When aActivityType is ACTIVITY_TYPE_HTTP_TRANSACTION\n     *  and aActivitySubtype is ACTIVITY_SUBTYPE_RESPONSE_HEADER\n     *  aExtraStringData will contain the text of the header\n     *\n     *  When aActivityType is ACTIVITY_TYPE_HTTP_TRANSACTION\n     *  and aActivitySubtype is ACTIVITY_SUBTYPE_RESPONSE_COMPLETE\n     *  aExtraSizeData will contain the count of total bytes received\n     */"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n\n#define NS_HTTP_ACTIVITY_TYPE_SOCKET_TRANSPORT    \\\n            nsIHttpActivityObserver::ACTIVITY_TYPE_SOCKET_TRANSPORT\n#define NS_HTTP_ACTIVITY_TYPE_HTTP_TRANSACTION    \\\n            nsIHttpActivityObserver::ACTIVITY_TYPE_HTTP_TRANSACTION\n#define NS_ACTIVITY_TYPE_HTTP_CONNECTION          \\\n            nsIHttpActivityObserver::ACTIVITY_TYPE_HTTP_CONNECTION\n\n#define NS_HTTP_ACTIVITY_SUBTYPE_REQUEST_HEADER    \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_REQUEST_HEADER\n#define NS_HTTP_ACTIVITY_SUBTYPE_REQUEST_BODY_SENT \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_REQUEST_BODY_SENT\n#define NS_HTTP_ACTIVITY_SUBTYPE_RESPONSE_START    \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_RESPONSE_START\n#define NS_HTTP_ACTIVITY_SUBTYPE_RESPONSE_HEADER   \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_RESPONSE_HEADER\n#define NS_HTTP_ACTIVITY_SUBTYPE_RESPONSE_COMPLETE \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_RESPONSE_COMPLETE\n#define NS_HTTP_ACTIVITY_SUBTYPE_TRANSACTION_CLOSE \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_TRANSACTION_CLOSE\n#define NS_HTTP_ACTIVITY_SUBTYPE_PROXY_RESPONSE_HEADER \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_PROXY_RESPONSE_HEADER\n#define NS_HTTP_ACTIVITY_SUBTYPE_DNSANDSOCKET_CREATED \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_DNSANDSOCKET_CREATED\n#define NS_HTTP_ACTIVITY_SUBTYPE_SPECULATIVE_DNSANDSOCKET_CREATED \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_SPECULATIVE_DNSANDSOCKET_CREATED\n#define NS_HTTP_ACTIVITY_SUBTYPE_ECH_SET \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_ECH_SET\n#define NS_HTTP_ACTIVITY_SUBTYPE_CONNECTION_CREATED \\\n            nsIHttpActivityObserver::ACTIVITY_SUBTYPE_CONNECTION_CREATED\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIHttpActivityDistributor\n *\n * This interface provides a way to register and unregister observers to the\n * http activities.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "7C512CB8-582A-4625-B5B6-8639755271B5"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIHttpActivityDistributor",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIHttpActivityObserver"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpActivityObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIHttpActivityObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * C++ friendly getter\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "bool",
+                  "name": "Activated",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "bool",
+                  "name": "ObserveProxyResponseEnabled",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "bool",
+                  "name": "ObserveConnectionEnabled",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * When true, the ACTIVITY_SUBTYPE_PROXY_RESPONSE_HEADER will be sent to\n     * the observers.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "observeProxyResponse"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * When true, the ACTIVITY_TYPE_HTTP_CONNECTION will be sent to\n     * the observers.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "observeConnection"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

@@ -1,0 +1,433 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIOutputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITransportEventSink",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEventTarget",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsITransport\n *\n * This interface provides a common way of accessing i/o streams connected\n * to some resource.  This interface does not in any way specify the resource.\n * It provides methods to open blocking or non-blocking, buffered or unbuffered\n * streams to the resource.  The name \"transport\" is meant to connote the\n * inherent data transfer implied by this interface (i.e., data is being\n * transfered in some fashion via the streams exposed by this interface).\n *\n * A transport can have an event sink associated with it.  The event sink\n * receives transport-specific events as the transfer is occuring.  For a\n * socket transport, these events can include status about the connection.\n * See nsISocketTransport for more info about socket transport specifics.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "2a8c6334-a5e6-4ec3-9865-1256541446fb"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITransport",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Open flags.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OPEN_BLOCKING",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OPEN_UNBUFFERED",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Open an input stream on this transport.\n     *\n     * Flags have the following meaning:\n     *\n     * OPEN_BLOCKING\n     *   If specified, then the resulting stream will have blocking stream\n     *   semantics.  This means that if the stream has no data and is not\n     *   closed, then reading from it will block the calling thread until\n     *   at least one byte is available or until the stream is closed.\n     *   If this flag is NOT specified, then the stream has non-blocking\n     *   stream semantics.  This means that if the stream has no data and is\n     *   not closed, then reading from it returns NS_BASE_STREAM_WOULD_BLOCK.\n     *   In addition, in non-blocking mode, the stream is guaranteed to\n     *   support nsIAsyncInputStream.  This interface allows the consumer of\n     *   the stream to be notified when the stream can again be read.\n     *\n     * OPEN_UNBUFFERED\n     *   If specified, the resulting stream may not support ReadSegments.\n     *   ReadSegments is only gauranteed to be implemented when this flag is\n     *   NOT specified.\n     *\n     * @param aFlags\n     *        optional transport specific flags.\n     * @param aSegmentSize\n     *        if OPEN_UNBUFFERED is not set, then this parameter specifies the\n     *        size of each buffer segment (pass 0 to use default value).\n     * @param aSegmentCount\n     *        if OPEN_UNBUFFERED is not set, then this parameter specifies the\n     *        maximum number of buffer segments (pass 0 to use default value).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIInputStream",
+                  "name": "openInputStream",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aFlags"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSegmentSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSegmentCount"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Open an output stream on this transport.\n     *\n     * Flags have the following meaning:\n     *\n     * OPEN_BLOCKING\n     *   If specified, then the resulting stream will have blocking stream\n     *   semantics.  This means that if the stream is full and is not closed,\n     *   then writing to it will block the calling thread until ALL of the\n     *   data can be written or until the stream is closed.  If this flag is\n     *   NOT specified, then the stream has non-blocking stream semantics.\n     *   This means that if the stream is full and is not closed, then writing\n     *   to it returns NS_BASE_STREAM_WOULD_BLOCK.  In addition, in non-\n     *   blocking mode, the stream is guaranteed to support\n     *   nsIAsyncOutputStream.  This interface allows the consumer of the\n     *   stream to be notified when the stream can again accept more data.\n     *\n     * OPEN_UNBUFFERED\n     *   If specified, the resulting stream may not support WriteSegments and\n     *   WriteFrom.  WriteSegments and WriteFrom are only guaranteed to be\n     *   implemented when this flag is NOT specified.\n     *\n     * @param aFlags\n     *        optional transport specific flags.\n     * @param aSegmentSize\n     *        if OPEN_UNBUFFERED is not set, then this parameter specifies the\n     *        size of each buffer segment (pass 0 to use default value).\n     * @param aSegmentCount\n     *        if OPEN_UNBUFFERED is not set, then this parameter specifies the\n     *        maximum number of buffer segments (pass 0 to use default value).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIOutputStream",
+                  "name": "openOutputStream",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aFlags"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSegmentSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSegmentCount"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Close the transport and any open streams.\n     *\n     * @param aReason\n     *        the reason for closing the stream.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "close",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "aReason"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Set the transport event sink.\n     *\n     * @param aSink\n     *        receives transport layer notifications\n     * @param aEventTarget\n     *        indicates the event target to which the notifications should\n     *        be delivered.  if NULL, then the notifications may occur on\n     *        any thread.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setEventSink",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITransportEventSink",
+                      "name": "aSink"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIEventTarget",
+                          "name": "aEventTarget"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Generic nsITransportEventSink status codes.  nsITransport\n     * implementations may override these status codes with their own more\n     * specific status codes (e.g., see nsISocketTransport).\n     *\n     * In C++, these constants have a type of uint32_t, so C++ callers must use\n     * the NS_NET_STATUS_* constants defined below, which have a type of\n     * nsresult.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATUS_READING",
+                  "value": "0x804b0008"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATUS_WRITING",
+                  "value": "0x804b0009"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "EDA4F520-67F7-484b-A691-8C3226A5B0A6"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITransportEventSink",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Transport status notification.\n     *\n     * @param aTransport\n     *        the transport sending this status notification.\n     * @param aStatus\n     *        the transport status. See nsISocketTransport for socket specific\n     *        status codes and more comments.\n     * @param aProgress\n     *        the amount of data either read or written depending on the value\n     *        of the status code.  this value is relative to aProgressMax.\n     * @param aProgressMax\n     *        the maximum amount of data that will be read or written.  if\n     *        unknown, -1 will be passed.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onTransportStatus",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITransport",
+                      "name": "aTransport"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsresult",
+                          "name": "aStatus"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long long",
+                          "name": "aProgress"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long long",
+                          "name": "aProgressMax"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

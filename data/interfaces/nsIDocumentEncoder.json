@@ -1,0 +1,1114 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIOutputStream",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    "%{ C++\nclass nsINode;\n\n%}\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "3d9371d8-a2ad-403e-8b0e-8885ad3562e3"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIDocumentEncoderNodeFixup",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Create a fixed up version of a node. This method is called before\n   * each node in a document is about to be persisted. The implementor\n   * may return a new node with fixed up attributes or null. If null is\n   * returned the node should be used as-is.\n   * @param aNode Node to fixup.\n   * @param [OUT] aSerializeCloneKids True if the document encoder should\n   * apply recursive serialization to the children of the fixed up node\n   * instead of the children of the original node.\n   * @return The resulting fixed up node.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Node",
+                  "name": "fixupNode",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Node",
+                      "name": "aNode"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "aSerializeCloneKids"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "21f112df-d96f-47da-bfcb-5331273003d1"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIDocumentEncoder",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Output only the selection (as opposed to the whole document).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputSelectionOnly",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Plaintext output:\n    * - Convert html to plaintext that looks like the html.\n    * - Can't be used in conjunction with `OutputPreformatted`.\n    * - Implies wrap (except inside <pre>), since html wraps.\n    * HTML and XHTML output:\n    * - Do prettyprinting, ignoring existing formatting.\n    * - Implies wrap (except in attribute values and inside <pre>).\n    * XML output:\n    * - Do prettyprinting, ignoring existing formatting.\n    * - Doesn't implicitly wrap\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputFormatted",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Don't do prettyprinting. Don't do any wrapping that's not in the existing\n   * HTML/XML source. This option overrides OutputFormatted if both are set.\n   * HTML/XHTML output: If neither are set, there won't be prettyprinting too, but\n   * long lines will be wrapped.\n   * Supported also in XML and Plaintext output.\n   * @note This option does not affect entity conversion.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputRaw",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Do not print html head tags.\n   * XHTML/HTML output only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputBodyOnly",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Output as though the content is preformatted\n   * (e.g. maybe it's wrapped in a PRE or PRE_WRAP style tag)\n   * Plaintext output only.\n   * Can't be used together with `OutputFormatted`/`OutputFormatFlowed`.\n   * XXXbz How does this interact with OutputRaw?\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputPreformatted",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Wrap even if we're not doing formatted output (e.g. for text fields).\n   * Supported in XML, XHTML, HTML and Plaintext output.\n   * Set implicitly in HTML/XHTML output when no OutputRaw.\n   * Ignored when OutputRaw.\n   * For XML, XHTML and  HTML: does not wrap values in attributes.\n   * XXXLJ: set implicitly in HTML/XHTML output, to keep compatible behaviors\n   *        for old callers of this interface\n   * XXXbz How does this interact with OutputFormatFlowed?\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputWrap",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Output for format flowed (RFC 2646). This is used when converting\n   * to text for mail sending. This differs just slightly\n   * but in an important way from normal formatted, and that is that\n   * lines are space stuffed. This can't (correctly) be done later.\n   * PlainText output only.\n   * If this flag is set, `OutputFormat` has to be set too.\n   * XXXbz How does this interact with OutputRaw/OutputWrap?\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputFormatFlowed",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Convert links, image src, and script src to absolute URLs when possible.\n   * XHTML/HTML output only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputAbsoluteLinks",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * LineBreak processing: if this flag is set than CR line breaks will\n   * be written. If neither this nor OutputLFLineBreak is set, then we\n   * will use platform line breaks. The combination of the two flags will\n   * cause CRLF line breaks to be written.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputCRLineBreak",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * LineBreak processing: if this flag is set than LF line breaks will\n   * be written. If neither this nor OutputCRLineBreak is set, then we\n   * will use platform line breaks. The combination of the two flags will\n   * cause CRLF line breaks to be written.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputLFLineBreak",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Output the content of noscript elements (only for serializing\n   * to plaintext).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputNoScriptContent",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Output the content of noframes elements (only for serializing\n   * to plaintext). (Used only internally in the plain text serializer;\n   * ignored if passed by the caller.)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputNoFramesContent",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Don't allow any formatting nodes (e.g. <br>, <b>) inside a <pre>.\n   * This is used primarily by mail. XHTML/HTML output only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputNoFormattingInPre",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Encode entities when outputting to a string.\n   * E.g. If set, we'll output &nbsp; if clear, we'll output 0xa0.\n   * The basic set is just &nbsp; &amp; &lt; &gt; &quot; for interoperability\n   * with older products that don't support &alpha; and friends.\n   * HTML output only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputEncodeBasicEntities",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Normally &nbsp; is replaced with a space character when\n   * encoding data as plain text, set this flag if that's\n   * not desired.\n   * Plaintext output only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputPersistNBSP",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Normally when serializing the whole document using the HTML or\n   * XHTML serializer, the encoding declaration is rewritten to match.\n   * This flag suppresses that behavior.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputDontRewriteEncodingDeclaration",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * When using the HTML or XHTML serializer, skip elements that are not\n   * visible when this flag is set.  Elements are not visible when they\n   * have CSS style display:none or visibility:collapse, for example.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "SkipInvisibleContent",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Output for delsp=yes (RFC 3676). This is used with OutputFormatFlowed\n   * when converting to text for mail sending.\n   * PlainText output only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputFormatDelSp",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Drop <br> elements considered \"invisible\" by the editor. OutputPreformatted\n   * implies this flag.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputDropInvisibleBreak",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Don't check for _moz_dirty attributes when deciding whether to\n   * pretty-print if this flag is set (bug 599983).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputIgnoreMozDirty",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Serialize in a way that is suitable for copying a plaintext version of the\n   * document to the clipboard.  This can for example cause line endings to be\n   * injected at preformatted block element boundaries.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputForPlainTextClipboardCopy",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Include ruby annotations and ruby parentheses in the output.\n   * PlainText output only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputRubyAnnotation",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Disallow breaking of long character strings. This is important\n   * for serializing e-mail which contains CJK strings. These must\n   * not be broken just as \"normal\" longs strings aren't broken.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "OutputDisallowLineBreaking",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Release reference of Document after using encodeTo* method to recycle\n   * this encoder without holding Document. To use this encoder again,\n   * we have to call init again.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "RequiresReinitAfterOutput",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize with a pointer to the document and the mime type.\n   * Resets wrap column to 72 and resets node fixup.\n   * @param aDocument Document to encode.\n   * @param aMimeType MimeType to use. May also be set by SetMimeType.\n   * @param aFlags Flags to use while encoding. May also be set by SetFlags.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Document",
+                      "name": "aDocument"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aMimeType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "nativeInit",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Document",
+                      "name": "aDocument"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aMimeType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  If the selection is set to a non-null value, then the\n   *  selection is used for encoding, otherwise the entire\n   *  document is encoded.\n   * @param aSelection The selection to encode.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setSelection",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Selection",
+                      "name": "aSelection"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  If the range is set to a non-null value, then the\n   *  range is used for encoding, otherwise the entire\n   *  document or selection is encoded.\n   * @param aRange The range to encode.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setRange",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Range",
+                      "name": "aRange"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  If the node is set to a non-null value, then the\n   *  node is used for encoding, otherwise the entire\n   *  document or range or selection is encoded.\n   * @param aNode The node to encode.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setNode",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Node",
+                      "name": "aNode"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  If the container is set to a non-null value, then its\n   *  child nodes are used for encoding, otherwise the entire\n   *  document or range or selection or node is encoded.\n   *  @param aContainer The node which child nodes will be encoded.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setContainerNode",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Node",
+                      "name": "aContainer"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Documents typically have an intrinsic character set,\n   *  but if no intrinsic value is found, the platform character set\n   *  is used. This function overrides both the intrinisc and platform\n   *  charset.\n   *  @param aCharset Overrides the both the intrinsic or platform\n   *  character set when encoding the document.\n   *\n   *  Possible result codes: NS_ERROR_NO_CHARSET_CONVERTER\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setCharset",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aCharset"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Set a wrap column.  This may have no effect in some types of encoders.\n   * @param aWrapColumn Column to which to wrap. If 0, wrapping is disabled.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setWrapColumn",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aWrapColumn"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  The mime type preferred by the encoder.  This piece of api was\n   *  added because the copy encoder may need to switch mime types on you\n   *  if you ask it to copy html that really represents plaintext content.\n   *  Call this AFTER Init() and SetSelection() have both been called.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "mimeType"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   *  Encode the document and send the result to the nsIOutputStream.\n   *\n   *  Possible result codes are the stream errors which might have\n   *  been encountered.\n   * @param aStream Stream into which to encode.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "encodeToStream",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIOutputStream",
+                      "name": "aStream"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Encode the document into a string.\n   *\n   * @return The document encoded into a string.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "encodeToString",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Encode the document into a string. Stores the extra context information\n   * into the two arguments.\n   * @param [OUT] aContextString The string where the parent hierarchy\n   *              information will be stored.\n   * @param [OUT] aInfoString The string where extra context info will\n   *              be stored.\n   * @return The document encoded as a string.\n   *\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "encodeToStringWithContext",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "AString",
+                      "name": "aContextString"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "AString",
+                          "name": "aInfoString"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Encode the document into a string of limited size.\n   * @param aMaxLength After aMaxLength characters, the encoder will stop\n   *                   encoding new data.\n   *                   Only values > 0 will be considered.\n   *                   The returned string may be slightly larger than\n   *                   aMaxLength because some serializers (eg. HTML)\n   *                   may need to close some tags after they stop\n   *                   encoding new data, or finish a line (72 columns\n   *                   by default for the plain text serializer).\n   *\n   * @return The document encoded into a string.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "encodeToStringWithMaxLength",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aMaxLength"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set the fixup object associated with node persistence.\n   * @param aFixup The fixup object.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setNodeFixup",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIDocumentEncoderNodeFixup",
+                      "name": "aFixup"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{ C++\ntemplate<class T> struct already_AddRefed;\n\nbool\ndo_getDocumentTypeSupportedForEncoding(const char* aContentType);\nalready_AddRefed<nsIDocumentEncoder>\ndo_createDocumentEncoder(const char* aContentType);\nalready_AddRefed<nsIDocumentEncoder>\ndo_createHTMLCopyEncoder();\n%}\n"
+  ]
+}

@@ -1,0 +1,704 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/.\n */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRequestObserver",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIZipEntry",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIZipWriter\n *\n * An interface for a zip archiver that can be used from script.\n *\n * The interface supports both a synchronous method of archiving data and a\n * queueing system to allow operations to be prepared then run in sequence\n * with notification after completion.\n *\n * Operations added to the queue do not get performed until performQueue is\n * called at which point they will be performed in the order that they were\n * added to the queue.\n *\n * Operations performed on the queue will throw any errors out to the\n * observer.\n *\n * An attempt to perform a synchronous operation while the background queue\n * is in progress will throw NS_ERROR_IN_PROGRESS.\n *\n * Entry names should use /'s as path separators and should not start with\n * a /.\n *\n * It is not generally necessary to add directory entries in order to add file\n * entries within them, however it is possible that some zip programs may\n * experience problems what that.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "3ca10750-797e-4a22-bcfe-66170b5e96dd"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIZipWriter",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Some predefined compression levels\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "COMPRESSION_NONE",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "COMPRESSION_FASTEST",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "COMPRESSION_DEFAULT",
+                  "value": "6"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "COMPRESSION_BEST",
+                  "value": "9"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets or sets the comment associated with the open zip file.\n   *\n   * @throws NS_ERROR_NOT_INITIALIZED if no zip file has been opened\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "ACString",
+                  "name": "comment"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates that operations on the background queue are being performed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "inQueue"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The file that the zipwriter is writing to.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIFile",
+                  "name": "file"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Opens a zip file.\n   *\n   * @param aFile the zip file to open\n   * @param aIoFlags the open flags for the zip file from prio.h\n   *\n   * @throws NS_ERROR_ALREADY_INITIALIZED if a zip file is already open\n   * @throws NS_ERROR_INVALID_ARG if aFile is null\n   * @throws NS_ERROR_FILE_NOT_FOUND if aFile does not exist and flags did\n   *  not allow for creation\n   * @throws NS_ERROR_FILE_CORRUPTED if the file does not contain zip markers\n   * @throws <other-error> on failure to open zip file (most likely corrupt\n   *  or unsupported form)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "open",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFile",
+                      "name": "aFile"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "aIoFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns a nsIZipEntry describing a specified zip entry or null if there\n   * is no such entry in the zip file\n   *\n   * @param aZipEntry the path of the entry\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIZipEntry",
+                  "name": "getEntry",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aZipEntry"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Checks whether the zipfile contains an entry specified by zipEntry.\n   *\n   * @param aZipEntry the path of the entry\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "hasEntry",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aZipEntry"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Adds a new directory entry to the zip file. If aZipEntry does not end with\n   * \"/\" then it will be added.\n   *\n   * @param aZipEntry the path of the directory entry\n   * @param aModTime the modification time of the entry in microseconds\n   * @param aQueue adds the operation to the background queue. Will be\n   *        performed when processQueue is called.\n   *\n   * @throws NS_ERROR_NOT_INITIALIZED if no zip file has been opened\n   * @throws NS_ERROR_FILE_ALREADY_EXISTS if the path already exists in the\n   *  file\n   * @throws NS_ERROR_IN_PROGRESS if another operation is currently in progress\n   * @throws NS_ERROR_INVALID_ARG if aModTime is older than 1980-1-1\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addEntryDirectory",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aZipEntry"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aModTime"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aQueue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Adds a new file or directory to the zip file. If the specified file is\n   * a directory then this will be equivalent to a call to\n   * addEntryDirectory(aZipEntry, aFile.lastModifiedTime, aQueue)\n   *\n   * @param aZipEntry the path of the file entry\n   * @param aCompression the compression level, 0 is no compression, 9 is best\n   * @param aFile the file to get the data and modification time from\n   * @param aQueue adds the operation to the background queue. Will be\n   *        performed when processQueue is called.\n   *\n   * @throws NS_ERROR_NOT_INITIALIZED if no zip file has been opened\n   * @throws NS_ERROR_FILE_ALREADY_EXISTS if the path already exists in the zip\n   * @throws NS_ERROR_IN_PROGRESS if another operation is currently in progress\n   * @throws NS_ERROR_FILE_NOT_FOUND if file does not exist\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addEntryFile",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aZipEntry"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "aCompression"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFile",
+                          "name": "aFile"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aQueue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Adds data from a channel to the zip file. If the operation is performed\n   * on the queue then the channel will be opened asynchronously, otherwise\n   * the channel must support being opened synchronously.\n   *\n   * @param aZipEntry the path of the file entry\n   * @param aModTime the modification time of the entry in microseconds\n   * @param aCompression the compression level, 0 is no compression, 9 is best\n   * @param aChannel the channel to get the data from\n   * @param aQueue adds the operation to the background queue. Will be\n   *        performed when processQueue is called.\n   *\n   * @throws NS_ERROR_NOT_INITIALIZED if no zip file has been opened\n   * @throws NS_ERROR_FILE_ALREADY_EXISTS if the path already exists in the zip\n   * @throws NS_ERROR_IN_PROGRESS if another operation is currently in progress\n   * @throws NS_ERROR_INVALID_ARG if aModTime is older than 1980-1-1\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addEntryChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aZipEntry"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aModTime"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "aCompression"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIChannel",
+                          "name": "aChannel"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aQueue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Adds data from an input stream to the zip file.\n   *\n   * @param aZipEntry the path of the file entry\n   * @param aModTime the modification time of the entry in microseconds\n   * @param aCompression the compression level, 0 is no compression, 9 is best\n   * @param aStream the input stream to get the data from\n   * @param aQueue adds the operation to the background queue. Will be\n   *        performed when processQueue is called.\n   *\n   * @throws NS_ERROR_NOT_INITIALIZED if no zip file has been opened\n   * @throws NS_ERROR_FILE_ALREADY_EXISTS if the path already exists in the zip\n   * @throws NS_ERROR_IN_PROGRESS if another operation is currently in progress\n   * @throws NS_ERROR_INVALID_ARG if aModTime is older than 1980-1-1\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addEntryStream",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aZipEntry"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aModTime"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "int32_t",
+                          "name": "aCompression"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIInputStream",
+                          "name": "aStream"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aQueue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Removes an existing entry from the zip file.\n   *\n   * @param aZipEntry the path of the entry to be removed\n   * @param aQueue adds the operation to the background queue. Will be\n   *        performed when processQueue is called.\n   *\n   * @throws NS_ERROR_NOT_INITIALIZED if no zip file has been opened\n   * @throws NS_ERROR_IN_PROGRESS if another operation is currently in progress\n   * @throws NS_ERROR_FILE_NOT_FOUND if no entry with the given path exists\n   * @throws <other-error> on failure to update the zip file\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeEntry",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aZipEntry"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aQueue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Processes all queued items until complete or some error occurs. The\n   * observer will be notified when the first operation starts and when the\n   * last operation completes. Any failures will be passed to the observer.\n   * The zip writer will be busy until the queue is complete or some error\n   * halted processing of the queue early. In the event of an early failure,\n   * remaining items will stay in the queue and calling processQueue will\n   * continue.\n   *\n   * @throws NS_ERROR_NOT_INITIALIZED if no zip file has been opened\n   * @throws NS_ERROR_IN_PROGRESS if the queue is already in progress\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "processQueue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRequestObserver",
+                      "name": "aObserver"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "aContext"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Closes the zip file.\n   *\n   * @throws NS_ERROR_NOT_INITIALIZED if no zip file has been opened\n   * @throws NS_ERROR_IN_PROGRESS if another operation is currently in progress\n   * @throws <other-error> on failure to complete the zip file\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "close",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Make all stored(uncompressed) files align to given alignment size.\n   *\n   * @param aAlignSize is the alignment size, valid values from 2 to 32768, and\n            must be power of 2.\n   *\n   * @throws NS_ERROR_INVALID_ARG if aAlignSize is invalid\n   * @throws <other-error> on failure to update the zip file\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "alignStoredFiles",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint16_t",
+                      "name": "aAlignSize"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

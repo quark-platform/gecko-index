@@ -1,0 +1,185 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRequest",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIProgressEventSink\n *\n * This interface is used to asynchronously convey channel status and progress\n * information that is generally not critical to the processing of the channel.\n * The information is intended to be displayed to the user in some meaningful\n * way.\n *\n * An implementation of this interface can be passed to a channel via the\n * channel's notificationCallbacks attribute.  See nsIChannel for more info.\n *\n * The channel will begin passing notifications to the progress event sink\n * after its asyncOpen method has been called.  Notifications will cease once\n * the channel calls its listener's onStopRequest method or once the channel\n * is canceled (via nsIRequest::cancel).\n *\n * NOTE: This interface is actually not specific to channels and may be used\n * with other implementations of nsIRequest.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "87d55fba-cb7e-4f38-84c1-5c6c2b2a55e9"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIProgressEventSink",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Called to notify the event sink that progress has occurred for the\n     * given request.\n     *\n     * @param aRequest\n     *        the request being observed (may QI to nsIChannel).\n     * @param aProgress\n     *        numeric value in the range 0 to aProgressMax indicating the\n     *        number of bytes transfered thus far.\n     * @param aProgressMax\n     *        numeric value indicating maximum number of bytes that will be\n     *        transfered (or -1 if total is unknown).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onProgress",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRequest",
+                      "name": "aRequest"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long long",
+                          "name": "aProgress"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long long",
+                          "name": "aProgressMax"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Called to notify the event sink with a status message for the given\n     * request.\n     *\n     * @param aRequest\n     *        the request being observed (may QI to nsIChannel).\n     * @param aStatus\n     *        status code (not necessarily an error code) indicating the\n     *        state of the channel (usually the state of the underlying\n     *        transport).  see nsISocketTransport for socket specific status\n     *        codes.\n     * @param aStatusArg\n     *        status code argument to be used with the string bundle service\n     *        to convert the status message into localized, human readable\n     *        text.  the meaning of this parameter is specific to the value\n     *        of the status code.  for socket status codes, this parameter\n     *        indicates the host:port associated with the status code.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onStatus",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRequest",
+                      "name": "aRequest"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsresult",
+                          "name": "aStatus"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "aStatusArg"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

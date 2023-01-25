@@ -1,0 +1,552 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIDOMWindowProxy",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrincipal",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoadInfo",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n\n#include \"mozilla/EnumSet.h\"\n\nenum class ThirdPartyAnalysis {\n  IsForeign,\n  IsThirdPartyTrackingResource,\n  IsThirdPartySocialTrackingResource,\n  IsStorageAccessPermissionGranted,\n};\n\nusing ThirdPartyAnalysisResult = mozilla::EnumSet<ThirdPartyAnalysis>;\n\ntypedef bool (*RequireThirdPartyCheck)(nsILoadInfo*);\n\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Utility functions for determining whether a given URI, channel, or window\n * hierarchy is third party with respect to a known URI.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "fd82700e-ffb4-4932-b7d6-08f0b5697dda"
+              }
+            }
+          }
+        ]
+      },
+      "name": "mozIThirdPartyUtil",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * isThirdPartyURI\n   *\n   * Determine whether two URIs are third party with respect to each other.\n   * This is determined by computing the base domain for both URIs. If they can\n   * be determined, and the base domains match, the request is defined as first\n   * party. If it cannot be determined because one or both URIs do not have a\n   * base domain (for instance, in the case of IP addresses, host aliases such\n   * as 'localhost', or a file:// URI), an exact string comparison on host is\n   * performed.\n   *\n   * For example, the URI \"http://mail.google.com/\" is not third party with\n   * respect to \"http://images.google.com/\", but \"http://mail.yahoo.com/\" and\n   * \"http://192.168.1.1/\" are.\n   *\n   * @return true if aFirstURI is third party with respect to aSecondURI.\n   *\n   * @throws if either URI is null, has a malformed host, or has an empty host\n   *         and is not a file:// URI.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isThirdPartyURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aFirstURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aSecondURI"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * isThirdPartyWindow\n   *\n   * Determine whether the given window hierarchy is third party. This is done\n   * as follows:\n   *\n   * 1) Obtain the URI of the principal associated with 'aWindow'. Call this the\n   *    'bottom URI'.\n   * 2) If 'aURI' is provided, determine if it is third party with respect to\n   *    the bottom URI. If so, return.\n   * 3) Find the same-type parent window, if there is one, and its URI.\n   *    Determine whether it is third party with respect to the bottom URI. If\n   *    so, return.\n   *\n   * Therefore, each level in the window hierarchy is tested. (This means that\n   * nested iframes with different base domains, even though the bottommost and\n   * topmost URIs might be equal, will be considered third party.)\n   *\n   * @param aWindow\n   *        The bottommost window in the hierarchy.\n   * @param aURI\n   *        A URI to test against. If null, the URI of the principal\n   *        associated with 'aWindow' will be used.\n   *\n   * For example, if 'aURI' is \"http://mail.google.com/\", 'aWindow' has a URI\n   * of \"http://google.com/\", and its parent is the topmost content window with\n   * a URI of \"http://mozilla.com\", the result will be true.\n   *\n   * @return true if 'aURI' is third party with respect to any of the URIs\n   *         associated with aWindow and its same-type parents.\n   *\n   * @throws if aWindow is null; the same-type parent of any window in the\n   *         hierarchy cannot be determined; or the URI associated with any\n   *         window in the hierarchy is null, has a malformed host, or has an\n   *         empty host and is not a file:// URI.\n   *\n   * @see isThirdPartyURI\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isThirdPartyWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindowProxy",
+                      "name": "aWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aURI"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * isThirdPartyChannel\n   *\n   * Determine whether the given channel and its content window hierarchy is\n   * third party. This is done as follows:\n   *\n   * 1) If 'aChannel' is an nsIHttpChannel and has the\n   *    'forceAllowThirdPartyCookie' property set, then:\n   *    a) If 'aURI' is null, return false.\n   *    b) Otherwise, find the URI of the channel, determine whether it is\n   *       foreign with respect to 'aURI', and return.\n   * 2) Find the URI of the channel and determine whether it is third party with\n   *    respect to the URI of the channel. If so, return.\n   * 3) Obtain the bottommost nsIDOMWindow, and its same-type parent if it\n   *    exists, from the channel's notification callbacks. Then:\n   *    a) If the parent is the same as the bottommost window, and the channel\n   *       has the LOAD_DOCUMENT_URI flag set, return false. This represents the\n   *       case where a toplevel load is occurring and the window's URI has not\n   *       yet been updated. (We have already checked that 'aURI' is not foreign\n   *       with respect to the channel URI.)\n   *    b) Otherwise, return the result of isThirdPartyWindow with arguments\n   *       of the channel's bottommost window and the channel URI, respectively.\n   *\n   * Therefore, both the channel's URI and each level in the window hierarchy\n   * associated with the channel is tested.\n   *\n   * @param aChannel\n   *        The channel associated with the load.\n   * @param aURI\n   *        A URI to test against. If null, the URI of the channel will be used.\n   *\n   * For example, if 'aURI' is \"http://mail.google.com/\", 'aChannel' has a URI\n   * of \"http://google.com/\", and its parent is the topmost content window with\n   * a URI of \"http://mozilla.com\", the result will be true.\n   *\n   * @return true if aURI is third party with respect to the channel URI or any\n   *         of the URIs associated with the same-type window hierarchy of the\n   *         channel.\n   *\n   * @throws if 'aChannel' is null; the channel has no notification callbacks or\n   *         an associated window; or isThirdPartyWindow throws.\n   *\n   * @see isThirdPartyWindow\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isThirdPartyChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aURI"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * getBaseDomain\n   *\n   * Get the base domain for aHostURI; e.g. for \"www.bbc.co.uk\", this would be\n   * \"bbc.co.uk\". Only properly-formed URI's are tolerated, though a trailing\n   * dot may be present. If aHostURI is an IP address, an alias such as\n   * 'localhost', an eTLD such as 'co.uk', or the empty string, aBaseDomain will\n   * be the exact host. The result of this function should only be used in exact\n   * string comparisons, since substring comparisons will not be valid for the\n   * special cases elided above.\n   *\n   * @param aHostURI\n   *        The URI to analyze.\n   *\n   * @return the base domain.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AUTF8String",
+                  "name": "getBaseDomain",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aHostURI"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * NOTE: Long term, this method won't be needed once bug 922464 is fixed which\n   * will make it possible to parse all URI's off the main thread.\n   *\n   * getBaseDomainFromSchemeHost\n   *\n   * Get the base domain for aScheme and aHost. Otherwise identical to\n   * getBaseDomain().\n   *\n   * @param aScheme\n   *        The scheme to analyze.\n   *\n   * @param aAsciiHost\n   *        The host to analyze.\n   *\n   * @return the base domain.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AUTF8String",
+                  "name": "getBaseDomainFromSchemeHost",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aScheme"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aAsciiHost"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * getURIFromWindow\n   *\n   * Returns the URI associated with the script object principal for the\n   * window.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIURI",
+                  "name": "getURIFromWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindowProxy",
+                      "name": "aWindow"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * getPrincipalFromWindow\n   *\n   * Returns the script object principal for the window.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIPrincipal",
+                  "name": "getPrincipalFromWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindowProxy",
+                      "name": "aWindow"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * getTopWindowForChannel\n   *\n   * Returns the top-level window associated with the given channel.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "mozIDOMWindowProxy",
+                  "name": "getTopWindowForChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aURIBeingLoaded"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Performs a full analysis of a channel.\n   *\n   * aChannel the input channel\n   * aNotify whether to send content blocking notifications if access control checks fail\n   * aURI optional URI to check for (the channel URI will be used instead if not provided)\n   * aRequireThirdPartyCheck a functor used to determine whether the load info requires third-party checks\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "ThirdPartyAnalysisResult",
+                  "name": "analyzeChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aNotify"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "RequireThirdPartyCheck",
+                          "name": "aRequireThirdPartyCheck"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "uint32_t",
+                          "name": "aRejectedReason"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{ C++\n/**\n * The mozIThirdPartyUtil implementation is an XPCOM service registered\n * under the ContractID:\n */\n#define THIRDPARTYUTIL_CONTRACTID \"@mozilla.org/thirdpartyutil;1\"\n%}\n\n"
+  ]
+}

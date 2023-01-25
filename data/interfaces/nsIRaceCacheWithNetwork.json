@@ -1,0 +1,160 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim: set ts=8 sts=2 et sw=2 tw=80: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This holds methods used to race the cache with the network for a specific\n * channel. This interface is was designed with nsHttpChannel in mind, and it's\n * expected this will be the only class implementing it.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "4d963475-8b16-4c58-b804-8a23d49436c5"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIRaceCacheWithNetwork",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/****************************************************************************\n   * TEST ONLY: The following methods are for testing purposes only. Do not use\n   * them to do anything important in your code.\n   ****************************************************************************\n\n  /**\n   * Triggers network activity after given timeout. If timeout is 0, network\n   * activity is triggered immediately. If the cache.asyncOpenURI callbacks\n   * have already been called, the network activity may have already been triggered\n   * or the content may have already been delivered from the cache, so this\n   * operation will have no effect.\n   *\n   * @param timeout\n   *        - the delay in milliseconds until the network will be triggered.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "test_triggerNetwork",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "timeout"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Normally a HTTP channel would immediately call AsyncOpenURI leading to the\n   * cache storage to lookup the cache entry and return it. In order to\n   * simmulate real life conditions where fetching a cache entry takes a long\n   * time, we set a timer to delay the operation.\n   * Can only be called on the main thread.\n   *\n   * @param timeout\n   *        - the delay in milliseconds until the cache open will be triggered.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "test_delayCacheEntryOpeningBy",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "timeout"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Immediatelly triggers AsyncOpenURI if the timer hasn't fired.\n   * Can only be called on the main thread.\n   * This is only called in tests to reliably trigger the opening of the cache\n   * entry.\n   * @throws NS_ERROR_NOT_AVAILABLE if opening the cache wasn't delayed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "test_triggerDelayedOpenCacheEntry",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

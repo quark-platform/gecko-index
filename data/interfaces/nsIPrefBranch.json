@@ -1,0 +1,1421 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{C++\n#include \"nsLiteralString.h\"\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIObserver",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The nsIPrefBranch interface is used to manipulate the preferences data. This\n * object may be obtained from the preferences service (nsIPrefService) and\n * used to get and set default and/or user preferences across the application.\n *\n * This object is created with a \"root\" value which describes the base point in\n * the preferences \"tree\" from which this \"branch\" stems. Preferences are\n * accessed off of this root by using just the final portion of the preference.\n * For example, if this object is created with the root \"browser.startup.\",\n * the preferences \"browser.startup.page\", \"browser.startup.homepage\",\n * and \"browser.startup.homepage_override\" can be accessed by simply passing\n * \"page\", \"homepage\", or \"homepage_override\" to the various Get/Set methods.\n *\n * @see nsIPrefService\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "55d25e49-793f-4727-a69f-de8b15f4b985"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIPrefBranch",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Values describing the basic preference types.\n   *\n   * @see getPrefType\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "PREF_INVALID",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "PREF_STRING",
+                  "value": "32"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "PREF_INT",
+                  "value": "64"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "PREF_BOOL",
+                  "value": "128"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to get the root on which this branch is based, such as\n   * \"browser.startup.\"\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "root"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to determine the type of a specific preference.\n   *\n   * @param aPrefName The preference to get the type of.\n   *\n   * @return long     A value representing the type of the preference. This\n   *                  value will be PREF_STRING, PREF_INT, or PREF_BOOL.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "long",
+                  "name": "getPrefType",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to get the state of an individual boolean preference.\n   *\n   * @param aPrefName The boolean preference to get the state of.\n   * @param aDefaultValue The value to return if the preference is not set.\n   *\n   * @return boolean  The value of the requested boolean preference.\n   *\n   * @see setBoolPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "GetBoolPrefWithDefault"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "getBoolPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aDefaultValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "GetBoolPref"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "getBoolPrefXPCOM",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to set the state of an individual boolean preference.\n   *\n   * @param aPrefName The boolean preference to set the state of.\n   * @param aValue    The boolean value to set the preference to.\n   *\n   * @throws Error if setting failed or the preference has a default\n             value of a type other than boolean.\n   *\n   * @see getBoolPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setBoolPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to get the state of an individual floating-point preference.\n   * \"Floating point\" preferences are really string preferences that\n   * are converted to floating point numbers.\n   *\n   * @param aPrefName The floating point preference to get the state of.\n   * @param aDefaultValue The value to return if the preference is not set.\n   *\n   * @return float  The value of the requested floating point preference.\n   *\n   * @see setCharPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "GetFloatPrefWithDefault"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "float",
+                  "name": "getFloatPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "float",
+                          "name": "aDefaultValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "GetFloatPref"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "float",
+                  "name": "getFloatPrefXPCOM",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to get the state of an individual ascii string preference.\n   *\n   * @param aPrefName The string preference to retrieve.\n   * @param aDefaultValue The string to return if the preference is not set.\n   *\n   * @return ACString   The value of the requested string preference.\n   *\n   * @see setCharPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "GetCharPrefWithDefault"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "ACString",
+                  "name": "getCharPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aDefaultValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "GetCharPref"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "ACString",
+                  "name": "getCharPrefXPCOM",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to set the state of an individual ascii string preference.\n   *\n   * @param aPrefName The string preference to set.\n   * @param aValue    The string value to set the preference to.\n   *\n   * @throws Error if setting failed or the preference has a default\n             value of a type other than string.\n   *\n   * @see getCharPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setCharPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to get the state of an individual unicode string preference.\n   *\n   * @param aPrefName The string preference to retrieve.\n   * @param aDefaultValue The string to return if the preference is not set.\n   *\n   * @return AUTF8String   The value of the requested string preference.\n   *\n   * @see setStringPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "AUTF8String",
+                  "name": "getStringPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aDefaultValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to set the state of an individual unicode string preference.\n   *\n   * @param aPrefName The string preference to set.\n   * @param aValue    The string value to set the preference to.\n   *\n   * @throws Error if setting failed or the preference has a default\n             value of a type other than string.\n   *\n   * @see getStringPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setStringPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to get the state of an individual integer preference.\n   *\n   * @param aPrefName The integer preference to get the value of.\n   * @param aDefaultValue The value to return if the preference is not set.\n   *\n   * @return long     The value of the requested integer preference.\n   *\n   * @see setIntPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "GetIntPrefWithDefault"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "long",
+                  "name": "getIntPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aDefaultValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "GetIntPref"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "long",
+                  "name": "getIntPrefXPCOM",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to set the state of an individual integer preference.\n   *\n   * @param aPrefName The integer preference to set the value of.\n   * @param aValue    The integer value to set the preference to.\n   *\n   * @throws Error if setting failed or the preference has a default\n             value of a type other than integer.\n   *\n   * @see getIntPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setIntPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to get the state of an individual complex preference. A complex\n   * preference is a preference which represents an XPCOM object that can not\n   * be easily represented using a standard boolean, integer or string value.\n   *\n   * @param aPrefName The complex preference to get the value of.\n   * @param aType     The XPCOM interface that this complex preference\n   *                  represents. Interfaces currently supported are:\n   *                    - nsIFile\n   *                    - nsIPrefLocalizedString (Localized UniChar)\n   * @param aValue    The XPCOM object into which to the complex preference\n   *                  value should be retrieved.\n   *\n   * @throws Error The value does not exist or is the wrong type.\n   *\n   * @see setComplexValue\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getComplexValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIIDRef",
+                          "name": "aType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "iid_is",
+                              "param": {
+                                "kind": "attribute_$0",
+                                "value": "aType"
+                              }
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "retval",
+                                  "param": null
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "out",
+                          "type": "nsQIResult",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to set the state of an individual complex preference. A complex\n   * preference is a preference which represents an XPCOM object that can not\n   * be easily represented using a standard boolean, integer or string value.\n   *\n   * @param aPrefName The complex preference to set the value of.\n   * @param aType     The XPCOM interface that this complex preference\n   *                  represents. Interfaces currently supported are:\n   *                    - nsIFile\n   *                    - nsISupportsString (UniChar)\n   *                      (deprecated; see setStringPref)\n   *                    - nsIPrefLocalizedString (Localized UniChar)\n   * @param aValue    The XPCOM object from which to set the complex preference\n   *                  value.\n   *\n   * @throws Error if setting failed or the value is the wrong type.\n   *\n   * @see getComplexValue\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setComplexValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIIDRef",
+                          "name": "aType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "aValue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to clear a user set value from a specific preference. This will, in\n   * effect, reset the value to the default value. If no default value exists\n   * the preference will cease to exist.\n   *\n   * @param aPrefName The preference to be cleared.\n   *\n   * @note\n   * This method does nothing if this object is a default branch.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "clearUserPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to lock a specific preference. Locking a preference will cause the\n   * preference service to always return the default value regardless of\n   * whether there is a user set value or not.\n   *\n   * @param aPrefName The preference to be locked.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on the default branch.\n   *\n   * @throws Error The preference does not exist or an error occurred.\n   *\n   * @see unlockPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "lockPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to check if a specific preference has a user value associated to\n   * it.\n   *\n   * @param aPrefName The preference to be tested.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on the user branch.\n   *\n   * @note\n   * If a preference was manually set to a value that equals the default value,\n   * then the preference no longer has a user set value, i.e. it is\n   * considered reset to its default value.\n   * In particular, this method will return false for such a preference and\n   * the preference will not be saved to a file by nsIPrefService.savePrefFile.\n   *\n   * @return boolean  true  The preference has a user set value.\n   *                  false The preference only has a default value.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "prefHasUserValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to check if a specific preference has a default value associated to\n   * it.\n   *\n   * @param aPrefName The preference to be tested.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on the user branch.\n   *\n   * @note\n   * This method can be used to distinguish between a built-in preference and a\n   * user-added preference.\n   *\n   * @return boolean  true  The preference has a default value.\n   *                  false The preference only has a user value.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "prefHasDefaultValue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to check if a specific preference is locked. If a preference is\n   * locked calling its Get method will always return the default value.\n   *\n   * @param aPrefName The preference to be tested.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on the default branch.\n   *\n   * @return boolean  true  The preference is locked.\n   *                  false The preference is not locked.\n   *\n   * @see lockPref\n   * @see unlockPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "prefIsLocked",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to check if a specific preference has been sanitized. If a\n   * preference is sanitized, any user value the preference may have will not\n   * be present in a sub-process.  A preference is never sanitized in the\n   * parent process; it is only marked as sanitized when it is converted\n   * to a dom::Pref for serialization to a child process.\n   *\n   * @param aPrefName The preference to be tested.\n   *\n   * @note\n   * This method can be called on either a default or user branch but it\n   * makes no difference.\n   *\n   * @return boolean  true  The preference is sanitized.\n   *                  false The preference is not sanitized.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "prefIsSanitized",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to unlock a specific preference. Unlocking a previously locked\n   * preference allows the preference service to once again return the user set\n   * value of the preference.\n   *\n   * @param aPrefName The preference to be unlocked.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on the default branch.\n   *\n   * @throws Error The preference does not exist or an error occurred.\n   *\n   * @see lockPref\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unlockPref",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aPrefName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to remove all of the preferences referenced by this branch.\n   *\n   * @param aStartingAt The point on the branch at which to start the deleting\n   *                    preferences. Pass in \"\" to remove all preferences\n   *                    referenced by this branch.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on both.\n   *\n   * @throws Error The preference(s) do not exist or an error occurred.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "deleteBranch",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aStartingAt"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns an array of strings representing the child preferences of the\n   * root of this branch.\n   *\n   * @param aStartingAt The point on the branch at which to start enumerating\n   *                    the child preferences. Pass in \"\" to enumerate all\n   *                    preferences referenced by this branch.\n   * @return            The array of child preferences.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on both.\n   *\n   * @throws Error The preference(s) do not exist or an error occurred.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getChildList",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aStartingAt"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called to reset all of the preferences referenced by this branch to their\n   * default values.\n   *\n   * @param aStartingAt The point on the branch at which to start the resetting\n   *                    preferences to their default values. Pass in \"\" to\n   *                    reset all preferences referenced by this branch.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on the user branch.\n   *\n   * @throws Error The preference(s) do not exist or an error occurred.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "resetBranch",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aStartingAt"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Add a preference change observer. On preference changes, the following\n   * arguments will be passed to the nsIObserver.observe() method:\n   *   aSubject - The nsIPrefBranch object (this)\n   *   aTopic   - The string defined by NS_PREFBRANCH_PREFCHANGE_TOPIC_ID\n   *   aData    - The name of the preference which has changed, relative to\n   *              the |root| of the aSubject branch.\n   *\n   * aSubject.get*Pref(aData) will get the new value of the modified\n   * preference. For example, if your observer is registered with\n   * addObserver(\"bar.\", ...) on a branch with root \"foo.\", modifying\n   * the preference \"foo.bar.baz\" will trigger the observer, and aData\n   * parameter will be \"bar.baz\".\n   *\n   * @param aDomain   The preference on which to listen for changes. This can\n   *                  be the name of an entire branch to observe.\n   *                  e.g. Holding the \"root\" prefbranch and calling\n   *                  addObserver(\"foo.bar.\", ...) will observe changes to\n   *                  foo.bar.baz and foo.bar.bzip\n   * @param aObserver The object to be notified if the preference changes.\n   * @param aHoldWeak true  Hold a weak reference to |aObserver|. The object\n   *                        must implement the nsISupportsWeakReference\n   *                        interface or this will fail.\n   *                  false Hold a strong reference to |aObserver|.\n   *\n   * @note\n   * Registering as a preference observer can open an object to potential\n   * cyclical references which will cause memory leaks. These cycles generally\n   * occur because an object both registers itself as an observer (causing the\n   * branch to hold a reference to the observer) and holds a reference to the\n   * branch object for the purpose of getting/setting preference values. There\n   * are 3 approaches which have been implemented in an attempt to avoid these\n   * situations.\n   * 1) The nsPrefBranch object supports nsISupportsWeakReference. Any consumer\n   *    may hold a weak reference to it instead of a strong one.\n   * 2) The nsPrefBranch object listens for xpcom-shutdown and frees all of the\n   *    objects currently in its observer list. This ensures that long lived\n   *    objects (services for example) will be freed correctly.\n   * 3) The observer can request to be held as a weak reference when it is\n   *    registered. This insures that shorter lived objects (say one tied to an\n   *    open window) will not fall into the cyclical reference trap.\n   *\n   * @note\n   * The list of registered observers may be changed during the dispatch of\n   * nsPref:changed notification. However, the observers are not guaranteed\n   * to be notified in any particular order, so you can't be sure whether the\n   * added/removed observer will be called during the notification when it\n   * is added/removed.\n   *\n   * @note\n   * It is possible to change preferences during the notification.\n   *\n   * @note\n   * It is not safe to change observers during this callback in Gecko\n   * releases before 1.9. If you want a safe way to remove a pref observer,\n   * please use an nsITimer.\n   *\n   * @see nsIObserver\n   * @see removeObserver\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "binaryname",
+                      "param": {
+                        "kind": "attribute_$0",
+                        "value": "AddObserverImpl"
+                      }
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "addObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aDomain"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIObserver",
+                          "name": "aObserver"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aHoldWeak"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Remove a preference change observer.\n   *\n   * @param aDomain   The preference which is being observed for changes.\n   * @param aObserver An observer previously registered with addObserver().\n   *\n   * @note\n   * Note that you must call removeObserver() on the same nsIPrefBranch\n   * instance on which you called addObserver() in order to remove aObserver;\n   * otherwise, the observer will not be removed.\n   *\n   * @see nsIObserver\n   * @see addObserver\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "binaryname",
+                      "param": {
+                        "kind": "attribute_$0",
+                        "value": "RemoveObserverImpl"
+                      }
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "removeObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aDomain"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIObserver",
+                          "name": "aObserver"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  nsresult AddObserver(const nsACString& aDomain, nsIObserver* aObserver,\n                       bool aHoldWeak = false)\n  {\n    return AddObserverImpl(aDomain, aObserver, aHoldWeak);\n  }\n\n  template <int N>\n  nsresult AddObserver(const char (&aDomain)[N], nsIObserver* aObserver,\n                       bool aHoldWeak = false)\n  {\n    return AddObserverImpl(nsLiteralCString(aDomain), aObserver, aHoldWeak);\n  }\n\n  nsresult RemoveObserver(const nsACString& aDomain, nsIObserver* aObserver)\n  {\n    return RemoveObserverImpl(aDomain, aObserver);\n  }\n\n  template <int N>\n  nsresult RemoveObserver(const char (&aDomain)[N], nsIObserver* aObserver)\n  {\n    return RemoveObserverImpl(nsLiteralCString(aDomain), aObserver);\n  }\n  %}\n"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n\n",
+    "%{C++\n\n#define NS_PREFBRANCH_CONTRACTID \"@mozilla.org/preferencesbranch;1\"\n/**\n * Notification sent when a preference changes.\n */\n#define NS_PREFBRANCH_PREFCHANGE_TOPIC_ID \"nsPref:changed\"\n\n%}\n"
+  ]
+}

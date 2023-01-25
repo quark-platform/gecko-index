@@ -1,0 +1,632 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIArray"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIFormatConverter"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIContentPolicy"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICookieJarSettings",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrincipal",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{ C++\n\n// Internal formats must have their second part starting with 'x-moz-',\n// for example text/x-moz-internaltype. These cannot be assigned by\n// unprivileged content but all other types can.\n#define kInternal_Mimetype_Prefix   u\"/x-moz-\"_ns\n\n// these probably shouldn't live here, but in some central repository shared\n// by the entire app.\n#define kTextMime                   \"text/plain\"\n#define kRTFMime                    \"text/rtf\"\n#define kUnicodeMime                \"text/unicode\"\n#define kMozTextInternal            \"text/x-moz-text-internal\"  // text data which isn't suppoed to be parsed by other apps.\n#define kHTMLMime                   \"text/html\"\n#define kAOLMailMime                \"AOLMAIL\"\n#define kPNGImageMime               \"image/png\"\n#define kJPEGImageMime              \"image/jpeg\"\n#define kJPGImageMime               \"image/jpg\"\n#define kGIFImageMime               \"image/gif\"\n#define kFileMime                   \"application/x-moz-file\"\n\n#define kURLMime                    \"text/x-moz-url\"        // data contains url\\ntitle\n#define kURLDataMime                \"text/x-moz-url-data\"   // data contains url only\n#define kURLDescriptionMime         \"text/x-moz-url-desc\"   // data contains description\n#define kURLPrivateMime             \"text/x-moz-url-priv\"   // same as kURLDataMime but for private uses\n#define kNativeImageMime            \"application/x-moz-nativeimage\"\n#define kNativeHTMLMime             \"application/x-moz-nativehtml\"\n\n// These are used to indicate the context for a fragment of HTML source, such\n// that some parent structure and style can be preserved. kHTMLContext\n// contains the serialized ancestor elements, whereas kHTMLInfo are numbers\n// identifying where in the context the fragment was from.\n#define kHTMLContext   \"text/_moz_htmlcontext\"\n#define kHTMLInfo      \"text/_moz_htmlinfo\"\n\n// Holds the MIME type from the image request. This is used to ensure the\n// local application handler for the request's MIME type accepts images with\n// the given filename extension (from kFilePromiseDestFilename). When the\n// image is dragged out, we replace the extension with a compatible extension.\n#define kImageRequestMime           \"text/x-moz-requestmime\"\n\n// the source URL for a file promise\n#define kFilePromiseURLMime         \"application/x-moz-file-promise-url\"\n// the destination filename for a file promise\n#define kFilePromiseDestFilename    \"application/x-moz-file-promise-dest-filename\"\n// a dataless flavor used to interact with the OS during file drags\n#define kFilePromiseMime            \"application/x-moz-file-promise\"\n// a synthetic flavor, put into the transferable once we know the destination directory of a file drag\n#define kFilePromiseDirectoryMime   \"application/x-moz-file-promise-dir\"\n\n#define kCustomTypesMime \"application/x-moz-custom-clipdata\"\n\n#define kPDFJSMime \"application/pdfjs\"\n\n%}\n\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n  * nsIFlavorDataProvider allows a flavor to 'promise' data later,\n  * supplying the data lazily.\n  *\n  * To use it, call setTransferData, passing the flavor string and\n  * a nsIFlavorDataProvider QI'd to nsISupports.\n  *\n  * When someone calls getTransferData later, if the data size is\n  * stored as 0, the nsISupports will be QI'd to nsIFlavorDataProvider,\n  * and its getFlavorData called.\n  *\n  */"
+      },
+      "attrs": null,
+      "name": "nsITransferable",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoadContext",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "7E225E5F-711C-11D7-9FAE-000393636592"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIFlavorDataProvider",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Retrieve the data from this data provider.\n    *\n    * @param  aTransferable (in parameter) the transferable we're being called for.\n    * @param  aFlavor (in parameter) the flavor of data to retrieve\n    * @param  aData the data. Some variant of class in nsISupportsPrimitives.idl\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getFlavorData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITransferable",
+                      "name": "aTransferable"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aFlavor"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "nsISupports",
+                          "name": "aData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "97e0c418-1c1e-4106-bad1-9fcb11dff2fe"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITransferable",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initializes a transferable object.  This should be called on all\n   * transferable objects.  Failure to do so will result in fatal assertions in\n   * debug builds.\n   *\n   * The load context is used to track whether the transferable is storing privacy-\n   * sensitive information.\n   *\n   * To get the appropriate load context in Javascript callers, one needs to get\n   * to the document that the transferable corresponds to, and then get the load\n   * context from the document like this:\n   *\n   * var loadContext = doc.defaultView.docShell\n   *                                  .QueryInterface(Ci.nsILoadContext);\n   *\n   * In C++ callers, if you have the corresponding document, you can just call\n   * Document::GetLoadContext to get to the load context object.\n   *\n   * @param aContext the load context associated with the transferable object.\n   *        This can be set to null if a load context is not available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsILoadContext",
+                      "name": "aContext"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Computes a list of flavors that the transferable can export, either\n    * through intrinsic knowledge or output data converters.\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "flavorsTransferableCanExport",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Given a flavor retrieve the data.\n    *\n    * @param  aFlavor (in parameter) the flavor of data to retrieve\n    * @param  aData the data. Some variant of class in nsISupportsPrimitives.idl\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "getTransferData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aFlavor"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "nsISupports",
+                          "name": "aData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Returns the first flavor which has data.\n    *\n    * @param  aFlavor (out parameter) the flavor of data that was retrieved\n    * @param  aData the data. Some variant of class in nsISupportsPrimitives.idl\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getAnyTransferData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "ACString",
+                      "name": "aFlavor"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "nsISupports",
+                          "name": "aData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Computes a list of flavors that the transferable can\n    * accept into it, either through intrinsic knowledge or input data converters.\n    *\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "flavorsTransferableCanImport",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Sets the data in the transferable with the specified flavor. The transferable\n    * will maintain its own copy the data, so it is not necessary to do that beforehand.\n    *\n    * @param  aFlavor the flavor of data that is being set\n    * @param  aData the data, either some variant of class in nsISupportsPrimitives.idl,\n    *         an nsIFile, or an nsIFlavorDataProvider (see above)\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setTransferData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aFlavor"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "aData"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Add the data flavor, indicating that this transferable\n    * can receive this type of flavor\n    *\n    * @param  aDataFlavor a new data flavor to handle\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "addDataFlavor",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aDataFlavor"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Removes the data flavor matching the given one (string compare) and the data\n    * that goes along with it.\n    *\n    * @param  aDataFlavor a data flavor to remove\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeDataFlavor",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aDataFlavor"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIFormatConverter",
+                  "name": "converter"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Use of the SetIsPrivateData() method generated by isPrivateData attribute should\n   * be avoided as much as possible because the value set may not reflect the status\n   * of the context in which the transferable was created.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "isPrivateData"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The principal of the source dom node this transferable was\n   * created from and the contentPolicyType for the transferable.\n   * Note, currently only used on Windows for network principal and\n   * contentPolicyType information in clipboard and drag operations.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": null,
+                  "type": "nsIPrincipal",
+                  "name": "requestingPrincipal"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": null,
+                  "type": "nsContentPolicyType",
+                  "name": "contentPolicyType"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The cookieJarSettings of the source dom node this transferable was created\n   * from.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": null,
+                  "type": "nsICookieJarSettings",
+                  "name": "cookieJarSettings"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

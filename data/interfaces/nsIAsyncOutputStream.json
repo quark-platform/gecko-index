@@ -1,0 +1,275 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIOutputStream"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIOutputStreamCallback",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEventTarget",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * If an output stream is non-blocking, it may return NS_BASE_STREAM_WOULD_BLOCK\n * when written to.  The caller must then wait for the stream to become\n * writable.  If the stream implements nsIAsyncOutputStream, then the caller can\n * use this interface to request an asynchronous notification when the stream\n * becomes writable or closed (via the AsyncWait method).\n *\n * While this interface is almost exclusively used with non-blocking streams, it\n * is not necessary that nsIOutputStream::isNonBlocking return true.  Nor is it\n * necessary that a non-blocking nsIOutputStream implementation also implement\n * nsIAsyncOutputStream.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "beb632d3-d77a-4e90-9134-f9ece69e8200"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIAsyncOutputStream",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIOutputStream"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This method closes the stream and sets its internal status.  If the\n     * stream is already closed, then this method is ignored.  Once the stream\n     * is closed, the stream's status cannot be changed.  Any successful status\n     * code passed to this method is treated as NS_BASE_STREAM_CLOSED, which\n     * is equivalent to nsIInputStream::close.\n     *\n     * NOTE: this method exists in part to support pipes, which have both an\n     * input end and an output end.  If the output end of a pipe is closed, then\n     * reads from the input end of the pipe will fail.  The error code returned\n     * when an attempt is made to read from a \"closed\" pipe corresponds to the\n     * status code passed in when the output end of the pipe is closed, which\n     * greatly simplifies working with pipes in some cases.\n     *\n     * @param aStatus\n     *        The error that will be reported if this stream is accessed after\n     *        it has been closed.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "closeWithStatus",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "reason"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Asynchronously wait for the stream to be writable or closed.  The\n     * notification is one-shot, meaning that each asyncWait call will result\n     * in exactly one notification callback.  After the OnOutputStreamReady event\n     * is dispatched, the stream releases its reference to the\n     * nsIOutputStreamCallback object.  It is safe to call asyncWait again from the\n     * notification handler.\n     *\n     * This method may be called at any time (even if write has not been called).\n     * In other words, this method may be called when the stream already has\n     * room for more data.  It may also be called when the stream is closed.  If\n     * the stream is already writable or closed when AsyncWait is called, then the\n     * OnOutputStreamReady event will be dispatched immediately.  Otherwise, the\n     * event will be dispatched when the stream becomes writable or closed.\n     *\n     * @param aCallback\n     *        This object is notified when the stream becomes ready.  This\n     *        parameter may be null to clear an existing callback.\n     * @param aFlags\n     *        This parameter specifies optional flags passed in to configure\n     *        the behavior of this method.  Pass zero to specify no flags.\n     * @param aRequestedCount\n     *        Wait until at least this many bytes can be written.  This is only\n     *        a suggestion to the underlying stream; it may be ignored.  The\n     *        caller may pass zero to indicate no preference.\n     * @param aEventTarget\n     *        Specify NULL to receive notification on ANY thread (possibly even\n     *        recursively on the calling thread -- i.e., synchronously), or\n     *        specify that the notification be delivered to a specific event\n     *        target.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncWait",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIOutputStreamCallback",
+                      "name": "aCallback"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aRequestedCount"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIEventTarget",
+                          "name": "aEventTarget"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If passed to asyncWait, this flag overrides the default behavior,\n     * causing the OnOutputStreamReady notification to be suppressed until the\n     * stream becomes closed (either as a result of closeWithStatus/close being\n     * called on the stream or possibly due to some error in the underlying\n     * stream).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "WAIT_CLOSURE_ONLY",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This is a companion interface for nsIAsyncOutputStream::asyncWait.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "function",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "40dbcdff-9053-42c5-a57c-3ec910d0f148"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIOutputStreamCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Called to indicate that the stream is either writable or closed.\n     *\n     * @param aStream\n     *        The stream whose asyncWait method was called.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onOutputStreamReady",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIAsyncOutputStream",
+                      "name": "aStream"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

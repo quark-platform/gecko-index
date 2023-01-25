@@ -1,0 +1,141 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim: se cin sw=2 ts=2 et : */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsITaskbarPreview"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITaskbarPreviewButton",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/*\n * nsITaskbarWindowPreview\n *\n * This interface represents the preview for a window in the taskbar. By\n * default, Windows implements much of the behavior for applications by\n * default. The primary purpose of this interface is to allow Gecko\n * applications to take control over parts of the preview. Some parts are not\n * controlled through this interface: the title and icon of the preview match\n * the title and icon of the window always.\n *\n * By default, Windows takes care of drawing the thumbnail and preview for the\n * application however if enableCustomDrawing is set to true, then the\n * controller will start to receive requestPreview and requestThumbnail calls\n * as well as reads on the thumbnailAspectRatio, width and height properties.\n *\n * By default, nsITaskbarWindowPreviews are visible. When made invisible, the\n * window disappears from the list of windows in the taskbar for the\n * application.\n *\n * If the window has any visible nsITaskbarTabPreviews, then the\n * nsITaskbarWindowPreview for the corresponding window is automatically\n * hidden. This is not reflected in the visible property. Note that other parts\n * of the system (such as alt-tab) may still request thumbnails and/or previews\n * through the nsITaskbarWindowPreview's controller.\n *\n * nsITaskbarWindowPreview will never invoke the controller's onClose or\n * onActivate methods since handling them may conflict with other internal\n * Gecko state and there is existing infrastructure in place to allow clients\n * to handle those events\n *\n * Window previews may have a toolbar with up to 7 buttons. See\n * nsITaskbarPreviewButton for more information about button properties.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "EC67CC57-342D-4064-B4C6-74A375E07B10"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITaskbarWindowPreview",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsITaskbarPreview"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Max 7 buttons per preview per the Windows Taskbar API\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "NUM_TOOLBAR_BUTTONS",
+                  "value": "7"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets the nth button for the preview image. By default, all of the buttons\n   * are invisible.\n   *\n   * @see nsITaskbarPreviewButton\n   *\n   * @param index The index into the button array. Must be >= 0 and <\n   *              MAX_TOOLBAR_BUTTONS.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsITaskbarPreviewButton",
+                  "name": "getButton",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "index"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Enables/disables custom drawing of thumbnails and previews\n   *\n   * Default value: false\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "enableCustomDrawing"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n"
+  ]
+}

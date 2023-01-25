@@ -1,0 +1,152 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This interface is implemented by channels which support overriding the\n * privacy state of the channel.\n *\n * This interface must be used only from the XPCOM main thread.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "df702bb0-55b8-11e2-bcfd-0800200c9a66"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIPrivateBrowsingChannel",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Determine whether the channel is tied to a private browsing window.\n     *\n     * This value can be set only before the channel is opened.  Setting it\n     * after that does not have any effect.  This value overrides the privacy\n     * state of the channel, which means that if you call this method, then\n     * the loadGroup and load context will no longer be consulted when we\n     * need to know the private mode status for a channel.\n     *\n     * Note that this value is only meant to be used when the channel's privacy\n     * status cannot be obtained from the loadGroup or load context (for\n     * example, when the channel is not associated with any loadGroup or load\n     * context.)  Setting this value directly should be avoided if possible.\n     *\n     * Implementations must enforce the ordering semantics of this function by\n     * raising errors if setPrivate is called on a channel which has a loadGroup\n     * and/or callbacks that implement nsILoadContext, or if the loadGroup\n     * or notificationCallbacks are set after setPrivate has been called.\n     *\n     * @param aPrivate whether the channel should be opened in private mode.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setPrivate",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aPrivate"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * States whether the channel is in private browsing mode. This may either\n     * happen because the channel is opened from a private mode context or\n     * when the mode is explicitly set with ::setPrivate().\n     *\n     * This attribute is equivalent to NS_UsePrivateBrowsing(), but scriptable.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isChannelPrivate"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n     * This function is used to determine whether the channel's private mode\n     * has been overridden by a call to setPrivate.  It is intended to be used\n     * by NS_UsePrivateBrowsing(), and you should not call it directly.\n     *\n     * @param aValue the overridden value.  This will only be set if the function\n     *               returns true.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "isPrivateModeOverriden",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "boolean",
+                      "name": "aValue"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

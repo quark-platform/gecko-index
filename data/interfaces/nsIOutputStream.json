@@ -1,0 +1,297 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIOutputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n/**\n * The signature for the reader function passed to WriteSegments. This\n * is the \"provider\" of data that gets written into the stream's buffer.\n *\n * @param aOutStream stream being written to\n * @param aClosure opaque parameter passed to WriteSegments\n * @param aToSegment pointer to memory owned by the output stream\n * @param aFromOffset amount already written (since WriteSegments was called)\n * @param aCount length of toSegment\n * @param aReadCount number of bytes written\n *\n * Implementers should return the following:\n *\n * @throws <any-error> if not interested in providing any data\n *\n * Errors are never passed to the caller of WriteSegments.\n */\ntypedef nsresult (*nsReadSegmentFun)(nsIOutputStream *aOutStream,\n                                     void *aClosure,\n                                     char *aToSegment,\n                                     uint32_t aFromOffset,\n                                     uint32_t aCount,\n                                     uint32_t *aReadCount);\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIOutputStream\n *\n * An interface describing a writable stream of data.  An output stream may be\n * \"blocking\" or \"non-blocking\" (see the IsNonBlocking method).  A blocking\n * output stream may suspend the calling thread in order to satisfy a call to\n * Close, Flush, Write, WriteFrom, or WriteSegments.  A non-blocking output\n * stream, on the other hand, must not block the calling thread of execution.\n *\n * NOTE: blocking output streams are often written to on a background thread to\n * avoid locking up the main application thread.  For this reason, it is\n * generally the case that a blocking output stream should be implemented using\n * thread- safe AddRef and Release.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "0d0acd2a-61b4-11d4-9877-00c04fa0cf4a"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIOutputStream",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Close the stream. Forces the output stream to flush any buffered data.\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if unable to flush without blocking\n     *   the calling thread (non-blocking mode only)\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "close",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Flush the stream.\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if unable to flush without blocking\n     *   the calling thread (non-blocking mode only)\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "flush",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Write data into the stream.\n     *\n     * @param aBuf the buffer containing the data to be written\n     * @param aCount the maximum number of bytes to be written\n     *\n     * @return number of bytes written (may be less than aCount)\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if writing to the output stream would\n     *   block the calling thread (non-blocking mode only)\n     * @throws <other-error> on failure\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "write",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aBuf"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aCount"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Writes data into the stream from an input stream.\n     *\n     * @param aFromStream the stream containing the data to be written\n     * @param aCount the maximum number of bytes to be written\n     *\n     * @return number of bytes written (may be less than aCount)\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if writing to the output stream would\n     *    block the calling thread (non-blocking mode only). This failure\n     *    means no bytes were transferred.\n     * @throws <other-error> on failure\n     *\n     * NOTE: This method is defined by this interface in order to allow the\n     * output stream to efficiently copy the data from the input stream into\n     * its internal buffer (if any). If this method was provided as an external\n     * facility, a separate char* buffer would need to be used in order to call\n     * the output stream's other Write method.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "writeFrom",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIInputStream",
+                      "name": "aFromStream"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aCount"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Low-level write method that has access to the stream's underlying buffer.\n     * The reader function may be called multiple times for segmented buffers.\n     * WriteSegments is expected to keep calling the reader until either there\n     * is nothing left to write or the reader returns an error.  WriteSegments\n     * should not call the reader with zero bytes to provide.\n     *\n     * @param aReader the \"provider\" of the data to be written\n     * @param aClosure opaque parameter passed to reader\n     * @param aCount the maximum number of bytes to be written\n     *\n     * @return number of bytes written (may be less than aCount)\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if writing to the output stream would\n     *    block the calling thread (non-blocking mode only). This failure\n     *    means no bytes were transferred.\n     * @throws NS_ERROR_NOT_IMPLEMENTED if the stream has no underlying buffer\n     * @throws <other-error> on failure\n     *\n     * NOTE: this function may be unimplemented if a stream has no underlying\n     * buffer (e.g., socket output stream).\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "unsigned long",
+                  "name": "writeSegments",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsReadSegmentFun",
+                      "name": "aReader"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "voidPtr",
+                          "name": "aClosure"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aCount"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * @return true if stream is non-blocking\n     *\n     * NOTE: writing to a blocking output stream will block the calling thread\n     * until all given data can be consumed by the stream.\n     *\n     * NOTE: a non-blocking output stream may implement nsIAsyncOutputStream to\n     * provide consumers with a way to wait for the stream to accept more data\n     * once its write method is unable to accept any data without blocking.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isNonBlocking",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

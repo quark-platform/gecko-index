@@ -1,0 +1,662 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISerializable"
+    },
+    "%{C++\nnamespace mozilla::dom {\nenum class ReferrerPolicy : uint8_t;\n}\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "081cdc36-f2e2-4f94-87bf-78578f06f1eb"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIReferrerInfo",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISerializable"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Unfortunately we can not query the ReferrerPolicy values defined within\n   * ReferrerPolicy.webidl directly from xpidl. Hence we define the enum value\n   * ReferrerPolicyIDL to set up the ReferrerInfo object from JS. If you need\n   * ReferrerPolicy in native code, please directly query it from\n   * ReferrerPolicy.webidl.\n   *\n   * Note that the deserialization code assumes that the ReferrerPolicyIDL only\n   * uses one byte. If we would need to change the format here, we should also\n   * update the deserialization code.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "ReferrerPolicyIDL",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "EMPTY",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "0"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n   * Do not send referrer from https->http\n   */"
+                            }
+                          ],
+                          "identifier": "NO_REFERRER_WHEN_DOWNGRADE",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "1"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n   * Do not send referrer at all.\n   */"
+                            }
+                          ],
+                          "identifier": "NO_REFERRER",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n   * Only send the origin of the referring URL\n   */"
+                            }
+                          ],
+                          "identifier": "ORIGIN",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "3"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n   * Send origin when cross-origin.\n   */"
+                            }
+                          ],
+                          "identifier": "ORIGIN_WHEN_CROSS_ORIGIN",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "4"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n   * Always sends the referrer, even on downgrade.\n   */"
+                            }
+                          ],
+                          "identifier": "UNSAFE_URL",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "5"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n   * Send referrer when same-origin, no referrer when cross-origin\n   */"
+                            }
+                          ],
+                          "identifier": "SAME_ORIGIN",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "6"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n   * Send origin when request from https->https or http->http(s). No referrer\n   * when request from https->http.\n   */"
+                            }
+                          ],
+                          "identifier": "STRICT_ORIGIN",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "7"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [
+                            {
+                              "kind": "DOC_COMMENT",
+                              "contents": "/**\n   * Send referrer when same-origin, send origin when cross-origin from\n   * https->https or http->http(s). No referrer when request from https->http.\n   */"
+                            }
+                          ],
+                          "identifier": "STRICT_ORIGIN_WHEN_CROSS_ORIGIN",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "8"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The original referrer URI which indicates the full referrer before applying\n   * referrer policy\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "originalReferrer"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Referrer policy which is applied to the referrer\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIReferrerInfo_ReferrerPolicyIDL",
+                  "name": "referrerPolicy"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * C++ friendly version of referrerPolicy getter\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "ReferrerPolicy"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "ReferrerPolicy",
+                  "name": "binaryReferrerPolicy",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get referrer policy as string\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "getReferrerPolicyString",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates if the referrer should not be sent or not even when it's available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "sendReferrer"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * Indicates if the referrer should not be sent or not even when it's available.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "computedReferrerSpec"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the computed referrer, if one has been set. The computed referrer is\n   * the original referrer manipulated by the referrer-policy. Use the result of\n   * this function as the actual referrer value for the channel.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "noscript",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "URIRef",
+                  "name": "GetComputedReferrer",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns whether the other referrerInfo is equivalent to this referrerInfo.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "equals",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIReferrerInfo",
+                      "name": "other"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize method to create ReferrerInfo object from JS\n   * @param aReferrerPolicy referrer policy of the created object\n   * @param aSendReferrer sendReferrer of the created object, defaults to false\n   * @param aOriginalReferrer the original referrer, defaults to null.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIReferrerInfo_ReferrerPolicyIDL",
+                      "name": "aReferrerPolicy"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aSendReferrer"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aOriginalReferrer"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize with a given document.\n   * @param aDocument the document to init referrerInfo object\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "initWithDocument",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "Document",
+                      "name": "aDocument"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize with a given node. It you are working with node which supports\n   * referrerpolicy attribute: <a>, <img>, <area>, <script>, <iframe>, please\n   * try to use this init instead of initWithDocument, because referrer policy\n   * from rel and attribute has a higher priority.\n   * @param aNode the element to init referrerInfo object\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "initWithElement",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "Element",
+                      "name": "aNode"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

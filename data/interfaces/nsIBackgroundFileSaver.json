@@ -1,0 +1,410 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim: set ts=2 et sw=2 tw=80: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIArray",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIBackgroundFileSaverObserver",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Allows saving data to a file, while handling all the input/output on a\n * background thread, including the initial file name assignment and any\n * subsequent renaming of the target file.\n *\n * This interface is designed for file downloads.  Generally, they start in the\n * temporary directory, while the user is selecting the final name.  Then, they\n * are moved to the chosen target directory with a \".part\" extension appended to\n * the file name.  Finally, they are renamed when the download is completed.\n *\n * Components implementing both nsIBackgroundFileSaver and nsIStreamListener\n * allow data to be fed using an implementation of OnDataAvailable that never\n * blocks the calling thread.  They suspend the request that drives the stream\n * listener in case too much data is being fed, and resume it when the data has\n * been written.  Calling OnStopRequest does not necessarily close the target\n * file, and the Finish method must be called to complete the operation.\n *\n * Components implementing both nsIBackgroundFileSaver and nsIAsyncOutputStream\n * allow data to be fed directly to the non-blocking output stream, that however\n * may return NS_BASE_STREAM_WOULD_BLOCK in case too much data is being fed.\n * Closing the output stream does not necessarily close the target file, and the\n * Finish method must be called to complete the operation.\n *\n * @remarks Implementations may require the consumer to always call Finish.  If\n *          the object reference is released without calling Finish, a memory\n *          leak may occur, and the target file might be kept locked. All\n *          public methods of the interface may only be called from the main\n *          thread.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "c43544a4-682c-4262-b407-2453d26e660d"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIBackgroundFileSaver",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This observer receives notifications when the target file name changes and\n   * when the operation completes, successfully or not.\n   *\n   * @remarks A strong reference to the observer is held.  Notification events\n   *          are dispatched to the thread that created the object that\n   *          implements nsIBackgroundFileSaver.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIBackgroundFileSaverObserver",
+                  "name": "observer"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * An Array of Array of Array of bytes, representing a chain of\n   * X.509 certificates, the last of which signed the downloaded file.\n   * Each list may belong to a different signer and contain certificates\n   * all the way up to the root.\n   *\n   * @throws NS_ERROR_NOT_AVAILABLE\n   *         In case this is called before the onSaveComplete method has been\n   *         called to notify success, or enableSignatureInfo has not been\n   *         called.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "signatureInfo"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The SHA-256 hash, in raw bytes, associated with the data that was saved.\n   *\n   * In case the enableAppend method has been called, the hash computation\n   * includes the contents of the existing file, if any.\n   *\n   * @throws NS_ERROR_NOT_AVAILABLE\n   *         In case the enableSha256 method has not been called, or before the\n   *         onSaveComplete method has been called to notify success.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "sha256Hash"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Instructs the component to compute the signatureInfo of the target file,\n   * and make it available in the signatureInfo property.\n   *\n   * @remarks This must be set on the main thread before the first call to\n   *          setTarget.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "enableSignatureInfo",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Instructs the component to compute the SHA-256 hash of the target file, and\n   * make it available in the sha256Hash property.\n   *\n   * @remarks This must be set on the main thread before the first call to\n   *          setTarget.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "enableSha256",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Instructs the component to append data to the initial target file, that\n   * will be specified by the first call to the setTarget method, instead of\n   * overwriting the file.\n   *\n   * If the initial target file does not exist, this method has no effect.\n   *\n   * @remarks This must be set on the main thread before the first call to\n   *          setTarget.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "enableAppend",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets the name of the output file to be written.  The target can be changed\n   * after data has already been fed, in which case the existing file will be\n   * moved to the new destination.\n   *\n   * In case the specified file already exists, and this method is called for\n   * the first time, the file may be either overwritten or appended to, based on\n   * whether the enableAppend method was called.  Subsequent calls always\n   * overwrite the specified target file with the previously saved data.\n   *\n   * No file will be written until this function is called at least once.  It's\n   * recommended not to feed any data until the output file is set.\n   *\n   * If an input/output error occurs with the specified file, the save operation\n   * fails.  Failure is notified asynchronously through the observer.\n   *\n   * @param aTarget\n   *        New output file to be written.\n   * @param aKeepPartial\n   *        Indicates whether aFile should be kept as partially completed,\n   *        rather than deleted, if the operation fails or is canceled.  This is\n   *        generally set for downloads that use temporary \".part\" files.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setTarget",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIFile",
+                      "name": "aTarget"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "bool",
+                          "name": "aKeepPartial"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Terminates access to the output file, then notifies the observer with the\n   * specified status code.  A failure code will force the operation to be\n   * canceled, in which case the output file will be deleted if requested.\n   *\n   * This forces the involved streams to be closed, thus no more data should be\n   * fed to the component after this method has been called.\n   *\n   * This is the last method that should be called on this object, and the\n   * target file name cannot be changed anymore after this method has been\n   * called.  Conversely, before calling this method, the file can still be\n   * renamed even if all the data has been fed.\n   *\n   * @param aStatus\n   *        Result code that determines whether the operation should succeed or\n   *        be canceled, and is notified to the observer.  If the operation\n   *        fails meanwhile for other reasons, or the observer has been already\n   *        notified of completion, this status code is ignored.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "finish",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "aStatus"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "ee7058c3-6e54-4411-b76b-3ce87b76fcb6"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIBackgroundFileSaverObserver",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called when the name of the output file has been determined.  This function\n   * may be called more than once if the target file is renamed while saving.\n   *\n   * @param aSaver\n   *        Reference to the object that raised the notification.\n   * @param aTarget\n   *        Name of the file that is being written.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onTargetChange",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIBackgroundFileSaver",
+                      "name": "aSaver"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFile",
+                          "name": "aTarget"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called when the operation completed, and the target file has been closed.\n   * If the operation succeeded, the target file is ready to be used, otherwise\n   * it might have been already deleted.\n   *\n   * @param aSaver\n   *        Reference to the object that raised the notification.\n   * @param aStatus\n   *        Result code that determines whether the operation succeeded or\n   *        failed, as well as the failure reason.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onSaveComplete",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIBackgroundFileSaver",
+                      "name": "aSaver"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsresult",
+                          "name": "aStatus"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

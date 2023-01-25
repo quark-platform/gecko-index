@@ -1,0 +1,247 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIWindowProvider is a callback interface used by Gecko when it needs to\n * open a new window.  This interface can be implemented by Gecko consumers who\n * wish to provide a custom \"new window\" of their own (for example by returning\n * a new tab, an existing window, etc) instead of just having a real new\n * toplevel window open.\n */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    "%{ C++\nclass nsDocShellLoadState;\n%}\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIDOMWindowProxy",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIOpenWindowInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The nsIWindowProvider interface exists so that the window watcher's default\n * behavior of opening a new window can be easly modified.  When the window\n * watcher needs to open a new window, it will first check with the\n * nsIWindowProvider it gets from the parent window.  If there is no provider\n * or the provider does not provide a window, the window watcher will proceed\n * to actually open a new window.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "e97a3830-15ef-499b-8372-c22d128091c1"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIWindowProvider",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A method to request that this provider provide a window.  The window\n   * returned need not to have the right name or parent set on it; setting\n   * those is the caller's responsibility.  The provider can always return null\n   * to have the caller create a brand-new window.\n   *\n   * @param aOpenWindowInfo  Must not be null.  This is the information the\n   *                         caller wants to be used to construct the new window.\n   *\n   * @param aChromeFlags The chrome flags the caller will use to create a new\n   *        window if this provider returns null.  See nsIWebBrowserChrome for\n   *        the possible values of this field.\n   *\n   * @param aURI The URI to be loaded in the new window (may be NULL).  The\n   *        nsIWindowProvider implementation must not load this URI into the\n   *        window it returns.  This URI is provided solely to help the\n   *        nsIWindowProvider implementation make decisions; the caller will\n   *        handle loading the URI in the window returned if provideWindow\n   *        returns a window.\n   *\n   *        When making decisions based on aURI, note that even when it's not\n   *        null, aURI may not represent all relevant information about the\n   *        load.  For example, the load may have extra load flags, POST data,\n   *        etc.\n   *\n   * @param aName The name of the window being opened.  Setting the name on the\n   *        return value of provideWindow will be handled by the caller; aName\n   *        is provided solely to help the nsIWindowProvider implementation\n   *        make decisions.\n   *\n   * @param aFeatures The feature string for the window being opened.  This may\n   *        be empty.  The nsIWindowProvider implementation is allowed to apply\n   *        the feature string to the window it returns in any way it sees fit.\n   *        See the nsIWindowWatcher interface for details on feature strings.\n   *\n   * @param aIsPopupRequested  True if this window is opened by window.open\n   *        with requesting a popup window.  This doesn't necessarily mean\n   *        whether the actual window is shown as minimal popup or not.\n   *\n   * @param aLoadState Specify setup information of the load in the new window\n   *\n   * @param aWindowIsNew [out] Whether the window being returned was just\n   *        created by the window provider implementation.  This can be used by\n   *        callers to keep track of which windows were opened by the user as\n   *        opposed to being opened programmatically.  This should be set to\n   *        false if the window being returned existed before the\n   *        provideWindow() call.  The value of this out parameter is\n   *        meaningless if provideWindow() returns null.\n   *\n   * @return A window the caller should use or null if the caller should just\n   *         create a new window.  The returned window may be newly opened by\n   *         the nsIWindowProvider implementation or may be a window that\n   *         already existed.\n   *\n   * @throw NS_ERROR_ABORT if the caller should cease its attempt to open a new\n   *                       window.\n   *\n   * @see nsIWindowWatcher for more information on aFeatures.\n   * @see nsIWebBrowserChrome for more information on aChromeFlags.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "BrowsingContext",
+                  "name": "provideWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIOpenWindowInfo",
+                      "name": "aOpenWindowInfo"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aChromeFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aCalledFromJS"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aURI"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AUTF8String",
+                          "name": "aFeatures"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aForceNoOpener"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aForceNoReferrer"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsPopupRequested"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsDocShellLoadStatePtr",
+                          "name": "aLoadState"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "aWindowIsNew"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

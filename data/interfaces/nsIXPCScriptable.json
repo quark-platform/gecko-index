@@ -1,0 +1,590 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 4 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIClassInfo"
+    },
+    "%{C++\n#ifdef XP_WIN\n#undef GetClassName\n#endif\n\n#include \"js/TypeDecls.h\"\n\nnamespace JS {\nclass CallArgs;\n}\n\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIXPConnectWrappedNative",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n      ",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    "%{ C++\n    // nsIXPCScriptable flags (only 32 bits available!). They are defined via\n    // #defines so they can be used in #ifndef guards in xpc_map_end.h.\n\n    #define XPC_SCRIPTABLE_WANT_PRECREATE                   (1 <<  0)\n    // (1 << 1) is unused\n    // (1 << 2) is unused\n    // (1 << 3) is unused\n    #define XPC_SCRIPTABLE_WANT_NEWENUMERATE                (1 <<  4)\n    #define XPC_SCRIPTABLE_WANT_RESOLVE                     (1 <<  5)\n    #define XPC_SCRIPTABLE_WANT_FINALIZE                    (1 <<  6)\n    #define XPC_SCRIPTABLE_WANT_CALL                        (1 <<  7)\n    #define XPC_SCRIPTABLE_WANT_CONSTRUCT                   (1 <<  8)\n    #define XPC_SCRIPTABLE_WANT_HASINSTANCE                 (1 <<  9)\n    #define XPC_SCRIPTABLE_USE_JSSTUB_FOR_ADDPROPERTY       (1 << 10)\n    #define XPC_SCRIPTABLE_USE_JSSTUB_FOR_DELPROPERTY       (1 << 11)\n    // (1 << 12) is unused\n    #define XPC_SCRIPTABLE_DONT_ENUM_QUERY_INTERFACE        (1 << 13)\n    // (1 << 14) is unused\n    // (1 << 15) is unused\n    #define XPC_SCRIPTABLE_ALLOW_PROP_MODS_DURING_RESOLVE   (1 << 16)\n    // (1 << 17) is unused\n    #define XPC_SCRIPTABLE_IS_GLOBAL_OBJECT                 (1 << 18)\n    #define XPC_SCRIPTABLE_DONT_REFLECT_INTERFACE_NAMES     (1 << 19)\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Note: This is not really an XPCOM interface.  For example, callers must\n * guarantee that they set the *_retval of the various methods that return a\n * boolean to PR_TRUE before making the call.  Implementations may skip writing\n * to *_retval unless they want to return PR_FALSE.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "uuid",
+          "param": {
+            "kind": "attribute_$0",
+            "value": "19b70b26-7c3f-437f-a04a-2a8f9e28b617"
+          }
+        },
+        "other_attributes": []
+      },
+      "name": "nsIXPCScriptable",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "className"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "uint32_t",
+                  "name": "getScriptableFlags",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "JSClassPtr",
+                  "name": "getJSClass",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "preCreate",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsISupports",
+                      "name": "nativeObj"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSContextPtr",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSObjectPtr",
+                          "name": "globalObj"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "JSObjectPtr",
+                          "name": "parentObj"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "newEnumerate",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIXPConnectWrappedNative",
+                      "name": "wrapper"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSContextPtr",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSObjectPtr",
+                          "name": "obj"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSMutableHandleIdVector",
+                          "name": "properties"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "enumerableOnly"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "resolve",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIXPConnectWrappedNative",
+                      "name": "wrapper"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSContextPtr",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSObjectPtr",
+                          "name": "obj"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsid",
+                          "name": "id"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "resolvedp"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "finalize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIXPConnectWrappedNative",
+                      "name": "wrapper"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSGCContextPtr",
+                          "name": "gcx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSObjectPtr",
+                          "name": "obj"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "call",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIXPConnectWrappedNative",
+                      "name": "wrapper"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSContextPtr",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSObjectPtr",
+                          "name": "obj"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSCallArgsRef",
+                          "name": "args"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "construct",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIXPConnectWrappedNative",
+                      "name": "wrapper"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSContextPtr",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSObjectPtr",
+                          "name": "obj"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSCallArgsRef",
+                          "name": "args"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "hasInstance",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIXPConnectWrappedNative",
+                      "name": "wrapper"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSContextPtr",
+                          "name": "cx"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "JSObjectPtr",
+                          "name": "obj"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "val"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "boolean",
+                          "name": "bp"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{ C++\n    #define GET_IT(f_, c_) \\\n    bool f_() { \\\n        return 0 != (GetScriptableFlags() & XPC_SCRIPTABLE_##c_); \\\n    }\n\n    GET_IT(WantPreCreate,                WANT_PRECREATE)\n    GET_IT(WantNewEnumerate,             WANT_NEWENUMERATE)\n    GET_IT(WantResolve,                  WANT_RESOLVE)\n    GET_IT(WantFinalize,                 WANT_FINALIZE)\n    GET_IT(WantCall,                     WANT_CALL)\n    GET_IT(WantConstruct,                WANT_CONSTRUCT)\n    GET_IT(WantHasInstance,              WANT_HASINSTANCE)\n    GET_IT(UseJSStubForAddProperty,      USE_JSSTUB_FOR_ADDPROPERTY)\n    GET_IT(UseJSStubForDelProperty,      USE_JSSTUB_FOR_DELPROPERTY)\n    GET_IT(DontEnumQueryInterface,       DONT_ENUM_QUERY_INTERFACE)\n    GET_IT(AllowPropModsDuringResolve,   ALLOW_PROP_MODS_DURING_RESOLVE)\n    GET_IT(IsGlobalObject,               IS_GLOBAL_OBJECT)\n    GET_IT(DontReflectInterfaceNames,    DONT_REFLECT_INTERFACE_NAMES)\n\n    #undef GET_IT\n%}\n"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

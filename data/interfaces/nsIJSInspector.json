@@ -1,0 +1,146 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Utilities for running nested event loops, asking them to return, and\n * keeping track of which ones are still running.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "6758d0d7-e96a-4c5c-bca8-3bcbe5a15943"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIJSInspector",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Process the current thread's event queue, calling event handlers until\n   * a call to exitNestedEventLoop, below, asks us to return.\n   *\n   * The name 'enterNestedEventLoop' may be misleading if read too literally.\n   * This method loops calling event handlers until one asks it to stop, and\n   * then returns. So by that point, the nested event loop has been not only\n   * entered, but also run and exited.\n   *\n   * When enterNestedEventLoop calls an event handler, that handler may itself\n   * call enterNestedEventLoop, and so on, so that there may be arbitrarily\n   * many such calls on the stack at the same time.\n   *\n   * We say an enterNestedEventLoop call is \"running\" if it has not yet been\n   * asked to return, or \"stopped\" if it has been asked to return once it has\n   * finished processing the current event.\n   *\n   * @param requestor   A token of the caller's choice to identify this event\n   *                    loop.\n   *\n   * @return depth      The number of running enterNestedEventLoop calls\n   *                    remaining, now that this one has returned.\n   *\n   *                    (Note that not all calls still on the stack are\n   *                    necessary running; exitNestedEventLoop can ask any\n   *                    number of enterNestedEventLoop calls to return.)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "enterNestedEventLoop",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "jsval",
+                      "name": "requestor"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Stop the youngest running enterNestedEventLoop call, asking it to return\n   * once it has finished processing the current event.\n   *\n   * The name 'exitNestedEventLoop' may be misleading if read too literally.\n   * The affected event loop does not return immediately when this method is\n   * called. Rather, this method simply returns to its caller; the affected\n   * loop's current event handler is allowed to run to completion; and then\n   * that loop returns without processing any more events.\n   *\n   * This method ignores loops that have already been stopped, and operates on\n   * the youngest loop that is still running. Each call to this method stops\n   * another running loop.\n   *\n   * @return depth      The number of running enterNestedEventLoop calls\n   *                    remaining, now that one has been stopped.\n   *\n   * @throws NS_ERROR_FAILURE if there are no running enterNestedEventLoop calls.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "exitNestedEventLoop",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * The number of running enterNestedEventLoop calls on the stack.\n    * This count does not include stopped enterNestedEventLoop calls.\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "eventLoopNestLevel"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The |requestor| value that was passed to the youngest running\n   * enterNestedEventLoop call.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "jsval",
+                  "name": "lastNestRequestor"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

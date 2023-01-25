@@ -1,0 +1,292 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * A object that hold authentication information. The caller of\n * nsIAuthPrompt2::promptUsernameAndPassword or\n * nsIAuthPrompt2::promptPasswordAsync provides an object implementing this\n * interface; the prompt implementation can then read the values here to prefill\n * the dialog. After the user entered the authentication information, it should\n * set the attributes of this object to indicate to the caller what was entered\n * by the user.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "0d73639c-2a92-4518-9f92-28f71fea5f20"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIAuthInformation",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** @name Flags */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* @{ */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This dialog belongs to a network host.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "AUTH_HOST",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This dialog belongs to a proxy.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "AUTH_PROXY",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This dialog needs domain information. The user interface should show a\n   * domain field, prefilled with the domain attribute's value.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "NEED_DOMAIN",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This dialog only asks for password information. Authentication prompts\n   * SHOULD NOT show a username field. Attempts to change the username field\n   * will have no effect. nsIAuthPrompt2 implementations should, however, show\n   * its initial value to the user in some form. For example, a paragraph in\n   * the dialog might say \"Please enter your password for user jsmith at\n   * server intranet\".\n   *\n   * This flag is mutually exclusive with #NEED_DOMAIN.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "ONLY_PASSWORD",
+                  "value": "8"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * We have already tried to log in for this channel\n   * (with auth values from a previous promptAuth call),\n   * but it failed, so we now ask the user to provide a new, correct login.\n   *\n   * @see also RFC 2616, Section 10.4.2\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "PREVIOUS_FAILED",
+                  "value": "16"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A cross-origin sub-resource requests an authentication.\n   * The message presented to users must reflect that.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "uint32_t",
+                  "name": "CROSS_ORIGIN_SUB_RESOURCE",
+                  "value": "32"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* @} */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Flags describing this dialog. A bitwise OR of the flag values\n   * above.\n   *\n   * It is possible that neither #AUTH_HOST nor #AUTH_PROXY are set.\n   *\n   * Auth prompts should ignore flags they don't understand; especially, they\n   * should not throw an exception because of an unsupported flag.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "flags"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The server-supplied realm of the authentication as defined in RFC 2617.\n   * Can be the empty string if the protocol does not support realms.\n   * Otherwise, this is a human-readable string like \"Secret files\".\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AString",
+                  "name": "realm"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The authentication scheme used for this request, if applicable. If the\n   * protocol for this authentication does not support schemes, this will be\n   * the empty string. Otherwise, this will be a string such as \"basic\" or\n   * \"digest\". This string will always be in lowercase.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "AUTF8String",
+                  "name": "authenticationScheme"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The initial value should be used to prefill the dialog or be shown\n   * in some other way to the user.\n   * On return, this parameter should contain the username entered by\n   * the user.\n   * This field can only be changed if the #ONLY_PASSWORD flag is not set.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "AString",
+                  "name": "username"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The initial value should be used to prefill the dialog or be shown\n   * in some other way to the user.\n   * The password should not be shown in clear.\n   * On return, this parameter should contain the password entered by\n   * the user.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "AString",
+                  "name": "password"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The initial value should be used to prefill the dialog or be shown\n   * in some other way to the user.\n   * On return, this parameter should contain the domain entered by\n   * the user.\n   * This attribute is only used if flags include #NEED_DOMAIN.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "AString",
+                  "name": "domain"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n"
+  ]
+}

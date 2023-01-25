@@ -1,0 +1,385 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURIContentListener",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoadGroup",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIProgressEventSink",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChannel",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRequest",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIStreamListener",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInterfaceRequestor",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The uri dispatcher is responsible for taking uri's, determining\n * the content and routing the opened url to the correct content\n * handler.\n *\n * When you encounter a url you want to open, you typically call\n * openURI, passing it the content listener for the window the uri is\n * originating from. The uri dispatcher opens the url to discover the\n * content type. It then gives the content listener first crack at\n * handling the content. If it doesn't want it, the dispatcher tries\n * to hand it off one of the registered content listeners. This allows\n * running applications the chance to jump in and handle the content.\n *\n * If that also fails, then the uri dispatcher goes to the registry\n * looking for the preferred content handler for the content type\n * of the uri. The content handler may create an app instance\n * or it may hand the contents off to a platform specific plugin\n * or helper app. Or it may hand the url off to an OS registered\n * application.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "8762c4e7-be35-4958-9b81-a05685bb516d"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIURILoader",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * @name Flags for opening URIs.\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* @{ */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Should the content be displayed in a container that prefers the\n   * content-type, or will any container do.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "IS_CONTENT_PREFERRED",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If this flag is set, only the listener of the specified window context will\n   * be considered for content handling; if it refuses the load, an error will\n   * be indicated.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DONT_RETARGET",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* @} */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * As applications such as messenger and the browser are instantiated,\n   * they register content listener's with the uri dispatcher corresponding\n   * to content windows within that application.\n   *\n   * Note to self: we may want to optimize things a bit more by requiring\n   * the content types the registered content listener cares about.\n   *\n   * @param aContentListener\n   *        The listener to register. This listener must implement\n   *        nsISupportsWeakReference.\n   *\n   * @see the nsIURILoader class description\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerContentListener",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURIContentListener",
+                      "name": "aContentListener"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unRegisterContentListener",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURIContentListener",
+                      "name": "aContentListener"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * OpenURI requires the following parameters.....\n   * @param aChannel\n   *        The channel that should be opened. This must not be asyncOpen'd yet!\n   *        If a loadgroup is set on the channel, it will get replaced with a\n   *        different one.\n   * @param aFlags\n   *        Combination (bitwise OR) of the flags specified above. 0 indicates\n   *        default handling.\n   * @param aWindowContext\n   *        If you are running the url from a doc shell or a web shell, this is\n   *        your window context. If you have a content listener you want to\n   *        give first crack to, the uri loader needs to be able to get it\n   *        from the window context. We will also be using the window context\n   *        to get at the progress event sink interface.\n   *        <b>Must not be null!</b>\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "openURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIInterfaceRequestor",
+                          "name": "aWindowContext"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Loads data from a channel. This differs from openURI in that the channel\n   * may already be opened, and that it returns a stream listener into which the\n   * caller should pump data. The caller is responsible for opening the channel\n   * and pumping the channel's data into the returned stream listener.\n   *\n   * Note: If the channel already has a loadgroup, it will be replaced with the\n   * window context's load group, or null if the context doesn't have one.\n   *\n   * If the window context's nsIURIContentListener refuses the load immediately\n   * (e.g. in nsIURIContentListener::onStartURIOpen), this method will return\n   * NS_ERROR_WONT_HANDLE_CONTENT. At that point, the caller should probably\n   * cancel the channel if it's already open (this method will not cancel the\n   * channel).\n   *\n   * If flags include DONT_RETARGET, and the content listener refuses the load\n   * during onStartRequest (e.g. in canHandleContent/isPreferred), then the\n   * returned stream listener's onStartRequest method will return\n   * NS_ERROR_WONT_HANDLE_CONTENT.\n   *\n   * @param aChannel\n   *        The channel that should be loaded. The channel may already be\n   *        opened. It must not be closed (i.e. this must be called before the\n   *        channel calls onStopRequest on its stream listener).\n   * @param aFlags\n   *        Combination (bitwise OR) of the flags specified above. 0 indicates\n   *        default handling.\n   * @param aWindowContext\n   *        If you are running the url from a doc shell or a web shell, this is\n   *        your window context. If you have a content listener you want to\n   *        give first crack to, the uri loader needs to be able to get it\n   *        from the window context. We will also be using the window context\n   *        to get at the progress event sink interface.\n   *        <b>Must not be null!</b>\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIStreamListener",
+                  "name": "openChannel",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIChannel",
+                      "name": "aChannel"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIInterfaceRequestor",
+                          "name": "aWindowContext"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Stops an in progress load\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "stop",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsISupports",
+                      "name": "aLoadCookie"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n"
+  ]
+}

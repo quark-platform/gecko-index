@@ -1,0 +1,831 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsINamed"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIObserver",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEventTarget",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n#include \"mozilla/MemoryReporting.h\"\n#include \"mozilla/TimeStamp.h\"\n#include <functional>\n\n/**\n * The signature of the timer callback function passed to initWithFuncCallback.\n * This is the function that will get called when the timer expires if the\n * timer is initialized via initWithFuncCallback.\n *\n * @param aTimer the timer which has expired\n * @param aClosure opaque parameter passed to initWithFuncCallback\n */\nclass nsITimer;\ntypedef void (*nsTimerCallbackFunc) (nsITimer *aTimer, void *aClosure);\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The callback interface for timers.\n */"
+      },
+      "attrs": null,
+      "name": "nsITimer",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "function",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a796816d-7d47-4348-9ab8-c7aeb3216a7d"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITimerCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * @param aTimer the timer which has expired\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "notify",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITimer",
+                      "name": "timer"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n// Two timer deadlines must differ by less than half the PRIntervalTime domain.\n#define DELAY_INTERVAL_LIMIT    PR_BIT(8 * sizeof(PRIntervalTime) - 1)\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsITimer instances must be initialized by calling one of the \"init\" methods\n * documented below.  You may also re-initialize (using one of the init()\n * methods) an existing instance to avoid the overhead of destroying and\n * creating a timer.  It is not necessary to cancel the timer in that case.\n *\n * By default a timer will fire on the thread that created it.  Set the .target\n * attribute to fire on a different thread.  Once you have set a timer's .target\n * and called one of its init functions, any further interactions with the timer\n * (calling cancel(), changing member fields, etc) should only be done by the\n * target thread, or races may occur with bad results like timers firing after\n * they've been canceled, and/or not firing after re-initiatization.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "3de4b105-363c-482c-a409-baac83a01bfc"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITimer",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* Timer types */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Type of a timer that fires once only.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "TYPE_ONE_SHOT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * After firing, a TYPE_REPEATING_SLACK timer is stopped and not restarted\n   * until its callback completes.  Specified timer period will be at least\n   * the time between when processing for last firing the callback completes\n   * and when the next firing occurs.\n   *\n   * This is the preferable repeating type for most situations.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "TYPE_REPEATING_SLACK",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * TYPE_REPEATING_PRECISE is just a synonym for\n   * TYPE_REPEATING_PRECISE_CAN_SKIP. They used to be distinct, but the old\n   * TYPE_REPEATING_PRECISE kind was similar to TYPE_REPEATING_PRECISE_CAN_SKIP\n   * while also being less useful. So the distinction was removed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "TYPE_REPEATING_PRECISE",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A TYPE_REPEATING_PRECISE_CAN_SKIP repeating timer aims to have constant\n   * period between firings.  The processing time for each timer callback will\n   * not influence the timer period.  If the callback finishes after the next\n   * firing(s) should have happened (either because the callback took a long\n   * time, or the callback was called extremely late), that firing(s) is\n   * skipped, but the following sequence of firing times will not be altered.\n   * This timer type guarantees that it will not queue up new events to fire\n   * the callback until the previous callback event finishes firing.  This is\n   * the only non-slack timer available.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "TYPE_REPEATING_PRECISE_CAN_SKIP",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Same as TYPE_REPEATING_SLACK with the exception that idle events\n   * won't yield to timers with this type.  Use this when you want an\n   * idle callback to be scheduled to run even though this timer is\n   * about to fire.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "TYPE_REPEATING_SLACK_LOW_PRIORITY",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Same as TYPE_ONE_SHOT with the exception that idle events won't\n   * yield to timers with this type.  Use this when you want an idle\n   * callback to be scheduled to run even though this timer is about\n   * to fire.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "TYPE_ONE_SHOT_LOW_PRIORITY",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize a timer that will fire after the said delay.\n   * A user must keep a reference to this timer till it is\n   * is no longer needed or has been cancelled.\n   *\n   * @param aObserver   the callback object that observes the\n   *                    ``timer-callback'' topic with the subject being\n   *                    the timer itself when the timer fires:\n   *\n   *                    observe(nsISupports aSubject, => nsITimer\n   *                            string aTopic,        => ``timer-callback''\n   *                            wstring data          =>  null\n   *\n   * @param aDelayInMs  delay in milliseconds for timer to fire\n   * @param aType       timer type per TYPE* consts defined above\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIObserver",
+                      "name": "aObserver"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aDelayInMs"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize a timer to fire after the given millisecond interval.\n   * This version takes a callback object.\n   *\n   * @param aFunc       nsITimerCallback interface to call when timer expires\n   * @param aDelayInMs  The millisecond interval\n   * @param aType       Timer type per TYPE* consts defined above\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "initWithCallback",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITimerCallback",
+                      "name": "aCallback"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aDelayInMs"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize a timer to fire after the high resolution TimeDuration.\n   * This version takes a callback object.\n   *\n   * @param aFunc      nsITimerCallback interface to call when timer expires\n   * @param aDelay     The high resolution interval\n   * @param aType      Timer type per TYPE* consts defined above\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "initHighResolutionWithCallback",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITimerCallback",
+                      "name": "aCallback"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "TimeDuration",
+                          "name": "aDelay"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Cancel the timer.  This method works on all types, not just on repeating\n   * timers -- you might want to cancel a TYPE_ONE_SHOT timer, and even reuse\n   * it by re-initializing it (to avoid object destruction and creation costs\n   * by conserving one timer instance).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "cancel",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Like initWithFuncCallback, but also takes a name for the timer; the name\n   * will be used when timer profiling is enabled via the \"TimerFirings\" log\n   * module.\n   *\n   * @param aFunc      The function to invoke\n   * @param aClosure   An opaque pointer to pass to that function\n   * @param aDelay     The millisecond interval\n   * @param aType      Timer type per TYPE* consts defined above\n   * @param aName      The timer's name\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "initWithNamedFuncCallback",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsTimerCallbackFunc",
+                      "name": "aCallback"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "voidPtr",
+                          "name": "aClosure"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aDelay"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aName"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize a timer to fire after the high resolution TimeDuration.\n   * This version takes a named function callback.\n   *\n   * @param aFunc      The function to invoke\n   * @param aClosure   An opaque pointer to pass to that function\n   * @param aDelay     The high resolution interval\n   * @param aType      Timer type per TYPE* consts defined above\n   * @param aName      The timer's name\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "initHighResolutionWithNamedFuncCallback",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsTimerCallbackFunc",
+                      "name": "aCallback"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "voidPtr",
+                          "name": "aClosure"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "TimeDuration",
+                          "name": "aDelay"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "string",
+                          "name": "aName"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The millisecond delay of the timeout.\n   *\n   * NOTE: Re-setting the delay on a one-shot timer that has already fired\n   * doesn't restart the timer. Call one of the init() methods to restart\n   * a one-shot timer.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "delay"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The timer type - one of the above TYPE_* constants.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned long",
+                  "name": "type"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The opaque pointer pass to initWithFuncCallback.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "voidPtr",
+                  "name": "closure"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The nsITimerCallback object passed to initWithCallback.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsITimerCallback",
+                  "name": "callback"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The nsIEventTarget where the callback will be dispatched. Note that this\n   * target may only be set before the call to one of the init methods above.\n   *\n   * By default the target is the thread that created the timer.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIEventTarget",
+                  "name": "target"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The number of microseconds this nsITimer implementation can possibly\n   * fire early.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "allowedEarlyFiringMicroseconds"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "size_t",
+                  "name": "sizeOfIncludingThis",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "MallocSizeOf",
+                      "name": "aMallocSizeOf"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n#include \"nsCOMPtr.h\"\n\nalready_AddRefed<nsITimer> NS_NewTimer();\n\nalready_AddRefed<nsITimer> NS_NewTimer(nsIEventTarget* aTarget);\n\nnsresult\nNS_NewTimerWithObserver(nsITimer** aTimer,\n                        nsIObserver* aObserver,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithObserver(nsIObserver* aObserver,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        nsITimerCallback* aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(nsITimerCallback* aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        nsITimerCallback* aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(nsITimerCallback* aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        std::function<void(nsITimer*)>&& aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(std::function<void(nsITimer*)>&& aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        std::function<void(nsITimer*)>&& aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(std::function<void(nsITimer*)>&& aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithFuncCallback(nsITimer** aTimer,\n                            nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            uint32_t aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithFuncCallback(nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            uint32_t aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithFuncCallback(nsITimer** aTimer,\n                            nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            const mozilla::TimeDuration& aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithFuncCallback(nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            const mozilla::TimeDuration& aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\n\n#define NS_TIMER_CALLBACK_TOPIC \"timer-callback\"\n\n#ifndef RELEASE_OR_BETA\n#undef NS_DECL_NSITIMERCALLBACK\n#define NS_DECL_NSITIMERCALLBACK                                        \\\n  NS_IMETHOD Notify(nsITimer *timer) override;                          \\\n  inline void _ensure_GetName_exists(void) {                            \\\n    static_assert(std::is_convertible<decltype(this), nsINamed*>::value, \\\n                  \"nsITimerCallback implementations must also implement nsINamed\");     \\\n  }\n#endif\n%}\n"
+  ]
+}

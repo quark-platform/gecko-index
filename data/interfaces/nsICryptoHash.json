@@ -1,0 +1,387 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n#include \"mozilla/AlreadyAddRefed.h\"\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsICryptoHash\n * This interface provides crytographic hashing algorithms.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "builtinclass",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1e5b7c43-4688-45ce-92e1-77ed931e3bbe"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICryptoHash",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Hashing Algorithms.  These values are to be used by the\n     * |init| method to indicate which hashing function to\n     * use.  These values must be identical to the values defined\n     * in security/nss/lib/util/hasht.h in type HASH_HashType.\n     * This allows us to use NSS mapping functions like\n     * HASH_GetHashOidTagByHashType with these values.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "MD5",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* String value: \"md5\"    */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "SHA1",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* String value: \"sha1\"   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "SHA256",
+                  "value": "4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* String value: \"sha256\" */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "SHA384",
+                  "value": "5"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* String value: \"sha384\" */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "SHA512",
+                  "value": "6"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* String value: \"sha512\" */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Initialize the hashing object. This method may be\n     * called multiple times with different algorithm types.\n     *\n     * @param aAlgorithm the algorithm type to be used.\n     *        This value must be one of the above valid\n     *        algorithm types.\n     *\n     * @throws NS_ERROR_INVALID_ARG if an unsupported algorithm\n     *         type is passed.\n     *\n     * NOTE: This method or initWithString must be called\n     *       before any other method on this interface is called.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aAlgorithm"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Initialize the hashing object. This method may be\n     * called multiple times with different algorithm types.\n     *\n     * @param aAlgorithm the algorithm type to be used.\n     *\n     * @throws NS_ERROR_INVALID_ARG if an unsupported algorithm\n     *         type is passed.\n     *\n     * NOTE: This method or init must be called before any\n     *       other method on this interface is called.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "initWithString",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aAlgorithm"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * @param aData a buffer to calculate the hash over\n     *\n     * @param aLen the length of the buffer |aData|\n     *\n     * @throws NS_ERROR_NOT_INITIALIZED If |init| has not been called.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "update",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": [
+                          {
+                            "kind": "attributes_$0",
+                            "attr": {
+                              "kind": "attribute",
+                              "name": "array",
+                              "param": null
+                            }
+                          },
+                          {
+                            "kind": "attributes_$0",
+                            "attr": {
+                              "kind": "attribute",
+                              "name": "size_is",
+                              "param": {
+                                "kind": "attribute_$0",
+                                "value": "aLen"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "refType": "in",
+                      "type": "octet",
+                      "name": "aData"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aLen"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Calculates and updates a new hash based on a given data stream.\n     *\n     * @param aStream an input stream to read from.\n     *\n     * @param aLen How much to read from the given |aStream|. Passing UINT32_MAX\n     *        indicates that all data available will be used to update the hash.\n     *\n     * @throws NS_ERROR_NOT_INITIALIZED If |init| has not been called.\n     *\n     * @throws NS_ERROR_NOT_AVAILABLE If the requested amount of\n     *         data to be calculated into the hash is not available.\n     *\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "updateFromStream",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIInputStream",
+                      "name": "aStream"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aLen"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Completes this hash object and produces the actual hash data.\n     *\n     * @param aASCII If true then the returned value is a base64 encoded string.\n     *        If false, then the returned value is binary data.\n     *\n     * @return a hash of the data that was read by this object.  This can\n     *         be either binary data or base 64 encoded.\n     *\n     * @throws NS_ERROR_NOT_INITIALIZED If |init| has not been called.\n     *\n     * NOTE: This method may be called any time after |init|\n     *       is called.  This call resets the object to its\n     *       pre-init state.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "finish",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aASCII"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\nalready_AddRefed<nsICryptoHash> NS_NewCryptoHash();\nnsresult NS_NewCryptoHash(uint32_t aHashType, nsICryptoHash** aOutHasher);\nnsresult NS_NewCryptoHash(const nsACString& aHashType, nsICryptoHash** aOutHasher);\n%}\n"
+  ]
+}

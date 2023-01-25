@@ -1,0 +1,76 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n * vim: sw=2 ts=2 sts=2 expandtab\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "mozIStorageBaseStatement"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An asynchronous SQL statement.  This differs from mozIStorageStatement by\n * only being usable for asynchronous execution.  (mozIStorageStatement can\n * be used for both synchronous and asynchronous purposes.)  This specialization\n * for asynchronous operation allows us to avoid needing to acquire\n * synchronization primitives also used by the asynchronous execution thread.\n * In contrast, mozIStorageStatement may need to acquire the primitives and\n * consequently can cause the main thread to lock for extended intervals while\n * the asynchronous thread performs some long-running operation.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "52e49370-3b2e-4a27-a3fc-79e20ad4056b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "mozIStorageAsyncStatement",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "mozIStorageBaseStatement"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "ANY_COMMENT_$0",
+                "doc": {
+                  "kind": "DOC_COMMENT",
+                  "contents": "/*\n   * 'params' provides a magic JS helper that lets you assign parameters by\n   * name.  Unlike the helper on mozIStorageStatement, you cannot enumerate\n   * in order to find out what parameters are legal.\n   *\n   * This does not work for BLOBs.  You must use an explicit binding API for\n   * that.\n   *\n   * example:\n   *  stmt.params.foo = 1;\n   *  stmt.params[\"bar\"] = 2;\n   *  let argName = \"baz\";\n   *  stmt.params[argName] = 3;\n   *\n   * readonly attribute nsIMagic params;\n   */"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

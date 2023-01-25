@@ -1,0 +1,127 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsILoginInfo",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIDOMWindow",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "425f73b9-b2db-4e8a-88c5-9ac2512934ce"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsILoginManagerAuthPrompter",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize the prompter. Must be called before using other interfaces.\n   *\n   * @param aWindow\n   *        The window in which the user is doing some login-related action that's\n   *        resulting in a need to prompt them for something. The prompt\n   *        will be associated with this window (or, if a notification bar\n   *        is being used, topmost opener in some cases).\n   *\n   *        aWindow can be null if there is no associated window, e.g. in a JSM\n   *        or Sandbox. In this case there will be no checkbox to save the login\n   *        since the window is needed to know if this is a private context.\n   *\n   *        If this window is a content window, the corresponding window and browser\n   *        elements will be calculated. If this window is a chrome window, the\n   *        corresponding browser element needs to be set using setBrowser.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIDOMWindow",
+                      "name": "aWindow"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The browser this prompter is being created for.\n   * This is required if the init function received a chrome window as argument.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "Element",
+                  "name": "browser"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n",
+    "%{C++\n\n#define NS_LOGINMANAGERAUTHPROMPTER_CONTRACTID \"@mozilla.org/login-manager/authprompter/;1\"\n\n%}\n"
+  ]
+}

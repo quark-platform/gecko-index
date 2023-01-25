@@ -1,0 +1,1364 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIDOMWindow",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsITextInputProcessorCallback",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An nsITextInputProcessor instance is associated with a top level widget which\n * handles native IME.  It's associated by calling beginInputTransaction() or\n * beginInputTransactionForTests().  While an instance has composition, nobody\n * can steal the rights to make composition on the top level widget.  In other\n * words, if another instance is composing on a top level widget, either\n * beginInputTransaction() or beginInputTransactionForTests() returns false\n * (i.e., not throws an exception).\n *\n * NOTE: See nsITextInputProcessorCallback.idl for examples of |callback| in\n *       following examples,\n *\n * Example #1 JS-IME can start composition like this:\n *\n *   var TIP = Components.classes[\"@mozilla.org/text-input-processor;1\"].\n *               createInstance(Components.interfaces.nsITextInputProcessor);\n *   if (!TIP.beginInputTransaction(window, callback)) {\n *     return; // You failed to get the rights to make composition\n *   }\n *   // Create a keyboard event if the following compositionc change is caused\n *   // by a key event.\n *   var keyEvent =\n *     new KeyboardEvent(\"\", { key: \"foo\", code: \"bar\", keyCode: buzz });\n *   // Set new composition string first\n *   TIP.setPendingCompositionString(\"some-words-are-inputted\");\n *   // Set clause information.\n *   TIP.appendClauseToPendingComposition(23, TIP.ATTR_RAW_CLAUSE);\n *   // Set caret position, this is optional.\n *   TIP.setCaretInPendingComposition(23);\n *   // Flush the pending composition\n *   if (!TIP.flushPendingComposition(keyEvent)) {\n *     // If it returns false, it fails to start composition.\n *     return;\n *   }\n *\n * Example #2 JS-IME can separate composition string to two or more clauses:\n *\n *   // Create a keyboard event if the following compositionc change is caused\n *   // by a key event.\n *   var keyEvent =\n *     new KeyboardEvent(\"\", { key: \"foo\", code: \"bar\", keyCode: buzz });\n *   // First, set composition string again\n *   TIP.setPendingCompositionString(\"some-words-are-inputted\");\n *   // Then, if \"are\" is selected to convert, there are 3 clauses:\n *   TIP.appendClauseToPendingComposition(11, TIP.ATTR_CONVERTED_CLAUSE);\n *   TIP.appendClauseToPendingComposition(3,  TIP.ATTR_SELECTED_CLAUSE);\n *   TIP.appendClauseToPendingComposition(9,  TIP.ATTR_CONVERTED_CLAUSE);\n *   // Show caret at the beginning of the selected clause\n *   TIP.setCaretInPendingComposition(11);\n *   // Flush the pending composition.  Note that if there is a composition,\n *   // flushPendingComposition() won't return false.\n *   TIP.flushPendingComposition(keyEvent);\n *\n * Example #3 JS-IME can commit composition with specific string with this:\n *\n *   // Create a keyboard event if the following compositionc change is caused\n *   // by a key event.\n *   var keyEvent1 =\n *     new KeyboardEvent(\"\", { key: \"foo\", code: \"bar\", keyCode: buzz });\n *   // First, there is a composition.\n *   TIP.setPendingCompositionString(\"some-words-directly-inputted\");\n *   TIP.appendClauseToPendingComposition(28, TIP.ATTR_RAW_CLAUSE);\n *   TIP.flushPendingComposition(keyEvent1);\n *   // Create a keyboard event if the following commit composition is caused\n *   // by a key event.\n *   var keyEvent2 =\n *     new KeyboardEvent(\"\", { key: \"foo\", code: \"bar\", keyCode: buzz });\n *   // This is useful when user selects a commit string from candidate list UI\n *   // which is provided by JS-IME.\n *   TIP.commitCompositionWith(\"selected-words-from-candidate-list\", keyEvent2);\n *\n * Example #4 JS-IME can commit composition with the last composition string\n *            without specifying commit string:\n *\n *   // Create a keyboard event if the following compositionc change is caused\n *   // by a key event.\n *   var keyEvent1 =\n *     new KeyboardEvent(\"\", { key: \"foo\", code: \"bar\", keyCode: buzz });\n *   // First, there is a composition.\n *   TIP.setPendingCompositionString(\"some-words-will-be-commited\");\n *   TIP.appendClauseToPendingComposition(27, TIP.ATTR_RAW_CLAUSE);\n *   TIP.flushPendingComposition(keyEvent1);\n *   // Create a keyboard event if the following commit is caused by a key\n *   // event.\n *   var keyEvent2 =\n *     new KeyboardEvent(\"\", { key: \"Enter\", code: \"Enter\",\n                               keyCode: KeyboardEvent.DOM_VK_RETURN });\n *   // This is useful when user just type Enter key.\n *   TIP.commitComposition(keyEvent2);\n *\n * Example #5 JS-IME can cancel composition with this:\n *\n *   // Create a keyboard event if the following composition change is caused\n *   // by a key event.\n *   var keyEvent1 =\n *     new KeyboardEvent(\"\", { key: \"foo\", code: \"bar\", keyCode: buzz });\n *   // First, there is a composition.\n *   TIP.setPendingCompositionString(\"some-words-will-be-canceled\");\n *   TIP.appendClauseToPendingComposition(27, TIP.ATTR_RAW_CLAUSE);\n *   TIP.flushPendingComposition(keyEvent1);\n *   // Create a keyboard event if the following canceling composition is\n *   // caused by a key event.\n *   var keyEvent2 =\n *     new KeyboardEvent(\"\", { key: \"Escape\", code: \"Escape\",\n                               keyCode: KeyboardEvent.DOM_VK_ESCAPE });\n *   // This is useful when user doesn't want to commit the composition.\n *   // FYI: This is same as TIP.commitCompositionWith(\"\") for now.\n *   TIP.cancelComposition(keyEvent2);\n *\n * Example #6 JS-IME can insert text only with commitCompositionWith():\n *\n *   // Create a keyboard event if the following inserting text is caused by a\n *   // key event.\n *   var keyEvent1 =\n *     new KeyboardEvent(\"\", { key: \"foo\", code: \"bar\", keyCode: buzz });\n *   if (!TIP.beginInputTransaction(window, callback)) {\n *     return; // You failed to get the rights to make composition\n *   }\n *   TIP.commitCompositionWith(\"Some words\", keyEvent1);\n *\n * Example #7 JS-IME can start composition explicitly:\n *\n *   if (!TIP.beginInputTransaction(window, callback)) {\n *     return; // You failed to get the rights to make composition\n *   }\n *   // Create a keyboard event if the following starting composition is caused\n *   // by a key event.\n *   var keyEvent1 =\n *     new KeyboardEvent(\"\", { key: \"foo\", code: \"bar\", keyCode: buzz });\n *   // If JS-IME don't want to show composing string in the focused editor,\n *   // JS-IME can dispatch only compositionstart event with this.\n *   if (!TIP.startComposition(keyEvent1)) {\n *     // Failed to start composition.\n *     return;\n *   }\n *   // And when user selects a result from UI of JS-IME, commit with it.\n *   // Then, the key event should be null.\n *   TIP.commitCompositionWith(\"selected-words\");\n *\n * Example #8 JS-IME or JS-Keyboard should dispatch key events even during\n *            composition (non-printable key case):\n *\n *   if (!TIP.beginInputTransaction(window, callback)) {\n *     return; // You failed to get the rights to dispatch key events\n *   }\n *\n *   // You don't need to specify .keyCode value if it's non-printable key\n *   // because it can be computed from .key value.\n *   // If you specify non-zero value to .keyCode, it'll be used.\n *   var keyEvent = new KeyboardEvent(\"\", { code: \"Enter\", key: \"Enter\" });\n *   if (TIP.keydown(keyEvent)) {\n *     // Handle its default action\n *   }\n *\n *   // Even if keydown event was consumed, keyup event should be dispatched.\n *   if (TIP.keyup(keyEvent)) {\n *     // Handle its default action\n *   }\n *\n * Example #9 JS-IME or JS-Keyboard should dispatch key events even during\n *            composition (printable key case):\n *\n *   if (!TIP.beginInputTransaction(window, callback)) {\n *     return; // You failed to get the rights to dispatch key events\n *   }\n *\n *   // You need to specify .keyCode value if it's printable key.\n *   // The rules of .keyCode value is documented in MDN:\n *   //   https://developer.mozilla.org/docs/Web/API/KeyboardEvent.keyCode\n *   //\n *   //   #1 If the key location is DOM_KEY_LOCATION_NUMPAD and NumLock is\n *   //      active, you should specify DOM_VK_NUMPAD[0-9], DOM_VK_MULTIPLY,\n *   //      DOM_VK_ADD, DOM_VK_SEPARATOR, DOM_VK_SUBTRACT, DOM_VK_DECIMAL or\n *   //      DOM_VK_DIVIDE.\n *   //   #2 If the key is Spacebar, use DOM_VK_SPACE.\n *   //\n *   //   Following rules are printable keys in DOM_KEY_LOCATION_STANDARD.\n *   //   .keyCode value for a key shouldn't be changed by modifier states:\n *   //     #1 If the key can input [0-9] with any modifier state (except\n *   //        NumLock state), the value should be DOM_VK_[0-9].\n *   //     #2 Otherwise, and if the key inputs an ASCII alphabet with no\n *   //        active modifiers, use DOM_VK_[A-Z].\n *   //     #3 Otherwise, and if the key inputs an ASCII alphabet with no\n *   //        active modifiers except Shift key state, use DOM_VK_[A-Z] for\n *   //        the shifted character.  E.g., if a key causes non-alphabet\n *   //        character such as \"@\" or a Unicode character without Shift key\n *   //        but \"a\" is inputted when Shift key is pressed, the proper\n *   //        keyCode is DOM_VK_A.\n *   //     #4 Otherwise, and if the key inputs another ASCII character with\n *   //        no modifier states, use a proper value for the character.  E.g.,\n *   //        if the key inputs \"*\" without Shift key state, it should be\n *   //        DOM_VK_ASTERISK.\n *   //     #5 Otherwise, and if the key inputs another ASCII character with\n *   //        Shift key state, use a proper value for the character.  E.g.,\n *   //        if a key causes a Unicode character without Shift key but \"&\"\n *   //        is inputted when Shift key is pressed, the proper keyCode is\n *   //        DOM_VK_AMPERSAND.\n *   //     See above document for the other cases.\n *   //\n *   // NOTE: If the software keyboard is 10-key like simple phone,\n *   //       We don't have common rules to decide its .keyCode value.\n *   //       Above rules should be used when the JS-Keyboard emulates PC\n *   //       keyboard.\n *   // .key value should be inputting character by the key with current\n *   // modifier state.\n *   // .code value should be empty string if the JS-Keyboard isn't emulating\n *   // physical keyboard.  Otherwise, use same value with physical keyboard's\n *   // same key.\n *   var keyEvent = new KeyboardEvent(\"\", { code: \"KeyA\", key: \"a\",\n *                                          keyCode: KeyboardEvent.DOM_VK_A });\n *   if (TIP.keydown(keyEvent)) {\n *     // Handle its default action\n *   }\n *\n *   // Even if keydown event was consumed, keyup event should be dispatched.\n *   if (TIP.keyup(keyEvent)) {\n *     // Handle its default action\n *   }\n *\n * Example #10 JS-Keyboard doesn't need to initialize modifier states at\n *             calling either keydown() or keyup().\n *\n *   // Neither beginInputTransaction() nor beginInputTransactionForTests()\n *   // resets modifier state.\n *   if (!TIP.beginInputTransaction(window, callback)) {\n *     return; // You failed to get the rights to dispatch key events\n *   }\n *\n *   var leftShift = new KeyboardEvent(\"\", { code: \"ShiftLeft\", key: \"Shift\" });\n *\n *   // This causes following key events will be shifted automatically.\n *   TIP.keydown(leftShift);\n *\n *   var rightShift =\n *     new KeyboardEvent(\"\", { code: \"ShiftRight\", key: \"Shift\" });\n *\n *   TIP.keydown(rightShift);\n *\n *   // keyup of one of shift key doesn't cause inactivating \"Shift\" state.\n *   TIP.keyup(rightShift);\n *\n *   // This causes inactivating \"Shift\" state completely.\n *   TIP.keyup(leftShift);\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "47ae2181-2e98-4d58-84a2-b8db6764ce9a"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITextInputProcessor",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns true if this instance was dispatched compositionstart but hasn't\n   * dispatched compositionend yet.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "hasComposition"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * When you create an instance, you must call beginInputTransaction() first\n   * except when you created the instance for automated tests.\n   *\n   * @param aWindow         A DOM window.  The instance will look for a top\n   *                        level widget from this.\n   * @param aCallback       Callback interface which handles requests to\n   *                        IME and notifications to IME.  This must not be\n   *                        null.\n   * @return                If somebody uses internal text input service for a\n   *                        composition, this returns false.  Otherwise, returns\n   *                        true.  I.e., only your TIP can create composition\n   *                        when this returns true.  If this returns false,\n   *                        your TIP should wait next chance.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "beginInputTransaction",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindow",
+                      "name": "aWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsITextInputProcessorCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * When you create an instance for automated test, you must call\n   * beginInputTransaction(), first.  See beginInputTransaction() for more\n   * detail of this.\n   * Note that aCallback can be null.  If it's null, nsITextInputProcessor\n   * implementation will handle them automatically.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "beginInputTransactionForTests",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindow",
+                      "name": "aWindow"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsITextInputProcessorCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * startComposition() dispatches compositionstart event explicitly.\n   * IME does NOT need to call this typically since compositionstart event\n   * is automatically dispatched by sendPendingComposition() if\n   * compositionstart event hasn't been dispatched yet.  If this is called\n   * when compositionstart has already been dispatched, this throws an\n   * exception.\n   *\n   * @param aKeyboardEvent  Key event which causes starting composition.\n   *                        If its type value is \"keydown\", this method\n   *                        dispatches only keydown event first.  Otherwise,\n   *                        dispatches keydown first and keyup at last.\n   *                        key value and keyCode values of keydown event\n   *                        are set to \"Process\" and DOM_VK_PROCESSKEY\n   *                        automatically.  You can prevent this behavior\n   *                        with KEY_DONT_MARK_KEYDOWN_AS_PROCESSED.\n   * @param aKeyFlags       See KEY_* constants.\n   * @return                Returns true if composition starts normally.\n   *                        Otherwise, returns false because it might be\n   *                        canceled by the web application.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "can_run_script",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "optional_argc",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "startComposition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "Event",
+                      "name": "aKeyboardEvent"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aKeyFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set new composition string.  Pending composition will be flushed by\n   * a call of flushPendingComposition().  However, if the new composition\n   * string isn't empty, you need to call appendClauseToPendingComposition() to\n   * fill all characters of aString with one or more clauses before flushing.\n   * Note that if you need to commit or cancel composition, use\n   * commitComposition(), commitCompositionWith() or cancelComposition().\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setPendingCompositionString",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aString"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ATTR_RAW_CLAUSE",
+                  "value": "0x02"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ATTR_SELECTED_RAW_CLAUSE",
+                  "value": "0x03"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ATTR_CONVERTED_CLAUSE",
+                  "value": "0x04"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ATTR_SELECTED_CLAUSE",
+                  "value": "0x05"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Append a clause to the pending composition.\n   *\n   * If you need to fill the pending composition string with a clause, you\n   * should call this once.  For example:\n   *   appendClauseToPendingComposition(compositionString.length,\n   *                                    ATTR_RAW_CLAUSE);\n   * is enough.  If you need to separate the pending composition string to\n   * multiple clauses, you need to call this multiple times. For example,\n   * if your pending composition string has three clauses and the second clause\n   * is being converted:\n   *  appendClauseToPendingComposition(firstClauseLength,\n   *                                   ATTR_CONVERTED_CLAUSE);\n   *  appendClauseToPendingComposition(secondClauseLength,\n   *                                   ATTR_SELECTED_CLAUSE);\n   *  appendClauseToPendingComposition(thirdClauseLength,\n   *                                   ATTR_CONVERTED_CLAUSE);\n   * Note that if sum of aLength mismatches length of the pending composition\n   * string, flushPendingComposition() will throw an exception.  I.e.,\n   * |firstClauseLength + secondClauseLength + thirdClauseLength| must be\n   * same as the length of pending composition string.\n   *\n   * TODO: Should be able to specify custom clause style.\n   *\n   * @param aLength         Length of the clause.\n   * @param aAttribute      One of ATTR_* constants.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "appendClauseToPendingComposition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aLength"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aAttribute"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set caret offset in the pending composition string.  If you don't need to\n   * show a caret, you don't need to call this.\n   *\n   * @param aOffset         Caret offset in the pending composition string.\n   *                        This must be between 0 and length of the pending\n   *                        composition string.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setCaretInPendingComposition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aOffset"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * flushPendingComposition() must be called after\n   * setPendingCompositionString() and appendClauseToPendingComposition()\n   * (setCaretInPendingComposition() is optional) are called.\n   *\n   * Note that compositionstart will be automatically dispatched if this is\n   * called when there is no composition.\n   *\n   * Note that if sum of lengths of appended clauses are not same as composition\n   * string or caret offset is larger than the composition string length, this\n   * throws an exception.\n   *\n   * @param aKeyboardEvent  Key event which causes the composition string.\n   *                        If its type value is \"keydown\", this method\n   *                        dispatches only keydown event first.  Otherwise,\n   *                        dispatches keydown first and keyup at last.\n   *                        key value and keyCode values of keydown event\n   *                        are set to \"Process\" and DOM_VK_PROCESSKEY\n   *                        automatically.  You can prevent this behavior\n   *                        with KEY_DONT_MARK_KEYDOWN_AS_PROCESSED.\n   * @param aKeyFlags       See KEY_* constants.\n   * @return                Returns true if there is a composition already or\n   *                        starting composition automatically.\n   *                        Otherwise, i.e., if it cannot start composition\n   *                        automatically, e.g., canceled by web apps, returns\n   *                        false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "can_run_script",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "optional_argc",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "flushPendingComposition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "Event",
+                      "name": "aKeyboardEvent"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aKeyFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * commitComposition() will commit composition with the last composition\n   * string.  If there is no composition, this will throw an exception.\n   *\n   * @param aKeyboardEvent  Key event which causes the commit composition.\n   *                        If its type value is \"keydown\", this method\n   *                        dispatches only keydown event first.  Otherwise,\n   *                        dispatches keydown first and keyup at last.\n   *                        key value and keyCode values of keydown event\n   *                        are set to \"Process\" and DOM_VK_PROCESSKEY\n   *                        automatically.  You can prevent this behavior\n   *                        with KEY_DONT_MARK_KEYDOWN_AS_PROCESSED.\n   * @param aKeyFlags       See KEY_* constants.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "can_run_script",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "optional_argc",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "commitComposition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "Event",
+                      "name": "aKeyboardEvent"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aKeyFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * commitCompositionWith() will commit composition with the specific string.\n   * If there is no composition, this will start composition and commit it\n   * with the specified string.\n   *\n   * @param aCommitString   The string to be committed.\n   * @param aKeyboardEvent  Key event which causes the commit composition.\n   *                        If its type value is \"keydown\", this method\n   *                        dispatches only keydown event first.  Otherwise,\n   *                        dispatches keydown first and keyup at last.\n   *                        key value and keyCode values of keydown event\n   *                        are set to \"Process\" and DOM_VK_PROCESSKEY\n   *                        automatically.  You can prevent this behavior\n   *                        with KEY_DONT_MARK_KEYDOWN_AS_PROCESSED.\n   * @param aKeyFlags       See KEY_* constants.\n   * @return                Returns true if there is a composition already or\n   *                        starting composition automatically.\n   *                        Otherwise, i.e., if it cannot start composition\n   *                        automatically, e.g., canceled by web apps, returns\n   *                        false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "can_run_script",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "optional_argc",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "commitCompositionWith",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aCommitString"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "Event",
+                          "name": "aKeyboardEvent"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aKeyFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * cancelComposition() will cancel composition.  This is for now the same as\n   * calling commitComposition(\"\").  However, in the future, this might work\n   * better.  If your IME needs to cancel composition, use this instead of\n   * commitComposition().\n   *\n   * Note that if you tries to cancel composition when there is no composition,\n   * this throws an exception.\n   *\n   * @param aKeyboardEvent  Key event which causes the canceling composition.\n   *                        If its type value is \"keydown\", this method\n   *                        dispatches only keydown event first.  Otherwise,\n   *                        dispatches keydown first and keyup at last.\n   *                        key value and keyCode values of keydown event\n   *                        are set to \"Process\" and DOM_VK_PROCESSKEY\n   *                        automatically.  You can prevent this behavior\n   *                        with KEY_DONT_MARK_KEYDOWN_AS_PROCESSED.\n   * @param aKeyFlags       See KEY_* constants.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "can_run_script",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "optional_argc",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "cancelComposition",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "Event",
+                      "name": "aKeyboardEvent"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aKeyFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEY_DEFAULT_PREVENTED",
+                  "value": "0x00000001"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEY_NON_PRINTABLE_KEY",
+                  "value": "0x00000002"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEY_FORCE_PRINTABLE_KEY",
+                  "value": "0x00000004"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEY_KEEP_KEY_LOCATION_STANDARD",
+                  "value": "0x00000008"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEY_KEEP_KEYCODE_ZERO",
+                  "value": "0x00000010"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEY_DONT_DISPATCH_MODIFIER_KEY_EVENT",
+                  "value": "0x00000020"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEY_DONT_MARK_KEYDOWN_AS_PROCESSED",
+                  "value": "0x00000040"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEY_MARK_KEYUP_AS_PROCESSED",
+                  "value": "0x00000080"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEYEVENT_NOT_CONSUMED",
+                  "value": "0x00000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEYDOWN_IS_CONSUMED",
+                  "value": "0x00000001"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "KEYPRESS_IS_CONSUMED",
+                  "value": "0x00000002"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * keydown() may dispatch a keydown event and some keypress events if\n   * preceding keydown event isn't consumed and they are necessary.\n   * Note that even if this is called during composition, key events may not\n   * be dispatched.  In this case, this returns false.\n   *\n   * You should initialize at least .key value and .code value of the event.\n   * Additionally, if you try to emulate a printable key, .keyCode value should\n   * be specified if there is proper key value.  See the comment of above\n   * example how to decide .keyCode value of a printable key.  On the other\n   * hand, .keyCode value is automatically computed when you try to emulate\n   * non-printable key.  However, if you try to emulate physical keyboard of\n   * desktop platform, you need to specify proper value explicitly because\n   * the mapping table of this API isn't enough to emulate the behavior of\n   * Gecko for desktop platforms.\n   *\n   * NOTE: Even if this has composition, JS-Keyboard should call keydown() and\n   *       keyup().  Although, with the default preferences and normal\n   *       conditions, DOM key events won't be fired during composition.\n   *       However, they MAY be dispatched for some reasons, e.g., the web\n   *       content listens only key events, or if the standard DOM event spec\n   *       will be changed in the future.\n   *\n   * @param aKeyboardEvent  Must be a keyboard event which should be dispatched\n   *                        as a keydown event and keypress events.\n   *                        #1 Note that you don't need to set charCode value\n   *                        because it's computed from its key value.\n   *                        #2 If code value is set properly and location value\n   *                        isn't specified (i.e., 0), the location value will\n   *                        be guessed from the code value.\n   *                        #3 Non-defined code names are not allowed. If your\n   *                        key isn't registered, file a bug. If your key isn't\n   *                        defined by any standards, use \"\" (empty string).\n   *                        #4 .keyCode is guessed from .key value if the key\n   *                        name is registered and .keyCode isn't initialized.\n   *                        #5 modifier key states, e.g., .shiftKey, are\n   *                        ignored.  Instead, modifier states are managed by\n   *                        each instance and set automatically.\n   * @param aKeyFlags       Special flags.  The values can be some of KEY_*\n   *                        constants.\n   * @return                KEYEVENT_NOT_CONSUMED, if the keydown event nor\n   *                        the following keypress event(s) are consumed.\n   *                        KEYDOWN_IS_CONSUMED, if the keydown event is\n   *                        consumed. No keypress event will be dispatched in\n   *                        this case.\n   *                        KEYPRESS_IS_CONSUMED, if the keypress event(s) is\n   *                        consumed when dispatched.\n   *                        Note that keypress event is always consumed by\n   *                        native code for the printable keys (indicating the\n   *                        default action has been taken).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "can_run_script",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "optional_argc",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "unsigned long",
+                  "name": "keydown",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Event",
+                      "name": "aKeyboardEvent"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aKeyFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Similar to keydown(), but this dispatches only a keyup event.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "boolean",
+                  "name": "keyup",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Event",
+                      "name": "aKeyboardEvent"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aKeyFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * getModifierState() returns modifier state managed by this instance.\n   *\n   * @param aModifier       One of modifier key names.  This doesn't support\n   *                        virtual modifiers like \"Accel\".\n   * @return                true if the modifier key is active.  Otherwise,\n   *                        false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "getModifierState",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aModifierKey"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * shareModifierStateOf() makes the instance shares modifier state of\n   * another instance.  When this is called, the instance refers the modifier\n   * state of another instance.  After that, changes to either this and the\n   * other instance's modifier state is synchronized.\n   *\n   * @param aOther          Another instance which will be referred by the\n   *                        instance.  If this is null, the instance restarts\n   *                        to manage modifier state independently.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "shareModifierStateOf",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITextInputProcessor",
+                      "name": "aOther"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Helper method to get usual |.code| value of non-printable keys.\n   *\n   * @param aKeyValue       A predefined key value such as \"Enter\".\n   *                        If this is not a proper non-printable key value\n   *                        or a proper key value but not in usual keyboard of\n   *                        the platform, this returns empty string.\n   * @param aLocation       The |.location| value.  This is important if\n   *                        the key may be in different location.\n   *                        E.g., Left vs. Right or Standard vs. Numpad.\n   *                        If this is undefined or null, it'll be treated\n   *                        as Standard or Left.\n   * @return                One of a code value of well-known key on usual\n   *                        keyboard on the platform, or empty string.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "AString",
+                  "name": "computeCodeValueOfNonPrintableKey",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aKeyValue"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aLocation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Helper method to guess |.code| value of a printable key which is in usual\n   * keyboard of the platform and when active keyboard layout is US-English.\n   * Note that this is not aware of option key mapping on macOS.\n   *\n   * @param aKeyValue          The key value. Must be a character which can\n   *                           be inputted with US-English keyboard layout.\n   * @param aLocation          The location of the key.  This is important\n   *                           to distinguish whether the key is in Standard\n   *                           or Numpad. If this is undefined or null, will\n   *                           be treated as Standard.\n   * @return                   Returns empty string if there is no proper key.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "AString",
+                  "name": "guessCodeValueOfPrintableKeyInUSEnglishKeyboardLayout",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aKeyValue"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aLocation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Helper method to guess |.keyCode| value of a printable key which is in\n   * usual keyboard of the platform and when active keyboard layout is\n   * US-English.\n   * Note that this is not aware of option key mapping on macOS.\n   *\n   * @param aKeyValue          The key value.  Must be a character which can\n   *                           be inputted with US-English keyboard layout.\n   * @param aLocation          The location of the key.  This is important\n   *                           to distinguish whether the key is in Standard\n   *                           our Numpad.  If this is undefined or null,\n   *                           will be treated as Standard.\n   * @return                   Returns 0 if there is no proper key to input\n   *                           aKeyValue with US-English keyboard layout.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "optional_argc",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "unsigned long",
+                  "name": "guessKeyCodeValueOfPrintableKeyInUSEnglishKeyboardLayout",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aKeyValue"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aLocation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n#define TEXT_INPUT_PROCESSOR_CID \\\n  { 0xcaaab47f, 0x1e31, 0x478e, \\\n    { 0x89, 0x19, 0x97, 0x09, 0x04, 0xe9, 0xcb, 0x72 } }\n#define TEXT_INPUT_PROCESSOR_CONTRACTID \\\n  \"@mozilla.org/text-input-processor;1\"\n%}\n"
+  ]
+}

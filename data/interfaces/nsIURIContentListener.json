@@ -1,0 +1,283 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRequest",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIStreamListener",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIURIContentListener is an interface used by components which\n * want to know (and have a chance to handle) a particular content type.\n * Typical usage scenarios will include running applications which register\n * a nsIURIContentListener for each of its content windows with the uri\n * dispatcher service.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "10a28f38-32e8-4c63-8aa1-12eaaebc369a"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIURIContentListener",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * Notifies the content listener to hook up an nsIStreamListener capable of\n  * consuming the data stream.\n  *\n  * @param aContentType         Content type of the data.\n  * @param aIsContentPreferred  Indicates whether the content should be\n  *                             preferred by this listener.\n  * @param aRequest             Request that is providing the data.\n  * @param aContentHandler      nsIStreamListener that will consume the data.\n  *                             This should be set to <code>nullptr</code> if\n  *                             this content listener can't handle the content\n  *                             type; in this case, doContent should also fail\n  *                             (i.e., return failure nsresult).\n  *\n  * @return                     <code>true</code> if the load should\n  *                             be aborted and consumer wants to\n  *                             handle the load completely by itself.  This\n  *                             causes the URI Loader do nothing else...\n  *                             <code>false</code> if the URI Loader should\n  *                             continue handling the load and call the\n  *                             returned streamlistener's methods.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "doContent",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aContentType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsContentPreferred"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIRequest",
+                          "name": "aRequest"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "nsIStreamListener",
+                          "name": "aContentHandler"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * When given a uri to dispatch, if the URI is specified as 'preferred\n  * content' then the uri loader tries to find a preferred content handler\n  * for the content type. The thought is that many content listeners may\n  * be able to handle the same content type if they have to. i.e. the mail\n  * content window can handle text/html just like a browser window content\n  * listener. However, if the user clicks on a link with text/html content,\n  * then the browser window should handle that content and not the mail\n  * window where the user may have clicked the link.  This is the difference\n  * between isPreferred and canHandleContent.\n  *\n  * @param aContentType         Content type of the data.\n  * @param aDesiredContentType  Indicates that aContentType must be converted\n  *                             to aDesiredContentType before processing the\n  *                             data.  This causes a stream converted to be\n  *                             inserted into the nsIStreamListener chain.\n  *                             This argument can be <code>nullptr</code> if\n  *                             the content should be consumed directly as\n  *                             aContentType.\n  *\n  * @return                     <code>true</code> if this is a preferred\n  *                             content handler for aContentType;\n  *                             <code>false<code> otherwise.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isPreferred",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aContentType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "string",
+                          "name": "aDesiredContentType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * When given a uri to dispatch, if the URI is not specified as 'preferred\n  * content' then the uri loader calls canHandleContent to see if the content\n  * listener is capable of handling the content.\n  *\n  * @param aContentType         Content type of the data.\n  * @param aIsContentPreferred  Indicates whether the content should be\n  *                             preferred by this listener.\n  * @param aDesiredContentType  Indicates that aContentType must be converted\n  *                             to aDesiredContentType before processing the\n  *                             data.  This causes a stream converted to be\n  *                             inserted into the nsIStreamListener chain.\n  *                             This argument can be <code>nullptr</code> if\n  *                             the content should be consumed directly as\n  *                             aContentType.\n  *\n  * @return                     <code>true</code> if the data can be consumed.\n  *                             <code>false</code> otherwise.\n  *\n  * Note: I really envision canHandleContent as a method implemented\n  * by the docshell as the implementation is generic to all doc\n  * shells. The isPreferred decision is a decision made by a top level\n  * application content listener that sits at the top of the docshell\n  * hierarchy.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "canHandleContent",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "string",
+                      "name": "aContentType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aIsContentPreferred"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "string",
+                          "name": "aDesiredContentType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * The load context associated with a particular content listener.\n  * The URI Loader stores and accesses this value as needed.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsISupports",
+                  "name": "loadCookie"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * The parent content listener if this particular listener is part of a chain\n  * of content listeners (i.e. a docshell!)\n  *\n  * @note If this attribute is set to an object that implements\n  *       nsISupportsWeakReference, the implementation should get the\n  *       nsIWeakReference and hold that.  Otherwise, the implementation\n  *       should not refcount this interface; it should assume that a non\n  *       null value is always valid.  In that case, the caller is\n  *       responsible for explicitly setting this value back to null if the\n  *       parent content listener is destroyed.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "nsIURIContentListener",
+                  "name": "parentContentListener"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n"
+  ]
+}

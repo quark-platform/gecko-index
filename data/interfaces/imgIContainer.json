@@ -1,0 +1,2229 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/** -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    "%{C++\n#include \"ImgDrawResult.h\"\n#include \"gfxPoint.h\"\n#include \"mozilla/gfx/Types.h\"\n#include \"mozilla/AspectRatio.h\"\n#include \"mozilla/Maybe.h\"\n#include \"mozilla/RefPtr.h\"\n#include \"nsRect.h\"\n#include \"nsSize.h\"\n#include \"nsTArray.h\"\n#include \"limits.h\"\n\nclass gfxContext;\n\nnamespace mozilla {\nstruct AspectRatio;\n\nnamespace gfx {\nclass SourceSurface;\n}\n\nclass WindowRenderer;\nnamespace layers {\nclass ImageContainer;\n}\n}\n\nclass nsIFrame;\n\nnamespace mozilla {\nclass TimeStamp;\nclass SVGImageContext;\nstruct MediaFeatureChange;\n}\n\nnamespace mozilla {\nnamespace image {\n\nclass ImageRegion;\nclass ImageIntRegion;\nclass WebRenderImageProvider;\nstruct Orientation;\nstruct Resolution;\n\n}\n}\n\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * imgIContainer is the interface that represents an image. It allows\n * access to frames as Thebes surfaces. It also allows drawing of images\n * onto Thebes contexts.\n *\n * Internally, imgIContainer also manages animation of images.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a8dbee24-ff86-4755-b40e-51175caf31af"
+              }
+            }
+          }
+        ]
+      },
+      "name": "imgIContainer",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The width of the container rectangle.  In the case of any error,\n   * zero is returned, and an exception will be thrown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "int32_t",
+                  "name": "width"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The height of the container rectangle.  In the case of any error,\n   * zero is returned, and an exception will be thrown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "int32_t",
+                  "name": "height"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The intrinsic size of this image in appunits. If the image has no intrinsic\n   * size in a dimension, -1 will be returned for that dimension. In the case of\n   * any error, an exception will be thrown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsSize",
+                  "name": "intrinsicSize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The (dimensionless) intrinsic ratio of this image. In the case of any\n   * error, Nothing() will be returned.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "readonly": "readonly",
+                  "type": "MaybeAspectRatio",
+                  "name": "intrinsicRatio"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The x coordinate of the image's hotspot, or 0 if there is no hotspot.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "int32_t",
+                  "name": "hotspotX"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The y coordinate of the image's hotspot, or 0 if there is no hotspot.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "int32_t",
+                  "name": "hotspotY"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Given a size at which this image will be displayed, and the drawing\n   * parameters affecting how it will be drawn, returns the image size which\n   * should be used to draw to produce the highest quality result. This is the\n   * appropriate size, for example, to use as an input to the pixel snapping\n   * algorithm.\n   *\n   * For best results the size returned by this method should not be cached. It\n   * can change over time due to changes in the internal state of the image.\n   *\n   * @param aDest The size of the destination rect into which this image will be\n   *              drawn, in device pixels.\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   * @param aSamplingFilter The filter to be used if we're scaling the image.\n   * @param aFlags Flags of the FLAG_* variety\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "nsIntSizeByVal",
+                  "name": "optimalImageSizeForDest",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "gfxSize",
+                      "name": "aDest"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aWhichFrame"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "SamplingFilter",
+                          "name": "aSamplingFilter"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Enumerated values for the 'type' attribute (below).\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned short",
+                  "name": "TYPE_RASTER",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned short",
+                  "name": "TYPE_VECTOR",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned short",
+                  "name": "TYPE_REQUEST",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The type of this image (one of the TYPE_* values above).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned short",
+                  "name": "type"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether this image is animated. You can only be guaranteed that querying\n   * this will not throw if STATUS_DECODE_COMPLETE is set on the imgIRequest.\n   *\n   * @throws NS_ERROR_NOT_AVAILABLE if the animated state cannot be determined.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "animated"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Provider ID for image providers created by this image.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "providerId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Flags for imgIContainer operations.\n   *\n   * Meanings:\n   *\n   * FLAG_NONE: Lack of flags.\n   *\n   * FLAG_SYNC_DECODE: Forces synchronous/non-progressive decode of all\n   * available data before the call returns.\n   *\n   * FLAG_SYNC_DECODE_IF_FAST: Like FLAG_SYNC_DECODE, but requests a sync decode\n   * be performed only if ImageLib estimates it can be completed very quickly.\n   *\n   * FLAG_ASYNC_NOTIFY: Send notifications asynchronously, even if we decode\n   * synchronously because of FLAG_SYNC_DECODE or FLAG_SYNC_DECODE_IF_FAST.\n   *\n   * FLAG_DECODE_NO_PREMULTIPLY_ALPHA: Do not premultiply alpha if\n   * it's not already premultiplied in the image data.\n   *\n   * FLAG_DECODE_NO_COLORSPACE_CONVERSION: Do not do any colorspace conversion;\n   * ignore any embedded profiles, and don't convert to any particular\n   * destination space.\n   *\n   * FLAG_CLAMP: Extend the image to the fill area by clamping image sample\n   * coordinates instead of by tiling. This only affects 'draw'.\n   *\n   * FLAG_HIGH_QUALITY_SCALING: A hint as to whether this image should be\n   * scaled using the high quality scaler. Do not set this if not drawing to\n   * a window or not listening to invalidations. Passing this flag will do two\n   * things: 1) request a decode of the image at the size asked for by the\n   * caller if one isn't already started or complete, and 2) allows a decoded\n   * frame of any size (it could be neither the requested size, nor the\n   * intrinsic size) to be substituted.\n   *\n   * FLAG_BYPASS_SURFACE_CACHE: Forces drawing to happen rather than taking\n   * cached rendering from the surface cache. This is used when we are printing,\n   * for example, where we want the vector commands from VectorImages to end up\n   * in the PDF output rather than a cached rendering at screen resolution.\n   *\n   * FLAG_FORCE_PRESERVEASPECTRATIO_NONE: Force scaling this image\n   * non-uniformly if necessary. This flag is for vector image only. A raster\n   * image should ignore this flag. While drawing a vector image with this\n   * flag, do not force uniform scaling even if its root <svg> node has a\n   * preserveAspectRatio attribute that would otherwise require uniform\n   * scaling , such as xMinYMin/ xMidYMin. Always scale the graphic content of\n   * the given image non-uniformly if necessary such that the image's\n   * viewBox (if specified or implied by height/width attributes) exactly\n   * matches the viewport rectangle.\n   *\n   * FLAG_FORCE_UNIFORM_SCALING: Signal to ClippedImage::OptimalSizeForDest that\n   * its returned size can only scale the image's size *uniformly* (by the same\n   * factor in each dimension). We need this flag when painting border-image\n   * section with SVG image source-data, if the SVG image has no viewBox and no\n   * intrinsic size. In such a case, we synthesize a viewport for the SVG image\n   * (a \"window into SVG space\") based on the border image area, and we need to\n   * be sure we don't subsequently scale that viewport in a way that distorts\n   * its contents by stretching them more in one dimension than the other.\n   *\n   * FLAG_AVOID_REDECODE_FOR_SIZE: If there is already a raster surface\n   * available for this image, but it is not the same size as requested, skip\n   * starting a new decode for said size.\n   *\n   * FLAG_DECODE_TO_SRGB_COLORSPACE: Instead of converting the colorspace to\n   * the display's colorspace, use sRGB.\n   *\n   * FLAG_RECORD_BLOB: Instead of rasterizing an SVG image on the main thread,\n   * record the drawing commands using blob images.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_NONE",
+                  "value": "0x0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_SYNC_DECODE",
+                  "value": "0x1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_SYNC_DECODE_IF_FAST",
+                  "value": "0x2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_ASYNC_NOTIFY",
+                  "value": "0x4"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_DECODE_NO_PREMULTIPLY_ALPHA",
+                  "value": "0x8"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_DECODE_NO_COLORSPACE_CONVERSION",
+                  "value": "0x10"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_CLAMP",
+                  "value": "0x20"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_HIGH_QUALITY_SCALING",
+                  "value": "0x40"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_BYPASS_SURFACE_CACHE",
+                  "value": "0x80"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_FORCE_PRESERVEASPECTRATIO_NONE",
+                  "value": "0x100"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_FORCE_UNIFORM_SCALING",
+                  "value": "0x200"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_AVOID_REDECODE_FOR_SIZE",
+                  "value": "0x400"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_DECODE_TO_SRGB_COLORSPACE",
+                  "value": "0x800"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FLAG_RECORD_BLOB",
+                  "value": "0x1000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A constant specifying the default set of decode flags (i.e., the default\n   * values for FLAG_DECODE_*).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DECODE_FLAGS_DEFAULT",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A constant specifying the decode flags recommended to be used when\n   * re-encoding an image, or with the clipboard.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DECODE_FLAGS_FOR_REENCODE",
+                  "value": {
+                    "kind": "num_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Constants for specifying various \"special\" frames.\n    *\n    * FRAME_FIRST: The first frame\n    * FRAME_CURRENT: The current frame\n    *\n    * FRAME_MAX_VALUE should be set to the value of the maximum constant above,\n    * as it is used for ensuring that a valid value was passed in.\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FRAME_FIRST",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FRAME_CURRENT",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "FRAME_MAX_VALUE",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get a surface for the given frame. This may be a platform-native,\n   * optimized surface, so you cannot inspect its pixel data. If you\n   * need that, use SourceSurface::GetDataSurface.\n   *\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   * @param aFlags Flags of the FLAG_* variety\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "TempRefSourceSurface",
+                  "name": "getFrame",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint32_t",
+                      "name": "aWhichFrame"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get a surface for the given frame at the specified size. Matching the\n   * requested size is best effort; it's not guaranteed that the surface you get\n   * will be a perfect match. (Some reasons you may get a surface of a different\n   * size include: if you requested upscaling, if downscale-during-decode is\n   * disabled, or if you didn't request the first frame.)\n   *\n   * @param aSize The desired size.\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   * @param aFlags Flags of the FLAG_* variety\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "TempRefSourceSurface",
+                  "name": "getFrameAtSize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "nsIntSize",
+                      "name": "aSize"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aWhichFrame"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns true if this image will draw opaquely right now if asked to draw\n   * with FLAG_HIGH_QUALITY_SCALING and otherwise default flags. If this image\n   * (when decoded) is opaque but no decoded frames are available then\n   * willDrawOpaqueNow will return false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "willDrawOpaqueNow",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns true if this image has a frame and the frame currently has a\n   * least 1 decoded pixel. Only valid for raster images.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "hasDecodedPixels",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * @return true if getImageContainer() is expected to return a valid\n   *         ImageContainer when passed the given @Renderer and @Flags\n   *         parameters.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "isImageContainerAvailable",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "WindowRenderer",
+                      "name": "aRenderer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Attempts to find a WebRenderImageProvider containing the current frame at\n   * the given size. Match the requested size is best effort; it's not\n   * guaranteed that the surface you get will be a perfect match. (Some reasons\n   * you may get a surface of a different size include: if you requested\n   * upscaling, or if downscale-during-decode is disabled.)\n   *\n   * @param aRenderer The WindowRenderer which will be used to render the\n   *                  ImageContainer.\n   * @param aSVGContext If specified, SVG-related rendering context, such as\n   *                    overridden attributes on the image document's root <svg>\n   *                    node, and the size of the viewport that the full image\n   *                    would occupy. Ignored for raster images.\n   * @param aFlags Decoding / drawing flags (in other words, FLAG_* flags).\n   *               Currently only FLAG_SYNC_DECODE and FLAG_SYNC_DECODE_IF_FAST\n   *               are supported.\n   * @param aProvider Return value for WebRenderImageProvider for the current\n   *                  frame. May be null depending on the draw result.\n   * @return The draw result for the current frame.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "ImgDrawResult",
+                  "name": "getImageProvider",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "WindowRenderer",
+                      "name": "aRenderer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIntSize",
+                          "name": "aSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "SVGImageContext",
+                          "name": "aSVGContext"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "MaybeImageIntRegion",
+                          "name": "aRegion"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "WebRenderImageProvider",
+                          "name": "aProvider"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Draw the requested frame of this image onto the context specified.\n   *\n   * Drawing an image involves scaling it to a certain size (which may be\n   * implemented as a \"smart\" scale by substituting an HQ-scaled frame or\n   * rendering at a high DPI), and then selecting a region of that image to\n   * draw. That region is drawn onto the graphics context and in the process\n   * transformed by the context matrix, which determines the final area that is\n   * filled. The basic process looks like this:\n   *\n   *                           +------------------+\n   *                           |      Image       |\n   *                           |                  |\n   *                           | intrinsic width  |\n   *                           |        X         |\n   *                           | intrinsic height |\n   *                           +------------------+\n   *                          /                    \\\n   *                         /                      \\\n   *                        /    (scale to aSize)    \\\n   *                       /                          \\\n   *                      +----------------------------+\n   *                      |                            |\n   *                      |        Scaled Image        |\n   *                      | aSize.width X aSize.height |\n   *                      |                            |\n   *                      |       +---------+          |\n   *                      |       | aRegion |          |\n   *                      |       +---------+          |\n   *                      +-------(---------(----------+\n   *                              |         |\n   *                             /           \\\n   *                            |  (transform |\n   *                           /  by aContext  \\\n   *                          |     matrix)     |\n   *                         /                   \\\n   *                        +---------------------+\n   *                        |                     |\n   *                        |      Fill Rect      |\n   *                        |                     |\n   *                        +---------------------+\n   *\n   * The region may extend outside of the scaled image's boundaries. It's\n   * actually a region in tiled image space, which is formed by tiling the\n   * scaled image infinitely in every direction. Drawing with a region larger\n   * than the scaled image thus causes the filled area to contain multiple tiled\n   * copies of the image, which looks like this:\n   *\n   *           ....................................................\n   *           :                :                :                :\n   *           :      Tile      :      Tile      :      Tile      :\n   *           :        +------------[aRegion]------------+       :\n   *           :........|.......:................:........|.......:\n   *           :        |       :                :        |       :\n   *           :      Ti|le     :  Scaled Image  :      Ti|le     :\n   *           :        |       :                :        |       :\n   *           :........|.......:................:........|.......:\n   *           :        +---------------------------------+       :\n   *           :      Ti|le     :      Tile      :      Ti|le     :\n   *           :       /        :                :         \\      :\n   *           :......(.........:................:..........).....:\n   *                  |                                     |\n   *                 /                                       \\\n   *                |      (transform by aContext matrix)     |\n   *               /                                           \\\n   *              +---------------------------------------------+\n   *              |     :                                 :     |\n   *              |.....:.................................:.....|\n   *              |     :                                 :     |\n   *              |     :           Tiled Fill            :     |\n   *              |     :                                 :     |\n   *              |.....:.................................:.....|\n   *              |     :                                 :     |\n   *              +---------------------------------------------+\n   *\n   *\n   * @param aContext The Thebes context to draw the image to.\n   * @param aSize The size to which the image should be scaled before drawing.\n   *              This requirement may be satisfied using HQ scaled frames,\n   *              selecting from different resolution layers, drawing at a\n   *              higher DPI, or just performing additional scaling on the\n   *              graphics context. Callers can use optimalImageSizeForDest()\n   *              to determine the best choice for this parameter if they have\n   *              no special size requirements.\n   * @param aRegion The region in tiled image space which will be drawn onto the\n   *                graphics context. aRegion is in the coordinate space of the\n   *                image after it has been scaled to aSize - that is, the image\n   *                is scaled first, and then aRegion is applied. When aFlags\n   *                includes FLAG_CLAMP, the image will be extended to this area\n   *                by clamping image sample coordinates. Otherwise, the image\n   *                will be automatically tiled as necessary. aRegion can also\n   *                optionally contain a second region which restricts the set\n   *                of pixels we're allowed to sample from when drawing; this\n   *                is only of use to callers which need to draw with pixel\n   *                snapping.\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   * @param aSamplingFilter The filter to be used if we're scaling the image.\n   * @param aSVGContext If specified, SVG-related rendering context, such as\n   *                    overridden attributes on the image document's root <svg>\n   *                    node, and the size of the viewport that the full image\n   *                    would occupy. Ignored for raster images.\n   * @param aFlags Flags of the FLAG_* variety\n   * @return A ImgDrawResult value indicating whether and to what degree the\n   *         drawing operation was successful.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "ImgDrawResult",
+                  "name": "draw",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "gfxContext",
+                      "name": "aContext"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIntSize",
+                          "name": "aSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "ImageRegion",
+                          "name": "aRegion"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aWhichFrame"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "SamplingFilter",
+                          "name": "aSamplingFilter"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "SVGImageContext",
+                          "name": "aSVGContext"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "float",
+                          "name": "aOpacity"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Ensures that an image is decoding. Calling this function guarantees that\n   * the image will at some point fire off decode notifications. Images that\n   * can be decoded \"quickly\" according to some heuristic will be decoded\n   * synchronously.\n   *\n   * @param aFlags Flags of the FLAG_* variety. Only FLAG_ASYNC_NOTIFY\n   *               is accepted; all others are ignored.\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "startDecoding",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint32_t",
+                      "name": "aFlags"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aWhichFrame"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  nsresult StartDecoding(uint32_t aFlags) {\n    return StartDecoding(aFlags, FRAME_CURRENT);\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Exactly like startDecoding above except returns whether the current frame\n   * of the image is complete or not.\n   *\n   * @param aFlags Flags of the FLAG_* variety. Only FLAG_ASYNC_NOTIFY\n   *               is accepted; all others are ignored.\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "boolean",
+                  "name": "startDecodingWithResult",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint32_t",
+                      "name": "aFlags"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aWhichFrame"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  bool StartDecodingWithResult(uint32_t aFlags) {\n    return StartDecodingWithResult(aFlags, FRAME_CURRENT);\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * This method triggers decoding for an image, but unlike startDecoding() it\n   * enables the caller to provide more detailed information about the decode\n   * request.\n   *\n   * @param aFlags Flags of the FLAG_* variety.\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   * @return DECODE_SURFACE_AVAILABLE if is a surface that satisfies the\n   *         request and it is fully decoded.\n   *         DECODE_REQUESTED if we requested a decode.\n   *         DECODE_REQUEST_FAILED if we failed to request a decode. This means\n   *         that either there is an error in the image or we cannot allocate a\n   *         surface that big.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "DecodeResult",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "DECODE_SURFACE_AVAILABLE",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "0"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DECODE_REQUESTED",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "1"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "DECODE_REQUEST_FAILED",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "imgIContainer_DecodeResult",
+                  "name": "requestDecodeWithResult",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint32_t",
+                      "name": "aFlags"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aWhichFrame"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  DecodeResult RequestDecodeWithResult(uint32_t aFlags) {\n    return RequestDecodeWithResult(aFlags, FRAME_CURRENT);\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * This method triggers decoding for an image, but unlike startDecoding() it\n   * enables the caller to provide more detailed information about the decode\n   * request.\n   *\n   * @param aSize The size to which the image should be scaled while decoding,\n   *              if possible. If the image cannot be scaled to this size while\n   *              being decoded, it will be decoded at its intrinsic size.\n   * @param aFlags Flags of the FLAG_* variety.\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "requestDecodeForSize",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "nsIntSize",
+                      "name": "aSize"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "aWhichFrame"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{C++\n  nsresult RequestDecodeForSize(const nsIntSize& aSize, uint32_t aFlags) {\n    return RequestDecodeForSize(aSize, aFlags, FRAME_CURRENT);\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Increments the lock count on the image. An image will not be discarded\n    * as long as the lock count is nonzero. Note that it is still possible for\n    * the image to be undecoded if decode-on-draw is enabled and the image\n    * was never drawn.\n    *\n    * Upon instantiation images have a lock count of zero.\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "lockImage",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Decreases the lock count on the image. If the lock count drops to zero,\n    * the image is allowed to discard its frame data to save memory.\n    *\n    * Upon instantiation images have a lock count of zero. It is an error to\n    * call this method without first having made a matching lockImage() call.\n    * In other words, the lock count is not allowed to be negative.\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unlockImage",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If this image is unlocked, discard its decoded data.  If the image is\n   * locked or has already been discarded, do nothing.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "requestDiscard",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Indicates that this imgIContainer has been triggered to update\n    * its internal animation state. Likely this should only be called\n    * from within nsImageFrame or objects of similar type.\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "requestRefresh",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "TimeStamp",
+                      "name": "aTime"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Animation mode Constants\n   *   0 = normal\n   *   1 = don't animate\n   *   2 = loop once\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "kNormalAnimMode",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "kDontAnimMode",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "kLoopOnceAnimMode",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "unsigned short",
+                  "name": "animationMode"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/* Methods to control animation */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "resetAnimation",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Returns an index for the requested animation frame (either FRAME_FIRST or\n   * FRAME_CURRENT).\n   *\n   * The units of the index aren't specified, and may vary between different\n   * types of images. What you can rely on is that on all occasions when\n   * getFrameIndex(FRAME_CURRENT) returns a certain value,\n   * draw(..FRAME_CURRENT..) will draw the same frame. The same holds for\n   * FRAME_FIRST as well.\n   *\n   * @param aWhichFrame Frame specifier of the FRAME_* variety.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "float",
+                  "name": "getFrameIndex",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "uint32_t",
+                      "name": "aWhichFrame"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Returns the inherent orientation of the image, as described in the image's\n   * metadata (e.g. EXIF).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Orientation",
+                  "name": "getOrientation",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Returns the intrinsic resolution of the image, or 1.0 if the image doesn't\n   * declare any.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "ImageResolution",
+                  "name": "getResolution",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Returns the delay, in ms, between the first and second frame. If this\n   * returns 0, there is no delay between first and second frame (i.e., this\n   * image could render differently whenever it draws).\n   *\n   * If this image is not animated, or not known to be animated (see attribute\n   * animated), returns -1.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "int32_t",
+                  "name": "getFirstFrameDelay",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * If this is an animated image that hasn't started animating already, this\n   * sets the animation's start time to the indicated time.\n   *\n   * This has no effect if the image isn't animated or it has started animating\n   * already; it also has no effect if the image format doesn't care about\n   * animation start time.\n   *\n   * In all cases, animation does not actually begin until startAnimation(),\n   * resetAnimation(), or requestRefresh() is called for the first time.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setAnimationStartTime",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "TimeStamp",
+                      "name": "aTime"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Given an invalidation rect in the coordinate system used by the decoder,\n   * returns an invalidation rect in image space.\n   *\n   * This is the identity transformation in most cases, but the result can\n   * differ if the image is wrapped by an ImageWrapper that changes its size\n   * or orientation.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIntRectByVal",
+                  "name": "getImageSpaceInvalidationRect",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "nsIntRect",
+                      "name": "aRect"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Removes any ImageWrappers and returns the unwrapped base image.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "TempRefImgIContainer",
+                  "name": "unwrap",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Propagate the use counters (if any) from this container to the passed in\n   * document.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "propagateUseCounters",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "Document",
+                      "name": "aReferencingDocument"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Called when media feature values that apply to all documents (such as\n   * those based on system metrics) have changed.  If this image is a type\n   * that can respond to media queries (i.e., an SVG image), this function\n   * is overridden to handle restyling and invalidating the image.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "mediaFeatureValuesChangedAllDocuments",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "const",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "MediaFeatureChange",
+                      "name": "aChange"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Get the set of sizes the image can decode to natively.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "nostdcall",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getNativeSizes",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "nostdcall",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "size_t",
+                  "name": "getNativeSizesLength",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

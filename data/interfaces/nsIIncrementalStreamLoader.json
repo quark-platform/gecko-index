@@ -1,0 +1,388 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIStreamListener"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRequest",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIIncrementalStreamLoader",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "07c3d2cc-5454-4618-9f4f-cd93de9504a4"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIIncrementalStreamLoaderObserver",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Called when new data has arrived on the stream.\n     *\n     * @param loader the stream loader that loaded the stream.\n     * @param ctxt the context parameter of the underlying channel\n     * @param dataLength the length of the new data received\n     * @param data the contents of the new data received.\n     *\n     * This method will always be called asynchronously by the\n     * nsIIncrementalStreamLoader involved, on the thread that called the\n     * loader's init() method.\n     *\n     * If the observer wants to not accumulate all or portional of the data in\n     * the internal buffer, the consumedLength shall be set to the value of\n     * the dataLength or less. By default the consumedLength value is assumed 0.\n     * The data and dataLength reflect the non-consumed data and will be\n     * accumulated if consumedLength is not set.\n     *\n     * In comparison with onStreamComplete(), the data buffer cannot be\n     * adopted if this method returns NS_SUCCESS_ADOPTED_DATA.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onIncrementalData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIIncrementalStreamLoader",
+                      "name": "loader"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "ctxt"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "dataLength"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "array",
+                                  "param": null
+                                }
+                              },
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "size_is",
+                                  "param": {
+                                    "kind": "attribute_$0",
+                                    "value": "dataLength"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "in",
+                          "type": "octet",
+                          "name": "data"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "inout",
+                          "type": "unsigned long",
+                          "name": "consumedLength"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Called when the entire stream has been loaded.\n     *\n     * @param loader the stream loader that loaded the stream.\n     * @param ctxt the context parameter of the underlying channel\n     * @param status the status of the underlying channel\n     * @param resultLength the length of the data loaded\n     * @param result the data\n     *\n     * This method will always be called asynchronously by the\n     * nsIIncrementalStreamLoader involved, on the thread that called the\n     * loader's init() method.\n     *\n     * If the observer wants to take over responsibility for the\n     * data buffer (result), it returns NS_SUCCESS_ADOPTED_DATA\n     * in place of NS_OK as its success code. The loader will then\n     * \"forget\" about the data and not free() it after\n     * onStreamComplete() returns; observer must call free()\n     * when the data is no longer required.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onStreamComplete",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIIncrementalStreamLoader",
+                      "name": "loader"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "ctxt"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsresult",
+                          "name": "status"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "resultLength"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "const",
+                              "param": null
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "array",
+                                  "param": null
+                                }
+                              },
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "size_is",
+                                  "param": {
+                                    "kind": "attribute_$0",
+                                    "value": "resultLength"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "in",
+                          "type": "octet",
+                          "name": "result"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Asynchronously loads a channel into a memory buffer.\n *\n * To use this interface, first call init() with a nsIIncrementalStreamLoaderObserver\n * that will be notified when the data has been loaded. Then call asyncOpen()\n * on the channel with the nsIIncrementalStreamLoader as the listener. The context\n * argument in the asyncOpen() call will be passed to the onStreamComplete()\n * callback.\n *\n * XXX define behaviour for sizes >4 GB\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a023b060-ba23-431a-b449-2dd63e220554"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIIncrementalStreamLoader",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIStreamListener"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Initialize this stream loader, and start loading the data.\n     *\n     * @param aObserver\n     *        An observer that will be notified when the data is complete.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIIncrementalStreamLoaderObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Gets the number of bytes read so far.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "unsigned long",
+                  "name": "numBytesRead"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Gets the request that loaded this file.\n     * null after the request has finished loading.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIRequest",
+                  "name": "request"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

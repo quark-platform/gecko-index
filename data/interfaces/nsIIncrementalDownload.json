@@ -1,0 +1,296 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim:set ts=2 sw=2 sts=2 et cindent: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIRequest"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRequestObserver",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * An incremental download object attempts to fetch a file piecemeal over time\n * in an effort to minimize network bandwidth usage.\n *\n * Canceling a background download does not cause the file on disk to be\n * deleted.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "6687823f-56c4-461d-93a1-7f6cb7dfbfba"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIIncrementalDownload",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIRequest"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initialize the incremental download object.  If the destination file\n   * already exists, then only the remaining portion of the file will be\n   * fetched.\n   *\n   * NOTE: The downloader will create the destination file if it does not\n   * already exist.  It will create the file with the permissions 0600 if\n   * needed.  To affect the permissions of the file, consumers of this\n   * interface may create an empty file at the specified destination prior to\n   * starting the incremental download.\n   *\n   * NOTE: Since this class may create a temporary file at the specified\n   * destination, it is advisable for the consumer of this interface to specify\n   * a file name for the destination that would not tempt the user into\n   * double-clicking it.  For example, it might be wise to append a file\n   * extension like \".part\" to the end of the destination to protect users from\n   * accidentally running \"blah.exe\" before it is a complete file.\n   *\n   * @param uri\n   *        The URI to fetch.\n   * @param destination\n   *        The location where the file is to be stored.\n   * @param chunkSize\n   *        The size of the chunks to fetch.  A non-positive value results in\n   *        the default chunk size being used.\n   * @param intervalInSeconds\n   *        The amount of time to wait between fetching chunks.  Pass a\n   *        negative to use the default interval, or 0 to fetch the remaining\n   *        part of the file in one chunk.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "uri"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIFile",
+                          "name": "destination"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "chunkSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "intervalInSeconds"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The URI being fetched.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "URI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The URI being fetched after any redirects have been followed.  This\n   * attribute is set just prior to calling OnStartRequest on the observer\n   * passed to the start method.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "finalURI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The file where the download is being written.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIFile",
+                  "name": "destination"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The total number of bytes for the requested file.  This attribute is set\n   * just prior to calling OnStartRequest on the observer passed to the start\n   * method.\n   *\n   * This attribute has a value of -1 if the total size is unknown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "long long",
+                  "name": "totalSize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The current number of bytes downloaded so far.  This attribute is set just\n   * prior to calling OnStartRequest on the observer passed to the start\n   * method.\n   *\n   * This attribute has a value of -1 if the current size is unknown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "long long",
+                  "name": "currentSize"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Start the incremental download.\n   *\n   * @param observer\n   *        An observer to be notified of various events.  OnStartRequest is\n   *        called when finalURI and totalSize have been determined or when an\n   *        error occurs.  OnStopRequest is called when the file is completely\n   *        downloaded or when an error occurs.  If this object implements\n   *        nsIProgressEventSink, then its OnProgress method will be called as\n   *        data is written to the destination file.  If this object implements\n   *        nsIInterfaceRequestor, then it will be assigned as the underlying\n   *        channel's notification callbacks, which allows it to provide a\n   *        nsIAuthPrompt implementation if needed by the channel, for example.\n   * @param ctxt\n   *        User defined object forwarded to the observer's methods.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "start",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRequestObserver",
+                      "name": "observer"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "ctxt"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

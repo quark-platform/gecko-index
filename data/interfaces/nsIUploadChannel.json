@@ -1,0 +1,144 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIUploadChannel\n *\n * A channel may optionally implement this interface if it supports the\n * notion of uploading a data stream.  The upload stream may only be set\n * prior to the invocation of asyncOpen on the channel.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "5cfe15bd-5adb-4a7f-9e55-4f5a67d15794"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIUploadChannel",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Sets a stream to be uploaded by this channel.\n     *\n     * Most implementations of this interface require that the stream:\n     *   (1) implement threadsafe addRef and release\n     *   (2) implement nsIInputStream::readSegments\n     *   (3) implement nsISeekableStream::seek\n     *\n     * History here is that we need to support both streams that already have\n     * headers (e.g., Content-Type and Content-Length) information prepended to\n     * the stream (by plugins) as well as clients (composer, uploading\n     * application) that want to upload data streams without any knowledge of\n     * protocol specifications.  For this reason, we have a special meaning\n     * for the aContentType parameter (see below).\n     *\n     * @param aStream\n     *        The stream to be uploaded by this channel.\n     * @param aContentType\n     *        If aContentType is empty, the protocol will assume that no\n     *        content headers are to be added to the uploaded stream and that\n     *        any required headers are already encoded in the stream.  In the\n     *        case of HTTP, if this parameter is non-empty, then its value will\n     *        replace any existing Content-Type header on the HTTP request.\n     *        In the case of FTP and FILE, this parameter is ignored.\n     * @param aContentLength\n     *        A value of -1 indicates that the length of the stream should be\n     *        determined by calling the stream's |available| method.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setUploadStream",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIInputStream",
+                      "name": "aStream"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aContentType"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long long",
+                          "name": "aContentLength"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Get the stream (to be) uploaded by this channel.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIInputStream",
+                  "name": "uploadStream"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

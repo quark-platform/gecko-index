@@ -1,0 +1,473 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIDOMWindowProxy",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIObserver",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrompt",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIAuthPrompt",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsISimpleEnumerator",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIWebBrowserChrome",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIWindowCreator",
+      "base": null,
+      "body": null
+    },
+    "\n\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIWindowWatcher is the keeper of Gecko/DOM Windows. It maintains\n * a list of open top-level windows, and allows some operations on them.\n\n * Usage notes:\n\n *   This component has an |activeWindow| property. Clients may expect\n * this property to be always current, so to properly integrate this component\n * the application will need to keep it current by setting the property\n * as the active window changes.\n *   This component should not keep a (XPCOM) reference to any windows;\n * the implementation will claim no ownership. Windows must notify\n * this component when they are created or destroyed, so only a weak\n * reference is kept. Note that there is no interface for such notifications\n * (not a public one, anyway). This is taken care of both in Mozilla and\n * by common embedding code. Embedding clients need do nothing special\n * about that requirement.\n *   This component must be initialized at application startup by calling\n * setWindowCreator.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "641fe945-6902-4b3f-87c2-0daef32499b3"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIWindowWatcher",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Create a new window. It will automatically be added to our list\n      (via addWindow()).\n      @param aParent parent window, if any. Null if no parent.  If it is\n             impossible to get to an nsIWebBrowserChrome from aParent, this\n             method will effectively act as if aParent were null.\n      @param aURL url to which to open the new window. Must already be\n             escaped, if applicable. can be null.\n      @param aName window name from JS window.open. can be null.  If a window\n             with this name already exists, the openWindow call may just load\n             aUrl in it (if aUrl is not null) and return it.\n      @param aFeatures window features from JS window.open. can be null.\n      @param aArguments extra argument(s) to the new window, to be attached\n             as the |arguments| property. An nsIArray will be\n             unwound into multiple arguments (but not recursively!).\n             can be null.\n      @return the new window\n\n      @note This method may examine the JS context stack for purposes of\n            determining the security context to use for the search for a given\n            window named aName.\n      @note This method should try to set the default charset for the new\n            window to the default charset of aParent.  This is not guaranteed,\n            however.\n      @note This method may dispatch a \"toplevel-window-ready\" notification\n            via nsIObserverService if the window did not already exist.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIDOMWindowProxy",
+                  "name": "openWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindowProxy",
+                      "name": "aParent"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aUrl"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aName"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ACString",
+                          "name": "aFeatures"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsISupports",
+                          "name": "aArguments"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Clients of this service can register themselves to be notified\n      when a window is opened or closed (added to or removed from this\n      service). This method adds an aObserver to the list of objects\n      to be notified.\n      @param aObserver the object to be notified when windows are\n                       opened or closed. Its Observe method will be\n                       called with the following parameters:\n\n      aObserver::Observe interprets its parameters so:\n      aSubject the window being opened or closed, sent as an nsISupports\n               which can be QIed to an nsIDOMWindow.\n      aTopic   a wstring, either \"domwindowopened\" or \"domwindowclosed\".\n      someData not used.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerNotification",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Clients of this service can register themselves to be notified\n      when a window is opened or closed (added to or removed from this\n      service). This method removes an aObserver from the list of objects\n      to be notified.\n      @param aObserver the observer to be removed.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unregisterNotification",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Get an iterator for currently open windows in the order they were opened,\n      guaranteeing that each will be visited exactly once.\n      @return an enumerator which will itself return nsISupports objects which\n              can be QIed to an nsIDOMWindow\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsISimpleEnumerator",
+                  "name": "getWindowEnumerator",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Return a newly created nsIPrompt implementation.\n      @param aParent the parent window used for posing alerts. can be null.\n      @return a new nsIPrompt object\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIPrompt",
+                  "name": "getNewPrompter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindowProxy",
+                      "name": "aParent"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Return a newly created nsIAuthPrompt implementation.\n      @param aParent the parent window used for posing alerts. can be null.\n      @return a new nsIAuthPrompt object\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIAuthPrompt",
+                  "name": "getNewAuthPrompter",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindowProxy",
+                      "name": "aParent"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Set the window creator callback. It must be filled in by the app.\n      openWindow will use it to create new windows.\n      @param creator the callback. if null, the callback will be cleared\n                     and window creation capabilities lost.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setWindowCreator",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIWindowCreator",
+                      "name": "creator"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Returns true if a window creator callback has been set, false otherwise.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "hasWindowCreator",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Retrieve the chrome window mapped to the given DOM window. Window\n      Watcher keeps a list of all top-level DOM windows currently open,\n      along with their corresponding chrome interfaces. Since DOM Windows\n      lack a (public) means of retrieving their corresponding chrome,\n      this method will do that.\n      @param aWindow the DOM window whose chrome window the caller needs\n      @return the corresponding chrome window\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIWebBrowserChrome",
+                  "name": "getChromeForWindow",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIDOMWindowProxy",
+                      "name": "aWindow"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n      Retrieve an existing window (or frame).\n      @param aTargetName the window name\n      @param aCurrentWindow a starting point in the window hierarchy to\n                            begin the search.  If null, each toplevel window\n                            will be searched.\n\n      Note: This method will search all open windows for any window or\n      frame with the given window name. Make sure you understand the\n      security implications of this before using this method!\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIDOMWindowProxy",
+                  "name": "getWindowByName",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aTargetName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "mozIDOMWindowProxy",
+                          "name": "aCurrentWindow"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n      Retrieves the active window from the focus manager.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "mozIDOMWindowProxy",
+                  "name": "activeWindow"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n#define NS_WINDOWWATCHER_CONTRACTID \"@mozilla.org/embedcomp/window-watcher;1\"\n%}\n"
+  ]
+}

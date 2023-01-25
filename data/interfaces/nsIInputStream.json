@@ -1,0 +1,255 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    "%{C++\n/**\n * The signature of the writer function passed to ReadSegments. This\n * is the \"consumer\" of data that gets read from the stream's buffer.\n *\n * @param aInStream stream being read\n * @param aClosure opaque parameter passed to ReadSegments\n * @param aFromSegment pointer to memory owned by the input stream.  This is\n *                     where the writer function should start consuming data.\n * @param aToOffset amount of data already consumed by this writer during this\n *                  ReadSegments call.  This is also the sum of the aWriteCount\n *                  returns from this writer over the previous invocations of\n *                  the writer by this ReadSegments call.\n * @param aCount Number of bytes available to be read starting at aFromSegment\n * @param [out] aWriteCount number of bytes read by this writer function call\n *\n * Implementers should return the following:\n *\n * @return NS_OK and (*aWriteCount > 0) if consumed some data\n * @return <any-error> if not interested in consuming any data\n *\n * Errors are never passed to the caller of ReadSegments.\n *\n * NOTE: returning NS_OK and (*aWriteCount = 0) has undefined behavior.\n */\ntypedef nsresult (*nsWriteSegmentFun)(nsIInputStream *aInStream,\n                                      void *aClosure,\n                                      const char *aFromSegment,\n                                      uint32_t aToOffset,\n                                      uint32_t aCount,\n                                      uint32_t *aWriteCount);\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIInputStream\n *\n * An interface describing a readable stream of data.  An input stream may be\n * \"blocking\" or \"non-blocking\" (see the IsNonBlocking method).  A blocking\n * input stream may suspend the calling thread in order to satisfy a call to\n * Close, Available, Read, or ReadSegments.  A non-blocking input stream, on\n * the other hand, must not block the calling thread of execution.\n *\n * NOTE: blocking input streams are often read on a background thread to avoid\n * locking up the main application thread.  For this reason, it is generally\n * the case that a blocking input stream should be implemented using thread-\n * safe AddRef and Release.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "53cdbc97-c2d7-4e30-b2c3-45b2ee79db18"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIInputStream",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Close the stream.  This method causes subsequent calls to Read and\n     * ReadSegments to return 0 bytes read to indicate end-of-file.  Any\n     * subsequent calls to Available should throw NS_BASE_STREAM_CLOSED.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "close",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Determine number of bytes available in the stream.  A non-blocking\n     * stream that does not yet have any data to read should return 0 bytes\n     * from this method (i.e., it must not throw the NS_BASE_STREAM_WOULD_BLOCK\n     * exception).\n     *\n     * In addition to the number of bytes available in the stream, this method\n     * also informs the caller of the current status of the stream.  A stream\n     * that is closed will throw an exception when this method is called.  That\n     * enables the caller to know the condition of the stream before attempting\n     * to read from it.  If a stream is at end-of-file, but not closed, then\n     * this method returns 0 bytes available.  (Note: some nsIInputStream\n     * implementations automatically close when eof is reached; some do not).\n     *\n     * NOTE: Streams implementing nsIAsyncInputStream must automatically close\n     * when eof is reached, as otherwise it is impossible to distinguish between\n     * a stream waiting for more data and a stream at EOF using Available().\n     *\n     * @return number of bytes currently available in the stream.\n     *\n     * @throws NS_BASE_STREAM_CLOSED if the stream is closed normally.\n     * @throws <other-error> if the stream is closed due to some error\n     *   condition\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long long",
+                  "name": "available",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Read data from the stream.\n     *\n     * @param aBuf the buffer into which the data is to be read\n     * @param aCount the maximum number of bytes to be read\n     *\n     * @return number of bytes read (may be less than aCount).\n     * @return 0 if reached end-of-file\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if reading from the input stream would\n     *   block the calling thread (non-blocking mode only)\n     * @throws <other-error> on failure\n     *\n     * NOTE: this method should not throw NS_BASE_STREAM_CLOSED.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "unsigned long",
+                  "name": "read",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "charPtr",
+                      "name": "aBuf"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aCount"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Low-level read method that provides access to the stream's underlying\n     * buffer.  The writer function may be called multiple times for segmented\n     * buffers.  ReadSegments is expected to keep calling the writer until\n     * either there is nothing left to read or the writer returns an error.\n     * ReadSegments should not call the writer with zero bytes to consume.\n     *\n     * @param aWriter the \"consumer\" of the data to be read\n     * @param aClosure opaque parameter passed to writer\n     * @param aCount the maximum number of bytes to be read\n     *\n     * @return number of bytes read (may be less than aCount)\n     * @return 0 if reached end-of-file (or if aWriter refused to consume data)\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if reading from the input stream would\n     *   block the calling thread (non-blocking mode only)\n     * @throws NS_ERROR_NOT_IMPLEMENTED if the stream has no underlying buffer\n     * @throws <other-error> on failure\n     *\n     * NOTE: this function may be unimplemented if a stream has no underlying\n     * buffer (e.g., socket input stream).\n     *\n     * NOTE: this method should not throw NS_BASE_STREAM_CLOSED.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "unsigned long",
+                  "name": "readSegments",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsWriteSegmentFun",
+                      "name": "aWriter"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "voidPtr",
+                          "name": "aClosure"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aCount"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * @return true if stream is non-blocking\n     *\n     * NOTE: reading from a blocking input stream will block the calling thread\n     * until at least one byte of data can be extracted from the stream.\n     *\n     * NOTE: a non-blocking input stream may implement nsIAsyncInputStream to\n     * provide consumers with a way to wait for the stream to have more data\n     * once its read method is unable to return any data without blocking.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "isNonBlocking",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIRequest"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIEventTarget",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIStreamListener",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIInputStreamPump\n *\n * This interface provides a means to configure and use a input stream pump\n * instance.  The input stream pump will asynchronously read from an input\n * stream, and push data to an nsIStreamListener instance.  It utilizes the\n * current thread's nsIEventTarget in order to make reading from the stream\n * asynchronous. A different thread can be used if the pump also implements\n * nsIThreadRetargetableRequest.\n *\n * If the given stream supports nsIAsyncInputStream, then the stream pump will\n * call the stream's AsyncWait method to drive the stream listener.  Otherwise,\n * the stream will be read on a background thread utilizing the stream\n * transport service.  More details are provided below.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "400F5468-97E7-4d2b-9C65-A82AECC7AE82"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIInputStreamPump",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsIRequest"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Initialize the input stream pump.\n     *\n     * @param aStream\n     *        contains the data to be read.  if the input stream is non-blocking,\n     *        then it will be QI'd to nsIAsyncInputStream.  if the QI succeeds\n     *        then the stream will be read directly.  otherwise, it will be read\n     *        on a background thread using the stream transport service.\n     * @param aSegmentSize\n     *        if the stream transport service is used, then this parameter\n     *        specifies the segment size for the stream transport's buffer.\n     *        pass 0 to specify the default value.\n     * @param aSegmentCount\n     *        if the stream transport service is used, then this parameter\n     *        specifies the segment count for the stream transport's buffer.\n     *        pass 0 to specify the default value.\n     * @param aCloseWhenDone\n     *        if true, the input stream will be closed after it has been read.\n     * @param aMainThreadTarget\n     *        a labeled main therad event target.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "init",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIInputStream",
+                      "name": "aStream"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSegmentSize"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aSegmentCount"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aCloseWhenDone"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "nsIEventTarget",
+                          "name": "aMainThreadTarget"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * asyncRead causes the input stream to be read in chunks and delivered\n     * asynchronously to the listener via OnDataAvailable.\n     *\n     * @param aListener\n     *        receives notifications.\n     * @param aListenerContext\n     *        passed to listener methods.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncRead",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIStreamListener",
+                      "name": "aListener"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

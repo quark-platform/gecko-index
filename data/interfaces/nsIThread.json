@@ -1,0 +1,615 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* vim:set ts=2 sw=2 sts=2 et cindent: */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISerialEventTarget"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIThreadShutdown"
+    },
+    "%{C++\n#include \"mozilla/AlreadyAddRefed.h\"\n\nnamespace mozilla {\nclass TimeStamp;\nclass TimeDurationValueCalculator;\ntemplate <typename T> class BaseTimeDuration;\ntypedef BaseTimeDuration<TimeDurationValueCalculator> TimeDuration;\nenum class EventQueuePriority;\n}\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * This interface provides a high-level abstraction for an operating system\n * thread.\n *\n * Threads have a built-in event queue, and a thread is an event target that\n * can receive nsIRunnable objects (events) to be processed on the thread.\n *\n * See nsIThreadManager for the API used to create and locate threads.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "builtinclass",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "scriptable",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "5801d193-29d1-4964-a6b7-70eb697ddf2b"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIThread",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISerialEventTarget"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * @returns\n   *   The NSPR thread object corresponding to this nsIThread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "PRThread",
+                  "name": "PRThread"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * @returns\n   *  Whether or not this thread may call into JS. Used in the profiler\n   *  to avoid some unnecessary locking.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "CanInvokeJS"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Shutdown the thread.  This method prevents further dispatch of events to\n   * the thread, and it causes any pending events to run to completion before\n   * the thread joins (see PR_JoinThread) with the current thread.  During this\n   * method call, events for the current thread may be processed.\n   *\n   * This method MAY NOT be executed from the thread itself.  Instead, it is\n   * meant to be executed from another thread (usually the thread that created\n   * this thread or the main application thread).  When this function returns,\n   * the thread will be shutdown, and it will no longer be possible to dispatch\n   * events to the thread.\n   *\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that this method was erroneously called when this thread was\n   *   the current thread, that this thread was not created with a call to\n   *   nsIThreadManager::NewThread, or if this method was called more than once\n   *   on the thread object.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "shutdown",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This method may be called to determine if there are any events ready to be\n   * processed.  It may only be called when this thread is the current thread.\n   *\n   * Because events may be added to this thread by another thread, a \"false\"\n   * result does not mean that this thread has no pending events.  It only\n   * means that there were no pending events when this method was called.\n   *\n   * @returns\n   *   A boolean value that if \"true\" indicates that this thread has one or\n   *   more pending events.\n   *\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that this method was erroneously called when this thread was\n   *   not the current thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "hasPendingEvents",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Similar to above, but checks only possible high priority queue.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "hasPendingHighPriorityEvents",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Process the next event.  If there are no pending events, then this method\n   * may wait -- depending on the value of the mayWait parameter -- until an\n   * event is dispatched to this thread.  This method is re-entrant but may\n   * only be called if this thread is the current thread.\n   *\n   * @param mayWait\n   *   A boolean parameter that if \"true\" indicates that the method may block\n   *   the calling thread to wait for a pending event.\n   *\n   * @returns\n   *   A boolean value that if \"true\" indicates that an event was processed.\n   *\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that this method was erroneously called when this thread was\n   *   not the current thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "processNextEvent",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "mayWait"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Shutdown the thread asynchronously.  This method immediately prevents\n   * further dispatch of events to the thread, and it causes any pending events\n   * to run to completion before this thread joins with the current thread.\n   *\n   * UNLIKE shutdown() this does not process events on the current thread.\n   * Instead it merely ensures that the current thread continues running until\n   * this thread has shut down.\n   *\n   * This method MAY NOT be executed from the thread itself.  Instead, it is\n   * meant to be executed from another thread (usually the thread that created\n   * this thread or the main application thread).  When this function returns,\n   * the thread will continue running until it exhausts its event queue.\n   *\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that this method was erroneously called when this thread was\n   *   the current thread, that this thread was not created with a call to\n   *   nsIThreadManager::NewNamedThread, or that this method was called more\n   *   than once on the thread object.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncShutdown",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Like `asyncShutdown`, but also returns a nsIThreadShutdown instance to\n   * allow observing and controlling the thread's async shutdown progress.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsIThreadShutdown",
+                  "name": "beginShutdown",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Dispatch an event to a specified queue for the thread.  This function\n   * may be called from any thread, and it may be called re-entrantly.\n   * Most users should use the NS_Dispatch*() functions in nsThreadUtils instead\n   * of calling this directly.\n   *\n   * @param event\n   *   The alreadyAddRefed<> event to dispatch.\n   *   NOTE that the event will be leaked if it fails to dispatch.\n   * @param queue\n   *   Which event priority queue this should be added to\n   *\n   * @throws NS_ERROR_INVALID_ARG\n   *   Indicates that event is null.\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that the thread is shutting down and has finished processing\n   * events, so this event would never run and has not been dispatched.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "dispatchToQueue",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "alreadyAddRefed_nsIRunnable",
+                      "name": "event"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "EventQueuePriority",
+                          "name": "queue"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Use this attribute to dispatch runnables to the thread. Eventually, the\n   * eventTarget attribute will be the only way to dispatch events to a\n   * thread--nsIThread will no longer inherit from nsIEventTarget.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIEventTarget",
+                  "name": "eventTarget"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A fast C++ getter for the eventTarget.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "nsIEventTargetPtr",
+                  "name": "EventTarget",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A fast C++ getter for the eventTarget. It asserts that the thread's event\n   * target is an nsISerialEventTarget and then returns it.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "nsISerialEventTargetPtr",
+                  "name": "SerialEventTarget",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This is set to the end of the last 50+ms event that was executed on\n   * this thread (for MainThread only).  Otherwise returns a null TimeStamp.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "TimeStamp",
+                  "name": "lastLongTaskEnd"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "TimeStamp",
+                  "name": "lastLongNonIdleTaskEnd"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get information on the timing of the currently-running event.\n   *\n   * @param delay\n   *   The amount of time the current running event in the specified queue waited\n   *   to run. Will return TimeDuration() if the queue is empty or has not run any\n   *   new events since event delay monitoring started.  NOTE: delay will be\n   *   TimeDuration() if this thread uses a PrioritizedEventQueue (i.e. MainThread)\n   *   and the event priority is below Input.\n   * @param start\n   *   The time the currently running event began to run, or TimeStamp() if no\n   *   event is running.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "getRunningEventDelay",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "out",
+                      "type": "TimeDuration",
+                      "name": "delay"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "TimeStamp",
+                          "name": "start"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set information on the timing of the currently-running event.\n   * Overrides the values returned by getRunningEventDelay\n   *\n   * @param delay\n   *   Delay the running event spent in queues, or TimeDuration() if\n   *   there's no running event.\n   * @param start\n   *   The time the currently running event began to run, or TimeStamp() if no\n   *   event is running.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setRunningEventDelay",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "TimeDuration",
+                      "name": "delay"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "TimeStamp",
+                          "name": "start"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setNameForWakeupTelemetry",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

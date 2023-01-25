@@ -1,0 +1,205 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The mother of all xpcom interfaces.\n */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsrootidl"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * Basic component object model interface. Objects which implement\n * this interface support runtime interface discovery (QueryInterface)\n * and a reference counted memory model (AddRef/Release). This is\n * modelled after the win32 IUnknown API.\n *\n * Historically, nsISupports needed to be binary compatible with COM's\n * IUnknown, so the IID of nsISupports is the same as it. That is no\n * longer a goal, and hopefully nobody depends on it. We may break\n * this compatibility at any time.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "00000000-0000-0000-c000-000000000046"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsISupports",
+      "base": null,
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A run time mechanism for interface discovery.\n   * @param aIID [in] A requested interface IID\n   * @param aInstancePtr [out] A pointer to an interface pointer to\n   * receive the result.\n   * @return <b>NS_OK</b> if the interface is supported by the associated\n   * instance, <b>NS_NOINTERFACE</b> if it is not.\n   *\n   * aInstancePtr must not be null.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "QueryInterface",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIIDRef",
+                      "name": "aIID"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "iid_is",
+                              "param": {
+                                "kind": "attribute_$0",
+                                "value": "aIID"
+                              }
+                            },
+                            "other_attributes": [
+                              {
+                                "kind": "attributes_$0",
+                                "attr": {
+                                  "kind": "attribute",
+                                  "name": "retval",
+                                  "param": null
+                                }
+                              }
+                            ]
+                          },
+                          "refType": "out",
+                          "type": "nsQIResult",
+                          "name": "aInstancePtr"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Increases the reference count for this interface.\n   * The associated instance will not be deleted unless\n   * the reference count is returned to zero.\n   *\n   * @return The resulting reference count.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "MozExternalRefCountType",
+                  "name": "AddRef",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Decreases the reference count for this interface.\n   * Generally, if the reference count returns to zero,\n   * the associated instance is deleted.\n   *\n   * @return The resulting reference count.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "MozExternalRefCountType",
+                  "name": "Release",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    "%{C++\n#include \"nsISupportsUtils.h\"\n%}\n"
+  ]
+}

@@ -1,0 +1,1203 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n *\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIWebProgress",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIRequest",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The nsIWebProgressListener interface is implemented by clients wishing to\n * listen in on the progress associated with the loading of asynchronous\n * requests in the context of a nsIWebProgress instance as well as any child\n * nsIWebProgress instances.  nsIWebProgress.idl describes the parent-child\n * relationship of nsIWebProgress instances.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "a9df523b-efe2-421e-9d8e-3d7f807dda4c"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIWebProgressListener",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * State Transition Flags\n   *\n   * These flags indicate the various states that requests may transition\n   * through as they are being loaded.  These flags are mutually exclusive.\n   *\n   * For any given request, onStateChange is called once with the STATE_START\n   * flag, zero or more times with the STATE_TRANSFERRING flag or once with the\n   * STATE_REDIRECTING flag, and then finally once with the STATE_STOP flag.\n   * NOTE: For document requests, a second STATE_STOP is generated (see the\n   * description of STATE_IS_WINDOW for more details).\n   *\n   * STATE_START\n   *   This flag indicates the start of a request.  This flag is set when a\n   *   request is initiated.  The request is complete when onStateChange is\n   *   called for the same request with the STATE_STOP flag set.\n   *\n   * STATE_REDIRECTING\n   *   This flag indicates that a request is being redirected.  The request\n   *   passed to onStateChange is the request that is being redirected.  When a\n   *   redirect occurs, a new request is generated automatically to process the\n   *   new request.  Expect a corresponding STATE_START event for the new\n   *   request, and a STATE_STOP for the redirected request.\n   *\n   * STATE_TRANSFERRING\n   *   This flag indicates that data for a request is being transferred to an\n   *   end consumer.  This flag indicates that the request has been targeted,\n   *   and that the user may start seeing content corresponding to the request.\n   *\n   * STATE_NEGOTIATING\n   *   This flag is not used.\n   *\n   * STATE_STOP\n   *   This flag indicates the completion of a request.  The aStatus parameter\n   *   to onStateChange indicates the final status of the request.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_START",
+                  "value": "0x00000001"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_REDIRECTING",
+                  "value": "0x00000002"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_TRANSFERRING",
+                  "value": "0x00000004"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_NEGOTIATING",
+                  "value": "0x00000008"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_STOP",
+                  "value": "0x00000010"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * State Type Flags\n   *\n   * These flags further describe the entity for which the state transition is\n   * occuring.  These flags are NOT mutually exclusive (i.e., an onStateChange\n   * event may indicate some combination of these flags).\n   *\n   * STATE_IS_REQUEST\n   *   This flag indicates that the state transition is for a request, which\n   *   includes but is not limited to document requests.  (See below for a\n   *   description of document requests.)  Other types of requests, such as\n   *   requests for inline content (e.g., images and stylesheets) are\n   *   considered normal requests.\n   *\n   * STATE_IS_DOCUMENT\n   *   This flag indicates that the state transition is for a document request.\n   *   This flag is set in addition to STATE_IS_REQUEST.  A document request\n   *   supports the nsIChannel interface and its loadFlags attribute includes\n   *   the nsIChannel::LOAD_DOCUMENT_URI flag.\n   *\n   *   A document request does not complete until all requests associated with\n   *   the loading of its corresponding document have completed.  This includes\n   *   other document requests (e.g., corresponding to HTML <iframe> elements).\n   *   The document corresponding to a document request is available via the\n   *   DOMWindow attribute of onStateChange's aWebProgress parameter.\n   *\n   * STATE_IS_NETWORK\n   *   This flag indicates that the state transition corresponds to the start\n   *   or stop of activity in the indicated nsIWebProgress instance.  This flag\n   *   is accompanied by either STATE_START or STATE_STOP, and it may be\n   *   combined with other State Type Flags.\n   *\n   *   Unlike STATE_IS_WINDOW, this flag is only set when activity within the\n   *   nsIWebProgress instance being observed starts or stops.  If activity\n   *   only occurs in a child nsIWebProgress instance, then this flag will be\n   *   set to indicate the start and stop of that activity.\n   *\n   *   For example, in the case of navigation within a single frame of a HTML\n   *   frameset, a nsIWebProgressListener instance attached to the\n   *   nsIWebProgress of the frameset window will receive onStateChange calls\n   *   with the STATE_IS_NETWORK flag set to indicate the start and stop of\n   *   said navigation.  In other words, an observer of an outer window can\n   *   determine when activity, that may be constrained to a child window or\n   *   set of child windows, starts and stops.\n   *\n   * STATE_IS_WINDOW\n   *   This flag indicates that the state transition corresponds to the start\n   *   or stop of activity in the indicated nsIWebProgress instance.  This flag\n   *   is accompanied by either STATE_START or STATE_STOP, and it may be\n   *   combined with other State Type Flags.\n   *\n   *   This flag is similar to STATE_IS_DOCUMENT.  However, when a document\n   *   request completes, two onStateChange calls with STATE_STOP are\n   *   generated.  The document request is passed as aRequest to both calls.\n   *   The first has STATE_IS_REQUEST and STATE_IS_DOCUMENT set, and the second\n   *   has the STATE_IS_WINDOW flag set (and possibly the STATE_IS_NETWORK flag\n   *   set as well -- see above for a description of when the STATE_IS_NETWORK\n   *   flag may be set).  This second STATE_STOP event may be useful as a way\n   *   to partition the work that occurs when a document request completes.\n   *\n   * STATE_IS_REDIRECTED_DOCUMENT\n   *  Same as STATE_IS_DOCUMENT, but sent only after a redirect has occured.\n   *  Introduced in order not to confuse existing code with extra state change\n   *  events. See |nsDocLoader::OnStartRequest| for more info.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IS_REQUEST",
+                  "value": "0x00010000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IS_DOCUMENT",
+                  "value": "0x00020000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IS_NETWORK",
+                  "value": "0x00040000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IS_WINDOW",
+                  "value": "0x00080000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IS_REDIRECTED_DOCUMENT",
+                  "value": "0x00100000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * State Modifier Flags\n   *\n   * These flags further describe the transition which is occuring.  These\n   * flags are NOT mutually exclusive (i.e., an onStateChange event may\n   * indicate some combination of these flags).\n   *\n   * STATE_RESTORING\n   *   This flag indicates that the state transition corresponds to the start\n   *   or stop of activity for restoring a previously-rendered presentation.\n   *   As such, there is no actual network activity associated with this\n   *   request, and any modifications made to the document or presentation\n   *   when it was originally loaded will still be present.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_RESTORING",
+                  "value": "0x01000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * State Security Flags\n   *\n   * These flags describe the security state reported by a call to the\n   * onSecurityChange method.  These flags are mutually exclusive.\n   *\n   * STATE_IS_INSECURE\n   *   This flag indicates that the data corresponding to the request\n   *   was received over an insecure channel.\n   *\n   * STATE_IS_BROKEN\n   *   This flag indicates an unknown security state.  This may mean that the\n   *   request is being loaded as part of a page in which some content was\n   *   received over an insecure channel.\n   *\n   * STATE_IS_SECURE\n   *   This flag indicates that the data corresponding to the request was\n   *   received over a secure channel.  The degree of security is expressed by\n   *   STATE_SECURE_HIGH, STATE_SECURE_MED, or STATE_SECURE_LOW.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IS_INSECURE",
+                  "value": "0x00000004"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IS_BROKEN",
+                  "value": "0x00000001"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IS_SECURE",
+                  "value": "0x00000002"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Mixed active content flags\n   *\n   * NOTE: IF YOU ARE ADDING MORE OF THESE FLAGS, MAKE SURE TO EDIT\n   * nsSecureBrowserUIImpl::CheckForBlockedContent().\n   *\n   * May be set in addition to the State Security Flags, to indicate that\n   * mixed active content has been encountered.\n   *\n   * STATE_BLOCKED_MIXED_ACTIVE_CONTENT\n   *   Mixed active content has been blocked from loading.\n   *\n   * STATE_LOADED_MIXED_ACTIVE_CONTENT\n   *   Mixed active content has been loaded. State should be STATE_IS_BROKEN.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_BLOCKED_MIXED_ACTIVE_CONTENT",
+                  "value": "0x00000010"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_MIXED_ACTIVE_CONTENT",
+                  "value": "0x00000020"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Mixed display content flags\n   *\n   * NOTE: IF YOU ARE ADDING MORE OF THESE FLAGS, MAKE SURE TO EDIT\n   * nsSecureBrowserUIImpl::CheckForBlockedContent().\n   *\n   * May be set in addition to the State Security Flags, to indicate that\n   * mixed display content has been encountered.\n   *\n   * STATE_BLOCKED_MIXED_DISPLAY_CONTENT\n   *   Mixed display content has been blocked from loading.\n   *\n   * STATE_LOADED_MIXED_DISPLAY_CONTENT\n   *   Mixed display content has been loaded. State should be STATE_IS_BROKEN.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_BLOCKED_MIXED_DISPLAY_CONTENT",
+                  "value": "0x00000100"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_MIXED_DISPLAY_CONTENT",
+                  "value": "0x00000200"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * State bits for EV == Extended Validation == High Assurance\n    *\n    * These flags describe the level of identity verification\n    * in a call to the onSecurityChange method.\n    *\n    * STATE_IDENTITY_EV_TOPLEVEL\n    *   The topmost document uses an EV cert.\n    *   NOTE: Available since Gecko 1.9\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_IDENTITY_EV_TOPLEVEL",
+                  "value": "0x00100000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n    * Broken state flags\n    *\n    * These flags describe the reason of the broken state.\n    *\n    * STATE_USES_SSL_3\n    *   The topmost document uses SSL 3.0.\n    *\n    * STATE_USES_WEAK_CRYPTO\n    *   The topmost document uses a weak cipher suite such as RC4.\n    *\n    * STATE_CERT_USER_OVERRIDDEN\n    *   The user has added a security exception for the site.\n    */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_USES_SSL_3",
+                  "value": "0x01000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_USES_WEAK_CRYPTO",
+                  "value": "0x02000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_CERT_USER_OVERRIDDEN",
+                  "value": "0x04000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Content Blocking Event flags\n   *\n   * NOTE: IF YOU ARE ADDING MORE OF THESE FLAGS, MAKE SURE TO EDIT\n   * nsSecureBrowserUIImpl::CheckForBlockedContent() AND UPDATE THE\n   * CORRESPONDING LIST IN ContentBlockingController.java\n   *\n   * These flags describe the reason of cookie jar rejection.\n   *\n   * STATE_BLOCKED_TRACKING_CONTENT\n   *   Tracking content has been blocked from loading.\n   *\n   * STATE_LOADED_LEVEL_1_TRACKING_CONTENT\n   *   Tracking content from the Disconnect Level 1 list has been loaded.\n   *\n   * STATE_LOADED_LEVEL_2_TRACKING_CONTENT\n   *   Tracking content from the Disconnect Level 2 list has been loaded.\n   *\n   * STATE_BLOCKED_FINGERPRINTING_CONTENT\n   *   Fingerprinting content has been blocked from loading.\n   *\n   * STATE_LOADED_FINGERPRINTING_CONTENT\n   *   Fingerprinting content has been loaded.\n   *\n   * STATE_BLOCKED_CRYPTOMINING_CONTENT\n   *   Cryptomining content has been blocked from loading.\n   *\n   * STATE_LOADED_CRYPTOMINING_CONTENT\n   *   Cryptomining content has been loaded.\n   *\n   * STATE_BLOCKED_UNSAFE_CONTENT\n   *   Content which againts SafeBrowsing list has been blocked from loading.\n   *\n   * STATE_COOKIES_LOADED\n   *   Performed a storage access check, which usually means something like a\n   *   cookie or a storage item was loaded/stored on the current tab.\n   *   Alternatively this could indicate that something in the current tab\n   *   attempted to communicate with its same-origin counterparts in other\n   *   tabs.\n   *\n   * STATE_COOKIES_LOADED_TRACKER\n   *   Similar to STATE_COOKIES_LOADED, but only sent if the subject of the\n   *   action was a third-party tracker when the active cookie policy imposes\n   *   restrictions on such content.\n   *\n   * STATE_COOKIES_LOADED_SOCIALTRACKER\n   *   Similar to STATE_COOKIES_LOADED, but only sent if the subject of the\n   *   action was a third-party social tracker when the active cookie policy\n   *   imposes restrictions on such content.\n   *\n   * STATE_COOKIES_BLOCKED_BY_PERMISSION\n   *   Rejected for custom site permission.\n   *\n   * STATE_COOKIES_BLOCKED_TRACKER\n   *   Rejected because the resource is a tracker and cookie policy doesn't\n   *   allow its loading.\n   *\n   * STATE_COOKIES_BLOCKED_SOCIALTRACKER\n   *   Rejected because the resource is a tracker from a social origin and\n   *   cookie policy doesn't allow its loading.\n   *\n   * STATE_COOKIES_PARTITIONED_FOREIGN\n   *   Rejected because the resource is a third-party and cookie policy forces\n   *   third-party resources to be partitioned.\n   *\n   * STATE_COOKIES_BLOCKED_ALL\n   *   Rejected because cookie policy blocks all cookies.\n   *\n   * STATE_COOKIES_BLOCKED_FOREIGN\n   *   Rejected because cookie policy blocks 3rd party cookies.\n   *\n   * STATE_BLOCKED_SOCIALTRACKING_CONTENT\n   *   SocialTracking content has been blocked from loading.\n   *\n   * STATE_LOADED_SOCIALTRACKING_CONTENT\n   *   SocialTracking content has been loaded.\n   *\n   * STATE_REPLACED_TRACKING_CONTENT\n   *   Tracking content which should be blocked from loading was replaced with a\n   *   shim.\n   *\n   * STATE_ALLOWED_TRACKING_CONTENT\n   *   Tracking content which should be blocked from loading was allowed.\n   *\n   * STATE_BLOCKED_EMAILTRACING_CONTENT\n   *   EmailTracking content has been blocked from loading.\n   *\n   * STATE_LOADED_EMAILTRACKING_LEVEL_1_CONTENT\n   *   EmailTracking content from the Disconnect level 1 has been loaded.\n   *\n   * STATE_LOADED_EMAILTRACKING_LEVEL_2_CONTENT\n   *   EmailTracking content from the Disconnect level 2 has been loaded.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_BLOCKED_TRACKING_CONTENT",
+                  "value": "0x00001000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_LEVEL_1_TRACKING_CONTENT",
+                  "value": "0x00002000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_LEVEL_2_TRACKING_CONTENT",
+                  "value": "0x00100000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_BLOCKED_FINGERPRINTING_CONTENT",
+                  "value": "0x00000040"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_FINGERPRINTING_CONTENT",
+                  "value": "0x00000400"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_BLOCKED_CRYPTOMINING_CONTENT",
+                  "value": "0x00000800"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_CRYPTOMINING_CONTENT",
+                  "value": "0x00200000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_BLOCKED_UNSAFE_CONTENT",
+                  "value": "0x00004000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_LOADED",
+                  "value": "0x00008000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_LOADED_TRACKER",
+                  "value": "0x00040000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_LOADED_SOCIALTRACKER",
+                  "value": "0x00080000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_BLOCKED_BY_PERMISSION",
+                  "value": "0x10000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_BLOCKED_TRACKER",
+                  "value": "0x20000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_BLOCKED_SOCIALTRACKER",
+                  "value": "0x01000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_BLOCKED_ALL",
+                  "value": "0x40000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_PARTITIONED_FOREIGN",
+                  "value": "0x80000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_COOKIES_BLOCKED_FOREIGN",
+                  "value": "0x00000080"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_BLOCKED_SOCIALTRACKING_CONTENT",
+                  "value": "0x00010000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_SOCIALTRACKING_CONTENT",
+                  "value": "0x00020000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_REPLACED_TRACKING_CONTENT",
+                  "value": "0x00000010"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_ALLOWED_TRACKING_CONTENT",
+                  "value": "0x00000020"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_BLOCKED_EMAILTRACKING_CONTENT",
+                  "value": "0x00400000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_EMAILTRACKING_LEVEL_1_CONTENT",
+                  "value": "0x00800000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_LOADED_EMAILTRACKING_LEVEL_2_CONTENT",
+                  "value": "0x00000100"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Flag for HTTPS-Only Mode upgrades\n   *\n   * STATE_HTTPS_ONLY_MODE_UPGRADED\n   *   When a request has been upgraded by HTTPS-Only Mode\n   *\n   * STATE_HTTPS_ONLY_MODE_UPGRADE_FAILED\n   *   When an upgraded request failed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_HTTPS_ONLY_MODE_UPGRADED",
+                  "value": "0x00400000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STATE_HTTPS_ONLY_MODE_UPGRADE_FAILED",
+                  "value": "0x00800000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notification indicating the state has changed for one of the requests\n   * associated with aWebProgress.\n   *\n   * @param aWebProgress\n   *        The nsIWebProgress instance that fired the notification\n   * @param aRequest\n   *        The nsIRequest that has changed state.\n   * @param aStateFlags\n   *        Flags indicating the new state.  This value is a combination of one\n   *        of the State Transition Flags and one or more of the State Type\n   *        Flags defined above.  Any undefined bits are reserved for future\n   *        use.\n   * @param aStatus\n   *        Error status code associated with the state change.  This parameter\n   *        should be ignored unless aStateFlags includes the STATE_STOP bit.\n   *        The status code indicates success or failure of the request\n   *        associated with the state change.  NOTE: aStatus may be a success\n   *        code even for server generated errors, such as the HTTP 404 error.\n   *        In such cases, the request itself should be queried for extended\n   *        error information (e.g., for HTTP requests see nsIHttpChannel).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onStateChange",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIWebProgress",
+                      "name": "aWebProgress"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIRequest",
+                          "name": "aRequest"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aStateFlags"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsresult",
+                          "name": "aStatus"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notification that the progress has changed for one of the requests\n   * associated with aWebProgress.  Progress totals are reset to zero when all\n   * requests in aWebProgress complete (corresponding to onStateChange being\n   * called with aStateFlags including the STATE_STOP and STATE_IS_WINDOW\n   * flags).\n   *\n   * @param aWebProgress\n   *        The nsIWebProgress instance that fired the notification.\n   * @param aRequest\n   *        The nsIRequest that has new progress.\n   * @param aCurSelfProgress\n   *        The current progress for aRequest.\n   * @param aMaxSelfProgress\n   *        The maximum progress for aRequest.\n   * @param aCurTotalProgress\n   *        The current progress for all requests associated with aWebProgress.\n   * @param aMaxTotalProgress\n   *        The total progress for all requests associated with aWebProgress.\n   *\n   * NOTE: If any progress value is unknown, or if its value would exceed the\n   * maximum value of type long, then its value is replaced with -1.\n   *\n   * NOTE: If the object also implements nsIWebProgressListener2 and the caller\n   * knows about that interface, this function will not be called. Instead,\n   * nsIWebProgressListener2::onProgressChange64 will be called.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onProgressChange",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIWebProgress",
+                      "name": "aWebProgress"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIRequest",
+                          "name": "aRequest"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aCurSelfProgress"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aMaxSelfProgress"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aCurTotalProgress"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aMaxTotalProgress"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Flags for onLocationChange\n   *\n   * LOCATION_CHANGE_SAME_DOCUMENT\n   *   This flag is on when |aWebProgress| did not load a new document.\n   *   For example, the location change is due to an anchor scroll or a\n   *   pushState/popState/replaceState.\n   *\n   * LOCATION_CHANGE_ERROR_PAGE\n   *   This flag is on when |aWebProgress| redirected from the requested\n   *   contents to an internal page to show error status, such as\n   *   <about:neterror>, <about:certerror> and so on.\n   *\n   *   Generally speaking, |aURI| and |aRequest| are the original data. DOM\n   *   |window.location.href| is also the original location, while\n   *   |document.documentURI| is the redirected location. Sometimes |aURI| is\n   *   <about:blank> and |aRequest| is null when the original data does not\n   +   remain.\n   *\n   *   |aWebProgress| does NOT set this flag when it did not try to load a new\n   *   document. In this case, it should set LOCATION_CHANGE_SAME_DOCUMENT.\n   *\n   * LOCATION_CHANGE_RELOAD\n   *   This flag is on when reloading the current page, either from\n   *   location.reload() or the browser UI.\n   *\n   * LOCATION_CHANGE_HASHCHANGE\n   *   This flag is on for same-document location changes where only the URI's\n   *   reference fragment has changed. This flag implies\n   *   LOCATION_CHANGE_SAME_DOCUMENT.\n   *\n   * LOCATION_CHANGE_SESSION_STORE\n   *   This flag is on for location changes that are the result of the session\n   *   store updating the URI of aWebProgress without actually navigating.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOCATION_CHANGE_SAME_DOCUMENT",
+                  "value": "0x00000001"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOCATION_CHANGE_ERROR_PAGE",
+                  "value": "0x00000002"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOCATION_CHANGE_RELOAD",
+                  "value": "0x00000004"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOCATION_CHANGE_HASHCHANGE",
+                  "value": "0x00000008"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOCATION_CHANGE_SESSION_STORE",
+                  "value": "0x00000010"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called when the location of the window being watched changes.  This is not\n   * when a load is requested, but rather once it is verified that the load is\n   * going to occur in the given window.  For instance, a load that starts in a\n   * window might send progress and status messages for the new site, but it\n   * will not send the onLocationChange until we are sure that we are loading\n   * this new page here.\n   *\n   * @param aWebProgress\n   *        The nsIWebProgress instance that fired the notification.\n   * @param aRequest\n   *        The associated nsIRequest.  This may be null in some cases.\n   * @param aLocation\n   *        The URI of the location that is being loaded.\n   * @param aFlags\n   *        This is a value which explains the situation or the reason why\n   *        the location has changed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onLocationChange",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIWebProgress",
+                      "name": "aWebProgress"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIRequest",
+                          "name": "aRequest"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIURI",
+                          "name": "aLocation"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aFlags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notification that the status of a request has changed.  The status message\n   * is intended to be displayed to the user (e.g., in the status bar of the\n   * browser).\n   *\n   * @param aWebProgress\n   *        The nsIWebProgress instance that fired the notification.\n   * @param aRequest\n   *        The nsIRequest that has new status.\n   * @param aStatus\n   *        This value is not an error code.  Instead, it is a numeric value\n   *        that indicates the current status of the request.  This interface\n   *        does not define the set of possible status codes.  NOTE: Some\n   *        status values are defined by nsITransport and nsISocketTransport.\n   * @param aMessage\n   *        Localized text corresponding to aStatus.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onStatusChange",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIWebProgress",
+                      "name": "aWebProgress"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIRequest",
+                          "name": "aRequest"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsresult",
+                          "name": "aStatus"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "aMessage"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notification called for security progress.  This method will be called on\n   * security transitions (eg HTTP -> HTTPS, HTTPS -> HTTP, FOO -> HTTPS) and\n   * after document load completion.  It might also be called if an error\n   * occurs during network loading.\n   *\n   * @param aWebProgress\n   *        The nsIWebProgress instance that fired the notification.\n   * @param aRequest\n   *        The nsIRequest that has new security state.\n   * @param aState\n   *        A value composed of the Security State Flags and the Security\n   *        Strength Flags listed above.  Any undefined bits are reserved for\n   *        future use.\n   *\n   * NOTE: These notifications will only occur if a security package is\n   * installed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onSecurityChange",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIWebProgress",
+                      "name": "aWebProgress"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIRequest",
+                          "name": "aRequest"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aState"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Notification called for content blocking events.  This method will be\n   * called when content gets allowed/blocked for various reasons per the\n   * Content Blocking rules.\n   *\n   * @param aWebProgress\n   *        The nsIWebProgress instance that fired the notification.\n   * @param aRequest\n   *        The nsIRequest that has new security state.\n   * @param aEvent\n   *        A value composed of the Content Blocking Event Flags listed above.\n   *        Any undefined bits are reserved for future use.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onContentBlockingEvent",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIWebProgress",
+                      "name": "aWebProgress"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIRequest",
+                          "name": "aRequest"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "unsigned long",
+                          "name": "aEvent"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

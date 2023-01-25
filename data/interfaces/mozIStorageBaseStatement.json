@@ -1,0 +1,378 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n * vim: sw=2 ts=2 sts=2 et\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "mozIStorageBindingParams"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageConnection",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageStatementCallback",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStoragePendingStatement",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageBindingParams",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageBindingParamsArray",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The base interface for both pure asynchronous storage statements\n * (mozIStorageAsyncStatement) and 'classic' storage statements\n * (mozIStorageStatement) that can be used for both synchronous and asynchronous\n * purposes.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "16ca67aa-1325-43e2-aac7-859afd1590b2"
+              }
+            }
+          }
+        ]
+      },
+      "name": "mozIStorageBaseStatement",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "mozIStorageBindingParams"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Finalizes a statement so you can successfully close a database connection.\n   * Once a statement has been finalized it can no longer be used for any\n   * purpose.\n   *\n   * Statements are implicitly finalized when their reference counts hits zero.\n   * If you are a native (C++) caller this is accomplished by setting all of\n   * your nsCOMPtr instances to be NULL.  If you are operating from JavaScript\n   * code then you cannot rely on this behavior because of the involvement of\n   * garbage collection.\n   *\n   * When finalizing an asynchronous statement you do not need to worry about\n   * whether the statement has actually been executed by the asynchronous\n   * thread; you just need to call finalize after your last call to executeAsync\n   * involving the statement.  However, you do need to use asyncClose instead of\n   * close on the connection if any statements have been used asynchronously.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "finalize",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Binds the array of parameters to the statement.  When executeAsync is\n   * called, all the parameters in aParameters are bound and then executed.\n   *\n   * @param aParameters\n   *        The array of parameters to bind to the statement upon execution.\n   *\n   * @note This is only works on statements being used asynchronously.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "bindParameters",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "mozIStorageBindingParamsArray",
+                      "name": "aParameters"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Creates a new mozIStorageBindingParamsArray that can be used to bind\n   * multiple sets of data to a statement with bindParameters.\n   *\n   * @return a mozIStorageBindingParamsArray that multiple sets of parameters\n   *         can be bound to.\n   *\n   * @note This is only useful for statements being used asynchronously.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStorageBindingParamsArray",
+                  "name": "newBindingParamsArray",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Execute a query asynchronously using any currently bound parameters.  This\n   * statement can be reused immediately, and reset does not need to be called.\n   *\n   * @note If you have any custom defined functions, they must be re-entrant\n   *       since they can be called on multiple threads.\n   *\n   * @param aCallback [optional]\n   *        The callback object that will be notified of progress, errors, and\n   *        completion.\n   * @return an object that can be used to cancel the statements execution.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStoragePendingStatement",
+                  "name": "executeAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "mozIStorageStatementCallback",
+                      "name": "aCallback"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The statement is not usable, either because it failed to initialize or\n   * was explicitly finalized.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "MOZ_STORAGE_STATEMENT_INVALID",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The statement is usable.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "MOZ_STORAGE_STATEMENT_READY",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates that the statement is executing and the row getters may be used.\n   *\n   * @note This is only relevant for mozIStorageStatement instances being used\n   *       in a synchronous fashion.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "MOZ_STORAGE_STATEMENT_EXECUTING",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Find out whether the statement is usable (has not been finalized).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "long",
+                  "name": "state"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Escape a string for SQL LIKE search.\n   *\n   * @note Consumers will have to use same escape char when doing statements\n   *       such as:   ...LIKE '?1' ESCAPE '/'...\n   *\n   * @param aValue\n   *        The string to escape for SQL LIKE.\n   * @param aEscapeChar\n   *        The escape character.\n   * @return an AString of an escaped version of aValue\n   *         (%, _ and the escape char are escaped with the escape char)\n   *         For example, we will convert \"foo/bar_baz%20cheese\"\n   *         into \"foo//bar/_baz/%20cheese\" (if the escape char is '/').\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AString",
+                  "name": "escapeStringForLIKE",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aValue"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wchar",
+                          "name": "aEscapeChar"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The same as above, but for UTF8 strings.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "AUTF8String",
+                  "name": "escapeUTF8StringForLIKE",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aValue"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "char",
+                          "name": "aEscapeChar"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

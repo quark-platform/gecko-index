@@ -1,0 +1,692 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: idl; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
+      }
+    },
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageCompletionCallback",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageFunction",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageProgressHandler",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageBaseStatement",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageStatement",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageAsyncStatement",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStorageStatementCallback",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "mozIStoragePendingStatement",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * mozIStorageAsyncConnection represents an asynchronous database\n * connection attached to a specific file or to an in-memory data\n * storage.  It is the primary interface for interacting with a\n * database from the main thread, including creating prepared\n * statements, executing SQL, and examining database errors.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "8bfd34d5-4ddf-4e4b-89dd-9b14f33534c6"
+              }
+            }
+          }
+        ]
+      },
+      "name": "mozIStorageAsyncConnection",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Transaction behavior constants.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "TRANSACTION_DEFAULT",
+                  "value": {
+                    "kind": "unary_$1"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "TRANSACTION_DEFERRED",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "TRANSACTION_IMMEDIATE",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "int32_t",
+                  "name": "TRANSACTION_EXCLUSIVE",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The default behavior for all transactions run on this connection. Defaults\n   * to `TRANSACTION_DEFERRED`, and can be overridden for individual\n   * transactions.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "int32_t",
+                  "name": "defaultTransactionType"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The maximum number of bound parameters for statements executed on this\n   * connection. If your statement has more params than this limit, you'll\n   * need to chunk them into multiple statements. See `PlacesUtils.chunkArray`\n   * and its callers in Places for examples of how to do this, or read on for\n   * an overview.\n   *\n   * Keep in mind that the variable limit is for the _total_ number of\n   * parameters, including ones bound by name (using the `:VVV`, `@VVV`, or\n   * `?VVV` syntax) and index (`?` and `?NNN`).\n   *\n   * This means, when chunking:\n   *\n   * - If you're binding 1 param per 1 value per chunk (for example, if you\n   *   have a list of GUIDs and a clause like `WHERE guid IN (?, ?, ?, ...)`,\n   *   your chunk length is just `variableLimit`.\n   * - If you're binding 1 param per 1 value per chunk, but using that\n   *   param in multiple positions in the query (for example, `WHERE url_hash\n   *   IN (hash(?1), hash(?2), ...) AND url IN (?1, ?2, ...)`), you can use the\n   *   `?NNN` syntax with a chunk length of `variableLimit`.\n   * - If you're binding N params per 1 value per chunk (for example, if you\n   *   have a list of items with GUIDs and parent GUIDs, and you want to bind\n   *   both), your chunk length is `variableLimit / N`, since you're binding\n   *   two params for each element.\n   * - If you're binding K params per L values per chunk, plus M fixed ones\n   *   (for example, `WHERE parentGuid = :parentGuid AND guid IN (?, ?, ...)`),\n   *   your chunk length is `variableLimit - M`, to ensure there's space for the\n   *   fixed variables.\n   *\n   * If you bind more params than this limit, `create{Async}Statement` will\n   * fail with a \"too many SQL variables\" error.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "int32_t",
+                  "name": "variableLimit"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns true if a transaction is active on this connection.\n   *\n   * Note that this is true if a transaction is active on the connection,\n   * regardless of how it was opened. There are several ways to open one:\n   *\n   * 1. Explicitly calling `beginTransaction` on a `mozIStorageConnection`.\n   * 2. Calling `executeSimpleSQL(\"BEGIN\")` or\n   *    `createStatement(\"BEGIN\").execute()` on a `mozIStorageConnection`.\n   * 3. Executing an async statement, like\n   *    `createAsyncStatement(\"BEGIN\").executeAsync(...)`. This is what\n   *    `Sqlite.sys.mjs` does under the hood.\n   *\n   * Because of this, it's important *not* to use this attribute to decide\n   * whether to *commit* the active transaction, because the caller that opened\n   * it may not expect that. This is why both `mozStorageTransaction` and\n   * `Sqlite.sys.mjs` use an internal variable (`mHasTransaction` for the former;\n   * `_hasInProgressTransaction` for the latter) to check if their transaction\n   * is already in progress, instead of just checking this attribute before\n   * committing. Otherwise, mozStorage might accidentally commit (or roll back!)\n   * a transaction started by `Sqlite.sys.mjs`, and vice versa.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "transactionInProgress"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Close this database connection, allowing all pending statements\n   * to complete first.\n   *\n   * @param aCallback [optional]\n   *        A callback that will be notified when the close is completed,\n   *        with the following arguments:\n   *        - status: the status of the call\n   *        - value: |null|\n   *\n   * @throws NS_ERROR_NOT_SAME_THREAD\n   *         If called on a thread other than the one that opened it.  The\n   *         callback will not be dispatched.\n   * @throws NS_ERROR_NOT_INITIALIZED\n   *         If called on a connection that has already been closed or was\n   *         never properly opened.  The callback will still be dispatched\n   *         to the main thread despite the returned error.\n   * @note If this call should fail, the callback won't be invoked.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncClose",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "mozIStorageCompletionCallback",
+                      "name": "aCallback"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Forcibly closes a database connection synchronously.\n   * This should only be used when it's required to close and replace the\n   * database synchronously to return control to the consumer, for example in\n   * case of a detected corruption on database opening.\n   * Since this spins the events loop, it should be used only in very particular\n   * and rare situations, or it may cause unexpected consequences (crashes).\n   *\n   * @throws NS_ERROR_NOT_SAME_THREAD\n   *         If called on a thread other than the one that opened it.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "spinningSynchronousClose",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Clone a database and make the clone read only if needed.\n   * SQL Functions and attached on-disk databases are applied to the new clone.\n   *\n   * @param aReadOnly\n   *        If true, the returned database should be put into read-only mode.\n   *\n   * @param aCallback\n   *        A callback that will be notified when the operation is complete,\n   *        with the following arguments:\n   *        - status: the status of the operation\n   *        - value: in case of success, an intance of\n   *             mozIStorageAsyncConnection cloned from this one.\n   *\n   * @throws NS_ERROR_NOT_SAME_THREAD\n   *         If is called on a thread other than the one that opened it.\n   * @throws NS_ERROR_UNEXPECTED\n   *         If this connection is a memory database.\n   *\n   * @note If your connection is already read-only, you will get a read-only\n   *       clone.\n   * @note The resulting connection will implement `mozIStorageConnection`, but\n   *       all synchronous methods will throw if called from the main thread.\n   * @note Due to a bug in SQLite, if you use the shared cache\n   *       (see mozIStorageService), you end up with the same privileges as the\n   *       first connection opened regardless of what is specified in aReadOnly.\n   * @note The following pragmas are copied over to a read-only clone:\n   *        - cache_size\n   *        - temp_store\n   *       The following pragmas are copied over to a writeable clone:\n   *        - cache_size\n   *        - temp_store\n   *        - foreign_keys\n   *        - journal_size_limit\n   *        - synchronous\n   *        - wal_autocheckpoint\n   *       All SQL functions are copied over to read-only and writeable clones.\n   *       Additionally, all temporary tables, triggers, and views, as well as\n   *       any indexes on temporary tables, are copied over to writeable clones.\n   *       For temporary tables, only the schemas are copied, not their\n   *       contents.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncClone",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aReadOnly"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "mozIStorageCompletionCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The current database nsIFile.  Null if the database\n   * connection refers to an in-memory database.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIFile",
+                  "name": "databaseFile"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Causes any pending database operation to abort and return at the first\n   * opportunity.\n   * @note this cannot be used on mozIStorageConnection unless the connection is\n   *       explicitly marked as `interruptible`. For more details, please\n   *       refer to CONNECTION_INTERRUPTIBLE in mozIStorageService.\n   * @note operations that are nearly complete may still be able to complete.\n   * @throws if used on an unsupported connection type, or a closed connection.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "interrupt",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Create an asynchronous statement for the given SQL. An\n   * asynchronous statement can only be used to dispatch asynchronous\n   * requests to the asynchronous execution thread and cannot be used\n   * to take any synchronous actions on the database.\n   *\n   * The expression may use ? to indicate sequential numbered arguments,\n   * ?1, ?2 etc. to indicate specific numbered arguments or :name and\n   * $var to indicate named arguments.\n   *\n   * @param aSQLStatement\n   *        The SQL statement to execute.\n   * @return a new mozIStorageAsyncStatement\n   * @note The statement is created lazily on first execution.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStorageAsyncStatement",
+                  "name": "createAsyncStatement",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aSQLStatement"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Execute an array of statements created with this connection using\n   * any currently bound parameters. When the array contains multiple\n   * statements, the execution is wrapped in a single\n   * transaction. These statements can be reused immediately, and\n   * reset does not need to be called.\n   *\n   * @param aStatements\n   *        The array of statements to execute asynchronously, in the order they\n   *        are given in the array.\n   * @param aCallback [optional]\n   *        The callback object that will be notified of progress, errors, and\n   *        completion.\n   * @return an object that can be used to cancel the statements execution.\n   *\n   * @note If you have any custom defined functions, they must be\n   *        re-entrant since they can be called on multiple threads.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStoragePendingStatement",
+                  "name": "executeAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "aStatements"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "mozIStorageStatementCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Execute asynchronously an SQL expression, expecting no arguments.\n   *\n   * @param aSQLStatement\n   *        The SQL statement to execute\n   * @param aCallback [optional]\n   *        The callback object that will be notified of progress, errors, and\n   *        completion.\n   * @return an object that can be used to cancel the statement execution.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStoragePendingStatement",
+                  "name": "executeSimpleSQLAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aSQLStatement"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "mozIStorageStatementCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Create a new SQL function.  If you use your connection on multiple threads,\n   * your function needs to be threadsafe, or it should only be called on one\n   * thread.\n   *\n   * @param aFunctionName\n   *        The name of function to create, as seen in SQL.\n   * @param aNumArguments\n   *        The number of arguments the function takes. Pass -1 for\n   *        variable-argument functions.\n   * @param aFunction\n   *        The instance of mozIStorageFunction, which implements the function\n   *        in question.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "createFunction",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aFunctionName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aNumArguments"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "mozIStorageFunction",
+                          "name": "aFunction"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Delete custom SQL function.\n   *\n   * @param aFunctionName\n   *        The name of function to remove.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "removeFunction",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aFunctionName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Sets a progress handler. Only one handler can be registered at a time.\n   * If you need more than one, you need to chain them yourself.  This progress\n   * handler should be threadsafe if you use this connection object on more than\n   * one thread.\n   *\n   * @param aGranularity\n   *        The number of SQL virtual machine steps between progress handler\n   *        callbacks.\n   * @param aHandler\n   *        The instance of mozIStorageProgressHandler.\n   * @return previous registered handler.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStorageProgressHandler",
+                  "name": "setProgressHandler",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "int32_t",
+                      "name": "aGranularity"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "mozIStorageProgressHandler",
+                          "name": "aHandler"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Remove a progress handler.\n   *\n   * @return previous registered handler.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "mozIStorageProgressHandler",
+                  "name": "removeProgressHandler",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

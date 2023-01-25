@@ -1,0 +1,202 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsICacheEntry",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "1fc9fe11-c6ac-4748-94bd-8555a5a12b94"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsICacheEntryOpenCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * State of the entry determined by onCacheEntryCheck.\n   *\n   * ENTRY_WANTED - the consumer is interested in the entry, we will pass it.\n   * RECHECK_AFTER_WRITE_FINISHED - the consumer cannot use the entry while data is\n   *    still being written and wants to check it again after the current write is\n   *    finished. This actually prevents concurrent read/write and is used with\n   *    non-resumable HTTP responses.\n   * ENTRY_NEEDS_REVALIDATION - entry needs to be revalidated first with origin server,\n   *    this means the loading channel will decide whether to use the entry content\n   *    as is after it gets a positive response from the server about validity of the\n   *    content ; when a new content needs to be loaded from the server, the loading\n   *    channel opens a new entry with OPEN_TRUNCATE flag which dooms the one\n   *    this check has been made for.\n   * ENTRY_NOT_WANTED - the consumer is not interested in the entry, we will not pass it.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ENTRY_WANTED",
+                  "value": "0"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "RECHECK_AFTER_WRITE_FINISHED",
+                  "value": "1"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ENTRY_NEEDS_REVALIDATION",
+                  "value": "2"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "ENTRY_NOT_WANTED",
+                  "value": "3"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Callback to perform any validity checks before the entry should be used.\n   * Called before onCacheEntryAvailable callback, depending on the result it\n   * may be called more then one time.\n   *\n   * This callback is ensured to be called on the same thread on which asyncOpenURI\n   * has been called, unless nsICacheStorage.CHECK_MULTITHREADED flag has been specified.\n   * In that case this callback can be invoked on any thread, usually it is the cache I/O\n   * or cache management thread.\n   *\n   * IMPORTANT NOTE:\n   * This callback may be invoked sooner then respective asyncOpenURI call exits.\n   *\n   * @param aEntry\n   *    An entry to examine.  Consumer has a chance to decide whether the\n   *    entry is valid or not.\n   * @return\n   *    State of the entry, see the constants just above.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "unsigned long",
+                  "name": "onCacheEntryCheck",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsICacheEntry",
+                      "name": "aEntry"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Callback giving actual result of asyncOpenURI.  It may give consumer the cache\n   * entry or a failure result when it's not possible to open it from some reason.\n   * This callback is ensured to be called on the same thread on which asyncOpenURI\n   * has been called.\n   *\n   * IMPORTANT NOTE:\n   * This callback may be invoked sooner then respective asyncOpenURI call exits.\n   *\n   * @param aEntry\n   *    The entry bound to the originally requested URI.\n   * @param aNew\n   *    Whether no data so far has been stored for this entry, i.e. reading\n   *    it will just fail.  When aNew is true, a server request should be\n   *    made and data stored to this new entry.\n   * @param aResult\n   *    Result of the request.  This may be a failure only when one of these\n   *    issues occur:\n   *    - the cache storage service could not be started due to some unexpected\n   *      faulure\n   *    - there is not enough disk space to create new entries\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onCacheEntryAvailable",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsICacheEntry",
+                      "name": "aEntry"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aNew"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsresult",
+                          "name": "aResult"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}

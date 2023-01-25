@@ -1,0 +1,1131 @@
+{
+  "kind": "idlfile",
+  "contents": [
+    {
+      "kind": "ANY_COMMENT_$0",
+      "doc": {
+        "kind": "DOC_COMMENT",
+        "contents": "/* -*- Mode: IDL; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2 -*-\n * This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
+      }
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsISupports"
+    },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIInputStream",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsISHistory",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIURI",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIPrincipal",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIChildSHistory",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "webidl"
+    },
+    "\n\n",
+    "%{ C++\n#include \"mozilla/dom/ChildSHistory.h\"\nnamespace mozilla {\nnamespace dom {\nstruct LoadURIOptions;\n} // namespace dom\n} // namespace mozilla\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * The nsIWebNavigation interface defines an interface for navigating the web.\n * It provides methods and attributes to direct an object to navigate to a new\n * location, stop or restart an in process load, or determine where the object\n * has previously gone.\n *\n * Even though this is builtinclass, most of the interface is also implemented\n * in RemoteWebNavigation, so if this interface changes, the implementation\n * there may also need to change.\n */"
+      },
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "3ade79d4-8cb9-4952-b18d-4f9b63ca0d31"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIWebNavigation",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates if the object can go back.  If true this indicates that\n   * there is back session history available for navigation.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "canGoBack"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates if the object can go forward.  If true this indicates that\n   * there is forward session history available for navigation\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "canGoForward"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Tells the object to navigate to the previous session history item.  When a\n   * page is loaded from session history, all content is loaded from the cache\n   * (if available) and page state (such as form values and scroll position) is\n   * restored.\n   *\n   * @param {boolean} aRequireUserInteraction\n   *        Tells goBack to skip history items that did not record any user\n   *        interaction on their corresponding document while they were active.\n   *        This means in case of multiple entries mapping to the same document,\n   *        each entry has to have been flagged with user interaction separately.\n   *        If no items have user interaction, the function will fall back\n   *        to the first session history entry.\n   *\n   * @param {boolean} aUserActivation\n   *        Tells goBack that the call was triggered by a user action (e.g.:\n   *        The user clicked the back button).\n   *\n   * @throw NS_ERROR_UNEXPECTED\n   *        Indicates that the call was unexpected at this time, which implies\n   *        that canGoBack is false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "goBack",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aRequireUserInteraction"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aUserActivation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Tells the object to navigate to the next session history item.  When a\n   * page is loaded from session history, all content is loaded from the cache\n   * (if available) and page state (such as form values and scroll position) is\n   * restored.\n   *\n   * @param {boolean} aRequireUserInteraction\n   *        Tells goForward to skip history items that did not record any user\n   *        interaction on their corresponding document while they were active.\n   *        This means in case of multiple entries mapping to the same document,\n   *        each entry has to have been flagged with user interaction separately.\n   *        If no items have user interaction, the function will fall back\n   *        to the latest session history entry.\n   *\n   * @param {boolean} aUserActivation\n   *        Tells goForward that the call was triggered by a user action (e.g.:\n   *        The user clicked the forward button).\n   *\n   * @throw NS_ERROR_UNEXPECTED\n   *        Indicates that the call was unexpected at this time, which implies\n   *        that canGoForward is false.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "goForward",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aRequireUserInteraction"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aUserActivation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Tells the object to navigate to the session history item at a given index.\n   *\n   * @param {boolean} aUserActivation\n   *        Tells goForward that the call was triggered by a user action (e.g.:\n   *        The user clicked the forward button).\n   *\n   * @throw NS_ERROR_UNEXPECTED\n   *        Indicates that the call was unexpected at this time, which implies\n   *        that session history entry at the given index does not exist.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "gotoIndex",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "long",
+                      "name": "index"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aUserActivation"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/****************************************************************************\n   * The following flags may be bitwise combined to form the load flags\n   * parameter passed to either the loadURI or reload method.  Some of these\n   * flags are only applicable to loadURI.\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flags defines the range of bits that may be specified.  Flags\n   * outside this range may be used, but may not be passed to Reload().\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_MASK",
+                  "value": "0xffff"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This is the default value for the load flags parameter.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_NONE",
+                  "value": "0x0000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Flags 0x1, 0x2, 0x4, 0x8 are reserved for internal use by\n   * nsIWebNavigation implementations for now.\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the load should have the semantics of an HTML\n   * Meta-refresh tag (i.e., that the cache should be bypassed).  This flag\n   * is only applicable to loadURI.\n   * XXX the meaning of this flag is poorly defined.\n   * XXX no one uses this, so we should probably deprecate and remove it.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_IS_REFRESH",
+                  "value": "0x0010"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the load should have the semantics of a link\n   * click.  This flag is only applicable to loadURI.\n   * XXX the meaning of this flag is poorly defined.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_IS_LINK",
+                  "value": "0x0020"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that history should not be updated.  This flag is only\n   * applicable to loadURI.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_BYPASS_HISTORY",
+                  "value": "0x0040"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that any existing history entry should be replaced.\n   * This flag is only applicable to loadURI.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_REPLACE_HISTORY",
+                  "value": "0x0080"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the local web cache should be bypassed, but an\n   * intermediate proxy cache could still be used to satisfy the load.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_BYPASS_CACHE",
+                  "value": "0x0100"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that any intermediate proxy caches should be bypassed\n   * (i.e., that the content should be loaded from the origin server).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_BYPASS_PROXY",
+                  "value": "0x0200"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that a reload was triggered as a result of detecting\n   * an incorrect character encoding while parsing a previously loaded\n   * document.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_CHARSET_CHANGE",
+                  "value": "0x0400"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * If this flag is set, Stop() will be called before the load starts\n   * and will stop both content and network activity (the default is to\n   * only stop network activity).  Effectively, this passes the\n   * STOP_CONTENT flag to Stop(), in addition to the STOP_NETWORK flag.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_STOP_CONTENT",
+                  "value": "0x0800"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A hint this load was prompted by an external program: take care!\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_FROM_EXTERNAL",
+                  "value": "0x1000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that this is the first load in this object.\n   * Set with care, since setting incorrectly can cause us to assume that\n   * nothing was actually loaded in this object if the load ends up being\n   * handled by an external application.  This flag must not be passed to\n   * Reload.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_FIRST_LOAD",
+                  "value": "0x4000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the load should not be subject to popup\n   * blocking checks.  This flag must not be passed to Reload.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_ALLOW_POPUPS",
+                  "value": "0x8000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the URI classifier should not be checked for\n   * this load.  This flag must not be passed to Reload.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_BYPASS_CLASSIFIER",
+                  "value": "0x10000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Force relevant cookies to be sent with this load even if normally they\n   * wouldn't be.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_FORCE_ALLOW_COOKIES",
+                  "value": "0x20000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Prevent the owner principal from being inherited for this load.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_DISALLOW_INHERIT_PRINCIPAL",
+                  "value": "0x40000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Overwrite the returned error code with a specific result code\n   * when an error page is displayed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_ERROR_LOAD_CHANGES_RV",
+                  "value": "0x80000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the URI may be submitted to a third-party\n   * server for correction. This should only be applied to non-sensitive\n   * URIs entered by users.  This flag must not be passed to Reload.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_ALLOW_THIRD_PARTY_FIXUP",
+                  "value": "0x100000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that common scheme typos should be corrected.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_FIXUP_SCHEME_TYPOS",
+                  "value": "0x200000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Allows a top-level data: navigation to occur. E.g. view-image\n   * is an explicit user action which should be allowed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_FORCE_ALLOW_DATA_URI",
+                  "value": "0x400000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This load is the result of an HTTP redirect.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_IS_REDIRECT",
+                  "value": "0x800000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * These flags force TRR modes 1 or 3 for the load.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_DISABLE_TRR",
+                  "value": "0x1000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_FORCE_TRR",
+                  "value": "0x2000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This load should bypass the LoadURIDelegate.loadUri.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_BYPASS_LOAD_URI_DELEGATE",
+                  "value": "0x4000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This load has a user activation. (e.g: reload button was clicked)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "LOAD_FLAGS_USER_ACTIVATION",
+                  "value": "0x8000000"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Loads a given URI.  This will give priority to loading the requested URI\n   * in the object implementing this interface.  If it can't be loaded here\n   * however, the URI dispatcher will go through its normal process of content\n   * loading.\n   *\n   * @param aURI\n   *        The URI string to load.  For HTTP and FTP URLs and possibly others,\n   *        characters above U+007F will be converted to UTF-8 and then URL-\n   *        escaped per the rules of RFC 2396.\n   * @param aLoadURIOptions\n   *        A JSObject defined in LoadURIOptions.webidl holding info like e.g.\n   *        the triggeringPrincipal, the referrer info.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "LoadURIFromScript"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "loadURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aLoadURIOptions"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A C++ friendly version of loadURI\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "nostdcall",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "LoadURI"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "binaryLoadURI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "LoadURIOptionsRef",
+                          "name": "aLoadURIOptions"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Tells the Object to reload the current page.  There may be cases where the\n   * user will be asked to confirm the reload (for example, when it is\n   * determined that the request is non-idempotent).\n   *\n   * @param aReloadFlags\n   *        Flags modifying load behaviour.  This parameter is a bitwise\n   *        combination of the Load Flags defined above.  (Undefined bits are\n   *        reserved for future use.)  Generally you will pass LOAD_FLAGS_NONE\n   *        for this parameter.\n   *\n   * @throw NS_BINDING_ABORTED\n   *        Indicating that the user canceled the reload.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "reload",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aReloadFlags"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/****************************************************************************\n   * The following flags may be passed as the stop flags parameter to the stop\n   * method defined on this interface.\n   */"
+                  },
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that all network activity should be stopped.  This\n   * includes both active network loads and pending META-refreshes.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STOP_NETWORK",
+                  "value": "0x01"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that all content activity should be stopped.  This\n   * includes animated images, plugins and pending Javascript timeouts.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STOP_CONTENT",
+                  "value": "0x02"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that all activity should be stopped.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "STOP_ALL",
+                  "value": "0x03"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Stops a load of a URI.\n   *\n   * @param aStopFlags\n   *        This parameter is one of the stop flags defined above.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "stop",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long",
+                      "name": "aStopFlags"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieves the current DOM document for the frame, or lazily creates a\n   * blank document if there is none.  This attribute never returns null except\n   * for unexpected error situations.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "Document",
+                  "name": "document"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The currently loaded URI or null.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsIURI",
+                  "name": "currentURI"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The session history object used by this web navigation instance. This\n   * object will be a mozilla::dom::ChildSHistory object, but is returned as\n   * nsISupports so it can be called from JS code.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "binaryname",
+                      "param": {
+                        "kind": "attribute_$0",
+                        "value": "SessionHistoryXPCOM"
+                      }
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsISupports",
+                  "name": "sessionHistory"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": "%{ C++\n  /**\n   * Get the session history object used by this nsIWebNavigation instance.\n   * Use this method instead of the XPCOM method when getting the\n   * SessionHistory from C++ code.\n   */\n  already_AddRefed<mozilla::dom::ChildSHistory>\n  GetSessionHistory()\n  {\n    nsCOMPtr<nsISupports> history;\n    GetSessionHistoryXPCOM(getter_AddRefs(history));\n    return history.forget()\n      .downcast<mozilla::dom::ChildSHistory>();\n  }\n  %}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Resume a load which has been redirected from another process.\n   *\n   * A negative |aHistoryIndex| value corresponds to a non-history load being\n   * resumed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "resumeRedirectedLoad",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "unsigned long long",
+                      "name": "aLoadIdentifier"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aHistoryIndex"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
+  ]
+}
