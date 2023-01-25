@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.data.outputs.version }}
 
     steps:
       - name: Download Gecko
@@ -39,7 +41,7 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Generate namespaces for `$${{ steps.data.outputs.version }}`
+          commit_message: Generate namespaces for `${{ steps.data.outputs.version }}`
           repository: index
 
       - name: Generate Legacy Modules
@@ -49,7 +51,7 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Generate legacy modules for `$${{ steps.data.outputs.version }}`
+          commit_message: Generate legacy modules for `${{ steps.data.outputs.version }}`
           repository: index
 
       - name: Generate Interfaces
@@ -59,5 +61,5 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Generate interfaces for `$${{ steps.data.outputs.version }}`
+          commit_message: Generate interfaces for `${{ steps.data.outputs.version }}`
           repository: index
