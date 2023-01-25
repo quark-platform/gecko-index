@@ -2,11 +2,11 @@ name: Generator ci
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   pull_request:
-    branches: ["main"]
+    branches: ['main']
   schedule:
-    - cron: "0 2 * * 1-5"
+    - cron: '0 2 * * 1-5'
 
 jobs:
   build:
@@ -19,6 +19,10 @@ jobs:
           mkdir -p mozilla
           tar --strip-components=1 -xf ./mozilla.tar.xz -C ./mozilla
 
+      - name: Set gecko version
+        run: |
+          echo "version=$(cat mozilla/browser/config/version.txt)" >> $GITHUB_OUTPUT
+
       - uses: actions/checkout@v3
         with:
           path: index
@@ -27,14 +31,33 @@ jobs:
         run: |
           npm i -g jsdoc
 
-      - name: Run
+      - name: Generate Namespaces
         run: |
           cd index
           npm i
           npm run namespaces ../mozilla
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Generate namespaces for `$${{ steps.data.outputs.version }}`
+          repository: index
+
+      - name: Generate Legacy Modules
+        run: |
+          cd index
           npm run legacyModules ../mozilla
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Generate files
+          commit_message: Generate legacy modules for `$${{ steps.data.outputs.version }}`
+          repository: index
+
+      - name: Generate Interfaces
+        run: |
+          cd index
+          npm run interfaces ../mozilla
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Generate interfaces for `$${{ steps.data.outputs.version }}`
           repository: index
