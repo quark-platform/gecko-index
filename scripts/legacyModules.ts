@@ -62,5 +62,5 @@ async function parseLegacyModules() {
     })
   );
 
-  return modules;
+  return modules.sort();
 }
