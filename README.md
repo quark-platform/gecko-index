@@ -1,3 +1,3 @@
-# gecko-index
+# Gecko Index
 
-Generated docs for Gecko.
+Generated data from the latest stable release of Firefox.
