@@ -86,7 +86,7 @@ declare module 'gecko-index' {
   /**
    * Returns details about each namespace and their contents
    */
-  export async function getNamespaces(): Promise<NamespaceHistoryFile>
+  export async function getNamespaces(): Promise<NamespacesIndex>
 
   // ===========================================================================
   // Legacy Modules
