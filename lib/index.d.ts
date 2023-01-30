@@ -29,7 +29,7 @@ declare module 'gecko-index' {
 
   export type NamespaceInfo = {
     attributes: NamespaceAttributes[]
-    methods: any[]
+    methods: NamespaceMethods[]
   }
 
   export type NamespaceTypeDef<Type extends string> = {
@@ -38,7 +38,7 @@ declare module 'gecko-index' {
     generic: string
     nullable: boolean
     union: boolean
-    idlType: 'any' | string
+    idlType: IdlType
   }
 
   export type NamespaceAttributes = {
@@ -70,6 +70,9 @@ declare module 'gecko-index' {
     type: NamespaceTypeDef<'argument-type'>
   }
   export type NamespaceMethodReturn = NamespaceTypeDef<'return-type'>
+
+  export type IdlTypeInner = NamespaceTypeDef<string>
+  export type IdlType = IdlTypeInner[] | IdlTypeInner | string
 
   /**
    * Returns information about what was added to each namespace with each gecko
