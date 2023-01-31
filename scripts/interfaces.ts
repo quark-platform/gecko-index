@@ -113,14 +113,6 @@ ${fileContents}`,
     )
 
     for (const moduleClass of moduleClasses) {
-      if (moduleClass.interfaces) {
-        interfacedClasses.push({
-          componentFile: componentFilePath,
-          ...moduleClass,
-        })
-        continue
-      }
-
       classes.push({
         componentFile: componentFilePath,
         ...moduleClass,
