@@ -90,6 +90,21 @@
     },
     {
       "componentFile": "../mozilla/docshell/build/components.conf",
+      "name": "URIFixup",
+      "js_name": "uriFixup",
+      "cid": "{c6cf88b7-452e-47eb-bdc9-86e3561648ef}",
+      "contract_ids": [
+        "@mozilla.org/docshell/uri-fixup;1"
+      ],
+      "interfaces": [
+        "nsIURIFixup"
+      ],
+      "esModule": "resource://gre/modules/URIFixup.sys.mjs",
+      "singleton": true,
+      "constructor": "URIFixup"
+    },
+    {
+      "componentFile": "../mozilla/docshell/build/components.conf",
       "cid": "{33d75835-722f-42c0-89cc-44f328e56a86}",
       "contract_ids": [
         "@mozilla.org/docshell/uri-fixup-info;1"
@@ -258,6 +273,19 @@
       ],
       "init_method": "Init",
       "processes": 16
+    },
+    {
+      "componentFile": "../mozilla/dom/base/components.conf",
+      "js_name": "droppedLinkHandler",
+      "cid": "{1f34bc80-1bc7-11d6-a384-d705dd0746fc}",
+      "contract_ids": [
+        "@mozilla.org/content/dropped-link-handler;1"
+      ],
+      "interfaces": [
+        "nsIDroppedLinkHandler"
+      ],
+      "jsm": "resource://gre/modules/ContentAreaDropListener.jsm",
+      "constructor": "ContentAreaDropListener"
     },
     {
       "componentFile": "../mozilla/dom/base/components.conf",
@@ -801,6 +829,19 @@
       }
     },
     {
+      "componentFile": "../mozilla/dom/storage/components.conf",
+      "js_name": "sessionStorage",
+      "cid": "{7ec4bc82-5022-4d32-8e98-ffbceadb692c}",
+      "contract_ids": [
+        "@mozilla.org/dom/session-storage-service;1"
+      ],
+      "interfaces": [
+        "nsISessionStorageService"
+      ],
+      "singleton": true,
+      "type": "nsISessionStorageService"
+    },
+    {
       "componentFile": "../mozilla/dom/system/components.conf",
       "cid": "{77DA64D3-7458-4920-9491-86CC9914F904}",
       "contract_ids": [
@@ -818,6 +859,24 @@
       ],
       "esModule": "resource://testing-common/TestInterfaceJS.sys.mjs",
       "constructor": "TestInterfaceJS"
+    },
+    {
+      "componentFile": "../mozilla/extensions/permissions/components.conf",
+      "name": "PermissionManager",
+      "js_name": "perms",
+      "cid": "{4f6b5e00-0c36-11d5-a535-0010a401eb10}",
+      "contract_ids": [
+        "@mozilla.org/permissionmanager;1"
+      ],
+      "interfaces": [
+        "nsIPermissionManager"
+      ],
+      "singleton": true,
+      "type": "nsIPermissionManager",
+      "constructor": "mozilla::PermissionManager::GetXPCOMSingleton",
+      "headers": [
+        "/extensions/permissions/PermissionManager.h"
+      ]
     },
     {
       "componentFile": "../mozilla/extensions/permissions/components.conf",
@@ -1032,6 +1091,40 @@
       ]
     },
     {
+      "componentFile": "../mozilla/intl/build/components.conf",
+      "name": "StringBundle",
+      "js_name": "strings",
+      "cid": "{d85a17c1-aa7c-11d2-9b8c-00805f8a16d9}",
+      "contract_ids": [
+        "@mozilla.org/intl/stringbundle;1"
+      ],
+      "interfaces": [
+        "nsIStringBundleService"
+      ],
+      "type": "nsStringBundleService",
+      "headers": [
+        "/intl/strres/nsStringBundleService.h"
+      ],
+      "init_method": "Init"
+    },
+    {
+      "componentFile": "../mozilla/intl/locale/components.conf",
+      "js_name": "locale",
+      "cid": "{92735ff4-6384-4ad6-8508-757010e149ee}",
+      "contract_ids": [
+        "@mozilla.org/intl/localeservice;1"
+      ],
+      "interfaces": [
+        "mozILocaleService"
+      ],
+      "singleton": true,
+      "type": "mozilla::intl::LocaleService",
+      "headers": [
+        "mozilla/intl/LocaleService.h"
+      ],
+      "constructor": "mozilla::intl::LocaleService::GetInstanceAddRefed"
+    },
+    {
       "componentFile": "../mozilla/intl/locale/components.conf",
       "cid": "{65944815-e9ae-48bd-a2bf-f1108720950c}",
       "contract_ids": [
@@ -1078,6 +1171,21 @@
       ]
     },
     {
+      "componentFile": "../mozilla/intl/uconv/components.conf",
+      "js_name": "textToSubURI",
+      "cid": "{8b042e22-6f87-11d3-b3c8-00805f8a6670}",
+      "contract_ids": [
+        "@mozilla.org/intl/texttosuburi;1"
+      ],
+      "interfaces": [
+        "nsITextToSubURI"
+      ],
+      "type": "nsTextToSubURI",
+      "headers": [
+        "/intl/uconv/nsTextToSubURI.h"
+      ]
+    },
+    {
       "componentFile": "../mozilla/ipc/glue/components.conf",
       "cid": "{cdb4757f-f51b-40c0-8b38-66d12c3bff7b}",
       "contract_ids": [
@@ -1105,6 +1213,21 @@
         "mozilla/ipc/UtilityProcessTest.h"
       ],
       "processes": 1
+    },
+    {
+      "componentFile": "../mozilla/js/xpconnect/src/components.conf",
+      "js_name": "scriptloader",
+      "cid": "{929814d6-1dd2-11b2-8e08-82fa0a339b00}",
+      "contract_ids": [
+        "@mozilla.org/moz/jssubscript-loader;1"
+      ],
+      "interfaces": [
+        "mozIJSSubScriptLoader"
+      ],
+      "type": "mozJSSubScriptLoader",
+      "headers": [
+        "/js/xpconnect/loader/mozJSSubScriptLoader.h"
+      ]
     },
     {
       "componentFile": "../mozilla/layout/build/components.conf",
@@ -1302,11 +1425,61 @@
     },
     {
       "componentFile": "../mozilla/layout/build/components.conf",
+      "js_name": "DOMRequest",
+      "cid": "{3160e271-138d-4cc7-9d63-6429f16957c7}",
+      "contract_ids": [
+        "@mozilla.org/dom/dom-request-service;1"
+      ],
+      "interfaces": [
+        "nsIDOMRequestService"
+      ],
+      "singleton": true,
+      "type": "mozilla::dom::DOMRequestService",
+      "headers": [
+        "mozilla/dom/DOMRequest.h"
+      ],
+      "constructor": "mozilla::dom::DOMRequestService::FactoryCreate"
+    },
+    {
+      "componentFile": "../mozilla/layout/build/components.conf",
+      "js_name": "domStorageManager",
+      "cid": "{656db07c-aa80-49e4-bce8-e431baae697d}",
+      "contract_ids": [
+        "@mozilla.org/dom/localStorage-manager;1"
+      ],
+      "interfaces": [
+        "nsIDOMStorageManager",
+        "nsILocalStorageManager"
+      ],
+      "legacy_constructor": "LocalStorageManagerConstructor"
+    },
+    {
+      "componentFile": "../mozilla/layout/build/components.conf",
       "cid": "{64e4bf03-773e-408e-939a-e11652fdfd28}",
       "contract_ids": [
         "@mozilla.org/dom/sessionStorage-manager;1"
       ],
       "legacy_constructor": "SessionStorageManagerConstructor"
+    },
+    {
+      "componentFile": "../mozilla/layout/build/components.conf",
+      "js_name": "qms",
+      "cid": "{5a75c25a-5e7e-4d90-8f7c-07eb15cc0aa8}",
+      "contract_ids": [
+        "@mozilla.org/dom/quota-manager-service;1"
+      ],
+      "interfaces": [
+        "nsIQuotaManagerService"
+      ],
+      "singleton": true,
+      "type": "mozilla::dom::quota::QuotaManagerService",
+      "headers": [
+        "mozilla/dom/quota/QuotaManagerService.h"
+      ],
+      "constructor": "mozilla::dom::quota::QuotaManagerService::FactoryCreate",
+      "categories": {
+        "idle-daily": "QuotaManagerService"
+      }
     },
     {
       "componentFile": "../mozilla/layout/build/components.conf",
@@ -1334,12 +1507,36 @@
     },
     {
       "componentFile": "../mozilla/layout/build/components.conf",
+      "js_name": "els",
+      "cid": "{baa34652-f1f1-4185-b224-244ee82a413a}",
+      "contract_ids": [
+        "@mozilla.org/eventlistenerservice;1"
+      ],
+      "interfaces": [
+        "nsIEventListenerService"
+      ],
+      "type": "nsIEventListenerService"
+    },
+    {
+      "componentFile": "../mozilla/layout/build/components.conf",
       "cid": "{e8ee88b0-5571-4086-a45b-39a716906bdb}",
       "contract_ids": [],
       "type": "ExpandedPrincipal::Deserializer",
       "headers": [
         "/caps/ExpandedPrincipal.h"
       ]
+    },
+    {
+      "componentFile": "../mozilla/layout/build/components.conf",
+      "js_name": "focus",
+      "cid": "{cf7fd51f-aba2-44c1-9ff0-11f7508efcd4}",
+      "contract_ids": [
+        "@mozilla.org/focus-manager;1"
+      ],
+      "interfaces": [
+        "nsIFocusManager"
+      ],
+      "type": "nsIFocusManager"
     },
     {
       "componentFile": "../mozilla/layout/build/components.conf",
@@ -1599,6 +1796,18 @@
     },
     {
       "componentFile": "../mozilla/layout/build/components.conf",
+      "js_name": "scriptSecurityManager",
+      "cid": "{7ee2a4c0-4b93-17d3-ba18-0060b0f199a2}",
+      "contract_ids": [
+        "@mozilla.org/scriptsecuritymanager;1"
+      ],
+      "interfaces": [
+        "nsIScriptSecurityManager"
+      ],
+      "legacy_constructor": "Construct_nsIScriptSecurityManager"
+    },
+    {
+      "componentFile": "../mozilla/layout/build/components.conf",
       "name": "ServiceWorkerManager",
       "cid": "{c74bde32-bcc7-4840-8430-c733351b212a}",
       "contract_ids": [
@@ -1765,6 +1974,20 @@
       ],
       "jsm": "resource://gre/modules/PromptCollection.jsm",
       "constructor": "PromptCollection"
+    },
+    {
+      "componentFile": "../mozilla/mobile/android/components/geckoview/components.conf",
+      "js_name": "prompt",
+      "cid": "{076ac188-23c1-4390-aa08-7ef1f78ca5d9}",
+      "contract_ids": [
+        "@mozilla.org/prompter;1",
+        "@mozilla.org/embedcomp/prompt-service;1"
+      ],
+      "interfaces": [
+        "nsIPromptService"
+      ],
+      "jsm": "resource://gre/modules/GeckoViewPrompt.jsm",
+      "constructor": "PromptFactory"
     },
     {
       "componentFile": "../mozilla/mobile/android/components/geckoview/components.conf",
@@ -1946,6 +2169,26 @@
     },
     {
       "componentFile": "../mozilla/modules/libpref/components.conf",
+      "name": "Preferences",
+      "js_name": "prefs",
+      "cid": "{91ca2441-050f-4f7c-9df8-75b40ea40156}",
+      "contract_ids": [
+        "@mozilla.org/preferences-service;1"
+      ],
+      "interfaces": [
+        "nsIPrefService",
+        "nsIPrefBranch"
+      ],
+      "singleton": true,
+      "type": "mozilla::Preferences",
+      "headers": [
+        "mozilla/Preferences.h"
+      ],
+      "constructor": "mozilla::Preferences::GetInstanceForService",
+      "processes": 60
+    },
+    {
+      "componentFile": "../mozilla/modules/libpref/components.conf",
       "cid": "{064d9cee-1dd2-11b2-83e3-d25ab0193c26}",
       "contract_ids": [
         "@mozilla.org/pref-localizedstring;1"
@@ -1961,6 +2204,39 @@
       "type": "ArrayBufferInputStream",
       "headers": [
         "/netwerk/base/ArrayBufferInputStream.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/netwerk/build/components.conf",
+      "js_name": "loadContextInfo",
+      "cid": "{62d4b190-3642-4450-b019-d1c1fba56025}",
+      "contract_ids": [
+        "@mozilla.org/load-context-info-factory;1"
+      ],
+      "interfaces": [
+        "nsILoadContextInfoFactory"
+      ],
+      "type": "mozilla::net::LoadContextInfoFactory",
+      "headers": [
+        "mozilla/LoadContextInfo.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/netwerk/build/components.conf",
+      "name": "CacheStorage",
+      "js_name": "cache2",
+      "cid": "{ea70b098-5014-4e21-aee1-75e6b2c4b8e0}",
+      "contract_ids": [
+        "@mozilla.org/netwerk/cache-storage-service;1",
+        "@mozilla.org/network/cache-storage-service;1"
+      ],
+      "interfaces": [
+        "nsICacheStorageService"
+      ],
+      "singleton": true,
+      "type": "mozilla::net::CacheStorageService",
+      "headers": [
+        "CacheStorageService.h"
       ]
     },
     {
@@ -2107,6 +2383,23 @@
     },
     {
       "componentFile": "../mozilla/netwerk/build/components.conf",
+      "js_name": "eTLD",
+      "cid": "{cb9abbae-66b6-4609-8594-5c4ff300888e}",
+      "contract_ids": [
+        "@mozilla.org/network/effective-tld-service;1"
+      ],
+      "interfaces": [
+        "nsIEffectiveTLDService"
+      ],
+      "singleton": true,
+      "type": "nsEffectiveTLDService",
+      "headers": [
+        "/netwerk/dns/nsEffectiveTLDService.h"
+      ],
+      "init_method": "Init"
+    },
+    {
+      "componentFile": "../mozilla/netwerk/build/components.conf",
       "cid": "{be9a53ae-c7e9-11d3-8cda-0060b0fc14a3}",
       "contract_ids": [
         "@mozilla.org/network/file-input-stream;1"
@@ -2216,6 +2509,28 @@
       "headers": [
         "nsInputStreamPump.h"
       ]
+    },
+    {
+      "componentFile": "../mozilla/netwerk/build/components.conf",
+      "name": "IO",
+      "js_name": "io",
+      "cid": "{9ac9e770-18bc-11d3-9337-00104ba0fd40}",
+      "contract_ids": [
+        "@mozilla.org/network/io-service;1",
+        "@mozilla.org/network/util;1"
+      ],
+      "interfaces": [
+        "nsIIOService",
+        "nsISpeculativeConnect",
+        "nsINetUtil"
+      ],
+      "singleton": true,
+      "type": "mozilla::net::nsIOService",
+      "headers": [
+        "/netwerk/base/nsIOService.h"
+      ],
+      "constructor": "mozilla::net::nsIOService::GetInstance",
+      "processes": 16
     },
     {
       "componentFile": "../mozilla/netwerk/build/components.conf",
@@ -2928,6 +3243,25 @@
     },
     {
       "componentFile": "../mozilla/netwerk/build/components.conf",
+      "js_name": "cookies",
+      "cid": "{c375fa80-150f-11d6-a618-0010a401eb10}",
+      "contract_ids": [
+        "@mozilla.org/cookieService;1",
+        "@mozilla.org/cookiemanager;1"
+      ],
+      "interfaces": [
+        "nsICookieService",
+        "nsICookieManager"
+      ],
+      "singleton": true,
+      "type": "nsICookieService",
+      "constructor": "mozilla::net::CookieService::GetXPCOMSingleton",
+      "headers": [
+        "/netwerk/cookie/CookieService.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/netwerk/build/components.conf",
       "cid": "{e1676f84-e6e5-45d0-a4bf-d9905efc5b2e}",
       "contract_ids": [
         "@mozilla.org/http-sfv-service;1"
@@ -3378,6 +3712,23 @@
     },
     {
       "componentFile": "../mozilla/storage/build/components.conf",
+      "js_name": "storage",
+      "cid": "{bbbb1d61-438f-4436-92ed-8308e5830fb0}",
+      "contract_ids": [
+        "@mozilla.org/storage/service;1"
+      ],
+      "interfaces": [
+        "mozIStorageService"
+      ],
+      "singleton": true,
+      "type": "mozilla::storage::Service",
+      "headers": [
+        "/storage/mozStorageService.h"
+      ],
+      "constructor": "mozilla::storage::Service::getSingleton"
+    },
+    {
+      "componentFile": "../mozilla/storage/build/components.conf",
       "cid": "{3b667ee0-d2da-4ccc-9c3d-95f2ca6a8b4c}",
       "contract_ids": [
         "@mozilla.org/storage/vacuum;1"
@@ -3717,6 +4068,23 @@
     },
     {
       "componentFile": "../mozilla/toolkit/components/build/components.conf",
+      "name": "AppStartup",
+      "js_name": "startup",
+      "cid": "{7dd4d320-c84b-4624-8d45-7bb9b2356977}",
+      "contract_ids": [
+        "@mozilla.org/toolkit/app-startup;1"
+      ],
+      "interfaces": [
+        "nsIAppStartup"
+      ],
+      "type": "nsAppStartup",
+      "headers": [
+        "/toolkit/components/startup/nsAppStartup.h"
+      ],
+      "init_method": "Init"
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/build/components.conf",
       "cid": "{6356aa16-7916-4215-a825-cbc2692ca87a}",
       "contract_ids": [
         "@mozilla.org/appshell/component/browser-status-filter;1"
@@ -3862,6 +4230,19 @@
       "constructor": "mozilla::ConstructCascadeFilter"
     },
     {
+      "componentFile": "../mozilla/toolkit/components/cleardata/components.conf",
+      "js_name": "clearData",
+      "cid": "{0c06583d-7dd8-4293-b1a5-912205f779aa}",
+      "contract_ids": [
+        "@mozilla.org/clear-data-service;1"
+      ],
+      "interfaces": [
+        "nsIClearDataService"
+      ],
+      "esModule": "resource://gre/modules/ClearDataService.sys.mjs",
+      "constructor": "ClearDataService"
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/components.conf",
       "cid": "{6ebc941a-f2ff-4d56-b3b6-f7d0b9d73344}",
       "contract_ids": [
@@ -3874,6 +4255,20 @@
       }
     },
     {
+      "componentFile": "../mozilla/toolkit/components/components.conf",
+      "cid": "{00ed5d73-9de5-42cf-868c-e739a94f6b37}",
+      "contract_ids": [
+        "@mozilla.org/content-blocking-allow-list;1"
+      ],
+      "interfaces": [
+        "nsIContentBlockingAllowList"
+      ],
+      "type": "mozilla::ContentBlockingAllowList",
+      "headers": [
+        "/toolkit/components/antitracking/ContentBlockingAllowList.h"
+      ]
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/contentprefs/components.conf",
       "cid": "{e3f772f3-023f-4b32-b074-36cf0fd5d414}",
       "contract_ids": [
@@ -3881,6 +4276,44 @@
       ],
       "jsm": "resource://gre/modules/ContentPrefService2.jsm",
       "constructor": "ContentPrefService2"
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/cookiebanners/components.conf",
+      "name": "CookieBannerService",
+      "cid": "{eac9cdc4-ecee-49f2-91da-7627e15c1f3c}",
+      "interfaces": [
+        "nsICookieBannerService"
+      ],
+      "contract_ids": [
+        "@mozilla.org/cookie-banner-service;1"
+      ],
+      "type": "mozilla::nsCookieBannerService",
+      "headers": [
+        "/toolkit/components/cookiebanners/nsCookieBannerService.h"
+      ],
+      "singleton": true,
+      "constructor": "mozilla::nsCookieBannerService::GetSingleton",
+      "js_name": "cookieBanners",
+      "categories": {
+        "profile-after-change": "nsCookieBannerService",
+        "idle-daily": "nsCookieBannerService"
+      },
+      "processes": 1
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/cookiebanners/components.conf",
+      "cid": "{eb1904db-e0d1-4760-a721-db76b1ca3e94}",
+      "interfaces": [
+        "nsICookieBannerRule"
+      ],
+      "headers": [
+        "/toolkit/components/cookiebanners/nsCookieBannerRule.h"
+      ],
+      "type": "mozilla::nsCookieBannerRule",
+      "contract_ids": [
+        "@mozilla.org/cookie-banner-rule;1"
+      ],
+      "processes": 1
     },
     {
       "componentFile": "../mozilla/toolkit/components/cookiebanners/components.conf",
@@ -3938,6 +4371,24 @@
       "name": "IdentityCredentialPromptService"
     },
     {
+      "componentFile": "../mozilla/toolkit/components/credentialmanagement/components.conf",
+      "cid": "{029823d0-0448-46c5-af1f-25cd4501d0d7}",
+      "contract_ids": [
+        "@mozilla.org/browser/identity-credential-storage-service;1"
+      ],
+      "processes": 1,
+      "singleton": true,
+      "type": "mozilla::IdentityCredentialStorageService",
+      "headers": [
+        "mozilla/IdentityCredentialStorageService.h"
+      ],
+      "interfaces": [
+        "nsIIdentityCredentialStorageService"
+      ],
+      "name": "IdentityCredentialStorageService",
+      "constructor": "mozilla::IdentityCredentialStorageService::GetSingleton"
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/ctypes/components.conf",
       "cid": "{0c797702-1c60-4051-9dd7-4d7405605642}",
       "contract_ids": [
@@ -3956,6 +4407,19 @@
       ],
       "esModule": "resource://gre/modules/DownloadLegacy.sys.mjs",
       "constructor": "DownloadLegacyTransfer"
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/enterprisepolicies/components.conf",
+      "js_name": "policies",
+      "cid": "{49e8d8ef-a713-492a-a3d2-5c9dad4ce2e5}",
+      "contract_ids": [
+        "@mozilla.org/enterprisepolicies;1"
+      ],
+      "interfaces": [
+        "nsIEnterprisePolicies"
+      ],
+      "esModule": "resource://gre/modules/EnterprisePolicies.sys.mjs",
+      "constructor": "EnterprisePolicies"
     },
     {
       "componentFile": "../mozilla/toolkit/components/extensions/components.conf",
@@ -4023,6 +4487,23 @@
       }
     },
     {
+      "componentFile": "../mozilla/toolkit/components/glean/xpcom/components.conf",
+      "cid": "{98d0e975-9cad-4ce3-ae2f-f878b8be6307}",
+      "contract_ids": [
+        "@mozilla.org/toolkit/glean;1"
+      ],
+      "singleton": true,
+      "type": "mozilla::FOG",
+      "headers": [
+        "mozilla/FOG.h"
+      ],
+      "constructor": "mozilla::FOG::GetSingleton",
+      "js_name": "fog",
+      "interfaces": [
+        "nsIFOG"
+      ]
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/kvstore/components.conf",
       "cid": "{6cc1a0a8-af97-4d41-9b4a-58dcec46ebce}",
       "contract_ids": [
@@ -4062,6 +4543,19 @@
       ]
     },
     {
+      "componentFile": "../mozilla/toolkit/components/mozintl/components.conf",
+      "js_name": "intl",
+      "cid": "{35ec195a-e8d0-4300-83af-c8a2cc84b4a3}",
+      "contract_ids": [
+        "@mozilla.org/mozintl;1"
+      ],
+      "interfaces": [
+        "mozIMozIntl"
+      ],
+      "esModule": "resource://gre/modules/mozIntl.sys.mjs",
+      "constructor": "MozIntl"
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/mozprotocol/components.conf",
       "cid": "{47a45e5f-691e-4799-8686-14f8d3fc0f8c}",
       "contract_ids": [
@@ -4084,6 +4578,19 @@
       ],
       "jsm": "resource://gre/modules/ShieldContentProcess.jsm",
       "constructor": "AboutStudies"
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/passwordmgr/components.conf",
+      "js_name": "logins",
+      "cid": "{cb9e0de8-3598-4ed7-857b-827f011ad5d8}",
+      "contract_ids": [
+        "@mozilla.org/login-manager;1"
+      ],
+      "interfaces": [
+        "nsILoginManager"
+      ],
+      "jsm": "resource://gre/modules/LoginManager.jsm",
+      "constructor": "LoginManager"
     },
     {
       "componentFile": "../mozilla/toolkit/components/passwordmgr/components.conf",
@@ -4375,6 +4882,19 @@
       "constructor": "Prompter"
     },
     {
+      "componentFile": "../mozilla/toolkit/components/prompts/src/components.conf",
+      "js_name": "prompt",
+      "cid": "{7ad1b327-6dfa-46ec-9234-f2a620ea7e00}",
+      "contract_ids": [
+        "@mozilla.org/embedcomp/prompt-service;1"
+      ],
+      "interfaces": [
+        "nsIPromptService"
+      ],
+      "jsm": "resource://gre/modules/Prompter.jsm",
+      "constructor": "EmbedPrompter"
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/reflect/components.conf",
       "cid": "{1a817186-357a-47cd-8aea-2850d60e959e}",
       "contract_ids": [
@@ -4433,6 +4953,20 @@
     },
     {
       "componentFile": "../mozilla/toolkit/components/search/components.conf",
+      "js_name": "search",
+      "cid": "{7319788a-fe93-4db3-9f39-818cf08f4256}",
+      "contract_ids": [
+        "@mozilla.org/browser/search-service;1"
+      ],
+      "interfaces": [
+        "nsISearchService"
+      ],
+      "esModule": "resource://gre/modules/SearchService.sys.mjs",
+      "constructor": "SearchService",
+      "processes": 1
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/search/components.conf",
       "cid": "{aa892eb4-ffbf-477d-9f9a-06c995ae9f27}",
       "contract_ids": [
         "@mozilla.org/autocomplete/search;1?name=search-autocomplete"
@@ -4462,6 +4996,35 @@
       "categories": {
         "content-process-ready-for-script": "TelemetryControllerContent"
       }
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/telemetry/core/components.conf",
+      "js_name": "telemetry",
+      "cid": "{aea477f2-b3a2-469c-aa29-0a82d132b829}",
+      "contract_ids": [
+        "@mozilla.org/base/telemetry;1"
+      ],
+      "interfaces": [
+        "nsITelemetry"
+      ],
+      "singleton": true,
+      "type": "nsITelemetry",
+      "processes": 60
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/telemetry/dap/components.conf",
+      "cid": "{58a4c579-d2dd-46b7-9c3b-6881a1c36c6a}",
+      "interfaces": [
+        "nsIDAPTelemetry"
+      ],
+      "contract_ids": [
+        "@mozilla.org/base/daptelemetry;1"
+      ],
+      "type": "mozilla::DAPTelemetry",
+      "headers": [
+        "mozilla/DAPTelemetry.h"
+      ],
+      "js_name": "DAPTelemetry"
     },
     {
       "componentFile": "../mozilla/toolkit/components/terminator/components.conf",
@@ -4542,6 +5105,19 @@
       "constructor": "UrlClassifierRemoteSettingsService"
     },
     {
+      "componentFile": "../mozilla/toolkit/components/urlformatter/components.conf",
+      "js_name": "urlFormatter",
+      "cid": "{e6156350-2be8-11db-a98b-0800200c9a66}",
+      "contract_ids": [
+        "@mozilla.org/toolkit/URLFormatterService;1"
+      ],
+      "interfaces": [
+        "nsIURLFormatter"
+      ],
+      "jsm": "resource://gre/modules/URLFormatter.jsm",
+      "constructor": "nsURLFormatterService"
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/utils/components.conf",
       "cid": "{ded150e3-c92e-4077-a396-0dba9953e39f}",
       "contract_ids": [
@@ -4593,6 +5169,20 @@
       ],
       "jsm": "resource://gre/modules/HelperAppDlg.jsm",
       "constructor": "nsUnknownContentTypeDialog"
+    },
+    {
+      "componentFile": "../mozilla/toolkit/mozapps/extensions/components.conf",
+      "js_name": "blocklist",
+      "cid": "{66354bc9-7ed1-4692-ae1d-8da97d6b205e}",
+      "contract_ids": [
+        "@mozilla.org/extensions/blocklist;1"
+      ],
+      "jsm": "resource://gre/modules/addonManager.js",
+      "constructor": "BlocklistService",
+      "interfaces": [
+        "nsIBlocklistService"
+      ],
+      "processes": 1
     },
     {
       "componentFile": "../mozilla/toolkit/mozapps/extensions/components.conf",
@@ -4773,6 +5363,28 @@
     },
     {
       "componentFile": "../mozilla/toolkit/xre/components.conf",
+      "name": "XULRuntime",
+      "js_name": "appinfo",
+      "cid": "{95d89e3e-a169-41a3-8e56-719978e15b12}",
+      "contract_ids": [
+        "@mozilla.org/xre/app-info;1",
+        "@mozilla.org/xre/runtime;1",
+        "@mozilla.org/toolkit/crash-reporter;1"
+      ],
+      "interfaces": [
+        "nsIXULRuntime",
+        "nsIXULAppInfo",
+        "nsICrashReporter"
+      ],
+      "legacy_constructor": "mozilla::AppInfoConstructor",
+      "headers": [
+        "nsAppRunner.h"
+      ],
+      "processes": 16,
+      "overridable": true
+    },
+    {
+      "componentFile": "../mozilla/toolkit/xre/components.conf",
       "cid": "{471f4944-1dd2-11b2-87ac-90be0a51d609}",
       "contract_ids": [
         "@mozilla.org/embedcomp/rangefind;1"
@@ -4792,6 +5404,23 @@
       "headers": [
         "/dom/webbrowserpersist/nsWebBrowserPersist.h"
       ]
+    },
+    {
+      "componentFile": "../mozilla/toolkit/xre/components.conf",
+      "js_name": "ww",
+      "cid": "{a21bfa01-f349-4394-a84c-8de5cf0737d0}",
+      "contract_ids": [
+        "@mozilla.org/embedcomp/window-watcher;1"
+      ],
+      "interfaces": [
+        "nsIWindowWatcher"
+      ],
+      "type": "nsWindowWatcher",
+      "headers": [
+        "nsWindowWatcher.h"
+      ],
+      "init_method": "Init",
+      "overridable": true
     },
     {
       "componentFile": "../mozilla/toolkit/xre/components.conf",
@@ -4840,6 +5469,22 @@
       "headers": [
         "/tools/code-coverage/nsCodeCoverage.h"
       ]
+    },
+    {
+      "componentFile": "../mozilla/tools/profiler/gecko/components.conf",
+      "js_name": "profiler",
+      "cid": "{25db9b8e-8123-4de1-b66d-8bbbedf2cdf4}",
+      "contract_ids": [
+        "@mozilla.org/tools/profiler;1"
+      ],
+      "interfaces": [
+        "nsIProfiler"
+      ],
+      "type": "nsProfiler",
+      "headers": [
+        "/tools/profiler/gecko/nsProfiler.h"
+      ],
+      "init_method": "Init"
     },
     {
       "componentFile": "../mozilla/uriloader/exthandler/components.conf",
@@ -4911,6 +5556,21 @@
     },
     {
       "componentFile": "../mozilla/widget/android/components.conf",
+      "cid": "{9d5adbb9-1da4-4162-acba-b373fe3ae837}",
+      "contract_ids": [
+        "@mozilla.org/widget/parent/clipboard;1"
+      ],
+      "interfaces": [
+        "nsIClipboard"
+      ],
+      "type": "nsClipboard",
+      "headers": [
+        "/widget/android/nsClipboard.h"
+      ],
+      "processes": 1
+    },
+    {
+      "componentFile": "../mozilla/widget/android/components.conf",
       "cid": "{77221d5a-1dd2-11b2-8c69-c710f15d2ed5}",
       "contract_ids": [
         "@mozilla.org/widget/clipboardhelper;1"
@@ -4969,6 +5629,21 @@
     },
     {
       "componentFile": "../mozilla/widget/android/components.conf",
+      "js_name": "androidBridge",
+      "cid": "{0fe2321d-ebd9-467d-a743-03a68d40599e}",
+      "contract_ids": [
+        "@mozilla.org/android/bridge;1"
+      ],
+      "interfaces": [
+        "nsIAndroidBridge"
+      ],
+      "type": "nsAndroidBridge",
+      "headers": [
+        "/widget/android/AndroidBridge.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/widget/android/components.conf",
       "cid": "{84e11f80-ca55-11dd-ad8b-0800200c9a66}",
       "contract_ids": [
         "@mozilla.org/system-alerts-service;1"
@@ -4977,6 +5652,18 @@
       "headers": [
         "/widget/android/AndroidAlerts.h"
       ]
+    },
+    {
+      "componentFile": "../mozilla/widget/cocoa/components.conf",
+      "cid": "{49f428e8-baf9-4ba3-b1b0-7d2fd3abbcea}",
+      "contract_ids": [
+        "@mozilla.org/widget/parent/clipboard;1"
+      ],
+      "interfaces": [
+        "nsIClipboard"
+      ],
+      "type": "nsIClipboard",
+      "processes": 1
     },
     {
       "componentFile": "../mozilla/widget/cocoa/components.conf",
@@ -5199,6 +5886,22 @@
       ],
       "type": "nsTouchBarUpdater",
       "processes": 60
+    },
+    {
+      "componentFile": "../mozilla/widget/components.conf",
+      "js_name": "clipboard",
+      "cid": "{8b5314ba-db01-11d2-96ce-0060b0fb9956}",
+      "contract_ids": [
+        "@mozilla.org/widget/clipboard;1"
+      ],
+      "constructor": "nsClipboardSelector",
+      "headers": [
+        "/widget/nsContentProcessWidgetFactory.h"
+      ],
+      "interfaces": [
+        "nsIClipboard"
+      ],
+      "overridable": true
     },
     {
       "componentFile": "../mozilla/widget/components.conf",
@@ -5439,6 +6142,18 @@
       "headers": [
         "/widget/gtk/nsApplicationChooser.h"
       ],
+      "processes": 1
+    },
+    {
+      "componentFile": "../mozilla/widget/gtk/components.conf",
+      "cid": "{f55f5d31-dbb7-4d0d-9f6f-a4f4cd8e8ef1}",
+      "contract_ids": [
+        "@mozilla.org/widget/parent/clipboard;1"
+      ],
+      "interfaces": [
+        "nsIClipboard"
+      ],
+      "type": "nsIClipboard",
       "processes": 1
     },
     {
@@ -5781,6 +6496,18 @@
     },
     {
       "componentFile": "../mozilla/widget/windows/components.conf",
+      "cid": "{25b4efa0-7054-4787-9cd6-630efb3fe6fa}",
+      "contract_ids": [
+        "@mozilla.org/widget/parent/clipboard;1"
+      ],
+      "interfaces": [
+        "nsIClipboard"
+      ],
+      "type": "nsIClipboard",
+      "processes": 1
+    },
+    {
+      "componentFile": "../mozilla/widget/windows/components.conf",
       "cid": "{b6e1a890-b2b8-4883-a65f-9476f6185313}",
       "contract_ids": [
         "@mozilla.org/widget/systemstatusbar;1"
@@ -5934,6 +6661,22 @@
         "/chrome/nsChromeRegistry.h"
       ],
       "constructor": "nsChromeRegistry::GetSingleton"
+    },
+    {
+      "componentFile": "../mozilla/xpcom/build/components.conf",
+      "js_name": "console",
+      "cid": "{7e3ff85c-1dd2-11b2-8d4b-eb452cb0ff40}",
+      "contract_ids": [
+        "@mozilla.org/consoleservice;1"
+      ],
+      "interfaces": [
+        "nsIConsoleService"
+      ],
+      "type": "nsConsoleService",
+      "headers": [
+        "/xpcom/base/nsConsoleService.h"
+      ],
+      "init_method": "Init"
     },
     {
       "componentFile": "../mozilla/xpcom/build/components.conf",
@@ -6200,851 +6943,6 @@
     },
     {
       "componentFile": "../mozilla/xpcom/build/components.conf",
-      "cid": "{0d6ea1d0-879c-11d5-90ef-0010a4e73d9a}",
-      "contract_ids": [
-        "@mozilla.org/variant;1"
-      ],
-      "type": "nsVariantCC",
-      "headers": [
-        "nsVariant.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/xpcom/build/components.conf",
-      "cid": "{dfac10a9-dd24-43cf-a095-6ffa2e4b6a6c}",
-      "contract_ids": [
-        "@mozilla.org/xpcom/ini-parser-factory;1"
-      ],
-      "type": "nsINIParserFactory",
-      "headers": [
-        "/xpcom/ds/nsINIParserImpl.h"
-      ],
-      "processes": 60
-    },
-    {
-      "componentFile": "../mozilla/xpcom/components/components.conf",
-      "cid": "{91775d60-d5dc-11d2-92fb-00e09805570f}",
-      "legacy_constructor": "nsComponentManagerImpl::Create",
-      "headers": [
-        "/xpcom/components/nsComponentManager.h"
-      ],
-      "processes": 60
-    },
-    {
-      "componentFile": "../mozilla/xpcom/ds/components.conf",
-      "cid": "{35c66fd1-95e9-4e0a-80c5-c3bd2b375481}",
-      "contract_ids": [
-        "@mozilla.org/array;1"
-      ],
-      "legacy_constructor": "nsArrayBase::XPCOMConstructor",
-      "headers": [
-        "nsArray.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/xpcom/io/components.conf",
-      "cid": "{565e3a2c-1dd2-11b2-8da1-b4cef17e568d}",
-      "contract_ids": [
-        "@mozilla.org/io/multiplex-input-stream;1"
-      ],
-      "legacy_constructor": "nsMultiplexInputStreamConstructor",
-      "headers": [
-        "nsMultiplexInputStream.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/xpcom/io/components.conf",
-      "cid": "{e4a0ee4e-0775-457b-9118-b3ae97a7c758}",
-      "contract_ids": [
-        "@mozilla.org/pipe;1"
-      ],
-      "legacy_constructor": "nsPipeConstructor",
-      "headers": [
-        "/xpcom/io/nsPipe.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/xpcom/io/components.conf",
-      "cid": "{7225c040-a9bf-11d3-a197-0050041caf44}",
-      "contract_ids": [
-        "@mozilla.org/scriptableinputstream;1"
-      ],
-      "legacy_constructor": "nsScriptableInputStream::Create",
-      "headers": [
-        "nsScriptableInputStream.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/xpcom/io/components.conf",
-      "cid": "{0abb0835-5000-4790-af28-61b3ba17c295}",
-      "contract_ids": [
-        "@mozilla.org/io/string-input-stream;1"
-      ],
-      "legacy_constructor": "nsStringInputStreamConstructor",
-      "headers": [
-        "/xpcom/build/XPCOMModule.h"
-      ],
-      "processes": 16
-    },
-    {
-      "componentFile": "../mozilla/xpcom/threads/components.conf",
-      "cid": "{5ff24248-1dd2-11b2-8427-fbab44f29bc8}",
-      "contract_ids": [
-        "@mozilla.org/timer;1"
-      ],
-      "legacy_constructor": "nsTimer::XPCOMConstructor",
-      "headers": [
-        "/xpcom/threads/nsTimerImpl.h"
-      ],
-      "processes": 52
-    }
-  ],
-  "interfacedClasses": [
-    {
-      "componentFile": "../mozilla/docshell/build/components.conf",
-      "name": "URIFixup",
-      "js_name": "uriFixup",
-      "cid": "{c6cf88b7-452e-47eb-bdc9-86e3561648ef}",
-      "contract_ids": [
-        "@mozilla.org/docshell/uri-fixup;1"
-      ],
-      "interfaces": [
-        "nsIURIFixup"
-      ],
-      "esModule": "resource://gre/modules/URIFixup.sys.mjs",
-      "singleton": true,
-      "constructor": "URIFixup"
-    },
-    {
-      "componentFile": "../mozilla/dom/base/components.conf",
-      "js_name": "droppedLinkHandler",
-      "cid": "{1f34bc80-1bc7-11d6-a384-d705dd0746fc}",
-      "contract_ids": [
-        "@mozilla.org/content/dropped-link-handler;1"
-      ],
-      "interfaces": [
-        "nsIDroppedLinkHandler"
-      ],
-      "jsm": "resource://gre/modules/ContentAreaDropListener.jsm",
-      "constructor": "ContentAreaDropListener"
-    },
-    {
-      "componentFile": "../mozilla/dom/storage/components.conf",
-      "js_name": "sessionStorage",
-      "cid": "{7ec4bc82-5022-4d32-8e98-ffbceadb692c}",
-      "contract_ids": [
-        "@mozilla.org/dom/session-storage-service;1"
-      ],
-      "interfaces": [
-        "nsISessionStorageService"
-      ],
-      "singleton": true,
-      "type": "nsISessionStorageService"
-    },
-    {
-      "componentFile": "../mozilla/extensions/permissions/components.conf",
-      "name": "PermissionManager",
-      "js_name": "perms",
-      "cid": "{4f6b5e00-0c36-11d5-a535-0010a401eb10}",
-      "contract_ids": [
-        "@mozilla.org/permissionmanager;1"
-      ],
-      "interfaces": [
-        "nsIPermissionManager"
-      ],
-      "singleton": true,
-      "type": "nsIPermissionManager",
-      "constructor": "mozilla::PermissionManager::GetXPCOMSingleton",
-      "headers": [
-        "/extensions/permissions/PermissionManager.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/intl/build/components.conf",
-      "name": "StringBundle",
-      "js_name": "strings",
-      "cid": "{d85a17c1-aa7c-11d2-9b8c-00805f8a16d9}",
-      "contract_ids": [
-        "@mozilla.org/intl/stringbundle;1"
-      ],
-      "interfaces": [
-        "nsIStringBundleService"
-      ],
-      "type": "nsStringBundleService",
-      "headers": [
-        "/intl/strres/nsStringBundleService.h"
-      ],
-      "init_method": "Init"
-    },
-    {
-      "componentFile": "../mozilla/intl/locale/components.conf",
-      "js_name": "locale",
-      "cid": "{92735ff4-6384-4ad6-8508-757010e149ee}",
-      "contract_ids": [
-        "@mozilla.org/intl/localeservice;1"
-      ],
-      "interfaces": [
-        "mozILocaleService"
-      ],
-      "singleton": true,
-      "type": "mozilla::intl::LocaleService",
-      "headers": [
-        "mozilla/intl/LocaleService.h"
-      ],
-      "constructor": "mozilla::intl::LocaleService::GetInstanceAddRefed"
-    },
-    {
-      "componentFile": "../mozilla/intl/uconv/components.conf",
-      "js_name": "textToSubURI",
-      "cid": "{8b042e22-6f87-11d3-b3c8-00805f8a6670}",
-      "contract_ids": [
-        "@mozilla.org/intl/texttosuburi;1"
-      ],
-      "interfaces": [
-        "nsITextToSubURI"
-      ],
-      "type": "nsTextToSubURI",
-      "headers": [
-        "/intl/uconv/nsTextToSubURI.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/js/xpconnect/src/components.conf",
-      "js_name": "scriptloader",
-      "cid": "{929814d6-1dd2-11b2-8e08-82fa0a339b00}",
-      "contract_ids": [
-        "@mozilla.org/moz/jssubscript-loader;1"
-      ],
-      "interfaces": [
-        "mozIJSSubScriptLoader"
-      ],
-      "type": "mozJSSubScriptLoader",
-      "headers": [
-        "/js/xpconnect/loader/mozJSSubScriptLoader.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/layout/build/components.conf",
-      "js_name": "DOMRequest",
-      "cid": "{3160e271-138d-4cc7-9d63-6429f16957c7}",
-      "contract_ids": [
-        "@mozilla.org/dom/dom-request-service;1"
-      ],
-      "interfaces": [
-        "nsIDOMRequestService"
-      ],
-      "singleton": true,
-      "type": "mozilla::dom::DOMRequestService",
-      "headers": [
-        "mozilla/dom/DOMRequest.h"
-      ],
-      "constructor": "mozilla::dom::DOMRequestService::FactoryCreate"
-    },
-    {
-      "componentFile": "../mozilla/layout/build/components.conf",
-      "js_name": "domStorageManager",
-      "cid": "{656db07c-aa80-49e4-bce8-e431baae697d}",
-      "contract_ids": [
-        "@mozilla.org/dom/localStorage-manager;1"
-      ],
-      "interfaces": [
-        "nsIDOMStorageManager",
-        "nsILocalStorageManager"
-      ],
-      "legacy_constructor": "LocalStorageManagerConstructor"
-    },
-    {
-      "componentFile": "../mozilla/layout/build/components.conf",
-      "js_name": "qms",
-      "cid": "{5a75c25a-5e7e-4d90-8f7c-07eb15cc0aa8}",
-      "contract_ids": [
-        "@mozilla.org/dom/quota-manager-service;1"
-      ],
-      "interfaces": [
-        "nsIQuotaManagerService"
-      ],
-      "singleton": true,
-      "type": "mozilla::dom::quota::QuotaManagerService",
-      "headers": [
-        "mozilla/dom/quota/QuotaManagerService.h"
-      ],
-      "constructor": "mozilla::dom::quota::QuotaManagerService::FactoryCreate",
-      "categories": {
-        "idle-daily": "QuotaManagerService"
-      }
-    },
-    {
-      "componentFile": "../mozilla/layout/build/components.conf",
-      "js_name": "els",
-      "cid": "{baa34652-f1f1-4185-b224-244ee82a413a}",
-      "contract_ids": [
-        "@mozilla.org/eventlistenerservice;1"
-      ],
-      "interfaces": [
-        "nsIEventListenerService"
-      ],
-      "type": "nsIEventListenerService"
-    },
-    {
-      "componentFile": "../mozilla/layout/build/components.conf",
-      "js_name": "focus",
-      "cid": "{cf7fd51f-aba2-44c1-9ff0-11f7508efcd4}",
-      "contract_ids": [
-        "@mozilla.org/focus-manager;1"
-      ],
-      "interfaces": [
-        "nsIFocusManager"
-      ],
-      "type": "nsIFocusManager"
-    },
-    {
-      "componentFile": "../mozilla/layout/build/components.conf",
-      "js_name": "scriptSecurityManager",
-      "cid": "{7ee2a4c0-4b93-17d3-ba18-0060b0f199a2}",
-      "contract_ids": [
-        "@mozilla.org/scriptsecuritymanager;1"
-      ],
-      "interfaces": [
-        "nsIScriptSecurityManager"
-      ],
-      "legacy_constructor": "Construct_nsIScriptSecurityManager"
-    },
-    {
-      "componentFile": "../mozilla/mobile/android/components/geckoview/components.conf",
-      "js_name": "prompt",
-      "cid": "{076ac188-23c1-4390-aa08-7ef1f78ca5d9}",
-      "contract_ids": [
-        "@mozilla.org/prompter;1",
-        "@mozilla.org/embedcomp/prompt-service;1"
-      ],
-      "interfaces": [
-        "nsIPromptService"
-      ],
-      "jsm": "resource://gre/modules/GeckoViewPrompt.jsm",
-      "constructor": "PromptFactory"
-    },
-    {
-      "componentFile": "../mozilla/modules/libpref/components.conf",
-      "name": "Preferences",
-      "js_name": "prefs",
-      "cid": "{91ca2441-050f-4f7c-9df8-75b40ea40156}",
-      "contract_ids": [
-        "@mozilla.org/preferences-service;1"
-      ],
-      "interfaces": [
-        "nsIPrefService",
-        "nsIPrefBranch"
-      ],
-      "singleton": true,
-      "type": "mozilla::Preferences",
-      "headers": [
-        "mozilla/Preferences.h"
-      ],
-      "constructor": "mozilla::Preferences::GetInstanceForService",
-      "processes": 60
-    },
-    {
-      "componentFile": "../mozilla/netwerk/build/components.conf",
-      "js_name": "loadContextInfo",
-      "cid": "{62d4b190-3642-4450-b019-d1c1fba56025}",
-      "contract_ids": [
-        "@mozilla.org/load-context-info-factory;1"
-      ],
-      "interfaces": [
-        "nsILoadContextInfoFactory"
-      ],
-      "type": "mozilla::net::LoadContextInfoFactory",
-      "headers": [
-        "mozilla/LoadContextInfo.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/netwerk/build/components.conf",
-      "name": "CacheStorage",
-      "js_name": "cache2",
-      "cid": "{ea70b098-5014-4e21-aee1-75e6b2c4b8e0}",
-      "contract_ids": [
-        "@mozilla.org/netwerk/cache-storage-service;1",
-        "@mozilla.org/network/cache-storage-service;1"
-      ],
-      "interfaces": [
-        "nsICacheStorageService"
-      ],
-      "singleton": true,
-      "type": "mozilla::net::CacheStorageService",
-      "headers": [
-        "CacheStorageService.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/netwerk/build/components.conf",
-      "js_name": "eTLD",
-      "cid": "{cb9abbae-66b6-4609-8594-5c4ff300888e}",
-      "contract_ids": [
-        "@mozilla.org/network/effective-tld-service;1"
-      ],
-      "interfaces": [
-        "nsIEffectiveTLDService"
-      ],
-      "singleton": true,
-      "type": "nsEffectiveTLDService",
-      "headers": [
-        "/netwerk/dns/nsEffectiveTLDService.h"
-      ],
-      "init_method": "Init"
-    },
-    {
-      "componentFile": "../mozilla/netwerk/build/components.conf",
-      "name": "IO",
-      "js_name": "io",
-      "cid": "{9ac9e770-18bc-11d3-9337-00104ba0fd40}",
-      "contract_ids": [
-        "@mozilla.org/network/io-service;1",
-        "@mozilla.org/network/util;1"
-      ],
-      "interfaces": [
-        "nsIIOService",
-        "nsISpeculativeConnect",
-        "nsINetUtil"
-      ],
-      "singleton": true,
-      "type": "mozilla::net::nsIOService",
-      "headers": [
-        "/netwerk/base/nsIOService.h"
-      ],
-      "constructor": "mozilla::net::nsIOService::GetInstance",
-      "processes": 16
-    },
-    {
-      "componentFile": "../mozilla/netwerk/build/components.conf",
-      "js_name": "cookies",
-      "cid": "{c375fa80-150f-11d6-a618-0010a401eb10}",
-      "contract_ids": [
-        "@mozilla.org/cookieService;1",
-        "@mozilla.org/cookiemanager;1"
-      ],
-      "interfaces": [
-        "nsICookieService",
-        "nsICookieManager"
-      ],
-      "singleton": true,
-      "type": "nsICookieService",
-      "constructor": "mozilla::net::CookieService::GetXPCOMSingleton",
-      "headers": [
-        "/netwerk/cookie/CookieService.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/storage/build/components.conf",
-      "js_name": "storage",
-      "cid": "{bbbb1d61-438f-4436-92ed-8308e5830fb0}",
-      "contract_ids": [
-        "@mozilla.org/storage/service;1"
-      ],
-      "interfaces": [
-        "mozIStorageService"
-      ],
-      "singleton": true,
-      "type": "mozilla::storage::Service",
-      "headers": [
-        "/storage/mozStorageService.h"
-      ],
-      "constructor": "mozilla::storage::Service::getSingleton"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/build/components.conf",
-      "name": "AppStartup",
-      "js_name": "startup",
-      "cid": "{7dd4d320-c84b-4624-8d45-7bb9b2356977}",
-      "contract_ids": [
-        "@mozilla.org/toolkit/app-startup;1"
-      ],
-      "interfaces": [
-        "nsIAppStartup"
-      ],
-      "type": "nsAppStartup",
-      "headers": [
-        "/toolkit/components/startup/nsAppStartup.h"
-      ],
-      "init_method": "Init"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/cleardata/components.conf",
-      "js_name": "clearData",
-      "cid": "{0c06583d-7dd8-4293-b1a5-912205f779aa}",
-      "contract_ids": [
-        "@mozilla.org/clear-data-service;1"
-      ],
-      "interfaces": [
-        "nsIClearDataService"
-      ],
-      "esModule": "resource://gre/modules/ClearDataService.sys.mjs",
-      "constructor": "ClearDataService"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/components.conf",
-      "cid": "{00ed5d73-9de5-42cf-868c-e739a94f6b37}",
-      "contract_ids": [
-        "@mozilla.org/content-blocking-allow-list;1"
-      ],
-      "interfaces": [
-        "nsIContentBlockingAllowList"
-      ],
-      "type": "mozilla::ContentBlockingAllowList",
-      "headers": [
-        "/toolkit/components/antitracking/ContentBlockingAllowList.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/cookiebanners/components.conf",
-      "name": "CookieBannerService",
-      "cid": "{eac9cdc4-ecee-49f2-91da-7627e15c1f3c}",
-      "interfaces": [
-        "nsICookieBannerService"
-      ],
-      "contract_ids": [
-        "@mozilla.org/cookie-banner-service;1"
-      ],
-      "type": "mozilla::nsCookieBannerService",
-      "headers": [
-        "/toolkit/components/cookiebanners/nsCookieBannerService.h"
-      ],
-      "singleton": true,
-      "constructor": "mozilla::nsCookieBannerService::GetSingleton",
-      "js_name": "cookieBanners",
-      "categories": {
-        "profile-after-change": "nsCookieBannerService",
-        "idle-daily": "nsCookieBannerService"
-      },
-      "processes": 1
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/cookiebanners/components.conf",
-      "cid": "{eb1904db-e0d1-4760-a721-db76b1ca3e94}",
-      "interfaces": [
-        "nsICookieBannerRule"
-      ],
-      "headers": [
-        "/toolkit/components/cookiebanners/nsCookieBannerRule.h"
-      ],
-      "type": "mozilla::nsCookieBannerRule",
-      "contract_ids": [
-        "@mozilla.org/cookie-banner-rule;1"
-      ],
-      "processes": 1
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/credentialmanagement/components.conf",
-      "cid": "{029823d0-0448-46c5-af1f-25cd4501d0d7}",
-      "contract_ids": [
-        "@mozilla.org/browser/identity-credential-storage-service;1"
-      ],
-      "processes": 1,
-      "singleton": true,
-      "type": "mozilla::IdentityCredentialStorageService",
-      "headers": [
-        "mozilla/IdentityCredentialStorageService.h"
-      ],
-      "interfaces": [
-        "nsIIdentityCredentialStorageService"
-      ],
-      "name": "IdentityCredentialStorageService",
-      "constructor": "mozilla::IdentityCredentialStorageService::GetSingleton"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/enterprisepolicies/components.conf",
-      "js_name": "policies",
-      "cid": "{49e8d8ef-a713-492a-a3d2-5c9dad4ce2e5}",
-      "contract_ids": [
-        "@mozilla.org/enterprisepolicies;1"
-      ],
-      "interfaces": [
-        "nsIEnterprisePolicies"
-      ],
-      "esModule": "resource://gre/modules/EnterprisePolicies.sys.mjs",
-      "constructor": "EnterprisePolicies"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/glean/xpcom/components.conf",
-      "cid": "{98d0e975-9cad-4ce3-ae2f-f878b8be6307}",
-      "contract_ids": [
-        "@mozilla.org/toolkit/glean;1"
-      ],
-      "singleton": true,
-      "type": "mozilla::FOG",
-      "headers": [
-        "mozilla/FOG.h"
-      ],
-      "constructor": "mozilla::FOG::GetSingleton",
-      "js_name": "fog",
-      "interfaces": [
-        "nsIFOG"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/mozintl/components.conf",
-      "js_name": "intl",
-      "cid": "{35ec195a-e8d0-4300-83af-c8a2cc84b4a3}",
-      "contract_ids": [
-        "@mozilla.org/mozintl;1"
-      ],
-      "interfaces": [
-        "mozIMozIntl"
-      ],
-      "esModule": "resource://gre/modules/mozIntl.sys.mjs",
-      "constructor": "MozIntl"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/passwordmgr/components.conf",
-      "js_name": "logins",
-      "cid": "{cb9e0de8-3598-4ed7-857b-827f011ad5d8}",
-      "contract_ids": [
-        "@mozilla.org/login-manager;1"
-      ],
-      "interfaces": [
-        "nsILoginManager"
-      ],
-      "jsm": "resource://gre/modules/LoginManager.jsm",
-      "constructor": "LoginManager"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/prompts/src/components.conf",
-      "js_name": "prompt",
-      "cid": "{7ad1b327-6dfa-46ec-9234-f2a620ea7e00}",
-      "contract_ids": [
-        "@mozilla.org/embedcomp/prompt-service;1"
-      ],
-      "interfaces": [
-        "nsIPromptService"
-      ],
-      "jsm": "resource://gre/modules/Prompter.jsm",
-      "constructor": "EmbedPrompter"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/search/components.conf",
-      "js_name": "search",
-      "cid": "{7319788a-fe93-4db3-9f39-818cf08f4256}",
-      "contract_ids": [
-        "@mozilla.org/browser/search-service;1"
-      ],
-      "interfaces": [
-        "nsISearchService"
-      ],
-      "esModule": "resource://gre/modules/SearchService.sys.mjs",
-      "constructor": "SearchService",
-      "processes": 1
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/telemetry/core/components.conf",
-      "js_name": "telemetry",
-      "cid": "{aea477f2-b3a2-469c-aa29-0a82d132b829}",
-      "contract_ids": [
-        "@mozilla.org/base/telemetry;1"
-      ],
-      "interfaces": [
-        "nsITelemetry"
-      ],
-      "singleton": true,
-      "type": "nsITelemetry",
-      "processes": 60
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/telemetry/dap/components.conf",
-      "cid": "{58a4c579-d2dd-46b7-9c3b-6881a1c36c6a}",
-      "interfaces": [
-        "nsIDAPTelemetry"
-      ],
-      "contract_ids": [
-        "@mozilla.org/base/daptelemetry;1"
-      ],
-      "type": "mozilla::DAPTelemetry",
-      "headers": [
-        "mozilla/DAPTelemetry.h"
-      ],
-      "js_name": "DAPTelemetry"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/urlformatter/components.conf",
-      "js_name": "urlFormatter",
-      "cid": "{e6156350-2be8-11db-a98b-0800200c9a66}",
-      "contract_ids": [
-        "@mozilla.org/toolkit/URLFormatterService;1"
-      ],
-      "interfaces": [
-        "nsIURLFormatter"
-      ],
-      "jsm": "resource://gre/modules/URLFormatter.jsm",
-      "constructor": "nsURLFormatterService"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/mozapps/extensions/components.conf",
-      "js_name": "blocklist",
-      "cid": "{66354bc9-7ed1-4692-ae1d-8da97d6b205e}",
-      "contract_ids": [
-        "@mozilla.org/extensions/blocklist;1"
-      ],
-      "jsm": "resource://gre/modules/addonManager.js",
-      "constructor": "BlocklistService",
-      "interfaces": [
-        "nsIBlocklistService"
-      ],
-      "processes": 1
-    },
-    {
-      "componentFile": "../mozilla/toolkit/xre/components.conf",
-      "name": "XULRuntime",
-      "js_name": "appinfo",
-      "cid": "{95d89e3e-a169-41a3-8e56-719978e15b12}",
-      "contract_ids": [
-        "@mozilla.org/xre/app-info;1",
-        "@mozilla.org/xre/runtime;1",
-        "@mozilla.org/toolkit/crash-reporter;1"
-      ],
-      "interfaces": [
-        "nsIXULRuntime",
-        "nsIXULAppInfo",
-        "nsICrashReporter"
-      ],
-      "legacy_constructor": "mozilla::AppInfoConstructor",
-      "headers": [
-        "nsAppRunner.h"
-      ],
-      "processes": 16,
-      "overridable": true
-    },
-    {
-      "componentFile": "../mozilla/toolkit/xre/components.conf",
-      "js_name": "ww",
-      "cid": "{a21bfa01-f349-4394-a84c-8de5cf0737d0}",
-      "contract_ids": [
-        "@mozilla.org/embedcomp/window-watcher;1"
-      ],
-      "interfaces": [
-        "nsIWindowWatcher"
-      ],
-      "type": "nsWindowWatcher",
-      "headers": [
-        "nsWindowWatcher.h"
-      ],
-      "init_method": "Init",
-      "overridable": true
-    },
-    {
-      "componentFile": "../mozilla/tools/profiler/gecko/components.conf",
-      "js_name": "profiler",
-      "cid": "{25db9b8e-8123-4de1-b66d-8bbbedf2cdf4}",
-      "contract_ids": [
-        "@mozilla.org/tools/profiler;1"
-      ],
-      "interfaces": [
-        "nsIProfiler"
-      ],
-      "type": "nsProfiler",
-      "headers": [
-        "/tools/profiler/gecko/nsProfiler.h"
-      ],
-      "init_method": "Init"
-    },
-    {
-      "componentFile": "../mozilla/widget/android/components.conf",
-      "cid": "{9d5adbb9-1da4-4162-acba-b373fe3ae837}",
-      "contract_ids": [
-        "@mozilla.org/widget/parent/clipboard;1"
-      ],
-      "interfaces": [
-        "nsIClipboard"
-      ],
-      "type": "nsClipboard",
-      "headers": [
-        "/widget/android/nsClipboard.h"
-      ],
-      "processes": 1
-    },
-    {
-      "componentFile": "../mozilla/widget/android/components.conf",
-      "js_name": "androidBridge",
-      "cid": "{0fe2321d-ebd9-467d-a743-03a68d40599e}",
-      "contract_ids": [
-        "@mozilla.org/android/bridge;1"
-      ],
-      "interfaces": [
-        "nsIAndroidBridge"
-      ],
-      "type": "nsAndroidBridge",
-      "headers": [
-        "/widget/android/AndroidBridge.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/widget/cocoa/components.conf",
-      "cid": "{49f428e8-baf9-4ba3-b1b0-7d2fd3abbcea}",
-      "contract_ids": [
-        "@mozilla.org/widget/parent/clipboard;1"
-      ],
-      "interfaces": [
-        "nsIClipboard"
-      ],
-      "type": "nsIClipboard",
-      "processes": 1
-    },
-    {
-      "componentFile": "../mozilla/widget/components.conf",
-      "js_name": "clipboard",
-      "cid": "{8b5314ba-db01-11d2-96ce-0060b0fb9956}",
-      "contract_ids": [
-        "@mozilla.org/widget/clipboard;1"
-      ],
-      "constructor": "nsClipboardSelector",
-      "headers": [
-        "/widget/nsContentProcessWidgetFactory.h"
-      ],
-      "interfaces": [
-        "nsIClipboard"
-      ],
-      "overridable": true
-    },
-    {
-      "componentFile": "../mozilla/widget/gtk/components.conf",
-      "cid": "{f55f5d31-dbb7-4d0d-9f6f-a4f4cd8e8ef1}",
-      "contract_ids": [
-        "@mozilla.org/widget/parent/clipboard;1"
-      ],
-      "interfaces": [
-        "nsIClipboard"
-      ],
-      "type": "nsIClipboard",
-      "processes": 1
-    },
-    {
-      "componentFile": "../mozilla/widget/windows/components.conf",
-      "cid": "{25b4efa0-7054-4787-9cd6-630efb3fe6fa}",
-      "contract_ids": [
-        "@mozilla.org/widget/parent/clipboard;1"
-      ],
-      "interfaces": [
-        "nsIClipboard"
-      ],
-      "type": "nsIClipboard",
-      "processes": 1
-    },
-    {
-      "componentFile": "../mozilla/xpcom/build/components.conf",
-      "js_name": "console",
-      "cid": "{7e3ff85c-1dd2-11b2-8d4b-eb452cb0ff40}",
-      "contract_ids": [
-        "@mozilla.org/consoleservice;1"
-      ],
-      "interfaces": [
-        "nsIConsoleService"
-      ],
-      "type": "nsConsoleService",
-      "headers": [
-        "/xpcom/base/nsConsoleService.h"
-      ],
-      "init_method": "Init"
-    },
-    {
-      "componentFile": "../mozilla/xpcom/build/components.conf",
       "js_name": "sysinfo",
       "cid": "{d962398a-99e5-49b2-857a-c159049c7f6c}",
       "contract_ids": [
@@ -7095,6 +6993,17 @@
     },
     {
       "componentFile": "../mozilla/xpcom/build/components.conf",
+      "cid": "{0d6ea1d0-879c-11d5-90ef-0010a4e73d9a}",
+      "contract_ids": [
+        "@mozilla.org/variant;1"
+      ],
+      "type": "nsVariantCC",
+      "headers": [
+        "nsVariant.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/xpcom/build/components.conf",
       "js_name": "vc",
       "cid": "{c6e47036-ca94-4be3-963a-9abd8705f7a8}",
       "contract_ids": [
@@ -7107,6 +7016,18 @@
       "headers": [
         "/xpcom/base/nsVersionComparatorImpl.h"
       ]
+    },
+    {
+      "componentFile": "../mozilla/xpcom/build/components.conf",
+      "cid": "{dfac10a9-dd24-43cf-a095-6ffa2e4b6a6c}",
+      "contract_ids": [
+        "@mozilla.org/xpcom/ini-parser-factory;1"
+      ],
+      "type": "nsINIParserFactory",
+      "headers": [
+        "/xpcom/ds/nsINIParserImpl.h"
+      ],
+      "processes": 60
     },
     {
       "componentFile": "../mozilla/xpcom/components/components.conf",
@@ -7123,6 +7044,26 @@
         "/xpcom/components/nsCategoryManager.h"
       ],
       "processes": 52
+    },
+    {
+      "componentFile": "../mozilla/xpcom/components/components.conf",
+      "cid": "{91775d60-d5dc-11d2-92fb-00e09805570f}",
+      "legacy_constructor": "nsComponentManagerImpl::Create",
+      "headers": [
+        "/xpcom/components/nsComponentManager.h"
+      ],
+      "processes": 60
+    },
+    {
+      "componentFile": "../mozilla/xpcom/ds/components.conf",
+      "cid": "{35c66fd1-95e9-4e0a-80c5-c3bd2b375481}",
+      "contract_ids": [
+        "@mozilla.org/array;1"
+      ],
+      "legacy_constructor": "nsArrayBase::XPCOMConstructor",
+      "headers": [
+        "nsArray.h"
+      ]
     },
     {
       "componentFile": "../mozilla/xpcom/ds/components.conf",
@@ -7159,6 +7100,51 @@
       ]
     },
     {
+      "componentFile": "../mozilla/xpcom/io/components.conf",
+      "cid": "{565e3a2c-1dd2-11b2-8da1-b4cef17e568d}",
+      "contract_ids": [
+        "@mozilla.org/io/multiplex-input-stream;1"
+      ],
+      "legacy_constructor": "nsMultiplexInputStreamConstructor",
+      "headers": [
+        "nsMultiplexInputStream.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/xpcom/io/components.conf",
+      "cid": "{e4a0ee4e-0775-457b-9118-b3ae97a7c758}",
+      "contract_ids": [
+        "@mozilla.org/pipe;1"
+      ],
+      "legacy_constructor": "nsPipeConstructor",
+      "headers": [
+        "/xpcom/io/nsPipe.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/xpcom/io/components.conf",
+      "cid": "{7225c040-a9bf-11d3-a197-0050041caf44}",
+      "contract_ids": [
+        "@mozilla.org/scriptableinputstream;1"
+      ],
+      "legacy_constructor": "nsScriptableInputStream::Create",
+      "headers": [
+        "nsScriptableInputStream.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/xpcom/io/components.conf",
+      "cid": "{0abb0835-5000-4790-af28-61b3ba17c295}",
+      "contract_ids": [
+        "@mozilla.org/io/string-input-stream;1"
+      ],
+      "legacy_constructor": "nsStringInputStreamConstructor",
+      "headers": [
+        "/xpcom/build/XPCOMModule.h"
+      ],
+      "processes": 16
+    },
+    {
       "componentFile": "../mozilla/xpcom/threads/components.conf",
       "cid": "{03d68f92-9513-4e25-9be9-7cb239874172}",
       "contract_ids": [
@@ -7172,6 +7158,18 @@
       "interfaces": [
         "nsIEnvironment"
       ]
+    },
+    {
+      "componentFile": "../mozilla/xpcom/threads/components.conf",
+      "cid": "{5ff24248-1dd2-11b2-8427-fbab44f29bc8}",
+      "contract_ids": [
+        "@mozilla.org/timer;1"
+      ],
+      "legacy_constructor": "nsTimer::XPCOMConstructor",
+      "headers": [
+        "/xpcom/threads/nsTimerImpl.h"
+      ],
+      "processes": 52
     },
     {
       "componentFile": "../mozilla/xpfe/appshell/components.conf",
@@ -7204,5 +7202,6 @@
       ],
       "init_method": "Init"
     }
-  ]
+  ],
+  "interfacedClasses": []
 }
