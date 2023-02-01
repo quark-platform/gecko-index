@@ -247,6 +247,8 @@ declare module 'gecko-index' {
     js_name?: string
 
     esModule?: string
+
+    interfaces?: string[]
   }
 
   /**
