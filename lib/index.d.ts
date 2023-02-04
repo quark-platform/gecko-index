@@ -275,5 +275,7 @@ declare module 'gecko-index' {
   /**
    * Returns a list of XUL Elements detected inside of `toolkit/content/widgets`
    */
-  export async function getXULElements(): Promise<string[]>
+  export async function getXULElements(): Promise<
+    { tagName: string; className: string }[]
+  >
 }
