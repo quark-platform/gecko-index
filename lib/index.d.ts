@@ -268,4 +268,12 @@ declare module 'gecko-index' {
     failedFiles: string[]
     classes: ClassDefinition[]
   }>
+
+  // ===========================================================================
+  // XUL Elements
+
+  /**
+   * Returns a list of XUL Elements detected inside of `toolkit/content/widgets`
+   */
+  export async function getXULElements(): Promise<string[]>
 }

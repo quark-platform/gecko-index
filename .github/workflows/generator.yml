@@ -11,6 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    id: data
     outputs:
       version: ${{ steps.data.outputs.version }}
 
@@ -58,6 +59,16 @@ jobs:
         run: |
           cd index
           npm run interfaces ../mozilla
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Generate interfaces for `${{ steps.data.outputs.version }}`
+          repository: index
+
+      - name: Generate XUL elements index
+        run: |
+          cd index
+          npm run xulElements ../mozilla
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
