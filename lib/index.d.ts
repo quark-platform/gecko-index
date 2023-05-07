@@ -286,7 +286,7 @@ declare module 'gecko-index' {
 
   export async function getESMList(): Promise<string[]>
   export async function hasESM(name: string): boolean
-  export async function getESMFile(filename: string): Promise<ExportType[]>
+  export async function getESM(filename: string): Promise<ExportType[]>
 
   // ===========================================================================
   // Mozbuild
