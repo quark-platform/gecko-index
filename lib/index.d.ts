@@ -290,5 +290,5 @@ declare module 'gecko-index' {
   // ===========================================================================
   // Mozbuild
 
-  export async function getMozbuildFiles(): Promise<Mozbuild[]>
+  export async function getMozBuildFiles(): Promise<Mozbuild[]>
 }
