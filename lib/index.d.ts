@@ -1,5 +1,6 @@
 import type * as idlParser from './parser.js'
 import type { ExportType } from '../scripts/esm.js'
+import type { Mozbuild } from '../scripts/mozbuild.js'
 
 declare module 'gecko-index' {
   export { idlParser }
@@ -285,4 +286,9 @@ declare module 'gecko-index' {
 
   export async function getESMList(): Promise<string[]>
   export async function getESMFile(filename: string): Promise<ExportType[]>
+
+  // ===========================================================================
+  // Mozbuild
+
+  export async function getMozbuildFiles(): Promise<Mozbuild[]>
 }

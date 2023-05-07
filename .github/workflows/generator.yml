@@ -69,3 +69,13 @@ jobs:
         with:
           commit_message: Generate interfaces for `${{ steps.data.outputs.version }}`
           repository: index
+
+      - name: Generate mozbuild index
+        run: |
+          cd index
+          npm run mozbuild ../mozilla
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Generate mozbuild for `${{ steps.data.outputs.version }}`
+          repository: index
