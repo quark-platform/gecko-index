@@ -29,10 +29,6 @@ jobs:
         with:
           path: index
 
-      - name: Install JSDoc
-        run: |
-          npm i -g jsdoc
-
       - name: Generate Namespaces
         run: |
           cd index
@@ -44,14 +40,14 @@ jobs:
           commit_message: Generate namespaces for `${{ steps.data.outputs.version }}`
           repository: index
 
-      - name: Generate Legacy Modules
+      - name: Generate ESM
         run: |
           cd index
-          npm run legacyModules ../mozilla
+          npm run ESM ../mozilla
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Generate legacy modules for `${{ steps.data.outputs.version }}`
+          commit_message: Generate ESM for `${{ steps.data.outputs.version }}`
           repository: index
 
       - name: Generate Interfaces
