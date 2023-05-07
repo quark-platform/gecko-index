@@ -2,6 +2,8 @@ import type * as idlParser from './parser.js'
 import type { ExportType } from '../scripts/esm.js'
 import type { Mozbuild } from '../scripts/mozbuild.js'
 
+export * from '../scripts/esm.js'
+
 declare module 'gecko-index' {
   export { idlParser }
 
