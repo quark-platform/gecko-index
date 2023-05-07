@@ -61,6 +61,8 @@ const { geckoDevDir, outFolder } = await getInfo('esm')
 if (!existsSync(join(outFolder, 'parsed')))
   await mkdir(join(outFolder, 'parsed'), { recursive: true })
 
+let files = []
+
 for (const file of sync(join(geckoDevDir, './**/*.sys.mjs'))) {
   if (ignoreFiles.some((path) => file.includes(path))) continue
   if (file.includes('test')) continue
@@ -101,7 +103,10 @@ for (const file of sync(join(geckoDevDir, './**/*.sys.mjs'))) {
     join(outFolder, `./${fileName}.json`),
     JSON.stringify(exports, null, 2)
   )
+  files.push(fileName)
 }
+
+writeFileSync(join(outFolder, './_.json'), JSON.stringify(files, null, 2))
 
 function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
   let methods: Method[] = []
