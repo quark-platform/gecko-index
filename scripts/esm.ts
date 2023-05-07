@@ -1,0 +1,190 @@
+import '@total-typescript/ts-reset'
+import type {
+  ClassDeclaration,
+  FunctionDeclaration,
+  VariableDeclarator,
+} from '@babel/types'
+import fastGlob from 'fast-glob'
+import { parse } from '@babel/parser'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
+import { basename, join } from 'path'
+import type { Block } from 'comment-parser/primitives'
+
+const { sync } = fastGlob
+
+import * as commentsGen from './esm/comments.js'
+import { TypeEstimation, generateEstimation } from './esm/typeEstimation.js'
+import { getInfo } from './shared/general.js'
+import { mkdir } from 'fs/promises'
+
+interface BaseExport {
+  id: string
+  line: number
+}
+
+interface Params extends BaseExport {
+  type: 'params'
+}
+
+interface Method extends BaseExport {
+  type: 'method'
+  kind: 'method' | 'get' | 'set' | 'constructor'
+  params: Params[]
+  comments?: Block[]
+}
+
+interface ClassExport extends BaseExport {
+  type: 'class'
+  methods: Method[]
+}
+
+interface VariableDeclarationExport extends BaseExport {
+  type: 'variable-declaration'
+  comments?: Block[]
+  typeEstimation?: TypeEstimation
+}
+
+interface FunctionDeclarationExport extends BaseExport {
+  type: 'function-declaration'
+  params: string[]
+}
+
+type ExportType =
+  | ClassExport
+  | VariableDeclarationExport
+  | FunctionDeclarationExport
+
+const ignoreFiles = ['AppConstants.sys.mjs']
+
+const { geckoDevDir, outFolder } = await getInfo('esm')
+
+if (!existsSync(join(outFolder, 'parsed')))
+  await mkdir(join(outFolder, 'parsed'), { recursive: true })
+
+for (const file of sync(join(geckoDevDir, './**/*.sys.mjs'))) {
+  if (ignoreFiles.some((path) => file.includes(path))) continue
+  if (file.includes('test')) continue
+  const fileName = basename(file)
+  console.log(fileName)
+
+  let exports: ExportType[] = []
+  const data = parse(readFileSync(file, { encoding: 'utf-8' }), {
+    sourceType: 'module',
+    sourceFilename: file,
+
+    plugins: ['privateIn'],
+  })
+
+  writeFileSync(
+    join(outFolder, `./parsed/${fileName}.json`),
+    JSON.stringify(data, null, 2)
+  )
+
+  for (const bodyItems of data.program.body) {
+    if (bodyItems.type != 'ExportNamedDeclaration') continue
+
+    if (bodyItems.declaration?.type == 'ClassDeclaration')
+      exports.push(handleClassDeclaration(bodyItems.declaration))
+
+    if (bodyItems.declaration?.type == 'VariableDeclaration') {
+      bodyItems.declaration.declarations.forEach((decl) => {
+        const vardecl = handleVariableDeclaration(decl)
+        if (vardecl) exports.push(vardecl)
+      })
+    }
+
+    if (bodyItems.declaration?.type == 'FunctionDeclaration')
+      exports.push(handleFunctionDeclaration(bodyItems.declaration))
+  }
+
+  writeFileSync(
+    join(outFolder, `./${fileName}.json`),
+    JSON.stringify(exports, null, 2)
+  )
+}
+
+function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
+  let methods: Method[] = []
+
+  const exportId = declaration.id.name
+  const exportLine = declaration.id.loc?.start.line || 0
+
+  for (const item of declaration.body.body) {
+    if (item.type == 'ClassMethod') {
+      if (item.key.type != 'Identifier') continue
+
+      const params: Params[] = item.params
+        .map((param) => {
+          if (param.type != 'Identifier') return
+
+          return {
+            type: 'params',
+            id: param.name,
+            line: param.loc?.start.line || 0,
+          } satisfies Params
+        })
+        .filter(Boolean) as any
+
+      const comments = item.leadingComments
+        ?.map((comment) => comment.value)
+        .flatMap((comment) => commentsGen.parse(comment))
+      const kind = item.kind
+
+      methods.push({
+        type: 'method',
+        id: item.key.name,
+        line: item.key.loc?.start.line || 0,
+        params,
+        comments,
+        kind,
+      })
+    }
+  }
+
+  return {
+    type: 'class',
+    id: exportId,
+    line: exportLine,
+    methods,
+  }
+}
+
+function handleVariableDeclaration(
+  declaration: VariableDeclarator
+): VariableDeclarationExport | undefined {
+  if (!(declaration.id.type === 'Identifier')) return
+
+  let typeEstimation: TypeEstimation | undefined
+
+  if (declaration.init) {
+    const est = generateEstimation(declaration.init)
+    if (est) typeEstimation = est
+  }
+
+  return {
+    type: 'variable-declaration',
+    id: declaration.id.name,
+    line: declaration.id.loc?.start.line || 0,
+    comments: declaration.leadingComments
+      ?.map((comment) => comment.value)
+      .flatMap((comment) => commentsGen.parse(comment)),
+    typeEstimation: typeEstimation || undefined,
+  }
+}
+
+function handleFunctionDeclaration(
+  declaration: FunctionDeclaration
+): FunctionDeclarationExport {
+  const id = declaration.id?.name || ''
+
+  return {
+    type: 'function-declaration',
+
+    id,
+    line: declaration.id?.loc?.start.line || 0,
+
+    params: declaration.params
+      .map((param) => (param.type === 'Identifier' ? param.name : undefined))
+      .filter(Boolean),
+  }
+}
