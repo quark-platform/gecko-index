@@ -25,12 +25,9 @@ for (const file of sync(join(geckoDevDir, '**/moz.build'))) {
   while ((groups = extraRegex.exec(contents)) !== null) {
     if (groups.index === extraRegex.lastIndex) extraRegex.lastIndex++
 
-    const name =
-      (groups as any).groups.name == ''
-        ? '/'
-        : (groups as any).groups.name
-            .replace(/\["(?<t>[\w-]*)"\]/gm, '.$<t>')
-            .replaceAll('.', '/')
+    const name = `${(groups as any).groups.name
+      .replace(/\["(?<t>[\w-]*)"\]/gm, '.$<t>')
+      .replaceAll('.', '/')}/`
 
     const items = (groups as any).groups.items
       .replaceAll('\n', '')
