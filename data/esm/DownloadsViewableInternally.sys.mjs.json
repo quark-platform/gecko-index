@@ -1,0 +1,820 @@
+[
+  {
+    "type": "variable-declaration",
+    "id": "PREF_ENABLED_TYPES",
+    "line": 33
+  },
+  {
+    "type": "variable-declaration",
+    "id": "PREF_BRANCH_WAS_REGISTERED",
+    "line": 34
+  },
+  {
+    "type": "variable-declaration",
+    "id": "PREF_BRANCH_PREVIOUS_ACTION",
+    "line": 36
+  },
+  {
+    "type": "variable-declaration",
+    "id": "PREF_BRANCH_PREVIOUS_ASK",
+    "line": 39
+  },
+  {
+    "type": "variable-declaration",
+    "id": "DownloadsViewableInternally",
+    "line": 42,
+    "typeEstimation": {
+      "type": "object-estimation",
+      "keys": [
+        {
+          "type": "object-method",
+          "line": 46,
+          "id": "register",
+          "comments": [
+            {
+              "description": "Initially add/remove handlers, watch pref, register with Integration.downloads.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Initially add/remove handlers, watch pref, register with Integration.downloads.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Initially add/remove handlers, watch pref, register with Integration.downloads.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-property",
+          "line": 102,
+          "id": "_downloadTypesViewableInternally",
+          "comments": [
+            {
+              "description": "MIME types to handle with an internal viewer, for downloaded files. |extension| is an extenson that will be viewable, as an alternative for the MIME type itself. It is also used more generally to identify this type: It is part of a pref name to indicate the handler was set up once, and it is the string present in |PREF_ENABLED_TYPES| to enable the type. |mimeTypes| are the types that will be viewable. A handler is set up for the first element in the array. If |managedElsewhere| is falsy, |_updateAllHandlers()| will set up or remove handlers for the type, and |_shouldViewDownloadInternally()| will check for it in |PREF_ENABLED_TYPES|. |available| is used to check whether this type should have handleInternally handlers set up, and if false then |_shouldViewDownloadInternally()| will also return false for this type. If |available| would change, |DownloadsViewableInternally._updateHandler()| should be called for the type. |initAvailable()| is an opportunity to initially set |available|, set up observers to change it when prefs change, etc.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * MIME types to handle with an internal viewer, for downloaded files.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "MIME types to handle with an internal viewer, for downloaded files.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * |extension| is an extenson that will be viewable, as an alternative for",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "|extension| is an extenson that will be viewable, as an alternative for",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   *   the MIME type itself. It is also used more generally to identify this",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "the MIME type itself. It is also used more generally to identify this",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   *   type: It is part of a pref name to indicate the handler was set up once,",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "type: It is part of a pref name to indicate the handler was set up once,",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   *   and it is the string present in |PREF_ENABLED_TYPES| to enable the type.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "and it is the string present in |PREF_ENABLED_TYPES| to enable the type.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * |mimeTypes| are the types that will be viewable. A handler is set up for",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "|mimeTypes| are the types that will be viewable. A handler is set up for",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   *   the first element in the array.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "the first element in the array.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "   * If |managedElsewhere| is falsy, |_updateAllHandlers()| will set",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "If |managedElsewhere| is falsy, |_updateAllHandlers()| will set",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 13,
+                  "source": "   *   up or remove handlers for the type, and |_shouldViewDownloadInternally()|",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "up or remove handlers for the type, and |_shouldViewDownloadInternally()|",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 14,
+                  "source": "   *   will check for it in |PREF_ENABLED_TYPES|.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "will check for it in |PREF_ENABLED_TYPES|.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 15,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 16,
+                  "source": "   * |available| is used to check whether this type should have",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "|available| is used to check whether this type should have",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 17,
+                  "source": "   *   handleInternally handlers set up, and if false then",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "handleInternally handlers set up, and if false then",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 18,
+                  "source": "   *   |_shouldViewDownloadInternally()| will also return false for this",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "|_shouldViewDownloadInternally()| will also return false for this",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 19,
+                  "source": "   *   type. If |available| would change, |DownloadsViewableInternally._updateHandler()|",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "type. If |available| would change, |DownloadsViewableInternally._updateHandler()|",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 20,
+                  "source": "   *   should be called for the type.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "should be called for the type.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 21,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 22,
+                  "source": "   * |initAvailable()| is an opportunity to initially set |available|, set up",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "|initAvailable()| is an opportunity to initially set |available|, set up",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 23,
+                  "source": "   *   observers to change it when prefs change, etc.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "observers to change it when prefs change, etc.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 24,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 25,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 26,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 184,
+          "id": "_shouldViewDownloadInternally",
+          "comments": [
+            {
+              "description": "Implementation for DownloadIntegration.shouldViewDownloadInternally",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Implementation for DownloadIntegration.shouldViewDownloadInternally",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Implementation for DownloadIntegration.shouldViewDownloadInternally",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "aMimeType",
+            "aExtension"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 205,
+          "id": "_makeFakeHandler",
+          "kind": "method",
+          "params": [
+            "aMimeType",
+            "aExtension"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 224,
+          "id": "_saveSettings",
+          "kind": "method",
+          "params": [
+            "handlerInfo",
+            "handlerType"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 235,
+          "id": "_restoreSettings",
+          "kind": "method",
+          "params": [
+            "handlerInfo",
+            "handlerType"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 249,
+          "id": "_clearSavedSettings",
+          "kind": "method",
+          "params": [
+            "extension"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 254,
+          "id": "_updateAllHandlers",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 263,
+          "id": "_updateHandler",
+          "kind": "method",
+          "params": [
+            "handlerType"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 280,
+          "id": "_becomeHandler",
+          "kind": "method",
+          "params": [
+            "handlerType"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 330,
+          "id": "_unbecomeHandler",
+          "kind": "method",
+          "params": [
+            "handlerType"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,862 @@
+[
+  {
+    "type": "variable-declaration",
+    "id": "LoginBreaches",
+    "line": 24,
+    "typeEstimation": {
+      "type": "object-estimation",
+      "keys": [
+        {
+          "type": "object-property",
+          "line": 25,
+          "id": "REMOTE_SETTINGS_COLLECTION"
+        },
+        {
+          "type": "object-method",
+          "line": 27,
+          "id": "update",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 46,
+          "id": "getPotentialBreachesByLoginGUID",
+          "comments": [
+            {
+              "description": "Return a Map of login GUIDs to a potential breach affecting that login by considering only breaches affecting passwords. This only uses the breach `Domain` and `timePasswordChanged` to determine if a login may be breached which means it may contain false-positives if login timestamps are incorrect, the user didn't save their password change in Firefox, or the breach didn't contain all accounts, etc. As a result, consumers should avoid making stronger claims than the data supports.",
+              "tags": [
+                {
+                  "tag": "param",
+                  "name": "logins",
+                  "type": "nsILoginInfo[]",
+                  "optional": false,
+                  "description": "Saved logins to check for potential breaches.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 11,
+                      "source": "   * @param {nsILoginInfo[]} logins Saved logins to check for potential breaches.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "logins",
+                        "postName": " ",
+                        "type": "{nsILoginInfo[]}",
+                        "postType": " ",
+                        "description": "Saved logins to check for potential breaches.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "breaches",
+                  "type": "object[]",
+                  "optional": true,
+                  "description": "Only ones involving passwords will be used.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 12,
+                      "source": "   * @param {object[]} [breaches = null] Only ones involving passwords will be used.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "[breaches = null]",
+                        "postName": " ",
+                        "type": "{object[]}",
+                        "postType": " ",
+                        "description": "Only ones involving passwords will be used.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ],
+                  "default": "null"
+                },
+                {
+                  "tag": "returns",
+                  "name": "with",
+                  "type": "Map",
+                  "optional": false,
+                  "description": "a key for each login GUID potentially in a breach.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 13,
+                      "source": "   * @returns {Map} with a key for each login GUID potentially in a breach.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@returns",
+                        "postTag": " ",
+                        "name": "with",
+                        "postName": " ",
+                        "type": "{Map}",
+                        "postType": " ",
+                        "description": "a key for each login GUID potentially in a breach.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 14,
+                      "source": "   ",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 15,
+                      "source": "*/",
+                      "tokens": {
+                        "start": "",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "*/",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                }
+              ],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Return a Map of login GUIDs to a potential breach affecting that login",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Return a Map of login GUIDs to a potential breach affecting that login",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * by considering only breaches affecting passwords.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "by considering only breaches affecting passwords.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * This only uses the breach `Domain` and `timePasswordChanged` to determine",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "This only uses the breach `Domain` and `timePasswordChanged` to determine",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * if a login may be breached which means it may contain false-positives if",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "if a login may be breached which means it may contain false-positives if",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * login timestamps are incorrect, the user didn't save their password change",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "login timestamps are incorrect, the user didn't save their password change",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   * in Firefox, or the breach didn't contain all accounts, etc. As a result,",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "in Firefox, or the breach didn't contain all accounts, etc. As a result,",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * consumers should avoid making stronger claims than the data supports.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "consumers should avoid making stronger claims than the data supports.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   * @param {nsILoginInfo[]} logins Saved logins to check for potential breaches.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "logins",
+                    "postName": " ",
+                    "type": "{nsILoginInfo[]}",
+                    "postType": " ",
+                    "description": "Saved logins to check for potential breaches.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "   * @param {object[]} [breaches = null] Only ones involving passwords will be used.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "[breaches = null]",
+                    "postName": " ",
+                    "type": "{object[]}",
+                    "postType": " ",
+                    "description": "Only ones involving passwords will be used.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 13,
+                  "source": "   * @returns {Map} with a key for each login GUID potentially in a breach.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@returns",
+                    "postTag": " ",
+                    "name": "with",
+                    "postName": " ",
+                    "type": "{Map}",
+                    "postType": " ",
+                    "description": "a key for each login GUID potentially in a breach.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 14,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 15,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "logins"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 135,
+          "id": "getPotentiallyVulnerablePasswordsByLoginGUID",
+          "comments": [
+            {
+              "description": "Return information about logins using passwords that were potentially in a breach.",
+              "tags": [
+                {
+                  "tag": "see",
+                  "name": "the",
+                  "type": "",
+                  "optional": false,
+                  "description": "caveats in the documentation for `getPotentialBreachesByLoginGUID`.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 4,
+                      "source": "   * @see the caveats in the documentation for `getPotentialBreachesByLoginGUID`.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@see",
+                        "postTag": " ",
+                        "name": "the",
+                        "postName": " ",
+                        "type": "",
+                        "postType": "",
+                        "description": "caveats in the documentation for `getPotentialBreachesByLoginGUID`.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 5,
+                      "source": "   *",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "logins",
+                  "type": "nsILoginInfo[]",
+                  "optional": false,
+                  "description": "to check the passwords of.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 6,
+                      "source": "   * @param {nsILoginInfo[]} logins to check the passwords of.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "logins",
+                        "postName": " ",
+                        "type": "{nsILoginInfo[]}",
+                        "postType": " ",
+                        "description": "to check the passwords of.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "returns",
+                  "name": "from",
+                  "type": "Map",
+                  "optional": false,
+                  "description": "login GUID to `true` for logins that have a password that may be vulnerable.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 7,
+                      "source": "   * @returns {Map} from login GUID to `true` for logins that have a password",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@returns",
+                        "postTag": " ",
+                        "name": "from",
+                        "postName": " ",
+                        "type": "{Map}",
+                        "postType": " ",
+                        "description": "login GUID to `true` for logins that have a password",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 8,
+                      "source": "   *                that may be vulnerable.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "that may be vulnerable.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 9,
+                      "source": "   ",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 10,
+                      "source": "*/",
+                      "tokens": {
+                        "start": "",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "*/",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                }
+              ],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Return information about logins using passwords that were potentially in a",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Return information about logins using passwords that were potentially in a",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * breach.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "breach.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * @see the caveats in the documentation for `getPotentialBreachesByLoginGUID`.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@see",
+                    "postTag": " ",
+                    "name": "the",
+                    "postName": " ",
+                    "type": "",
+                    "postType": "",
+                    "description": "caveats in the documentation for `getPotentialBreachesByLoginGUID`.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * @param {nsILoginInfo[]} logins to check the passwords of.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "logins",
+                    "postName": " ",
+                    "type": "{nsILoginInfo[]}",
+                    "postType": " ",
+                    "description": "to check the passwords of.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * @returns {Map} from login GUID to `true` for logins that have a password",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@returns",
+                    "postTag": " ",
+                    "name": "from",
+                    "postName": " ",
+                    "type": "{Map}",
+                    "postType": " ",
+                    "description": "login GUID to `true` for logins that have a password",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   *                that may be vulnerable.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "that may be vulnerable.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "logins"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 147,
+          "id": "clearAllPotentiallyVulnerablePasswords",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 154,
+          "id": "_breachAlertIsDismissed",
+          "kind": "method",
+          "params": [
+            "login",
+            "breach",
+            "dismissedBreachAlerts"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 163,
+          "id": "_breachInvolvedPasswords",
+          "kind": "method",
+          "params": [
+            "breach"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 170,
+          "id": "_breachWasAfterPasswordLastChanged",
+          "kind": "method",
+          "params": [
+            "breach",
+            "login"
+          ]
+        }
+      ]
+    }
+  }
+]

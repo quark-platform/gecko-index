@@ -1,0 +1,565 @@
+[
+  {
+    "type": "class",
+    "id": "Database",
+    "line": 26,
+    "methods": [
+      {
+        "type": "method",
+        "id": "destroy",
+        "line": 27,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "constructor",
+        "line": 31,
+        "params": [
+          {
+            "type": "params",
+            "id": "identifier",
+            "line": 31
+          }
+        ],
+        "kind": "constructor"
+      },
+      {
+        "type": "method",
+        "id": "list",
+        "line": 36,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "importChanges",
+        "line": 83,
+        "params": [
+          {
+            "type": "params",
+            "id": "metadata",
+            "line": 83
+          },
+          {
+            "type": "params",
+            "id": "timestamp",
+            "line": 83
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getLastModified",
+        "line": 167,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getMetadata",
+        "line": 197,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getAttachment",
+        "line": 217,
+        "params": [
+          {
+            "type": "params",
+            "id": "attachmentId",
+            "line": 217
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "saveAttachment",
+        "line": 239,
+        "params": [
+          {
+            "type": "params",
+            "id": "attachmentId",
+            "line": 239
+          },
+          {
+            "type": "params",
+            "id": "attachment",
+            "line": 239
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "pruneAttachments",
+        "line": 272,
+        "params": [
+          {
+            "type": "params",
+            "id": "excludeIds",
+            "line": 272
+          }
+        ],
+        "comments": [
+          {
+            "description": "Delete all attachments which don't match any record. Attachments are linked to records, except when a fixed `attachmentId` is used. A record can be updated or deleted, potentially by deleting a record and restoring an updated version of the record with the same ID. Potentially leaving orphaned attachments in the database. Since we run the pruning logic after syncing, any attachment without a matching record can be discarded as they will be unreachable forever.",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "excludeIds",
+                "type": "Array<String>",
+                "optional": false,
+                "description": "List of attachments IDs to exclude from pruning.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 10,
+                    "source": "   * @param {Array<String>} excludeIds List of attachments IDs to exclude from pruning.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "excludeIds",
+                      "postName": " ",
+                      "type": "{Array<String>}",
+                      "postType": " ",
+                      "description": "List of attachments IDs to exclude from pruning.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 11,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 12,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Delete all attachments which don't match any record.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Delete all attachments which don't match any record.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * Attachments are linked to records, except when a fixed `attachmentId` is used.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Attachments are linked to records, except when a fixed `attachmentId` is used.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * A record can be updated or deleted, potentially by deleting a record and restoring an updated version",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "A record can be updated or deleted, potentially by deleting a record and restoring an updated version",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * of the record with the same ID. Potentially leaving orphaned attachments in the database.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "of the record with the same ID. Potentially leaving orphaned attachments in the database.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   * Since we run the pruning logic after syncing, any attachment without a",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Since we run the pruning logic after syncing, any attachment without a",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   * matching record can be discarded as they will be unreachable forever.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "matching record can be discarded as they will be unreachable forever.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   * @param {Array<String>} excludeIds List of attachments IDs to exclude from pruning.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "excludeIds",
+                  "postName": " ",
+                  "type": "{Array<String>}",
+                  "postType": " ",
+                  "description": "List of attachments IDs to exclude from pruning.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 12,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "clear",
+        "line": 351,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "create",
+        "line": 363,
+        "params": [
+          {
+            "type": "params",
+            "id": "record",
+            "line": 363
+          }
+        ],
+        "comments": [
+          {
+            "description": "Methods used by unit tests.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Methods used by unit tests.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Methods used by unit tests.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "update",
+        "line": 381,
+        "params": [
+          {
+            "type": "params",
+            "id": "record",
+            "line": 381
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "delete",
+        "line": 395,
+        "params": [
+          {
+            "type": "params",
+            "id": "recordId",
+            "line": 395
+          }
+        ],
+        "kind": "method"
+      }
+    ]
+  }
+]

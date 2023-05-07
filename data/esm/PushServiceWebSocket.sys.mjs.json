@@ -1,0 +1,3745 @@
+[
+  {
+    "type": "variable-declaration",
+    "id": "PushServiceWebSocket",
+    "line": 123,
+    "typeEstimation": {
+      "type": "object-estimation",
+      "keys": [
+        {
+          "type": "object-property",
+          "line": 124,
+          "id": "QueryInterface"
+        },
+        {
+          "type": "object-property",
+          "line": 125,
+          "id": "name"
+        },
+        {
+          "type": "object-property",
+          "line": 127,
+          "id": "_mainPushService"
+        },
+        {
+          "type": "object-property",
+          "line": 128,
+          "id": "_serverURI"
+        },
+        {
+          "type": "object-property",
+          "line": 129,
+          "id": "_currentlyRegistering"
+        },
+        {
+          "type": "object-method",
+          "line": 131,
+          "id": "newPushDB",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 141,
+          "id": "disconnect",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 145,
+          "id": "observe",
+          "kind": "method",
+          "params": [
+            "aSubject",
+            "aTopic",
+            "aData"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 158,
+          "id": "_onUAIDChanged",
+          "comments": [
+            {
+              "description": "Handles a UAID change. Unlike reconnects, we cancel all pending requests after disconnecting. Existing subscriptions stored in IndexedDB will be dropped on reconnect.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Handles a UAID change. Unlike reconnects, we cancel all pending requests",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Handles a UAID change. Unlike reconnects, we cancel all pending requests",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * after disconnecting. Existing subscriptions stored in IndexedDB will be",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "after disconnecting. Existing subscriptions stored in IndexedDB will be",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * dropped on reconnect.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "dropped on reconnect.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 166,
+          "id": "_onTimerFired",
+          "comments": [
+            {
+              "description": "Handles a ping, backoff, or request timeout timer event.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Handles a ping, backoff, or request timeout timer event. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Handles a ping, backoff, or request timeout timer event. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "timer"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 190,
+          "id": "_sendPing",
+          "comments": [
+            {
+              "description": "Sends a ping to the server. Bypasses the request queue, but starts the request timeout timer. If the socket is already closed, or the server does not respond within the timeout, the client will reconnect.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Sends a ping to the server. Bypasses the request queue, but starts the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Sends a ping to the server. Bypasses the request queue, but starts the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * request timeout timer. If the socket is already closed, or the server",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "request timeout timer. If the socket is already closed, or the server",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * does not respond within the timeout, the client will reconnect.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "does not respond within the timeout, the client will reconnect.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 204,
+          "id": "_timeOutRequests",
+          "comments": [
+            {
+              "description": "Times out any pending requests.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Times out any pending requests. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Times out any pending requests. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 247,
+          "id": "_UAID",
+          "kind": "get",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 251,
+          "id": "_UAID",
+          "kind": "set",
+          "params": [
+            "newID"
+          ]
+        },
+        {
+          "type": "object-property",
+          "line": 264,
+          "id": "_ws"
+        },
+        {
+          "type": "object-property",
+          "line": 265,
+          "id": "_pendingRequests"
+        },
+        {
+          "type": "object-property",
+          "line": 266,
+          "id": "_currentState"
+        },
+        {
+          "type": "object-property",
+          "line": 267,
+          "id": "_requestTimeout",
+          "typeEstimation": {
+            "type": "number-estimation",
+            "defaultValue": 0
+          }
+        },
+        {
+          "type": "object-property",
+          "line": 268,
+          "id": "_requestTimeoutTimer"
+        },
+        {
+          "type": "object-property",
+          "line": 269,
+          "id": "_retryFailCount",
+          "typeEstimation": {
+            "type": "number-estimation",
+            "defaultValue": 0
+          }
+        },
+        {
+          "type": "object-property",
+          "line": 281,
+          "id": "_skipReconnect",
+          "comments": [
+            {
+              "description": "According to the WS spec, servers should immediately close the underlying TCP connection after they close a WebSocket. This causes wsOnStop to be called with error NS_BASE_STREAM_CLOSED. Since the client has to keep the WebSocket up, it should try to reconnect. But if the server closes the WebSocket because it wants the client to back off, then the client shouldn't re-establish the connection. If the server sends the backoff close code, this field will be set to true in wsOnServerClose. It is checked in wsOnStop.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * According to the WS spec, servers should immediately close the underlying",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "According to the WS spec, servers should immediately close the underlying",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * TCP connection after they close a WebSocket. This causes wsOnStop to be",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "TCP connection after they close a WebSocket. This causes wsOnStop to be",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * called with error NS_BASE_STREAM_CLOSED. Since the client has to keep the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "called with error NS_BASE_STREAM_CLOSED. Since the client has to keep the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * WebSocket up, it should try to reconnect. But if the server closes the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "WebSocket up, it should try to reconnect. But if the server closes the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * WebSocket because it wants the client to back off, then the client",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "WebSocket because it wants the client to back off, then the client",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * shouldn't re-establish the connection. If the server sends the backoff",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "shouldn't re-establish the connection. If the server sends the backoff",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   * close code, this field will be set to true in wsOnServerClose. It is",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "close code, this field will be set to true in wsOnServerClose. It is",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * checked in wsOnStop.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "checked in wsOnStop.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ]
+        },
+        {
+          "type": "object-property",
+          "line": 284,
+          "id": "_dataEnabled",
+          "comments": [
+            {
+              "description": "Indicates whether the server supports Web Push-style message delivery.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Indicates whether the server supports Web Push-style message delivery. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Indicates whether the server supports Web Push-style message delivery. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ]
+        },
+        {
+          "type": "object-property",
+          "line": 291,
+          "id": "_lastPingTime",
+          "comments": [
+            {
+              "description": "The last time the client sent a ping to the server. If non-zero, keeps the request timeout timer active. Reset to zero when the server responds with a pong or pending messages.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * The last time the client sent a ping to the server. If non-zero, keeps the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "The last time the client sent a ping to the server. If non-zero, keeps the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * request timeout timer active. Reset to zero when the server responds with",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "request timeout timer active. Reset to zero when the server responds with",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * a pong or pending messages.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "a pong or pending messages.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "typeEstimation": {
+            "type": "number-estimation",
+            "defaultValue": 0
+          }
+        },
+        {
+          "type": "object-property",
+          "line": 297,
+          "id": "_pingTimer",
+          "comments": [
+            {
+              "description": "A one-shot timer used to ping the server, to avoid timing out idle connections. Reset to the ping interval on each incoming message.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * A one-shot timer used to ping the server, to avoid timing out idle",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "A one-shot timer used to ping the server, to avoid timing out idle",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * connections. Reset to the ping interval on each incoming message.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "connections. Reset to the ping interval on each incoming message.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ]
+        },
+        {
+          "type": "object-property",
+          "line": 300,
+          "id": "_backoffTimer",
+          "comments": [
+            {
+              "description": "A one-shot timer fired after the reconnect backoff period.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* A one-shot timer fired after the reconnect backoff period. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "A one-shot timer fired after the reconnect backoff period. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 306,
+          "id": "_wsSendMessage",
+          "comments": [
+            {
+              "description": "Sends a message to the Push Server through an open websocket. typeof(msg) shall be an object",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Sends a message to the Push Server through an open websocket.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Sends a message to the Push Server through an open websocket.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * typeof(msg) shall be an object",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "typeof(msg) shall be an object",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 319,
+          "id": "init",
+          "kind": "method",
+          "params": [
+            "options",
+            "mainPushService",
+            "serverURI"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 339,
+          "id": "_reconnect",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 345,
+          "id": "_shutdownWS",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 379,
+          "id": "uninit",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 409,
+          "id": "_startBackoffTimer",
+          "comments": [
+            {
+              "description": "How retries work: If the WS is closed due to a socket error, _startBackoffTimer() is called. The retry timer is started and when it times out, beginWSSetup() is called again. If we are in the middle of a timeout (i.e. waiting), but a register/unregister is called, we don't want to wait around anymore. _sendRequest will automatically call beginWSSetup(), which will cancel the timer. In addition since the state will have changed, even if a pending timer event comes in (because the timer fired the event before it was cancelled), so the connection won't be reset.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * How retries work: If the WS is closed due to a socket error,",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "How retries work: If the WS is closed due to a socket error,",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * _startBackoffTimer() is called. The retry timer is started and when",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "_startBackoffTimer() is called. The retry timer is started and when",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * it times out, beginWSSetup() is called again.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "it times out, beginWSSetup() is called again.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * If we are in the middle of a timeout (i.e. waiting), but",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "If we are in the middle of a timeout (i.e. waiting), but",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * a register/unregister is called, we don't want to wait around anymore.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "a register/unregister is called, we don't want to wait around anymore.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   * _sendRequest will automatically call beginWSSetup(), which will cancel the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "_sendRequest will automatically call beginWSSetup(), which will cancel the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * timer. In addition since the state will have changed, even if a pending",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "timer. In addition since the state will have changed, even if a pending",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   * timer event comes in (because the timer fired the event before it was",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "timer event comes in (because the timer fired the event before it was",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   * cancelled), so the connection won't be reset.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "cancelled), so the connection won't be reset.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 13,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 435,
+          "id": "_hasPendingRequests",
+          "comments": [
+            {
+              "description": "Indicates whether we're waiting for pongs or requests.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Indicates whether we're waiting for pongs or requests. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Indicates whether we're waiting for pongs or requests. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 443,
+          "id": "_startRequestTimeoutTimer",
+          "comments": [
+            {
+              "description": "Starts the request timeout timer unless we're already waiting for a pong or register request.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Starts the request timeout timer unless we're already waiting for a pong",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Starts the request timeout timer unless we're already waiting for a pong",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * or register request.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "or register request.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 460,
+          "id": "_startPingTimer",
+          "comments": [
+            {
+              "description": "Starts or resets the ping timer.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Starts or resets the ping timer. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Starts or resets the ping timer. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 471,
+          "id": "_makeWebSocket",
+          "kind": "method",
+          "params": [
+            "uri"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 502,
+          "id": "_beginWSSetup",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 546,
+          "id": "connect",
+          "kind": "method",
+          "params": [
+            "broadcastListeners"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 552,
+          "id": "isConnected",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 559,
+          "id": "_handleHelloReply",
+          "comments": [
+            {
+              "description": "Protocol handler invoked by server message.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Protocol handler invoked by server message.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Protocol handler invoked by server message.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 660,
+          "id": "_handleRegisterReply",
+          "comments": [
+            {
+              "description": "Protocol handler invoked by server message.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Protocol handler invoked by server message.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Protocol handler invoked by server message.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 698,
+          "id": "_handleUnregisterReply",
+          "kind": "method",
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 710,
+          "id": "_handleDataUpdate",
+          "kind": "method",
+          "params": [
+            "update"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 785,
+          "id": "_handleNotificationReply",
+          "comments": [
+            {
+              "description": "Protocol handler invoked by server message.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Protocol handler invoked by server message.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Protocol handler invoked by server message.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 832,
+          "id": "_handleBroadcastReply",
+          "kind": "method",
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 849,
+          "id": "reportDeliveryError",
+          "kind": "method",
+          "params": [
+            "messageID",
+            "reason"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 859,
+          "id": "_sendAck",
+          "kind": "method",
+          "params": [
+            "channelID",
+            "version",
+            "status"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 869,
+          "id": "_generateID",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 877,
+          "id": "register",
+          "kind": "method",
+          "params": [
+            "record"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 902,
+          "id": "unregister",
+          "kind": "method",
+          "params": [
+            "record",
+            "reason"
+          ]
+        },
+        {
+          "type": "object-property",
+          "line": 920,
+          "id": "_queueStart"
+        },
+        {
+          "type": "object-property",
+          "line": 921,
+          "id": "_notifyRequestQueue"
+        },
+        {
+          "type": "object-property",
+          "line": 922,
+          "id": "_queue"
+        },
+        {
+          "type": "object-method",
+          "line": 923,
+          "id": "_enqueue",
+          "kind": "method",
+          "params": [
+            "op"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 932,
+          "id": "_send",
+          "comments": [
+            {
+              "description": "Sends a request to the server.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Sends a request to the server. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Sends a request to the server. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 954,
+          "id": "_requestHasReply",
+          "comments": [
+            {
+              "description": "Indicates whether a request has a corresponding reply from the server.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Indicates whether a request has a corresponding reply from the server. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Indicates whether a request has a corresponding reply from the server. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 962,
+          "id": "_sendPendingRequests",
+          "comments": [
+            {
+              "description": "Sends all pending requests that expect replies. Called after the connection is established and the handshake is complete.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Sends all pending requests that expect replies. Called after the connection",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Sends all pending requests that expect replies. Called after the connection",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * is established and the handshake is complete.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "is established and the handshake is complete.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 971,
+          "id": "_queueRequest",
+          "comments": [
+            {
+              "description": "Queues an outgoing request, establishing a connection if necessary.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Queues an outgoing request, establishing a connection if necessary. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Queues an outgoing request, establishing a connection if necessary. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1009,
+          "id": "_receivedUpdate",
+          "kind": "method",
+          "params": [
+            "aChannelID",
+            "aLatestVersion"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1049,
+          "id": "_wsOnStart",
+          "comments": [
+            {
+              "description": "begin Push protocol handshake",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": " begin Push protocol handshake",
+                  "tokens": {
+                    "start": " ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "begin Push protocol handshake",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1087,
+          "id": "_sendHello",
+          "comments": [
+            {
+              "description": "Sends a `hello` handshake to the server.",
+              "tags": [
+                {
+                  "tag": "param",
+                  "name": "An",
+                  "type": "Array<PushRecordWebSocket>",
+                  "optional": false,
+                  "description": "array of records for existing subscriptions, used to determine whether to rotate our UAID.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 4,
+                      "source": "   * @param {Array<PushRecordWebSocket>} An array of records for existing",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "An",
+                        "postName": " ",
+                        "type": "{Array<PushRecordWebSocket>}",
+                        "postType": " ",
+                        "description": "array of records for existing",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 5,
+                      "source": "   *        subscriptions, used to determine whether to rotate our UAID.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "        ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "subscriptions, used to determine whether to rotate our UAID.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 6,
+                      "source": "   ",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 7,
+                      "source": "*/",
+                      "tokens": {
+                        "start": "",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "*/",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                }
+              ],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Sends a `hello` handshake to the server.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Sends a `hello` handshake to the server.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * @param {Array<PushRecordWebSocket>} An array of records for existing",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "An",
+                    "postName": " ",
+                    "type": "{Array<PushRecordWebSocket>}",
+                    "postType": " ",
+                    "description": "array of records for existing",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   *        subscriptions, used to determine whether to rotate our UAID.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "        ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "subscriptions, used to determine whether to rotate our UAID.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "records"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1116,
+          "id": "_wsOnStop",
+          "comments": [
+            {
+              "description": "This statusCode is not the websocket protocol status code, but the TCP connection close status code. If we do not explicitly call ws.close() then statusCode is always NS_BASE_STREAM_CLOSED, even on a successful close.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * This statusCode is not the websocket protocol status code, but the TCP",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "This statusCode is not the websocket protocol status code, but the TCP",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * connection close status code.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "connection close status code.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * If we do not explicitly call ws.close() then statusCode is always",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "If we do not explicitly call ws.close() then statusCode is always",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * NS_BASE_STREAM_CLOSED, even on a successful close.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "NS_BASE_STREAM_CLOSED, even on a successful close.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "context",
+            "statusCode"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1131,
+          "id": "_wsOnMessageAvailable",
+          "kind": "method",
+          "params": [
+            "context",
+            "message"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1219,
+          "id": "_wsOnServerClose",
+          "comments": [
+            {
+              "description": "The websocket should never be closed. Since we don't call ws.close(), _wsOnStop() receives error code NS_BASE_STREAM_CLOSED (see comment in that function), which calls reconnect and re-establishes the WebSocket connection. If the server requested that we back off, we won't reconnect until the next network state change event, or until we need to send a new register request.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * The websocket should never be closed. Since we don't call ws.close(),",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "The websocket should never be closed. Since we don't call ws.close(),",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * _wsOnStop() receives error code NS_BASE_STREAM_CLOSED (see comment in that",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "_wsOnStop() receives error code NS_BASE_STREAM_CLOSED (see comment in that",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * function), which calls reconnect and re-establishes the WebSocket",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "function), which calls reconnect and re-establishes the WebSocket",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * connection.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "connection.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * If the server requested that we back off, we won't reconnect until the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "If the server requested that we back off, we won't reconnect until the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   * next network state change event, or until we need to send a new register",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "next network state change event, or until we need to send a new register",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * request.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "request.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "context",
+            "aStatusCode",
+            "aReason"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1231,
+          "id": "_cancelPendingRequests",
+          "comments": [
+            {
+              "description": "Rejects all pending register requests with errors.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Rejects all pending register requests with errors.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Rejects all pending register requests with errors.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 1239,
+          "id": "_makePendingRequestKey",
+          "comments": [
+            {
+              "description": "Creates a case-insensitive map key for a request that expects a reply.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Creates a case-insensitive map key for a request that expects a reply. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Creates a case-insensitive map key for a request that expects a reply. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1244,
+          "id": "_sendRequestForReply",
+          "comments": [
+            {
+              "description": "Sends a request and waits for a reply from the server.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Sends a request and waits for a reply from the server. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Sends a request and waits for a reply from the server. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "record",
+            "data"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1269,
+          "id": "_takeRequestForReply",
+          "comments": [
+            {
+              "description": "Removes and returns a pending request for a server reply.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "* Removes and returns a pending request for a server reply. ",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Removes and returns a pending request for a server reply. ",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "reply"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 1285,
+          "id": "sendSubscribeBroadcast",
+          "kind": "method",
+          "params": [
+            "serviceId",
+            "version"
+          ]
+        }
+      ]
+    }
+  }
+]

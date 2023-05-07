@@ -1,0 +1,807 @@
+[
+  {
+    "type": "variable-declaration",
+    "id": "PermissionsUtils",
+    "line": 53,
+    "typeEstimation": {
+      "type": "object-estimation",
+      "keys": [
+        {
+          "type": "object-method",
+          "line": 77,
+          "id": "importFromPrefs",
+          "comments": [
+            {
+              "description": "Import permissions from perferences to the Permissions Manager. After being imported, all processed permissions will be set to an empty string. Perferences are only processed once during the application's lifetime - it's safe to call this multiple times without worrying about doing unnecessary work, as the preferences branch will only be processed the first time.",
+              "tags": [
+                {
+                  "tag": "param",
+                  "name": "aPrefBranch",
+                  "type": "",
+                  "optional": false,
+                  "description": "Preferences branch to import from. The preferences under this branch can specify whitelist (ALLOW_ACTION) or blacklist (DENY_ACTION) additions using perference names of the form: * <BRANCH>.whitelist.add.<ID> * <BRANCH>.blacklist.add.<ID> Where <ID> can be any valid preference name. The value is expected to be a comma separated list of host named. eg: * something.example.com * foo.exmaple.com,bar.example.com",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 9,
+                      "source": "   * @param aPrefBranch  Preferences branch to import from. The preferences",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "aPrefBranch",
+                        "postName": "  ",
+                        "type": "",
+                        "postType": "",
+                        "description": "Preferences branch to import from. The preferences",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 10,
+                      "source": "   *                     under this branch can specify whitelist (ALLOW_ACTION)",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "under this branch can specify whitelist (ALLOW_ACTION)",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 11,
+                      "source": "   *                     or blacklist (DENY_ACTION) additions using perference",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "or blacklist (DENY_ACTION) additions using perference",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 12,
+                      "source": "   *                     names of the form:",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "names of the form:",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 13,
+                      "source": "   *                     * <BRANCH>.whitelist.add.<ID>",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "* <BRANCH>.whitelist.add.<ID>",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 14,
+                      "source": "   *                     * <BRANCH>.blacklist.add.<ID>",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "* <BRANCH>.blacklist.add.<ID>",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 15,
+                      "source": "   *                     Where <ID> can be any valid preference name.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Where <ID> can be any valid preference name.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 16,
+                      "source": "   *                     The value is expected to be a comma separated list of",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "The value is expected to be a comma separated list of",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 17,
+                      "source": "   *                     host named. eg:",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "host named. eg:",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 18,
+                      "source": "   *                     * something.example.com",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "* something.example.com",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 19,
+                      "source": "   *                     * foo.exmaple.com,bar.example.com",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                     ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "* foo.exmaple.com,bar.example.com",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 20,
+                      "source": "   *",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "aPermission",
+                  "type": "",
+                  "optional": false,
+                  "description": "Permission name to be passsed to the Permissions Manager.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 21,
+                      "source": "   * @param aPermission Permission name to be passsed to the Permissions",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "aPermission",
+                        "postName": " ",
+                        "type": "",
+                        "postType": "",
+                        "description": "Permission name to be passsed to the Permissions",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 22,
+                      "source": "   *                    Manager.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "                    ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Manager.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 23,
+                      "source": "   ",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 24,
+                      "source": "*/",
+                      "tokens": {
+                        "start": "",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "*/",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                }
+              ],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Import permissions from perferences to the Permissions Manager. After being",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Import permissions from perferences to the Permissions Manager. After being",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * imported, all processed permissions will be set to an empty string.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "imported, all processed permissions will be set to an empty string.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * Perferences are only processed once during the application's",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Perferences are only processed once during the application's",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * lifetime - it's safe to call this multiple times without worrying about",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "lifetime - it's safe to call this multiple times without worrying about",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * doing unnecessary work, as the preferences branch will only be processed",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "doing unnecessary work, as the preferences branch will only be processed",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * the first time.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "the first time.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * @param aPrefBranch  Preferences branch to import from. The preferences",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "aPrefBranch",
+                    "postName": "  ",
+                    "type": "",
+                    "postType": "",
+                    "description": "Preferences branch to import from. The preferences",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   *                     under this branch can specify whitelist (ALLOW_ACTION)",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "under this branch can specify whitelist (ALLOW_ACTION)",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   *                     or blacklist (DENY_ACTION) additions using perference",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "or blacklist (DENY_ACTION) additions using perference",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "   *                     names of the form:",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "names of the form:",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 13,
+                  "source": "   *                     * <BRANCH>.whitelist.add.<ID>",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "* <BRANCH>.whitelist.add.<ID>",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 14,
+                  "source": "   *                     * <BRANCH>.blacklist.add.<ID>",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "* <BRANCH>.blacklist.add.<ID>",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 15,
+                  "source": "   *                     Where <ID> can be any valid preference name.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Where <ID> can be any valid preference name.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 16,
+                  "source": "   *                     The value is expected to be a comma separated list of",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "The value is expected to be a comma separated list of",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 17,
+                  "source": "   *                     host named. eg:",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "host named. eg:",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 18,
+                  "source": "   *                     * something.example.com",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "* something.example.com",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 19,
+                  "source": "   *                     * foo.exmaple.com,bar.example.com",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                     ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "* foo.exmaple.com,bar.example.com",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 20,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 21,
+                  "source": "   * @param aPermission Permission name to be passsed to the Permissions",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "aPermission",
+                    "postName": " ",
+                    "type": "",
+                    "postType": "",
+                    "description": "Permission name to be passsed to the Permissions",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 22,
+                  "source": "   *                    Manager.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "                    ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Manager.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 23,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 24,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "aPrefBranch",
+            "aPermission"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "type": "variable-declaration",
+    "id": "PermissionsTestUtils",
+    "line": 103,
+    "typeEstimation": {
+      "type": "object-estimation",
+      "keys": [
+        {
+          "type": "object-method",
+          "line": 104,
+          "id": "clearImportedPrefBranches",
+          "kind": "method",
+          "params": []
+        }
+      ]
+    }
+  }
+]
