@@ -1,5 +1,5 @@
-import { join } from "path";
-import glob from "tiny-glob";
+import { join } from 'path'
+import glob from 'tiny-glob'
 import {
   parse,
   NamespaceType,
@@ -10,207 +10,213 @@ import {
   OperationMemberType,
   Argument,
   ValueDescription,
-} from "webidl2";
-import { readFile } from "fs/promises";
+} from 'webidl2'
+import { readFile } from 'fs/promises'
 
-const voidInterfaceFilter = /interface \w*;/;
-const replaceContentsNewline = /,\n(\n|.)*?\]/gm;
+const voidInterfaceFilter = /interface \w*;/
+const replaceContentsNewline = /,\n ?\/\/(.*\n)\]/gm
 
 export abstract class NamespaceItem {
-  type = "abstract";
+  type = 'abstract'
 
-  name: string;
-  trivia: string;
-  introduced: string;
+  name: string
+  trivia: string
+  introduced: string
 
   constructor(object: IDLNamespaceMemberType, introduced: string) {
-    this.name = object.name || "";
-    this.trivia = getMemberTrivia(object);
-    this.introduced = introduced;
+    this.name = object.name || ''
+    this.trivia = getMemberTrivia(object)
+    this.introduced = introduced
   }
 }
 
 export class NamespaceAttribute extends NamespaceItem {
-  type = "attribute";
-  readonly: boolean;
-  valueType: IDLTypeDescription;
+  type = 'attribute'
+  readonly: boolean
+  valueType: IDLTypeDescription
 
   constructor(object: AttributeMemberType, introduced: string) {
-    super(object, introduced);
+    super(object, introduced)
 
-    this.readonly = object.readonly;
-    this.valueType = object.idlType;
+    this.readonly = object.readonly
+    this.valueType = object.idlType
   }
 }
 
 export class NamespaceMethodArg {
-  defaultValue?: ValueDescription;
-  optional: boolean;
-  varadic: boolean;
-  name: string;
-  type: IDLTypeDescription;
+  defaultValue?: ValueDescription
+  optional: boolean
+  varadic: boolean
+  name: string
+  type: IDLTypeDescription
 
   constructor(arg: Argument) {
-    this.defaultValue = arg.default || undefined;
-    this.optional = arg.optional;
-    this.varadic = arg.variadic;
-    this.name = arg.name;
-    this.type = arg.idlType;
+    this.defaultValue = arg.default || undefined
+    this.optional = arg.optional
+    this.varadic = arg.variadic
+    this.name = arg.name
+    this.type = arg.idlType
   }
 }
 
 export class NamespaceMethod extends NamespaceItem {
-  type = "method";
-  special: "static" | "stringifier" | null;
-  return: IDLTypeDescription;
-  arguments: NamespaceMethodArg[] = [];
+  type = 'method'
+  special: 'static' | 'stringifier' | null
+  return: IDLTypeDescription
+  arguments: NamespaceMethodArg[] = []
 
   constructor(object: OperationMemberType, introduced: string) {
-    super(object, introduced);
+    super(object, introduced)
 
     if (
-      object.special == "getter" ||
-      object.special == "setter" ||
-      object.special == "deleter"
+      object.special == 'getter' ||
+      object.special == 'setter' ||
+      object.special == 'deleter'
     ) {
       throw new Error(
-        "Getter, setter and deleter should not be stored as methods"
-      );
+        'Getter, setter and deleter should not be stored as methods'
+      )
     }
 
-    this.special = object.special;
-    this.return = object.idlType as any;
+    this.special = object.special
+    this.return = object.idlType as any
 
     for (const argument of object.arguments) {
-      this.arguments.push(new NamespaceMethodArg(argument));
+      this.arguments.push(new NamespaceMethodArg(argument))
     }
   }
 }
 
 export type NamespaceRecord = {
-  attributes: NamespaceAttribute[];
-  methods: NamespaceMethod[];
-};
+  attributes: NamespaceAttribute[]
+  methods: NamespaceMethod[]
+}
 
 export type NamespaceChangeRecord = {
-  attributes: string[];
-  methods: string[];
-};
+  attributes: string[]
+  methods: string[]
+}
 
 export type ChangeMetadata = {
   metadata?: {
-    currentVersion: string;
-    lastVersion: string;
-  };
-};
+    currentVersion: string
+    lastVersion: string
+  }
+}
 
 export function getIntroduced(
   items: NamespaceItem[],
   name: string,
   currentGeckoVersion: string
 ): string {
-  if (!items) return currentGeckoVersion;
+  if (!items) return currentGeckoVersion
 
   if (items.some((item) => item.name == name)) {
     return (
       items.find((item) => item.name == name)?.introduced || currentGeckoVersion
-    );
+    )
   }
 
-  return currentGeckoVersion;
+  return currentGeckoVersion
 }
 
 export function merge<T>(array1: T[], array2: T[]): T[] {
-  return [...new Set([...array1, ...array2])];
+  return [...new Set([...array1, ...array2])]
 }
 
 export async function getNamespaces(geckoDevDir: string) {
-  const namespaces = new Map<string, NamespaceType[]>();
+  const namespaces = new Map<string, NamespaceType[]>()
 
   // Perf: webidl files only seem to be stored in `dom/`, so we can skip the
   // rest of mozilla-central
-  for (const idl of await glob(join(geckoDevDir, "dom/**/*.webidl"))) {
+  for (const idl of await glob(join(geckoDevDir, 'dom/**/*.webidl'))) {
     // We do not care about webidl files that are in a test directory
     if (
-      idl.includes("/test/") ||
-      idl.includes("/tests/") ||
-      idl.includes("/obj-")
+      idl.includes('/test/') ||
+      idl.includes('/tests/') ||
+      idl.includes('/obj-')
     ) {
-      continue;
+      continue
     }
 
-    console.log(idl);
+    console.log(idl)
 
-    let contents = (await readFile(idl, "utf8"))
-      .split("\n")
+    let contents = (await readFile(idl, 'utf8'))
+      .split('\n')
       .filter((line) => !voidInterfaceFilter.test(line)) // NOTE: Firefox includes empty interfaces for no apparent reason
-      .map((line) => line.replace("legacycaller", "")) // NOTE: legacycaller is not needed and just causes the parser to die
-      .map((line) => line.replace("#if", "//#if").replace("#e", "//#e")) // NOTE: Remove preprocessor statements
-      .map((line) => line.replace("UTF8String", "DOMString")) // TODO: Is there a better replacement for UTF8String?
-      .map((line) => line.replace("callback constructor", "callback")) // Firefox uses callback constructor instead of callback
-      .join("\n");
+      .map((line) => line.replace('legacycaller', '')) // NOTE: legacycaller is not needed and just causes the parser to die
+      .map((line) => line.replace('#if', '//#if').replace('#e', '//#e')) // NOTE: Remove preprocessor statements
+      .map((line) => line.replace('UTF8String', 'DOMString')) // TODO: Is there a better replacement for UTF8String?
+      .map((line) => line.replace('callback constructor', 'callback')) // Firefox uses callback constructor instead of callback
+      .map((line) => line.replace(/(?<keyword>\w*)=\*/g, '$<keyword>=All')) // =* specificity for `Exposed=*`
+      .join('\n')
 
-    // This is a work around for some really random file formatting
-    if (idl.includes("ReadableStream.webidl")) {
-      contents = contents.replace(replaceContentsNewline, "]");
+    // This is a work around for some really random file formatting. Fixed in
+    // https://phabricator.services.mozilla.com/D174775
+    if (
+      idl.includes('ReadableStream.webidl') ||
+      idl.includes('TransformStream.webidl') ||
+      idl.includes('WritableStream.webidl')
+    ) {
+      contents = contents.replace(replaceContentsNewline, ']')
     }
 
-    if (idl.includes("WebrtcGlobalInformation.webidl")) {
-      contents = contents.replaceAll("  attribute", "  readonly attribute");
+    if (idl.includes('WebrtcGlobalInformation.webidl')) {
+      contents = contents.replaceAll('  attribute', '  readonly attribute')
     }
 
-    const parsed = parse(contents);
+    const parsed = parse(contents)
 
     for (const idlItem of parsed) {
-      if (idlItem.type == "namespace") {
+      if (idlItem.type == 'namespace') {
         namespaces.set(idlItem.name, [
           ...(namespaces.get(idlItem.name) || []),
           idlItem,
-        ]);
+        ])
       }
     }
   }
 
-  return namespaces;
+  return namespaces
 }
 
 export function cleanUpComment(comment: string): string {
   comment = comment
-    .split("\n")
-    .filter((line) => !line.includes("//#")) // Ignore preprocessor lines
-    .join("\n")
-    .trim();
+    .split('\n')
+    .filter((line) => !line.includes('//#')) // Ignore preprocessor lines
+    .join('\n')
+    .trim()
 
-  if (comment.startsWith("/**")) {
-    comment = comment.replace("/**", "").replace("*/", "");
-    comment = comment.replace(/\n\s*\*/gm, "\n");
+  if (comment.startsWith('/**')) {
+    comment = comment.replace('/**', '').replace('*/', '')
+    comment = comment.replace(/\n\s*\*/gm, '\n')
   }
 
-  if (comment.startsWith("//")) {
-    comment = comment.replace(/\n\s*\/\//gm, "\n").replace("//", "");
+  if (comment.startsWith('//')) {
+    comment = comment.replace(/\n\s*\/\//gm, '\n').replace('//', '')
   }
 
   return comment
-    .split("\n")
+    .split('\n')
     .map((line) => line.trim())
-    .join("\n")
-    .trim();
+    .join('\n')
+    .trim()
 }
 
 export function getMemberTrivia(member: IDLNamespaceMemberType): string {
-  const { tokens } = member.extAttrs as any;
-  let trivia = "";
+  const { tokens } = member.extAttrs as any
+  let trivia = ''
 
   for (const token in tokens) {
-    const value = tokens[token] as Token;
+    const value = tokens[token] as Token
 
-    if (!value || !value.trivia) continue;
+    if (!value || !value.trivia) continue
 
     // If it doesn't just contain white space
-    if (!!value.trivia.replace(/\s/g, "").length) {
-      trivia += cleanUpComment(value.trivia);
+    if (!!value.trivia.replace(/\s/g, '').length) {
+      trivia += cleanUpComment(value.trivia)
     }
   }
 
-  return trivia;
+  return trivia
 }
