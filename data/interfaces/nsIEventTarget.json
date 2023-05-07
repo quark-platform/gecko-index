@@ -173,6 +173,24 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag specifies that the dispatched event should be delivered to the\n   * target thread even if the thread has been configured to block dispatching\n   * of runnables. This is generally done for threads which have their own\n   * internal event loop, such as thread pools or the timer thread, and will not\n   * service runnables dispatched to them until shutdown.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "DISPATCH_IGNORE_BLOCK_DISPATCH",
+                  "value": "8"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * IsOnCurrentThread() should return true if events dispatched to this target\n   * can possibly run on the current thread, and false otherwise. In the case\n   * of an nsIEventTarget for a thread pool, it should return true on all\n   * threads in the pool. In the case of a non-thread nsIEventTarget such as\n   * ThrottledEventQueue, it should return true on the thread where events are\n   * expected to be processed, even if no events from the queue are actually\n   * being processed right now.\n   *\n   * When called on an nsISerialEventTarget, IsOnCurrentThread can be used to\n   * ensure that no other thread has \"ownership\" of the event target. As such,\n   * it's useful for asserting that an object is only used on a particular\n   * thread. IsOnCurrentThread can't guarantee that the current event has been\n   * dispatched through a particular event target.\n   *\n   * The infallible version of IsOnCurrentThread() is optimized to avoid a\n   * virtual call for non-thread event targets. Thread targets should set\n   * mThread to their virtual PRThread. Non-thread targets should leave\n   * mThread null and implement IsOnCurrentThreadInfallible() to\n   * return the correct answer.\n   *\n   * The fallible version of IsOnCurrentThread may return errors, such as during\n   * shutdown. If it does not return an error, it should return the same result\n   * as the infallible version. The infallible method should return the correct\n   * result regardless of whether the fallible method returns an error.\n   */"
                   }
                 ],
@@ -502,6 +520,6 @@
       }
     },
     "\n\n",
-    "%{C++\n// convenient aliases:\n#define NS_DISPATCH_NORMAL nsIEventTarget::DISPATCH_NORMAL\n#define NS_DISPATCH_SYNC   nsIEventTarget::DISPATCH_SYNC\n#define NS_DISPATCH_AT_END nsIEventTarget::DISPATCH_AT_END\n#define NS_DISPATCH_EVENT_MAY_BLOCK nsIEventTarget::DISPATCH_EVENT_MAY_BLOCK\n\n// Convenient NS_DECL variant that includes some C++-only methods.\n#define NS_DECL_NSIEVENTTARGET_FULL                                   \\\n    NS_DECL_NSIEVENTTARGET                                            \\\n    /* Avoid hiding these methods */                                  \\\n    using nsIEventTarget::Dispatch;                                   \\\n    using nsIEventTarget::IsOnCurrentThread;\n%}\n"
+    "%{C++\n// convenient aliases:\n#define NS_DISPATCH_NORMAL nsIEventTarget::DISPATCH_NORMAL\n#define NS_DISPATCH_SYNC   nsIEventTarget::DISPATCH_SYNC\n#define NS_DISPATCH_AT_END nsIEventTarget::DISPATCH_AT_END\n#define NS_DISPATCH_EVENT_MAY_BLOCK nsIEventTarget::DISPATCH_EVENT_MAY_BLOCK\n#define NS_DISPATCH_IGNORE_BLOCK_DISPATCH nsIEventTarget::DISPATCH_IGNORE_BLOCK_DISPATCH\n\n// Convenient NS_DECL variant that includes some C++-only methods.\n#define NS_DECL_NSIEVENTTARGET_FULL                                   \\\n    NS_DECL_NSIEVENTTARGET                                            \\\n    /* Avoid hiding these methods */                                  \\\n    using nsIEventTarget::Dispatch;                                   \\\n    using nsIEventTarget::IsOnCurrentThread;\n%}\n"
   ]
 }

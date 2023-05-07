@@ -29,6 +29,10 @@
     {
       "kind": "native"
     },
+    "\n      ",
+    {
+      "kind": "native"
+    },
     "\n\n",
     {
       "kind": "interface_main",
@@ -171,7 +175,7 @@
                     "contents": "/**\n   * Default number of bytes reserved for a thread's stack, if no stack size\n   * is specified in newThread().\n   *\n   * Defaults can be a little overzealous for many platforms.\n   *\n   * On Linux and OS X, for instance, the default thread stack size is whatever\n   * getrlimit(RLIMIT_STACK) returns, which is often set at 8MB. Or, on Linux,\n   * if the stack size is unlimited, we fall back to 2MB. This causes particular\n   * problems on Linux, which allocates 2MB huge VM pages, and will often\n   * immediately allocate them for any stacks which are 2MB or larger.\n   *\n   * The default on Windows is 1MB, which is a little more reasonable. But the\n   * vast majority of our threads don't need anywhere near that much space.\n   *\n   * ASan, TSan and non-opt builds, however, often need a bit more, so give\n   * them the platform default.\n   */"
                   }
                 ],
-                "code": "%{C++\n#if defined(MOZ_ASAN) || defined(MOZ_TSAN) || !defined(__OPTIMIZE__)\n  static constexpr uint32_t DEFAULT_STACK_SIZE = 0;\n#else\n  static constexpr uint32_t DEFAULT_STACK_SIZE = 256 * 1024;\n#endif\n\n  static const uint32_t kThreadPoolStackSize = DEFAULT_STACK_SIZE;\n%}\n\n  "
+                "code": "%{C++\n#if defined(MOZ_ASAN) || defined(MOZ_TSAN) || !defined(__OPTIMIZE__)\n  static constexpr uint32_t DEFAULT_STACK_SIZE = 0;\n#else\n  static constexpr uint32_t DEFAULT_STACK_SIZE = 256 * 1024;\n#endif\n\n  static const uint32_t kThreadPoolStackSize = DEFAULT_STACK_SIZE;\n\n  struct ThreadCreationOptions {\n    // The size in bytes to reserve for the thread's stack. A value of `0` means\n    // to use the platform default.\n    uint32_t stackSize = nsIThreadManager::DEFAULT_STACK_SIZE;\n\n    // If set to `true`, any attempts to dispatch runnables to this thread\n    // without `DISPATCH_IGNORE_BLOCK_DISPATCH` will fail.\n    //\n    // This is intended to be used for threads which are expected to generally\n    // only service a single runnable (other than thread lifecycle runnables),\n    // and perform their own event dispatching internaly, such as thread pool\n    // threads or the timer thread.\n    bool blockDispatch = false;\n\n    // (Windows-only) Whether the thread should have a MessageLoop capable of\n    // processing native UI events. Defaults to false.\n    bool isUiThread = false;\n  };\n%}\n\n  "
               }
             },
             {
@@ -181,7 +185,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Create a new thread (a global, user PRThread) with the specified name.\n   *\n   * @param name\n   *   The name of the thread. If it is empty the thread will not be named.\n   * @param stackSize\n   *   Number of bytes to reserve for the thread's stack. 0 means use platform\n   *   default.\n   *\n   * @returns\n   *   The newly created nsIThread object.\n   */"
+                    "contents": "/**\n   * Create a new thread (a global, user PRThread) with the specified name.\n   *\n   * @param name\n   *   The name of the thread. If it is empty the thread will not be named.\n   * @param options\n   *   Configuration options for the newly created thread.\n   *\n   * @returns\n   *   The newly created nsIThread object.\n   */"
                   }
                 ],
                 "code": {
@@ -211,18 +215,10 @@
                         "kind": "paramlist_$0",
                         "param": {
                           "kind": "param",
-                          "attribute": {
-                            "kind": "attributes",
-                            "first_attribute": {
-                              "kind": "attribute",
-                              "name": "optional",
-                              "param": null
-                            },
-                            "other_attributes": []
-                          },
+                          "attribute": null,
                           "refType": "in",
-                          "type": "unsigned long",
-                          "name": "stackSize"
+                          "type": "ThreadCreationOptions",
+                          "name": "options"
                         }
                       }
                     ]
@@ -427,6 +423,36 @@
                         }
                       }
                     ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * A helper method to dispatch a task through nsIDirectTaskDispatcher to the\n   * current thread.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "dispatchDirectTaskToCurrentThread",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIRunnable",
+                      "name": "event"
+                    },
+                    "other": []
                   },
                   "raises": null
                 }

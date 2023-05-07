@@ -23,6 +23,14 @@
       "kind": "INCLUDE",
       "ident": "nsILoadInfo"
     },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsIRequest"
+    },
+    {
+      "kind": "INCLUDE",
+      "ident": "nsITRRSkipReason"
+    },
     "%{C++\n#include \"nsStringFwd.h\"\n#include \"nsTArrayForwardDeclare.h\"\ntemplate<class T> class nsCOMArray;\nnamespace mozilla {\nclass TimeStamp;\nnamespace net {\nclass nsHttpConnectionInfo;\nclass WebSocketConnectionBase;\nclass EarlyHintConnectArgs;\n}\nnamespace dom {\nenum class RequestMode : uint8_t;\n}\n}\n%}\n",
     {
       "kind": "native"
@@ -1205,6 +1213,60 @@
                   "readonly": "readonly",
                   "type": "boolean",
                   "name": "isResolvedByTRR"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The effective TRR mode used to resolve this channel.\n     * This is computed by taking the value returned by nsIRequest.getTRRMode()\n     * and the state of the TRRService. If the domain is excluded from TRR\n     * or the TRRService is disabled, the effective mode would be TRR_DISABLED_MODE\n     * even if the initial mode set on the request was TRR_ONLY_MODE.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsIRequest_TRRMode",
+                  "name": "effectiveTRRMode"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * If the DNS request triggered by this channel didn't use TRR, this value\n     * contains the reason why that was skipped.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "nsITRRSkipReason_value",
+                  "name": "trrSkipReason"
                 }
               }
             },
@@ -2441,6 +2503,7 @@
           ]
         }
       }
-    }
+    },
+    "\n"
   ]
 }

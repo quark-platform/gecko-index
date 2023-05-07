@@ -27,9 +27,17 @@
       "kind": "native"
     },
     "\n",
-    "%{C++\n#include \"Units.h\"\n\nclass nsIWidget;\n%}\n\n",
+    "%{C++\n#include \"Units.h\"\n#include \"mozilla/DimensionRequest.h\"\n\nclass nsIWidget;\n%}\n\n",
     {
       "kind": "typedef"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
     },
     "\n\n",
     {
@@ -586,6 +594,107 @@
                 "kind": "member_$0",
                 "docComment": [],
                 "code": "%{C++\n  mozilla::LayoutDeviceIntRect GetPositionAndSize() {\n    int32_t x = 0, y = 0, w = 0, h = 0;\n    GetPositionAndSize(&x, &y, &w, &h);\n    return mozilla::LayoutDeviceIntRect(x, y, w, h);\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Allows to request the change of individual dimensions without specifying\n   * the other components.\n   *\n   * @param aRequest - The requested change. A request to change only the width\n   *                   may look like:\n   *                   {DimensionKind::Outer, Nothing(), Nothing(), Some(20), Nothing()}\n   *\n   * Note: Inner position is not supported.\n   *\n   * @see DimensionRequest\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setDimensions",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "DimensionRequest",
+                      "name": "aRequest"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Gets the dimensions of the window. The caller may pass nullptr for any\n   * value it is uninterested in receiving.\n   *\n   * @param aDimensionKind  Specifies whether the dimensions are in reference\n   *                        to the inner or outer dimensions.\n   * @param aX              Left hand corner of the outer area; or nullptr.\n   * @param aY              Top corner of the outer area; or nullptr.\n   * @param aCX             Width of the inner or outer area; or nullptr.\n   * @param aCY             Height of the inner or outer area; or nullptr.\n   *\n   * Note: Inner position is not supported.\n   *\n   * @see DimensionRequest\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getDimensions",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "DimensionKind",
+                      "name": "aDimensionKind"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "aX"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "aY"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "aCX"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "out",
+                          "type": "long",
+                          "name": "aCY"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
               }
             },
             {

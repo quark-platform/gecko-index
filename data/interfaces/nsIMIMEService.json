@@ -360,6 +360,36 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Update the mime info's default app information based on OS\n     * lookups.\n     * Note: normally called automatically by nsIMIMEInfo. If you find\n     * yourself needing to call this from elsewhere, file a bug instead.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "updateDefaultAppInfo",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIMIMEInfo",
+                      "name": "aMIMEInfo"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n     * Default filename validation for getValidFileName and\n     * validateFileNameForSaving where other flags are not true.\n     * That is, the extension is modified to fit the content type,\n     * duplicate whitespace is collapsed, and long filenames are\n     * truncated. A valid content type must be supplied. See the\n     * description of getValidFileName for more details about how\n     * the flags are used.\n     */"
                   }
                 ],
@@ -504,7 +534,25 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Generate a valid filename from the channel that can be used to save\n     * the content of the channel to the local disk.\n     *\n     * The filename is determined from the content disposition, the filename\n     * of the uri, or a default filename. The following modifications are\n     * applied:\n     *  - If the VALIDATE_SANITIZE_ONLY flag is not specified, then the\n     *    extension of the filename is modified to suit the supplied content type.\n     *  - Path separators (typically / and \\) are replaced by underscores (_)\n     *  - Characters that are not valid or would be confusing in filenames are\n     *    replaced by spaces (*, :, etc)\n     *  - Bidi related marks are replaced by underscores (_)\n     *  - Whitespace and periods are removed from the beginning and end.\n     *  - Unless VALIDATE_DONT_COLLAPSE_WHITESPACE is specified, multiple\n     *    consecutive whitespace characters are collapsed to a single space\n     *    character, either ' ' or an ideographic space 0x3000 if present.\n     *  - Unless VALIDATE_DONT_TRUNCATE is specified, the filename is truncated\n     *    to a maximum length, preserving the extension if possible.\n     *  - Some filenames are invalid on certain platforms. These are replaced if\n     *    possible.\n     *\n     * If the VALIDATE_NO_DEFAULT_FILENAME flag is not specified, and after the\n     * rules above are applied, the resulting filename is empty, a default\n     * filename is used.\n     *\n     * If the VALIDATE_ALLOW_EMPTY flag is specified, an empty string may be\n     * returned only if the filename could not be determined or was blank.\n     *\n     * If either the VALIDATE_SANITIZE_ONLY or VALIDATE_GUESS_FROM_EXTENSION flags\n     * are specified, then the content type may be empty. Otherwise, the type must\n     * not be empty.\n     *\n     * The aOriginalURI would be specified if the channel is for a local file but\n     * it was originally sourced from a different uri.\n     *\n     * When saving an image, use validateFileNameForSaving instead and\n     * pass the result of imgIRequest::GetFileName() as the filename to\n     * check.\n     *\n     * @param aChannel The channel of the content to save.\n     * @param aType The MIME type to use, which would usually be the\n     *              same as the content type of the channel.\n     * @param aOriginalURL the source url of the file, but may be null.\n     * @param aFlags one or more of the flags above.\n     * @returns The resulting filename.\n     */"
+                    "contents": "/**\n     * Don't modify filenames or extensions that might be invalid or dangerous\n     * on some platforms. If this flag is not used, these filenames will be\n     * modified so that the operating system does not treat them specially.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "long",
+                  "name": "VALIDATE_ALLOW_INVALID_FILENAMES",
+                  "value": "128"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Generate a valid filename from the channel that can be used to save\n     * the content of the channel to the local disk.\n     *\n     * The filename is determined from the content disposition, the filename\n     * of the uri, or a default filename. The following modifications are\n     * applied:\n     *  - If the VALIDATE_SANITIZE_ONLY flag is not specified, then the\n     *    extension of the filename is modified to suit the supplied content type.\n     *  - Path separators (typically / and \\) are replaced by underscores (_)\n     *  - Characters that are not valid or would be confusing in filenames are\n     *    replaced by spaces (*, :, etc)\n     *  - Bidi related marks are replaced by underscores (_)\n     *  - Whitespace and periods are removed from the beginning and end.\n     *  - Unless VALIDATE_DONT_COLLAPSE_WHITESPACE is specified, multiple\n     *    consecutive whitespace characters are collapsed to a single space\n     *    character, either ' ' or an ideographic space 0x3000 if present.\n     *  - Unless VALIDATE_DONT_TRUNCATE is specified, the filename is truncated\n     *    to a maximum length, preserving the extension if possible.\n     *  - Some filenames and extensions are invalid on certain platforms.\n     *    These are replaced if possible unless VALIDATE_ALLOW_INVALID_FILENAMES\n     *    is specified.\n     *\n     * If the VALIDATE_NO_DEFAULT_FILENAME flag is not specified, and after the\n     * rules above are applied, the resulting filename is empty, a default\n     * filename is used.\n     *\n     * If the VALIDATE_ALLOW_EMPTY flag is specified, an empty string may be\n     * returned only if the filename could not be determined or was blank.\n     *\n     * If either the VALIDATE_SANITIZE_ONLY or VALIDATE_GUESS_FROM_EXTENSION flags\n     * are specified, then the content type may be empty. Otherwise, the type must\n     * not be empty.\n     *\n     * The aOriginalURI would be specified if the channel is for a local file but\n     * it was originally sourced from a different uri.\n     *\n     * When saving an image, use validateFileNameForSaving instead and\n     * pass the result of imgIRequest::GetFileName() as the filename to\n     * check.\n     *\n     * @param aChannel The channel of the content to save.\n     * @param aType The MIME type to use, which would usually be the\n     *              same as the content type of the channel.\n     * @param aOriginalURL the source url of the file, but may be null.\n     * @param aFlags one or more of the flags above.\n     * @returns The resulting filename.\n     */"
                   }
                 ],
                 "code": {
@@ -565,7 +613,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Similar to getValidFileName, but used when a specific filename needs\n     * to be validated. The filename is modified as needed based on the \n     * content type in the same manner as getValidFileName.\n     *\n     * If the filename came from a uri, it should not be escaped, that is,\n     * any needed unescaping of the filename should happen before calling\n     * this method.\n     *\n     * @param aType The MIME type to use.\n     * @param aFlags one or more of the flags above.\n     * @param aFileName The filename to validate.\n     * @returns The validated filename.\n     */"
+                    "contents": "/**\n     * Similar to getValidFileName, but used when a specific filename needs\n     * to be validated. The filename is modified as needed based on the\n     * content type in the same manner as getValidFileName.\n     *\n     * If the filename came from a uri, it should not be escaped, that is,\n     * any needed unescaping of the filename should happen before calling\n     * this method.\n     *\n     * @param aType The MIME type to use.\n     * @param aFlags one or more of the flags above.\n     * @param aFileName The filename to validate.\n     * @returns The validated filename.\n     */"
                   }
                 ],
                 "code": {

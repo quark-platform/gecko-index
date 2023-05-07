@@ -141,6 +141,7 @@
         "@mozilla.org/network/protocol/about;1?what=srcdoc",
         "@mozilla.org/network/protocol/about;1?what=support",
         "@mozilla.org/network/protocol/about;1?what=telemetry",
+        "@mozilla.org/network/protocol/about;1?what=translations",
         "@mozilla.org/network/protocol/about;1?what=url-classifier",
         "@mozilla.org/network/protocol/about;1?what=webrtc",
         "@mozilla.org/network/protocol/about;1?what=crashes",
@@ -328,27 +329,6 @@
       ],
       "jsm": "resource://gre/modules/ConsoleAPIStorage.jsm",
       "constructor": "ConsoleAPIStorageService"
-    },
-    {
-      "componentFile": "../mozilla/dom/file/uri/components.conf",
-      "cid": "{3fc8f04e-d719-43ca-9ad0-18ee320211f2}",
-      "contract_ids": [
-        "@mozilla.org/network/protocol;1?name=moz-fonttable"
-      ],
-      "type": "mozilla::dom::FontTableURIProtocolHandler",
-      "headers": [
-        "mozilla/dom/FontTableURIProtocolHandler.h"
-      ],
-      "protocol_config": {
-        "scheme": "moz-fonttable",
-        "flags": [
-          "URI_NORELATIVE",
-          "URI_NOAUTH",
-          "URI_LOADABLE_BY_SUBSUMERS",
-          "URI_NON_PERSISTABLE",
-          "URI_IS_LOCAL_RESOURCE"
-        ]
-      }
     },
     {
       "componentFile": "../mozilla/dom/file/uri/components.conf",
@@ -1980,8 +1960,7 @@
       "js_name": "prompt",
       "cid": "{076ac188-23c1-4390-aa08-7ef1f78ca5d9}",
       "contract_ids": [
-        "@mozilla.org/prompter;1",
-        "@mozilla.org/embedcomp/prompt-service;1"
+        "@mozilla.org/prompter;1"
       ],
       "interfaces": [
         "nsIPromptService"
@@ -2344,9 +2323,14 @@
     },
     {
       "componentFile": "../mozilla/netwerk/build/components.conf",
+      "name": "DNS",
+      "js_name": "dns",
       "cid": "{b0ff4572-dae4-4bef-a092-83c1b88f6be9}",
       "contract_ids": [
         "@mozilla.org/network/dns-service;1"
+      ],
+      "interfaces": [
+        "nsIDNSService"
       ],
       "singleton": true,
       "type": "nsIDNSService",
@@ -3336,8 +3320,19 @@
       "contract_ids": [
         "@mozilla.org/network/well-known-opportunistic-utils;1"
       ],
-      "jsm": "resource://gre/modules/WellKnownOpportunisticUtils.jsm",
+      "esModule": "resource://gre/modules/WellKnownOpportunisticUtils.sys.mjs",
       "constructor": "WellKnownOpportunisticUtils"
+    },
+    {
+      "componentFile": "../mozilla/netwerk/protocol/http/components.conf",
+      "cid": "{b43b3f73-8160-4ab2-9f5d-4129a9708081}",
+      "contract_ids": [
+        "@mozilla.org/network/binary-http;1"
+      ],
+      "headers": [
+        "/netwerk/protocol/http/binary_http/src/binary_http.h"
+      ],
+      "legacy_constructor": "binary_http_constructor"
     },
     {
       "componentFile": "../mozilla/netwerk/protocol/http/components.conf",
@@ -3349,6 +3344,20 @@
         "/netwerk/protocol/http/oblivious_http/src/oblivious_http.h"
       ],
       "legacy_constructor": "oblivious_http_constructor"
+    },
+    {
+      "componentFile": "../mozilla/netwerk/protocol/http/components.conf",
+      "cid": "{b1f08d56-fca6-4290-9500-d5168dc9d8c3}",
+      "contract_ids": [
+        "@mozilla.org/network/oblivious-http-service;1"
+      ],
+      "interfaces": [
+        "nsIObliviousHttpService"
+      ],
+      "type": "mozilla::net::ObliviousHttpService",
+      "headers": [
+        "/netwerk/protocol/http/ObliviousHttpService.h"
+      ]
     },
     {
       "componentFile": "../mozilla/netwerk/url-classifier/components.conf",
@@ -3369,7 +3378,7 @@
       "contract_ids": [
         "@mozilla.org/url-classifier/exception-list-service;1"
       ],
-      "jsm": "resource://gre/modules/UrlClassifierExceptionListService.jsm",
+      "esModule": "resource://gre/modules/UrlClassifierExceptionListService.sys.mjs",
       "constructor": "UrlClassifierExceptionListService"
     },
     {
@@ -3668,7 +3677,7 @@
       "contract_ids": [
         "@mozilla.org/fxaccounts/push;1"
       ],
-      "jsm": "resource://gre/modules/FxAccountsPush.jsm",
+      "esModule": "resource://gre/modules/FxAccountsPush.sys.mjs",
       "constructor": "FxAccountsPushService",
       "processes": 1,
       "categories": {
@@ -3681,7 +3690,7 @@
       "contract_ids": [
         "@mozilla.org/services/settings;1"
       ],
-      "jsm": "resource://services-settings/RemoteSettingsComponents.jsm",
+      "esModule": "resource://services-settings/RemoteSettingsComponents.sys.mjs",
       "constructor": "RemoteSettingsTimer"
     },
     {
@@ -3690,7 +3699,7 @@
       "contract_ids": [
         "@mozilla.org/weave/service;1"
       ],
-      "jsm": "resource://services-sync/Weave.jsm",
+      "esModule": "resource://services-sync/Weave.sys.mjs",
       "constructor": "WeaveService"
     },
     {
@@ -3699,7 +3708,7 @@
       "contract_ids": [
         "@mozilla.org/network/protocol/about;1?what=sync-log"
       ],
-      "jsm": "resource://services-sync/Weave.jsm",
+      "esModule": "resource://services-sync/Weave.sys.mjs",
       "constructor": "AboutWeaveLog"
     },
     {
@@ -3839,13 +3848,33 @@
       "constructor": "URLQueryStrippingListService"
     },
     {
+      "componentFile": "../mozilla/toolkit/components/antitracking/components.conf",
+      "name": "URLQueryStringStripper",
+      "cid": "{6b42a890-2624-4560-99c4-b25380e8cd77}",
+      "interfaces": [
+        "nsIURLQueryStringStripper"
+      ],
+      "contract_ids": [
+        "@mozilla.org/url-query-string-stripper;1"
+      ],
+      "type": "mozilla::URLQueryStringStripper",
+      "headers": [
+        "mozilla/URLQueryStringStripper.h"
+      ],
+      "singleton": true,
+      "constructor": "mozilla::URLQueryStringStripper::GetSingleton",
+      "categories": {
+        "profile-after-change": "URLQueryStringStripper"
+      }
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/asyncshutdown/components.conf",
       "name": "AsyncShutdown",
       "cid": "{35c496de-a115-475d-93b5-ffa3f3ae6fe3}",
       "contract_ids": [
         "@mozilla.org/async-shutdown-service;1"
       ],
-      "jsm": "resource://gre/modules/nsAsyncShutdown.jsm",
+      "esModule": "resource://gre/modules/nsAsyncShutdown.sys.mjs",
       "constructor": "nsAsyncShutdownService"
     },
     {
@@ -4663,7 +4692,7 @@
         "@mozilla.org/autocomplete/search;1?name=login-doorhanger-username",
         "@mozilla.org/autocomplete/search;1?name=login-doorhanger-password"
       ],
-      "jsm": "resource://gre/modules/AutoCompleteSimpleSearch.jsm",
+      "esModule": "resource://gre/modules/AutoCompleteSimpleSearch.sys.mjs",
       "constructor": "AutoCompleteSimpleSearch"
     },
     {
@@ -4841,6 +4870,18 @@
       "constructor": "PlacesPreviewsHelperService"
     },
     {
+      "componentFile": "../mozilla/toolkit/components/places/components.conf",
+      "cid": "{1141fd31-4c1a-48eb-8f1a-2f05fad94085}",
+      "contract_ids": [
+        "@mozilla.org/places/frecency-recalculator;1"
+      ],
+      "esModule": "resource://gre/modules/PlacesFrecencyRecalculator.sys.mjs",
+      "constructor": "PlacesFrecencyRecalculator",
+      "categories": {
+        "places-init-complete": "PlacesFrecencyRecalculator"
+      }
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/processsingleton/components.conf",
       "cid": "{0636a680-45cb-11e4-916c-0800200c9a66}",
       "contract_ids": [
@@ -4869,30 +4910,21 @@
       "contract_ids": [
         "@mozilla.org/network/authprompt-adapter-factory;1"
       ],
-      "jsm": "resource://gre/modules/Prompter.jsm",
+      "esModule": "resource://gre/modules/Prompter.sys.mjs",
       "constructor": "AuthPromptAdapterFactory"
     },
     {
       "componentFile": "../mozilla/toolkit/components/prompts/src/components.conf",
+      "js_name": "prompt",
       "cid": "{1c978d25-b37f-43a8-a2d6-0c7a239ead87}",
       "contract_ids": [
         "@mozilla.org/prompter;1"
       ],
-      "jsm": "resource://gre/modules/Prompter.jsm",
-      "constructor": "Prompter"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/prompts/src/components.conf",
-      "js_name": "prompt",
-      "cid": "{7ad1b327-6dfa-46ec-9234-f2a620ea7e00}",
-      "contract_ids": [
-        "@mozilla.org/embedcomp/prompt-service;1"
-      ],
       "interfaces": [
         "nsIPromptService"
       ],
-      "jsm": "resource://gre/modules/Prompter.jsm",
-      "constructor": "EmbedPrompter"
+      "esModule": "resource://gre/modules/Prompter.sys.mjs",
+      "constructor": "Prompter"
     },
     {
       "componentFile": "../mozilla/toolkit/components/reflect/components.conf",
@@ -4980,7 +5012,7 @@
       "contract_ids": [
         "@mozilla.org/base/telemetry-startup;1"
       ],
-      "jsm": "resource://gre/modules/TelemetryStartup.jsm",
+      "esModule": "resource://gre/modules/TelemetryStartup.sys.mjs",
       "constructor": "TelemetryStartup",
       "processes": 1
     },
@@ -4990,7 +5022,7 @@
       "contract_ids": [
         "@mozilla.org/base/telemetry-controller-content;1"
       ],
-      "jsm": "resource://gre/modules/TelemetryControllerContent.jsm",
+      "esModule": "resource://gre/modules/TelemetryControllerContent.sys.mjs",
       "processes": 2,
       "constructor": "getTelemetryController",
       "categories": {
@@ -5140,26 +5172,16 @@
     },
     {
       "componentFile": "../mozilla/toolkit/components/xulstore/components.conf",
-      "cid": "{be70bf11-0c28-4a02-a38c-0148538d42cf}",
+      "js_name": "xulStore",
+      "cid": "{6f46b6f4-c8b1-4bd4-a4fa-9ebbed0753ea}",
       "contract_ids": [
         "@mozilla.org/xul/xulstore;1"
       ],
-      "type": "nsIXULStore",
-      "headers": [
-        "mozilla/XULStore.h"
-      ],
-      "singleton": true,
-      "constructor": "mozilla::XULStore::GetService"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/xulstore/components.conf",
-      "js_name": "xulStore",
-      "cid": "{e8e12dba-b942-4c0d-aa21-2843cfc64529}",
-      "contract_ids": [
-        "@mozilla.org/xul/js-xulstore;1"
+      "interfaces": [
+        "nsIXULStore"
       ],
       "jsm": "resource://gre/modules/XULStore.jsm",
-      "constructor": "getXULStore"
+      "constructor": "XULStore"
     },
     {
       "componentFile": "../mozilla/toolkit/mozapps/downloads/components.conf",
@@ -5226,7 +5248,7 @@
       "contract_ids": [
         "@mozilla.org/content-dispatch-chooser;1"
       ],
-      "jsm": "resource://gre/modules/ContentDispatchChooser.jsm",
+      "esModule": "resource://gre/modules/ContentDispatchChooser.sys.mjs",
       "constructor": "nsContentDispatchChooser"
     },
     {

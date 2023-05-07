@@ -5,13 +5,6 @@
       "kind": "ANY_COMMENT_$0",
       "doc": {
         "kind": "DOC_COMMENT",
-        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
-      }
-    },
-    {
-      "kind": "ANY_COMMENT_$0",
-      "doc": {
-        "kind": "DOC_COMMENT",
         "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
       }
     },
@@ -20,10 +13,14 @@
       "ident": "nsISupports"
     },
     {
+      "kind": "INCLUDE",
+      "ident": "nsIURI"
+    },
+    {
       "kind": "interface_main",
       "doc_comment": {
         "kind": "DOC_COMMENT",
-        "contents": "/**\n * This interface is implemented by an object that wants\n * to observe an event corresponding to a topic.\n */"
+        "contents": "/**\n * nsIURLQueryStringStripper is responsible for stripping certain part of the\n * query string of the given URI to address the bounce(redirect) tracking\n * issues. It will strip every query parameter which matches the strip list\n * defined in the pref 'privacy.query_stripping.strip_list'. Note that It's\n * different from URLDecorationStripper which strips the entire query string\n * from the referrer if there is a tracking query parameter present in the URI.\n *\n * TODO: Given that nsIURLQueryStringStripper and URLDecorationStripper are\n *       doing similar things. We could somehow combine these two modules into\n *       one. We will improve this in the future.\n */"
       },
       "attrs": {
         "kind": "attributes",
@@ -37,24 +34,16 @@
             "kind": "attributes_$0",
             "attr": {
               "kind": "attribute",
-              "name": "function",
-              "param": null
-            }
-          },
-          {
-            "kind": "attributes_$0",
-            "attr": {
-              "kind": "attribute",
               "name": "uuid",
               "param": {
                 "kind": "attribute_$0",
-                "value": "DB242E01-E4D9-11d2-9DDE-000064657374"
+                "value": "6b42a890-2624-4560-99c4-b25380e8cd77"
               }
             }
           }
         ]
       },
-      "name": "nsIObserver",
+      "name": "nsIURLQueryStringStripper",
       "base": {
         "kind": "ifacebase",
         "extends": "nsISupports"
@@ -70,23 +59,28 @@
                 "kind": "member_$0",
                 "docComment": [
                   {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n    * Observe will be called when there is a notification for the\n    * topic |aTopic|.  This assumes that the object implementing\n    * this interface has been registered with an observer service\n    * such as the nsIObserverService.\n    *\n    * If you expect multiple topics/subjects, the impl is\n    * responsible for filtering.\n    *\n    * You should not modify, add, remove, or enumerate\n    * notifications in the implemention of observe.\n    *\n    * @param aSubject : Notification specific interface pointer.\n    * @param aTopic   : The notification topic or subject.\n    * @param aData    : Notification specific wide string.\n    *                    subject event.\n    */"
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
                   }
                 ],
                 "code": {
                   "kind": "func",
                   "attributes": null,
-                  "return_type": "void",
-                  "name": "observe",
+                  "return_type": "uint32_t",
+                  "name": "strip",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "nsISupports",
-                      "name": "aSubject"
+                      "type": "nsIURI",
+                      "name": "aURI"
                     },
                     "other": [
                       {
@@ -95,8 +89,8 @@
                           "kind": "param",
                           "attribute": null,
                           "refType": "in",
-                          "type": "string",
-                          "name": "aTopic"
+                          "type": "bool",
+                          "name": "aIsPBM"
                         }
                       },
                       {
@@ -104,13 +98,32 @@
                         "param": {
                           "kind": "param",
                           "attribute": null,
-                          "refType": "in",
-                          "type": "wstring",
-                          "name": "aData"
+                          "refType": "out",
+                          "type": "nsIURI",
+                          "name": "aOutput"
                         }
                       }
                     ]
                   },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "ACString",
+                  "name": "testGetStripList",
+                  "params": null,
                   "raises": null
                 }
               }

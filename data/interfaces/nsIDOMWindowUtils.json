@@ -5392,25 +5392,6 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Get the current zoom factor.\n   * This is _approximately_ the same as nsIContentViewer.fullZoom,\n   * but takes into account Gecko's quantization of the zoom factor, which is\n   * implemented by adjusting the (integer) number of appUnits per devPixel.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "attribute_code",
-                  "attributes": null,
-                  "readonly": "readonly",
-                  "type": "float",
-                  "name": "fullZoom"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Dispatches aEvent as a synthesized trusted event for tests via the\n   * PresShell object of the window's document.\n   * The event is dispatched to aTarget, which should be an object\n   * which implements nsIContent interface (#element, #text, etc).\n   *\n   * Cannot be accessed from unprivileged context (not\n   * content-accessible) Will throw a DOM security error if called\n   * without chrome privileges.\n   *\n   * @note Event handlers won't get aEvent as parameter, but a similar event.\n   *       Also, aEvent should not be reused.\n   */"
                   }
                 ],
@@ -6149,7 +6130,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Synthesize a selection set event to the window.\n   *\n   * This sets the selection as the specified information.\n   *\n   * @param aOffset  The caret offset of the selection start.\n   * @param aLength  The length of the selection.  If this is too long, the\n   *                 extra length is ignored.\n   * @param aAdditionalFlags See the description of SELECTION_SET_FLAG_*.\n   * @return True, if succeeded.  Otherwise, false.\n   */"
+                    "contents": "/**\n   * Synthesize a selection set event to the window.\n   *\n   * This sets the selection as the specified information.\n   * Note that for avoiding unnecessary update from user and web app point of\n   * view, it compares aOffset and aLength with selection cache which is same\n   * as what is notified with NOTIFY_IME_OF_SELECTION_CHANGE.  Therefore, if\n   * the notification is still queued, this works different from user's\n   * scenario.  Therefore, before calling this, the caller should wait at least\n   * 2 animation frames if `Selection` was changed before.\n   *\n   * @param aOffset  The caret offset of the selection start.\n   * @param aLength  The length of the selection.  If this is too long, the\n   *                 extra length is ignored.\n   * @param aAdditionalFlags See the description of SELECTION_SET_FLAG_*.\n   * @return True, if succeeded.  Otherwise, false.\n   */"
                   }
                 ],
                 "code": {

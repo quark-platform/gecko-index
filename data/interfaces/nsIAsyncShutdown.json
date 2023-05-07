@@ -12,7 +12,7 @@
       "kind": "ANY_COMMENT_$0",
       "doc": {
         "kind": "DOC_COMMENT",
-        "contents": "/**\n * A mechanism for specifying shutdown dependencies between\n * asynchronous services.\n *\n * Note that this XPCOM component is designed primarily for C++\n * clients. JavaScript clients should rather use AsyncShutdown.jsm,\n * which provides a better API and better error reporting for them.\n */"
+        "contents": "/**\n * A mechanism for specifying shutdown dependencies between\n * asynchronous services.\n *\n * Note that this XPCOM component is designed primarily for C++\n * clients. JavaScript clients should rather use AsyncShutdown.sys.mjs,\n * which provides a better API and better error reporting for them.\n */"
       }
     },
     {
@@ -209,7 +209,26 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Add a blocker.\n   *\n   * After a `blocker` has been added with `addBlocker`, if it is not\n   * removed with `removeBlocker`, this will, by design, eventually\n   * CAUSE A CRASH.\n   *\n   * Calling `addBlocker` once nsIAsyncShutdownBarrier::wait() has been\n   * called on the owning barrier returns an error.\n   *\n   * @param aBlocker The blocker to add. Once\n   * nsIAsyncShutdownBarrier::wait() has been called, it will not\n   * call its `aOnReady` callback until all blockers have been\n   * removed, each  by a call to `removeBlocker`.\n   * @param aFileName The filename of the callsite, as given by `__FILE__`.\n   * @param aLineNumber The linenumber of the callsite, as given by `__LINE__`.\n   * @param aStack Information on the stack that lead to this call. Generally\n   * empty when called from C++.\n   */"
+                    "contents": "/**\n   * Whether the client is still open for new blockers.\n   * When this is true it is too late to add new blockers and addBlocker will\n   * throw an exception.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isClosed"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Add a blocker.\n   *\n   * After a `blocker` has been added with `addBlocker`, if it is not\n   * removed with `removeBlocker`, this will, by design, eventually\n   * CAUSE A CRASH.\n   *\n   * Calling `addBlocker` once nsIAsyncShutdownBarrier::wait() has been\n   * called on the owning barrier returns an error.\n   *\n   * @param aBlocker The blocker to add. Once\n   * nsIAsyncShutdownBarrier::wait() has been called, it will not\n   * call its `aOnReady` callback until all blockers have been\n   * removed, each  by a call to `removeBlocker`.\n   * @param aFileName The filename of the callsite, as given by `__FILE__`.\n   * @param aLineNumber The linenumber of the callsite, as given by `__LINE__`.\n   * @param aStack Information on the stack that lead to this call. Generally\n   * empty when called from C++.\n   * @throws If it's too late to add a blocker.\n   * @see isClosed.\n   */"
                   }
                 ],
                 "code": {
@@ -300,7 +319,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * The JS implementation of the client.\n   *\n   * It is strongly recommended that JS clients of this API use\n   * `jsclient` instead of the `nsIAsyncShutdownClient`. See\n   * AsyncShutdown.jsm for more information on the JS version of\n   * this API.\n   */"
+                    "contents": "/**\n   * The JS implementation of the client.\n   *\n   * It is strongly recommended that JS clients of this API use\n   * `jsclient` instead of the `nsIAsyncShutdownClient`. See\n   * AsyncShutdown.sys.mjs for more information on the JS version of\n   * this API.\n   */"
                   }
                 ],
                 "code": {

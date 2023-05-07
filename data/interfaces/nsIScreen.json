@@ -12,7 +12,11 @@
       "kind": "INCLUDE",
       "ident": "nsISupports"
     },
-    "%{C++\n#include \"Units.h\"\n\n/**\n * The display type of nsIScreen belongs to.\n */\nenum class DisplayType: int32_t {\n  DISPLAY_PRIMARY,  // primary screen\n  DISPLAY_EXTERNAL, // wired displays, such as HDMI, DisplayPort, etc.\n  DISPLAY_VIRTUAL   // wireless displays, such as Chromecast, WiFi-Display, etc.\n};\n%}\n\n",
+    "%{C++\n#include \"Units.h\"\n\nnamespace mozilla::dom {\n// TODO(zrhoffman, bug 1444515): ScreenColorGamut should be forward-declared\n// using `webidl` once the webidl identifier supports enums.\nenum class ScreenColorGamut : uint8_t;\n}  // namespace mozilla::dom\n\n/**\n * The display type of nsIScreen belongs to.\n */\nenum class DisplayType: int32_t {\n  DISPLAY_PRIMARY,  // primary screen\n  DISPLAY_EXTERNAL, // wired displays, such as HDMI, DisplayPort, etc.\n  DISPLAY_VIRTUAL   // wireless displays, such as Chromecast, WiFi-Display, etc.\n};\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
     {
       "kind": "interface_main",
       "doc_comment": null,
@@ -346,6 +350,25 @@
                   "readonly": "readonly",
                   "type": "long",
                   "name": "colorDepth"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * ScreenColorGamut is native type, which cannot be declared [infallible].\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ScreenColorGamut",
+                  "name": "colorGamut"
                 }
               }
             },

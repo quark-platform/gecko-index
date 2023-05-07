@@ -161,6 +161,43 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Thread QoS priorities. Currently only supported on MacOS.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "QoSPriority",
+                  "base": "32",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "QOS_PRIORITY_NORMAL",
+                      "value": null
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "QOS_PRIORITY_LOW",
+                          "value": null
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Shutdown the thread.  This method prevents further dispatch of events to\n   * the thread, and it causes any pending events to run to completion before\n   * the thread joins (see PR_JoinThread) with the current thread.  During this\n   * method call, events for the current thread may be processed.\n   *\n   * This method MAY NOT be executed from the thread itself.  Instead, it is\n   * meant to be executed from another thread (usually the thread that created\n   * this thread or the main application thread).  When this function returns,\n   * the thread will be shutdown, and it will no longer be possible to dispatch\n   * events to the thread.\n   *\n   * @throws NS_ERROR_UNEXPECTED\n   *   Indicates that this method was erroneously called when this thread was\n   *   the current thread, that this thread was not created with a call to\n   *   nsIThreadManager::NewThread, or if this method was called more than once\n   *   on the thread object.\n   */"
                   }
                 ],
@@ -340,99 +377,6 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Use this attribute to dispatch runnables to the thread. Eventually, the\n   * eventTarget attribute will be the only way to dispatch events to a\n   * thread--nsIThread will no longer inherit from nsIEventTarget.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "attribute_code",
-                  "attributes": null,
-                  "readonly": "readonly",
-                  "type": "nsIEventTarget",
-                  "name": "eventTarget"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * A fast C++ getter for the eventTarget.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": {
-                    "kind": "attributes",
-                    "first_attribute": {
-                      "kind": "attribute",
-                      "name": "noscript",
-                      "param": null
-                    },
-                    "other_attributes": [
-                      {
-                        "kind": "attributes_$0",
-                        "attr": {
-                          "kind": "attribute",
-                          "name": "notxpcom",
-                          "param": null
-                        }
-                      }
-                    ]
-                  },
-                  "return_type": "nsIEventTargetPtr",
-                  "name": "EventTarget",
-                  "params": null,
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * A fast C++ getter for the eventTarget. It asserts that the thread's event\n   * target is an nsISerialEventTarget and then returns it.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": {
-                    "kind": "attributes",
-                    "first_attribute": {
-                      "kind": "attribute",
-                      "name": "noscript",
-                      "param": null
-                    },
-                    "other_attributes": [
-                      {
-                        "kind": "attributes_$0",
-                        "attr": {
-                          "kind": "attribute",
-                          "name": "notxpcom",
-                          "param": null
-                        }
-                      }
-                    ]
-                  },
-                  "return_type": "nsISerialEventTargetPtr",
-                  "name": "SerialEventTarget",
-                  "params": null,
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * This is set to the end of the last 50+ms event that was executed on\n   * this thread (for MainThread only).  Otherwise returns a null TimeStamp.\n   */"
                   }
                 ],
@@ -599,6 +543,44 @@
                       "refType": "in",
                       "type": "ACString",
                       "name": "name"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set the QoS priority of threads where this may be available. Currently\n   * restricted to MacOS. Must be on the thread to call this method.\n   *\n   * @param aPriority\n   *   The specified priority we will adjust to. Can be low (background) or\n   *   normal (default / user-interactive)\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "setThreadQoS",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIThread_QoSPriority",
+                      "name": "aPriority"
                     },
                     "other": []
                   },

@@ -260,13 +260,33 @@
                 "docComment": [
                   {
                     "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "short",
+                  "name": "SELECTION_HIGHLIGHT",
+                  "value": "11"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
                   }
                 ],
                 "code": {
                   "kind": "const_code",
                   "type": "short",
                   "name": "NUM_SELECTIONTYPES",
-                  "value": "11"
+                  "value": "12"
                 }
               }
             },
@@ -1422,6 +1442,6 @@
       }
     },
     "\n",
-    "%{ C++\n   #define NS_ISELECTIONCONTROLLER_CID \\\n   { 0x513b9460, 0xd56a, 0x4c4e, \\\n   { 0xb6, 0xf9, 0x0b, 0x8a, 0xe4, 0x37, 0x2a, 0x3b }}\n\nnamespace mozilla {\n\n// RawSelectionType should be used to store nsISelectionController::SELECTION_*.\ntypedef short RawSelectionType;\n\n// SelectionTypeMask should be used to store bit-mask of selection types.\n// The value can be retrieved with ToSelectionTypeMask() and checking if\n// a selection type is in a mask with |SelectionType & SelectionTypeMask|.\ntypedef uint16_t SelectionTypeMask;\n\n// SelectionType should be used in internal handling because of type safe.\nenum class SelectionType : RawSelectionType\n{\n  eInvalid = -1,\n  eNone = nsISelectionController::SELECTION_NONE,\n  eNormal = nsISelectionController::SELECTION_NORMAL,\n  eSpellCheck = nsISelectionController::SELECTION_SPELLCHECK,\n  eIMERawClause = nsISelectionController::SELECTION_IME_RAWINPUT,\n  eIMESelectedRawClause = nsISelectionController::SELECTION_IME_SELECTEDRAWTEXT,\n  eIMEConvertedClause = nsISelectionController::SELECTION_IME_CONVERTEDTEXT,\n  eIMESelectedClause =\n    nsISelectionController::SELECTION_IME_SELECTEDCONVERTEDTEXT,\n  eAccessibility = nsISelectionController::SELECTION_ACCESSIBILITY,\n  eFind = nsISelectionController::SELECTION_FIND,\n  eURLSecondary = nsISelectionController::SELECTION_URLSECONDARY,\n  eURLStrikeout = nsISelectionController::SELECTION_URLSTRIKEOUT,\n};\n\n// Using anonymous enum to define constants because these constants may be\n// used at defining fixed size array in some header files (e.g.,\n// nsFrameSelection.h).  So, the values needs to be defined here, but we cannot\n// use static/const even with extern since it causes failing to link or\n// initializes them after such headers.\nenum : size_t\n{\n  // kSelectionTypeCount is number of SelectionType.\n  kSelectionTypeCount = nsISelectionController::NUM_SELECTIONTYPES,\n};\n\n// kPresentSelectionTypes is selection types which may be displayed.\n// I.e., selection types except eNone.\nstatic const SelectionType kPresentSelectionTypes[] = {\n  SelectionType::eNormal,\n  SelectionType::eSpellCheck,\n  SelectionType::eIMERawClause,\n  SelectionType::eIMESelectedRawClause,\n  SelectionType::eIMEConvertedClause,\n  SelectionType::eIMESelectedClause,\n  SelectionType::eAccessibility,\n  SelectionType::eFind,\n  SelectionType::eURLSecondary,\n  SelectionType::eURLStrikeout,\n};\n\n// Please include mozilla/dom/Selection.h for the following APIs.\nconst char* ToChar(SelectionType aSelectionType);\ninline bool IsValidRawSelectionType(RawSelectionType aRawSelectionType);\ninline SelectionType ToSelectionType(RawSelectionType aRawSelectionType);\ninline RawSelectionType ToRawSelectionType(SelectionType aSelectionType);\ninline SelectionTypeMask ToSelectionTypeMask(SelectionType aSelectionType);\n\n} // namespace mozilla\n%}\n"
+    "%{ C++\n   #define NS_ISELECTIONCONTROLLER_CID \\\n   { 0x513b9460, 0xd56a, 0x4c4e, \\\n   { 0xb6, 0xf9, 0x0b, 0x8a, 0xe4, 0x37, 0x2a, 0x3b }}\n\nnamespace mozilla {\n\n// RawSelectionType should be used to store nsISelectionController::SELECTION_*.\ntypedef short RawSelectionType;\n\n// SelectionTypeMask should be used to store bit-mask of selection types.\n// The value can be retrieved with ToSelectionTypeMask() and checking if\n// a selection type is in a mask with |SelectionType & SelectionTypeMask|.\ntypedef uint16_t SelectionTypeMask;\n\n// SelectionType should be used in internal handling because of type safe.\nenum class SelectionType : RawSelectionType\n{\n  eInvalid = -1,\n  eNone = nsISelectionController::SELECTION_NONE,\n  eNormal = nsISelectionController::SELECTION_NORMAL,\n  eSpellCheck = nsISelectionController::SELECTION_SPELLCHECK,\n  eIMERawClause = nsISelectionController::SELECTION_IME_RAWINPUT,\n  eIMESelectedRawClause = nsISelectionController::SELECTION_IME_SELECTEDRAWTEXT,\n  eIMEConvertedClause = nsISelectionController::SELECTION_IME_CONVERTEDTEXT,\n  eIMESelectedClause =\n    nsISelectionController::SELECTION_IME_SELECTEDCONVERTEDTEXT,\n  eAccessibility = nsISelectionController::SELECTION_ACCESSIBILITY,\n  eFind = nsISelectionController::SELECTION_FIND,\n  eURLSecondary = nsISelectionController::SELECTION_URLSECONDARY,\n  eURLStrikeout = nsISelectionController::SELECTION_URLSTRIKEOUT,\n  eHighlight = nsISelectionController::SELECTION_HIGHLIGHT,\n};\n\n// Using anonymous enum to define constants because these constants may be\n// used at defining fixed size array in some header files (e.g.,\n// nsFrameSelection.h).  So, the values needs to be defined here, but we cannot\n// use static/const even with extern since it causes failing to link or\n// initializes them after such headers.\nenum : size_t\n{\n  // kSelectionTypeCount is number of SelectionType.\n  kSelectionTypeCount = nsISelectionController::NUM_SELECTIONTYPES,\n};\n\n// kPresentSelectionTypes is selection types which may be displayed.\n// I.e., selection types except eNone.\nstatic const SelectionType kPresentSelectionTypes[] = {\n  SelectionType::eNormal,\n  SelectionType::eSpellCheck,\n  SelectionType::eIMERawClause,\n  SelectionType::eIMESelectedRawClause,\n  SelectionType::eIMEConvertedClause,\n  SelectionType::eIMESelectedClause,\n  SelectionType::eAccessibility,\n  SelectionType::eFind,\n  SelectionType::eURLSecondary,\n  SelectionType::eURLStrikeout,\n  SelectionType::eHighlight,\n};\n\n// Please include mozilla/dom/Selection.h for the following APIs.\nconst char* ToChar(SelectionType aSelectionType);\ninline bool IsValidRawSelectionType(RawSelectionType aRawSelectionType);\ninline SelectionType ToSelectionType(RawSelectionType aRawSelectionType);\ninline RawSelectionType ToRawSelectionType(SelectionType aSelectionType);\ninline SelectionTypeMask ToSelectionTypeMask(SelectionType aSelectionType);\n\n} // namespace mozilla\n%}\n"
   ]
 }

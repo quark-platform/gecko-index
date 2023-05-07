@@ -167,7 +167,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Set the datetime to the provided value, or the local now.\n   *\n   * @param aValue The time value in milliseconds since epoch. Defaults to local now.\n   */"
+                    "contents": "/**\n   * Set the datetime to the provided value, or the local now.\n   * The internal value will store the local timezone.\n   *\n   * Note: The metric's time_unit affects the resolution of the value, not the\n   *       unit of this function's parameter (which is always PRTime/nanos).\n   *\n   * @param aValue The (optional) time value as PRTime (nanoseconds since epoch).\n   *        Defaults to local now.\n   */"
                   }
                 ],
                 "code": {
@@ -213,7 +213,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * **Test-only API**\n   *\n   * Gets the currently stored value as an integer.\n   *\n   * This function will attempt to await the last parent-process task (if any)\n   * writing to the the metric's storage engine before returning a value.\n   * This function will not wait for data from child processes.\n   *\n   * This doesn't clear the stored value.\n   * Parent process only. Panics in child processes.\n   *\n   * @param aPingName The (optional) name of the ping to retrieve the metric\n   *        for. Defaults to the first value in `send_in_pings`.\n   *\n   * @return value of the stored metric, or undefined if there is no value.\n   */"
+                    "contents": "/**\n   * **Test-only API**\n   *\n   * Gets the currently stored value as an integer.\n   *\n   * This function will attempt to await the last parent-process task (if any)\n   * writing to the the metric's storage engine before returning a value.\n   * This function will not wait for data from child processes.\n   *\n   * This doesn't clear the stored value.\n   * Parent process only. Panics in child processes.\n   *\n   * @param aPingName The (optional) name of the ping to retrieve the metric\n   *        for. Defaults to the first value in `send_in_pings`.\n   *\n   * @return value of the stored metric as a JS Date with timezone,\n   *         or undefined if there is no value.\n   */"
                   }
                 ],
                 "code": {

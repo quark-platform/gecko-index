@@ -29,6 +29,10 @@
       "ident": "nsIURI"
     },
     {
+      "kind": "webidl"
+    },
+    "\n\n",
+    {
       "kind": "interface_main",
       "doc_comment": {
         "kind": "DOC_COMMENT",
@@ -72,7 +76,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Modes for cookie banner handling\n   * MODE_DISABLED - No cookie banner handling, service disabled.\n   * MODE_REJECT - Only handle banners where selecting \"reject all\" is possible.\n   * MODE_REJECT_OR_ACCEPT - Prefer selecting \"reject all\", if not possible\n   * fall back to \"accept all\".\n   * MODE_DETECT_ONLY - Detect cookie banners but do not handle them. In this\n   * mode telemetry will still be reported and cookie banner events will be\n   * dispatched if a cookie banner is showing. Use MODE_DISABLED to completely\n   * disable the component.\n   * MODE_UNSET - This represents the service mode is unset, the setting should\n   * fall back to default setting. This is used for the per-domain preferences.\n   */"
+                    "contents": "/**\n   * Modes for cookie banner handling\n   * MODE_DISABLED - No cookie banner handling, service disabled.\n   * MODE_REJECT - Only handle banners where selecting \"reject all\" is possible.\n   * MODE_REJECT_OR_ACCEPT - Prefer selecting \"reject all\", if not possible\n   * fall back to \"accept all\".\n   * MODE_UNSET - This represents the service mode is unset, the setting should\n   * fall back to default setting. This is used for the per-domain preferences.\n   */"
                   }
                 ],
                 "code": {
@@ -103,15 +107,6 @@
                           "kind": "cenum",
                           "comment": [],
                           "identifier": "MODE_REJECT_OR_ACCEPT",
-                          "value": null
-                        }
-                      },
-                      {
-                        "kind": "cenumlist_$0",
-                        "value": {
-                          "kind": "cenum",
-                          "comment": [],
-                          "identifier": "MODE_DETECT_ONLY",
                           "value": null
                         }
                       },
@@ -214,7 +209,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Look up all cookie rules for a given URI. Depending on the MODE_ this will\n   * return none, only reject rules or accept rules if there is no reject rule\n   * available.\n   */"
+                    "contents": "/**\n   * Look up all cookie rules for a given top-level URI. Depending on the MODE_\n   * this will return none, only reject rules or accept rules if there is no\n   * reject rule available.\n   */"
                   }
                 ],
                 "code": {
@@ -360,6 +355,36 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Computes whether we have a rule for the given browsing context or any of\n   * its children. This takes the current cookie banner service mode into\n   * consideration and whether the BC is in private browsing mode.\n   *\n   * This method only takes the global service mode into account. It will ignore\n   * any per-site mode overrides. It is meant for callers to find out whether an\n   * applicable rule exists, even if users have disabled the feature for the\n   * given site.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "boolean",
+                  "name": "hasRuleForBrowsingContextTree",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "BrowsingContext",
+                      "name": "aBrowsingContext"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Get the domain preference of the given top-level URI. It will return the\n   * service mode if there is a site preference for the given URI. Otherwise, it\n   * will return MODE_UNSET.\n   */"
                   }
                 ],
@@ -437,6 +462,47 @@
                           "refType": "in",
                           "type": "boolean",
                           "name": "aIsPrivate"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set the domain preference of the given top-level URI. It will persist the\n   * domain preference for private browsing.\n   *\n   * WARNING: setting permanent domain preference _will_ leak data in private\n   * browsing. Only use if you understand the consequences and trade-offs. If\n   * you are unsure, |setDomainPref| is very likely what you want to use\n   * instead.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "setDomainPrefAndPersistInPrivateBrowsing",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aTopLevelURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsICookieBannerService_Modes",
+                          "name": "aMode"
                         }
                       }
                     ]

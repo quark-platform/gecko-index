@@ -97,36 +97,15 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Give hint to native event queue notification mechanism. If the native\n   * platform needs to tradeoff performance vs. native event starvation this\n   * hint tells the native dispatch code which to favor.  The default is to\n   * prevent native event starvation.\n   *\n   * Calls to this function may be nested. When the number of calls that pass\n   * PR_TRUE is subtracted from the number of calls that pass PR_FALSE is\n   * greater than 0, performance is given precedence over preventing event\n   * starvation.\n   *\n   * The starvationDelay arg is only used when favorPerfOverStarvation is\n   * PR_FALSE. It is the amount of time in milliseconds to wait before the\n   * PR_FALSE actually takes effect.\n   */"
+                    "contents": "/**\n   * Ask the native event queue notification mechanism to favor Gecko tasks\n   * (instead of native tasks) for a short while. (Content processes always\n   * favor Gecko tasks.)\n   */"
                   }
                 ],
                 "code": {
                   "kind": "func",
                   "attributes": null,
                   "return_type": "void",
-                  "name": "favorPerformanceHint",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "boolean",
-                      "name": "favorPerfOverStarvation"
-                    },
-                    "other": [
-                      {
-                        "kind": "paramlist_$0",
-                        "param": {
-                          "kind": "param",
-                          "attribute": null,
-                          "refType": "in",
-                          "type": "unsigned long",
-                          "name": "starvationDelay"
-                        }
-                      }
-                    ]
-                  },
+                  "name": "geckoTaskBurst",
+                  "params": null,
                   "raises": null
                 }
               }

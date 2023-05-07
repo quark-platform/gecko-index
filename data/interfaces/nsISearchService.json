@@ -148,7 +148,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Gets a nsISearchSubmission object that contains information about what to\n   * send to the search engine, including the URI and postData, if applicable.\n   *\n   * @param  data\n   *         Data to add to the submission object.\n   *         i.e. the search terms.\n   *\n   * @param  responseType [optional]\n   *         The MIME type that we'd like to receive in response\n   *         to this submission.  If null, will default to \"text/html\".\n   *\n   * @param purpose [optional]\n   *        A string meant to indicate the context of the search request. This\n   *        allows the search service to provide a different nsISearchSubmission\n   *        depending on e.g. where the search is triggered in the UI.\n   *\n   * @returns A nsISearchSubmission object that contains information about what\n   *          to send to the search engine.  If no submission can be\n   *          obtained for the given responseType, returns null.\n   */"
+                    "contents": "/**\n   * Gets a nsISearchSubmission object that contains information about what to\n   * send to the search engine, including the URI and postData, if applicable.\n   *\n   * @param searchTerms\n   *   The search term(s) for the submission.\n   *\n   * @param responseType [optional]\n   *   The MIME type that we'd like to receive in response\n   *   to this submission.  If null, will default to \"text/html\".\n   *\n   * @param purpose [optional]\n   *   A string that indicates the context of the search request. This may then\n   *   be used to provide different submission data depending on the context.\n   *\n   * @returns nsISearchSubmission\n   *   The submission data. If no appropriate submission can be determined for\n   *   the request type, this may be null.\n   */"
                   }
                 ],
                 "code": {
@@ -163,7 +163,7 @@
                       "attribute": null,
                       "refType": "in",
                       "type": "AString",
-                      "name": "data"
+                      "name": "searchTerms"
                     },
                     "other": [
                       {
@@ -539,7 +539,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * A URL string pointing to the engine's search form.\n   */"
+                    "contents": "/**\n   * The searchForm URL points to the engine's organic search page. This should\n   * not contain neither search term parameters nor partner codes, but may\n   * contain parameters which set the engine in the correct way.\n   *\n   * This URL is typically the prePath and filePath of the search submission URI,\n   * but may vary for different engines. For example, some engines may use a\n   * different domain, e.g. https://sub.example.com for the search URI but\n   * https://example.org/ for the organic search page.\n   */"
                   }
                 ],
                 "code": {

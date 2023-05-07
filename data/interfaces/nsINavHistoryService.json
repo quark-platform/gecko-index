@@ -151,15 +151,6 @@
       "base": null,
       "body": null
     },
-    "\n",
-    {
-      "kind": "interface_main",
-      "doc_comment": null,
-      "attrs": null,
-      "name": "nsINavHistoryBatchCallback",
-      "base": null,
-      "body": null
-    },
     "\n\n",
     {
       "kind": "interface_main",
@@ -1047,7 +1038,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Whether the observer is interested into history details changes.\n   * Those include visits additions and removals. If the observer doesn't\n   * provide this attribute, it will default to true.\n   * In practice, the observer won't receive nodeHistoryDetailsChanged.\n   * Note: this is only read when the observer is added, it cannot be changed\n   * dynamically.\n   */"
+                    "contents": "/**\n   * Whether the observer is interested into history details changes.\n   * Those include visits additions and removals. If the observer doesn't\n   * provide this attribute, it will default to false.\n   * In practice, the observer won't receive nodeHistoryDetailsChanged.\n   * Note: this is only read when the observer is added, it cannot be changed\n   * dynamically.\n   */"
                   }
                 ],
                 "code": {
@@ -1055,7 +1046,7 @@
                   "attributes": null,
                   "readonly": "readonly",
                   "type": "boolean",
-                  "name": "observeHistoryDetails"
+                  "name": "skipHistoryDetailsNotifications"
                 }
               }
             },
@@ -4017,6 +4008,44 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether frecency is in the process of being decayed. The value can also\n   * be read through the is_frecency_decaying() SQL function exposed by Places\n   * database connections.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "isFrecencyDecaying"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This is set to true when a frecency is invalidated and set back to false\n   * when all the outdated values have been recalculated.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "shouldStartFrecencyRecalculation"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * The database connection used by Places.\n   */"
                   }
                 ],
@@ -4115,26 +4144,6 @@
                   "readonly": "readonly",
                   "type": "nsIAsyncShutdownClient",
                   "name": "connectionShutdownClient"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Asynchronously recalculates frecency for all pages where frecency < 0, then\n   * decays frecency and inputhistory values.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "decayFrecency",
-                  "params": null,
-                  "raises": null
                 }
               }
             }

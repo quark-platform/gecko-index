@@ -166,13 +166,21 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * If callbacks for the given Windows-specific tag string will be handled by\n   * this Firefox process, set the associated event.\n   *\n   * @param {AString} aWindowsTag the tag\n   * @param {nsIUnhandledWindowsTagListener} aListener the listener to callback\n   * if the tag is unknown and has an associated launch URL.\n   * @return {boolean} `true` iff the tag is registered and an event was set.\n   */"
+                    "contents": "/**\n   * If callbacks for the given Windows-specific tag string will be handled by\n   * this Firefox process, set the associated event.\n   *\n   * @param {AString} aWindowsTag the tag\n   * @return {Promise}\n   * @resolves {Object}\n   *           Resolves with an Object, may contain the following optional\n   *           properties if notification exists but wasn't registered with\n   *           the WindowsAlertService:\n   *\n   *           `launchUrl` {string} a fallback URL to open.\n   *\n   *           `privilegedName` {string} a privileged name assigned by the\n   *                            browser chrome.\n   *\n   * @rejects `nsresult` when there was an error retrieving the notification.\n   */"
                   }
                 ],
                 "code": {
                   "kind": "func",
-                  "attributes": null,
-                  "return_type": "bool",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
                   "name": "handleWindowsTag",
                   "params": {
                     "kind": "paramlist",
@@ -183,18 +191,7 @@
                       "type": "AString",
                       "name": "aWindowsTag"
                     },
-                    "other": [
-                      {
-                        "kind": "paramlist_$0",
-                        "param": {
-                          "kind": "param",
-                          "attribute": null,
-                          "refType": "in",
-                          "type": "nsIUnknownWindowsTagListener",
-                          "name": "aListener"
-                        }
-                      }
-                    ]
+                    "other": []
                   },
                   "raises": null
                 }

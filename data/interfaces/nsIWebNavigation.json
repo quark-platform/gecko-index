@@ -772,7 +772,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Loads a given URI.  This will give priority to loading the requested URI\n   * in the object implementing this interface.  If it can't be loaded here\n   * however, the URI dispatcher will go through its normal process of content\n   * loading.\n   *\n   * @param aURI\n   *        The URI string to load.  For HTTP and FTP URLs and possibly others,\n   *        characters above U+007F will be converted to UTF-8 and then URL-\n   *        escaped per the rules of RFC 2396.\n   * @param aLoadURIOptions\n   *        A JSObject defined in LoadURIOptions.webidl holding info like e.g.\n   *        the triggeringPrincipal, the referrer info.\n   */"
+                    "contents": "/**\n   * Loads a given URI.  This will give priority to loading the requested URI\n   * in the object implementing this interface.  If it can't be loaded here\n   * however, the URI dispatcher will go through its normal process of content\n   * loading.\n   *\n   * @param aURI\n   *        The URI to load.\n   * @param aLoadURIOptions\n   *        A JSObject defined in LoadURIOptions.webidl holding info like e.g.\n   *        the triggeringPrincipal, the referrer info.\n   */"
                   }
                 ],
                 "code": {
@@ -806,8 +806,69 @@
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "AString",
+                      "type": "nsIURI",
                       "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "jsval",
+                          "name": "aLoadURIOptions"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Parse / fix up a URI out of the string and load it.\n   * This will give priority to loading the requested URI\n   * in the object implementing this interface.  If it can't be loaded here\n   * however, the URI dispatcher will go through its normal process of content\n   * loading.\n   *\n   * @param aURIString\n   *        The URI string to load.  For HTTP and FTP URLs and possibly others,\n   *        characters above U+007F will be converted to UTF-8 and then URL-\n   *        escaped per the rules of RFC 2396.\n   *        This method may use nsIURIFixup to try to fix up typos etc. in the\n   *        input string based on the load flag arguments in aLoadURIOptions.\n   *        It can even convert the input to a search results page using the\n   *        default search service.\n   *        If you have an nsIURI anyway, prefer calling `loadURI`, above.\n   * @param aLoadURIOptions\n   *        A JSObject defined in LoadURIOptions.webidl holding info like e.g.\n   *        the triggeringPrincipal, the referrer info.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "FixupAndLoadURIStringFromScript"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "fixupAndLoadURIString",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aURIString"
                     },
                     "other": [
                       {
@@ -867,8 +928,69 @@
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "AString",
+                      "type": "nsIURI",
                       "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "LoadURIOptionsRef",
+                          "name": "aLoadURIOptions"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * A C++ friendly version of fixupAndLoadURIString\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "nostdcall",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "binaryname",
+                          "param": {
+                            "kind": "attribute_$0",
+                            "value": "FixupAndLoadURIString"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "binaryFixupAndLoadURIString",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aURIString"
                     },
                     "other": [
                       {

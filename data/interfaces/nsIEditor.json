@@ -16,6 +16,7 @@
       "kind": "INCLUDE",
       "ident": "domstubs"
     },
+    "%{C++\n#include \"mozilla/Debug.h\"\n%}\n\n",
     {
       "kind": "interface_main",
       "doc_comment": null,
@@ -224,6 +225,14 @@
               "contents": {
                 "kind": "member_$0",
                 "docComment": [],
+                "code": "%{C++\n  static bool EDirectionIsValid(EDirection aDirectionAndAmount) {\n    return aDirectionAndAmount == nsIEditor::eNone ||\n           aDirectionAndAmount == nsIEditor::eNext ||\n           aDirectionAndAmount == nsIEditor::ePrevious ||\n           aDirectionAndAmount == nsIEditor::eNextWord ||\n           aDirectionAndAmount == nsIEditor::ePreviousWord ||\n           aDirectionAndAmount == nsIEditor::eToBeginningOfLine ||\n           aDirectionAndAmount == nsIEditor::eToEndOfLine;\n  }\n  static bool EDirectionIsValidExceptNone(EDirection aDirectionAndAmount) {\n    return aDirectionAndAmount != nsIEditor::eNone &&\n           EDirectionIsValid(aDirectionAndAmount);\n  }\n\n  /**\n   * Return true if nsIEditor::EDirection value means the direction of pressing\n   * `Backspace` key.\n   */\n  [[nodiscard]] static bool DirectionIsBackspace(\n    EDirection aDirectionAndAmount) {\n    MOZ_ASSERT(EDirectionIsValid(aDirectionAndAmount));\n    return aDirectionAndAmount == nsIEditor::ePrevious ||\n           aDirectionAndAmount == nsIEditor::ePreviousWord ||\n           aDirectionAndAmount == nsIEditor::eToBeginningOfLine;\n  }\n\n  /**\n   * Return true if nsIEditor::EDirection value means the direction of pressing\n   * `Delete` key (forwardDelete).\n   */\n  [[nodiscard]] static bool DirectionIsDelete(\n    EDirection aDirectionAndAmount) {\n    MOZ_ASSERT(EDirectionIsValid(aDirectionAndAmount));\n    return aDirectionAndAmount == nsIEditor::eNext ||\n           aDirectionAndAmount == nsIEditor::eNextWord ||\n           aDirectionAndAmount == nsIEditor::eToEndOfLine;\n  }\n%}\n\n  "
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
                 "code": {
                   "kind": "const_code",
                   "type": "short",
@@ -310,6 +319,21 @@
               "contents": {
                 "kind": "member_$0",
                 "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
                   {
                     "kind": "SINGLE_LINE_COMMENT"
                   },
