@@ -17,39 +17,42 @@ import { TypeEstimation, generateEstimation } from './esm/typeEstimation.js'
 import { getInfo } from './shared/general.js'
 import { mkdir } from 'fs/promises'
 
-interface BaseExport {
+export * from './esm/objectProperties.js'
+export * from './esm/typeEstimation.js'
+
+export interface BaseExport {
   id: string
   line: number
 }
 
-interface Params extends BaseExport {
+export interface Params extends BaseExport {
   type: 'params'
 }
 
-interface Method extends BaseExport {
+export interface Method extends BaseExport {
   type: 'method'
   kind: 'method' | 'get' | 'set' | 'constructor'
   params: Params[]
   comments?: Block[]
 }
 
-interface ClassExport extends BaseExport {
+export interface ClassExport extends BaseExport {
   type: 'class'
   methods: Method[]
 }
 
-interface VariableDeclarationExport extends BaseExport {
+export interface VariableDeclarationExport extends BaseExport {
   type: 'variable-declaration'
   comments?: Block[]
   typeEstimation?: TypeEstimation
 }
 
-interface FunctionDeclarationExport extends BaseExport {
+export interface FunctionDeclarationExport extends BaseExport {
   type: 'function-declaration'
   params: string[]
 }
 
-type ExportType =
+export type ExportType =
   | ClassExport
   | VariableDeclarationExport
   | FunctionDeclarationExport

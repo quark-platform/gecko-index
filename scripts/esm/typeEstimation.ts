@@ -9,16 +9,16 @@ import type { Block } from 'comment-parser/primitives'
 import * as comments from './comments.js'
 import * as objectProperties from './objectProperties.js'
 
-interface BaseEstimation {
+export interface BaseEstimation {
   comments?: Block[]
 }
 
-interface ObjectEstimation extends BaseEstimation {
+export interface ObjectEstimation extends BaseEstimation {
   type: 'object-estimation'
   keys?: objectProperties.ParsedObjectProperty[]
 }
 
-interface NumberEstimation extends BaseEstimation {
+export interface NumberEstimation extends BaseEstimation {
   type: 'number-estimation'
   defaultValue?: number
 }
