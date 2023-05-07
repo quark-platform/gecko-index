@@ -30,6 +30,21 @@
           "union": false,
           "idlType": "nsIDOMProcessChild"
         }
+      },
+      {
+        "type": "attribute",
+        "name": "aliveUtilityProcesses",
+        "trivia": "The number of currently alive utility processes.",
+        "introduced": "112.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long"
+        }
       }
     ],
     "methods": [
@@ -568,6 +583,62 @@
       },
       {
         "type": "method",
+        "name": "defineLazyGetter",
+        "trivia": "Defines a getter on a specified object that will be created upon first\nuse.\n\n@param aTarget\nThe object to define the lazy getter on.\n@param aName\nThe name of the getter to define on aTarget.\n@param aLambda\nA function that returns what the getter should return.  This will\nonly ever be called once.",
+        "introduced": "112.0.2",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "aTarget",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "aName",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "any"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "aLambda",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
         "name": "originAttributesToSuffix",
         "trivia": "",
         "introduced": "104.0.2",
@@ -1049,6 +1120,53 @@
           "nullable": false,
           "union": false,
           "idlType": "DOMString"
+        }
+      },
+      {
+        "type": "method",
+        "name": "isDOMObject",
+        "trivia": "",
+        "introduced": "112.0.2",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "obj",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            }
+          },
+          {
+            "defaultValue": {
+              "type": "boolean",
+              "value": true
+            },
+            "optional": true,
+            "varadic": false,
+            "name": "unwrap",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
         }
       },
       {
@@ -2006,6 +2124,47 @@
           "nullable": false,
           "union": false,
           "idlType": "boolean"
+        }
+      },
+      {
+        "type": "method",
+        "name": "ensureJSOracleStarted",
+        "trivia": "",
+        "introduced": "112.0.2",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getAllPossibleUtilityActorNames",
+        "trivia": "Get a list of all possible Utility process Actor Names ; mostly useful to\nperform testing and ensure about:processes display is sound and misses no\nactor name.",
+        "introduced": "112.0.2",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
         }
       }
     ]
@@ -5402,21 +5561,6 @@
       {
         "type": "attribute",
         "name": "tempDir",
-        "trivia": "The temporary directory for the process.",
-        "introduced": "104.0.2",
-        "readonly": true,
-        "valueType": {
-          "type": "attribute-type",
-          "extAttrs": [],
-          "generic": "",
-          "nullable": false,
-          "union": false,
-          "idlType": "DOMString"
-        }
-      },
-      {
-        "type": "attribute",
-        "name": "osTempDir",
         "trivia": "The OS temporary directory.",
         "introduced": "104.0.2",
         "readonly": true,
@@ -5863,31 +6007,6 @@
       {
         "type": "method",
         "name": "getTempDir",
-        "trivia": "The temporary directory for the process.",
-        "introduced": "104.0.2",
-        "arguments": [],
-        "special": "",
-        "return": {
-          "type": "return-type",
-          "extAttrs": [],
-          "generic": "Promise",
-          "nullable": false,
-          "union": false,
-          "idlType": [
-            {
-              "type": "return-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "DOMString"
-            }
-          ]
-        }
-      },
-      {
-        "type": "method",
-        "name": "getOSTempDir",
         "trivia": "The OS temporary directory.",
         "introduced": "104.0.2",
         "arguments": [],
@@ -6185,54 +6304,6 @@
           "nullable": false,
           "union": false,
           "idlType": "undefined"
-        }
-      }
-    ]
-  },
-  "PrioEncoder": {
-    "attributes": [],
-    "methods": [
-      {
-        "type": "method",
-        "name": "encode",
-        "trivia": "",
-        "introduced": "104.0.2",
-        "arguments": [
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "batchID",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "ByteString"
-            }
-          },
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "params",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "PrioParams"
-            }
-          }
-        ],
-        "special": "",
-        "return": {
-          "type": "return-type",
-          "extAttrs": [],
-          "generic": "",
-          "nullable": false,
-          "union": false,
-          "idlType": "PrioEncodedData"
         }
       }
     ]
@@ -7777,7 +7848,7 @@
       {
         "type": "method",
         "name": "callAsync",
-        "trivia": "",
+        "trivia": "Call a scaffolding function on the worker thread.\n\nid is a unique identifier for the function, known to both the C++ and JS code",
         "introduced": "105.0",
         "arguments": [
           {
@@ -7790,7 +7861,7 @@
               "generic": "",
               "nullable": false,
               "union": false,
-              "idlType": "unsigned long long"
+              "idlType": "UniFFIFunctionId"
             }
           },
           {
@@ -7829,7 +7900,7 @@
       {
         "type": "method",
         "name": "callSync",
-        "trivia": "",
+        "trivia": "Call a scaffolding function on the main thread\n\nid is a unique identifier for the function, known to both the C++ and JS code",
         "introduced": "105.0",
         "arguments": [
           {
@@ -7842,7 +7913,7 @@
               "generic": "",
               "nullable": false,
               "union": false,
-              "idlType": "unsigned long long"
+              "idlType": "UniFFIFunctionId"
             }
           },
           {
@@ -7872,7 +7943,7 @@
       {
         "type": "method",
         "name": "readPointer",
-        "trivia": "",
+        "trivia": "Read a UniFFIPointer from an ArrayBuffer\n\nid is a unique identifier for the pointer type, known to both the C++ and JS code",
         "introduced": "105.0",
         "arguments": [
           {
@@ -7885,7 +7956,7 @@
               "generic": "",
               "nullable": false,
               "union": false,
-              "idlType": "unsigned long long"
+              "idlType": "UniFFIPointerId"
             }
           },
           {
@@ -7928,7 +7999,7 @@
       {
         "type": "method",
         "name": "writePointer",
-        "trivia": "",
+        "trivia": "Write a UniFFIPointer to an ArrayBuffer\n\nid is a unique identifier for the pointer type, known to both the C++ and JS code",
         "introduced": "105.0",
         "arguments": [
           {
@@ -7941,7 +8012,7 @@
               "generic": "",
               "nullable": false,
               "union": false,
-              "idlType": "unsigned long long"
+              "idlType": "UniFFIPointerId"
             }
           },
           {
@@ -7981,6 +8052,79 @@
               "nullable": false,
               "union": false,
               "idlType": "long"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "registerCallbackHandler",
+        "trivia": "Register the global calblack handler\n\nThis will be used to invoke all calls for a CallbackInterface.\ninterfaceId is a unique identifier for the callback interface, known to both the C++ and JS code",
+        "introduced": "112.0.2",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "interfaceId",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "UniFFICallbackInterfaceId"
+            }
+          },
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "handler",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "UniFFICallbackHandler"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "deregisterCallbackHandler",
+        "trivia": "Deregister the global calblack handler\n\nThis is called at shutdown to clear out the reference to the JS function.",
+        "introduced": "112.0.2",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "interfaceId",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "UniFFICallbackInterfaceId"
             }
           }
         ],
@@ -8310,7 +8454,23 @@
     ]
   },
   "CSS": {
-    "attributes": [],
+    "attributes": [
+      {
+        "type": "attribute",
+        "name": "highlights",
+        "trivia": "",
+        "introduced": "112.0.2",
+        "readonly": true,
+        "valueType": {
+          "type": "attribute-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "HighlightRegistry"
+        }
+      }
+    ],
     "methods": [
       {
         "type": "method",
