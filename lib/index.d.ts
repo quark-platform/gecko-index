@@ -285,6 +285,7 @@ declare module 'gecko-index' {
   // ESM
 
   export async function getESMList(): Promise<string[]>
+  export async function hasESM(): boolean
   export async function getESMFile(filename: string): Promise<ExportType[]>
 
   // ===========================================================================
