@@ -1,4 +1,5 @@
 import type * as idlParser from './parser.js'
+import type { ExportType } from '../scripts/esm.js'
 
 declare module 'gecko-index' {
   export { idlParser }
@@ -278,4 +279,10 @@ declare module 'gecko-index' {
   export async function getXULElements(): Promise<
     { tagName: string; className: string }[]
   >
+
+  // ===========================================================================
+  // ESM
+
+  export async function getESMList(): Promise<string[]>
+  export async function getESMFile(filename: string): Promise<ExportType[]>
 }
