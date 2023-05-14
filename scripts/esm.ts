@@ -192,13 +192,15 @@ function handleFunctionDeclaration(
     line: declaration.id?.loc?.start.line || 0,
 
     params: declaration.params
-      .map((param) =>
+      .map((param, index) =>
         param.type === 'Identifier'
           ? param.name
           : param.type === 'AssignmentPattern'
           ? param.left.type === 'Identifier'
             ? param.left.name
             : undefined
+          : param.type === 'ObjectPattern'
+          ? `param${index}`
           : undefined
       )
       .filter(Boolean),
