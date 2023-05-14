@@ -57,7 +57,7 @@ export type ExportType =
   | VariableDeclarationExport
   | FunctionDeclarationExport
 
-const ignoreFiles = ['AppConstants.sys.mjs']
+const ignoreFiles = ['AppConstants.sys.mjs', 'Readerable.sys.mjs']
 
 const { geckoDevDir, outFolder } = await getInfo('esm')
 
@@ -192,7 +192,15 @@ function handleFunctionDeclaration(
     line: declaration.id?.loc?.start.line || 0,
 
     params: declaration.params
-      .map((param) => (param.type === 'Identifier' ? param.name : undefined))
+      .map((param) =>
+        param.type === 'Identifier'
+          ? param.name
+          : param.type === 'AssignmentPattern'
+          ? param.left.type === 'Identifier'
+            ? param.left.name
+            : undefined
+          : undefined
+      )
       .filter(Boolean),
   }
 }
