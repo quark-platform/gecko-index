@@ -23,7 +23,7 @@
       "kind": "interface_main",
       "doc_comment": {
         "kind": "DOC_COMMENT",
-        "contents": "/**\n * TODO: U2FTokenManager needs to be renamed to CTAPTokenManager or similar,\n *       because it now contains also CTAP2 functionality (e.g. pinCallback)\n *       See bug 1801643\n * nsIU2FTokenManager\n *\n * An interface to the U2FTokenManager singleton.\n *\n * This should be used only by the WebAuthn browser UI prompts.\n */"
+        "contents": "/**\n * TODO(1737205,1819414) Fold this interface into nsIWebAuthnController when we\n * remove the legacy U2F DOM API.\n *\n * nsIU2FTokenManager\n *\n * An interface to the U2FTokenManager singleton.\n *\n * This should be used only by the WebAuthn browser UI prompts.\n */"
       },
       "attrs": {
         "kind": "attributes",
@@ -89,77 +89,6 @@
                           "refType": "in",
                           "type": "bool",
                           "name": "aForceNoneAttestation"
-                        }
-                      }
-                    ]
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Resumes the current WebAuthn transaction.\n     * This is used only when the hardware token requires\n     * user-verification and is thus protected by a PIN.\n     *\n     * @param aPin : PIN the user entered after being prompted.\n     */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "pinCallback",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "ACString",
-                      "name": "aPin"
-                    },
-                    "other": []
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Resumes the current WebAuthn transaction if that matches the given\n     * transaction ID. This is used only when the hardware token returned\n     * multiple results for signin in and the user needs to select with which\n     * to log in.\n     * TODO(MS): This is a CTAP2 operation, so U2FTokenManager is probably\n     *           not the ideal place for this function. It is a shortcut for now.\n     *\n     * @param aTransactionID : The ID of the transaction to resume.\n     * @param idx : The index of the selected result\n     */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "resumeWithSelectedSignResult",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "uint64_t",
-                      "name": "aTransactionID"
-                    },
-                    "other": [
-                      {
-                        "kind": "paramlist_$0",
-                        "param": {
-                          "kind": "param",
-                          "attribute": null,
-                          "refType": "in",
-                          "type": "uint64_t",
-                          "name": "idx"
                         }
                       }
                     ]

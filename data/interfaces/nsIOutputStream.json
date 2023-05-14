@@ -94,7 +94,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Close the stream. Forces the output stream to flush any buffered data.\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if unable to flush without blocking\n     *   the calling thread (non-blocking mode only)\n     */"
+                    "contents": "/**\n     * Close the stream. Forces the output stream to flush any buffered data.\n     * Any subsequent calls to StreamStatus should throw NS_BASE_STREAM_CLOSED.\n     * Succeeds without effect if already closed.\n     *\n     * @throws NS_BASE_STREAM_WOULD_BLOCK if unable to flush without blocking\n     *   the calling thread (non-blocking mode only)\n     */"
                   }
                 ],
                 "code": {
@@ -122,6 +122,26 @@
                   "attributes": null,
                   "return_type": "void",
                   "name": "flush",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Check the current status of the stream.  A stream that is closed will\n     * throw an exception when this method is called.  That enables the caller\n     * to know the condition of the stream before attempting to write into it.\n     *\n     * This method will not throw NS_BASE_STREAM_WOULD_BLOCK, even if the stream\n     * is a non-blocking stream with no available space. A non-blocking stream\n     * which has not been closed, but has no available room should return NS_OK.\n     *\n     * NOTE: This method should not block the calling thread (e.g. to query the\n     * state of a file descriptor), even when called on a blocking stream.\n     *\n     * @throws NS_BASE_STREAM_CLOSED if the stream closed normally\n     * @throws <other-error> if the stream closed with a different status\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "streamStatus",
                   "params": null,
                   "raises": null
                 }

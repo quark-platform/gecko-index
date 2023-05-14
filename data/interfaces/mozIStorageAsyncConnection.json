@@ -405,6 +405,81 @@
                 "kind": "member_$0",
                 "docComment": [
                   {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Vacuum the main database plus all the attached one.\n   * If the database is in auto_vacuum = INCREMENTAL mode, this executes an\n   * incremental_vacuum, otherwise it will always execute a full vacuum.\n   *\n   * While it's possible to invoke this method directly, it's suggested, when\n   * possible, to use the VacuumManager instead.\n   * That means registering your component for the \"vacuum-participant\" XPCOM\n   * category, and implement the mozIStorageVacuumParticipant interface.\n   *\n   * @param [aCallback] Completion callback invoked once the operation is\n   *        complete.\n   * @param [aUseIncremental] When set to true, this will try to convert the\n   *        main schema to auto_vacuum = INCREMENTAL mode, if it's not set yet.\n   *        When set to false, it will try to set auto_vacuum = NONE.\n   *        Note a full vacuum will be executed if the auto_vacuum mode must be\n   *        changed, otherwise an incremental vacuum will happen if the database\n   *        is already in INCREMENTAL mode.\n   * @param [aSetPageSize] This can be used to change the database page_size, a\n   *        full vacuum will be executed to persist the change. If the page\n   *        size is already correct, or you pass 0, this will be a no-op.\n   * @throws If it's not possible to start the async vacuum operation, note in\n   *         this case the callback won't be invoked.\n   * @note Vacuum will fail inside a transaction, or if there is an ongoing\n   *       read statement.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncVacuum",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": {
+                        "kind": "attributes",
+                        "first_attribute": {
+                          "kind": "attribute",
+                          "name": "optional",
+                          "param": null
+                        },
+                        "other_attributes": []
+                      },
+                      "refType": "in",
+                      "type": "mozIStorageCompletionCallback",
+                      "name": "aCallback"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aUseIncremental"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aSetPageSize"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
                     "kind": "SINGLE_LINE_COMMENT"
                   },
                   {

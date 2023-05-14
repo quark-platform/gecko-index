@@ -16,7 +16,7 @@
       "kind": "interface_main",
       "doc_comment": null,
       "attrs": null,
-      "name": "mozIStorageConnection",
+      "name": "mozIStorageAsyncConnection",
       "base": null,
       "body": null
     },
@@ -65,7 +65,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * The expected page size in bytes for the database.  The vacuum manager will\n   * try to correct the page size during idle based on this value.\n   *\n   * @note If the database is using the WAL journal mode, the page size won't\n  *        be changed to the requested value.  See bug 634374.\n   * @note Valid page size values are powers of 2 between 512 and 65536.\n   *       The suggested value is mozIStorageConnection::defaultPageSize.\n   */"
+                    "contents": "/**\n   * The expected page size in bytes for the database.  The vacuum manager will\n   * try to correct the page size by executing a full vacuum.\n   *\n   * @note If the database is using the WAL journal mode, the page size won't\n   *       be changed to the requested value.  See bug 634374.\n   * @note Valid page size values are powers of 2 between 512 and 65536.\n   *       The suggested value is mozIStorageConnection::defaultPageSize.\n   */"
                   }
                 ],
                 "code": {
@@ -84,6 +84,25 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether the main schema should be using auto_vacuum = INCREMENTAL.\n   * This will cause auto_vacuum to change to INCREMENTAL if it's not set yet.\n   * It is not possible to change mode of any attached databases through this,\n   * to do that you must open a separate connection and use asyncVacuum() on it.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "useIncrementalVacuum"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Connection to the database file to be vacuumed.\n   */"
                   }
                 ],
@@ -91,7 +110,7 @@
                   "kind": "attribute_code",
                   "attributes": null,
                   "readonly": "readonly",
-                  "type": "mozIStorageConnection",
+                  "type": "mozIStorageAsyncConnection",
                   "name": "databaseConnection"
                 }
               }
@@ -103,7 +122,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Notifies when a vacuum operation begins.  Listeners should avoid using the\n   * database till onEndVacuum is received.\n   *\n   * @return true to proceed with the vacuum, false if the participant wants to\n   *         opt-out for now, it will be retried later.  Useful when participant\n   *         is running some other heavy operation that can't be interrupted.\n   *\n   * @note When a vacuum operation starts or ends it will also dispatch a global\n   *       \"heavy-io-task\" notification through the observer service with the\n   *       data argument being either \"vacuum-begin\" or \"vacuum-end\".\n   */"
+                    "contents": "/**\n   * Notifies when a vacuum operation begins.  Listeners should avoid using the\n   * database till onEndVacuum is received.\n   *\n   * @return true to proceed with the vacuum, false if the participant wants to\n   *         opt-out for now, it will be retried later.  Useful when participant\n   *         is running some other heavy operation that can't be interrupted.\n   *\n   * @note When a vacuum operation starts or ends it will also dispatch global\n   *       \"vacuum-begin\" and \"vacuum-end\" notifications through the observer\n   *       service with the data argument being the database filename.\n   */"
                   }
                 ],
                 "code": {

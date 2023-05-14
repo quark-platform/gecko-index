@@ -118,23 +118,8 @@
                 "kind": "member_$0",
                 "docComment": [
                   {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * This flag specifies the synchronous mode of event dispatch, in which the\n   * dispatch method does not return until the event has been processed.\n   *\n   * NOTE: passing this flag to dispatch may have the side-effect of causing\n   * other events on the current thread to be processed while waiting for the\n   * given event to be processed.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "const_code",
-                  "type": "unsigned long",
-                  "name": "DISPATCH_SYNC",
-                  "value": "1"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
                   {
                     "kind": "DOC_COMMENT",
                     "contents": "/**\n   * This flag specifies that the dispatch is occurring from a running event\n   * that was dispatched to the same event target, and that event is about to\n   * finish.\n   *\n   * A thread pool can use this as an optimization hint to not spin up\n   * another thread, since the current thread is about to become idle.\n   *\n   * These events are always async.\n   */"
@@ -520,6 +505,6 @@
       }
     },
     "\n\n",
-    "%{C++\n// convenient aliases:\n#define NS_DISPATCH_NORMAL nsIEventTarget::DISPATCH_NORMAL\n#define NS_DISPATCH_SYNC   nsIEventTarget::DISPATCH_SYNC\n#define NS_DISPATCH_AT_END nsIEventTarget::DISPATCH_AT_END\n#define NS_DISPATCH_EVENT_MAY_BLOCK nsIEventTarget::DISPATCH_EVENT_MAY_BLOCK\n#define NS_DISPATCH_IGNORE_BLOCK_DISPATCH nsIEventTarget::DISPATCH_IGNORE_BLOCK_DISPATCH\n\n// Convenient NS_DECL variant that includes some C++-only methods.\n#define NS_DECL_NSIEVENTTARGET_FULL                                   \\\n    NS_DECL_NSIEVENTTARGET                                            \\\n    /* Avoid hiding these methods */                                  \\\n    using nsIEventTarget::Dispatch;                                   \\\n    using nsIEventTarget::IsOnCurrentThread;\n%}\n"
+    "%{C++\n// convenient aliases:\n#define NS_DISPATCH_NORMAL nsIEventTarget::DISPATCH_NORMAL\n#define NS_DISPATCH_AT_END nsIEventTarget::DISPATCH_AT_END\n#define NS_DISPATCH_EVENT_MAY_BLOCK nsIEventTarget::DISPATCH_EVENT_MAY_BLOCK\n#define NS_DISPATCH_IGNORE_BLOCK_DISPATCH nsIEventTarget::DISPATCH_IGNORE_BLOCK_DISPATCH\n\n// Convenient NS_DECL variant that includes some C++-only methods.\n#define NS_DECL_NSIEVENTTARGET_FULL                                   \\\n    NS_DECL_NSIEVENTTARGET                                            \\\n    /* Avoid hiding these methods */                                  \\\n    using nsIEventTarget::Dispatch;                                   \\\n    using nsIEventTarget::IsOnCurrentThread;\n%}\n"
   ]
 }
