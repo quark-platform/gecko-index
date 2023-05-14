@@ -79,7 +79,15 @@ function objectMethod(property: ObjectMethod): ObjectPropertyMethod {
 
     kind: property.kind,
     params: property.params
-      .map((param) => (param.type === 'Identifier' ? param.name : undefined))
+      .map((param) =>
+        param.type === 'Identifier'
+          ? param.name
+          : param.type === 'AssignmentPattern'
+          ? param.left.type === 'Identifier'
+            ? param.left.name
+            : undefined
+          : undefined
+      )
       .filter(Boolean),
   }
 }
