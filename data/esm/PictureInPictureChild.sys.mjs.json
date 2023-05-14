@@ -2,17 +2,17 @@
   {
     "type": "class",
     "id": "PictureInPictureLauncherChild",
-    "line": 114,
+    "line": 134,
     "methods": [
       {
         "type": "method",
         "id": "handleEvent",
-        "line": 115,
+        "line": 135,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 115
+            "line": 135
           }
         ],
         "kind": "method"
@@ -20,12 +20,12 @@
       {
         "type": "method",
         "id": "receiveMessage",
-        "line": 126,
+        "line": 149,
         "params": [
           {
             "type": "params",
             "id": "message",
-            "line": 126
+            "line": 149
           }
         ],
         "kind": "method"
@@ -33,12 +33,12 @@
       {
         "type": "method",
         "id": "togglePictureInPicture",
-        "line": 148,
+        "line": 171,
         "params": [
           {
             "type": "params",
-            "id": "video",
-            "line": 148
+            "id": "pipObject",
+            "line": 171
           }
         ],
         "comments": [
@@ -47,33 +47,33 @@
             "tags": [
               {
                 "tag": "param",
-                "name": "video",
-                "type": "Element",
+                "name": "pipObject",
+                "type": "Object",
                 "optional": false,
-                "description": "The <video> element to view in a Picture in Picture window.",
+                "description": "An object containing the video and reason for toggling the PiP video",
                 "problems": [],
                 "source": [
                   {
                     "number": 7,
-                    "source": "   * @param {Element} video The <video> element to view in a Picture",
+                    "source": "   * @param {Object} pipObject An object containing the video and reason",
                     "tokens": {
                       "start": "   ",
                       "delimiter": "*",
                       "postDelimiter": " ",
                       "tag": "@param",
                       "postTag": " ",
-                      "name": "video",
+                      "name": "pipObject",
                       "postName": " ",
-                      "type": "{Element}",
+                      "type": "{Object}",
                       "postType": " ",
-                      "description": "The <video> element to view in a Picture",
+                      "description": "An object containing the video and reason",
                       "end": "",
                       "lineEnd": ""
                     }
                   },
                   {
                     "number": 8,
-                    "source": "   * in Picture window.",
+                    "source": "   * for toggling the PiP video",
                     "tokens": {
                       "start": "   ",
                       "delimiter": "*",
@@ -84,7 +84,7 @@
                       "postName": "",
                       "type": "",
                       "postType": "",
-                      "description": "in Picture window.",
+                      "description": "for toggling the PiP video",
                       "end": "",
                       "lineEnd": ""
                     }
@@ -349,25 +349,25 @@
               },
               {
                 "number": 7,
-                "source": "   * @param {Element} video The <video> element to view in a Picture",
+                "source": "   * @param {Object} pipObject An object containing the video and reason",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
                   "postDelimiter": " ",
                   "tag": "@param",
                   "postTag": " ",
-                  "name": "video",
+                  "name": "pipObject",
                   "postName": " ",
-                  "type": "{Element}",
+                  "type": "{Object}",
                   "postType": " ",
-                  "description": "The <video> element to view in a Picture",
+                  "description": "An object containing the video and reason",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
                 "number": 8,
-                "source": "   * in Picture window.",
+                "source": "   * for toggling the PiP video",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -378,7 +378,7 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "in Picture window.",
+                  "description": "for toggling the PiP video",
                   "end": "",
                   "lineEnd": ""
                 }
@@ -500,70 +500,9 @@
       {
         "type": "method",
         "id": "keyToggle",
-        "line": 214,
+        "line": 237,
         "params": [],
         "comments": [
-          {
-            "description": "",
-            "tags": [],
-            "source": [
-              {
-                "number": 0,
-                "source": "/**",
-                "tokens": {
-                  "start": "",
-                  "delimiter": "/**",
-                  "postDelimiter": "",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 1,
-                "source": "",
-                "tokens": {
-                  "start": "",
-                  "delimiter": "",
-                  "postDelimiter": "",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 2,
-                "source": "*/",
-                "tokens": {
-                  "start": "",
-                  "delimiter": "",
-                  "postDelimiter": "",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "",
-                  "end": "*/",
-                  "lineEnd": ""
-                }
-              }
-            ],
-            "problems": []
-          },
           {
             "description": "The keyboard was used to attempt to open Picture-in-Picture. If a video is focused, select that video. Otherwise find the first playing video, or if none, the largest dimension video. We suspect this heuristic will handle most cases, though we might refine this later on. Note that we assume that this method will only be called for the focused document.",
             "tags": [],
@@ -741,41 +680,54 @@
   {
     "type": "class",
     "id": "PictureInPictureToggleChild",
-    "line": 240,
+    "line": 263,
     "methods": [
       {
         "type": "method",
         "id": "constructor",
-        "line": 241,
+        "line": 264,
         "params": [],
         "kind": "constructor"
       },
       {
         "type": "method",
+        "id": "receiveMessage",
+        "line": 291,
+        "params": [
+          {
+            "type": "params",
+            "id": "message",
+            "line": 291
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
         "id": "didDestroy",
-        "line": 265,
+        "line": 301,
         "params": [],
         "kind": "method"
       },
       {
         "type": "method",
         "id": "observe",
-        "line": 285,
+        "line": 333,
         "params": [
           {
             "type": "params",
             "id": "subject",
-            "line": 285
+            "line": 333
           },
           {
             "type": "params",
             "id": "topic",
-            "line": 285
+            "line": 333
           },
           {
             "type": "params",
             "id": "data",
-            "line": 285
+            "line": 333
           }
         ],
         "kind": "method"
@@ -783,7 +735,7 @@
       {
         "type": "method",
         "id": "docState",
-        "line": 311,
+        "line": 371,
         "params": [],
         "comments": [
           {
@@ -925,7 +877,7 @@
       {
         "type": "method",
         "id": "getWeakOverVideo",
-        "line": 374,
+        "line": 434,
         "params": [],
         "comments": [
           {
@@ -1186,12 +1138,12 @@
       {
         "type": "method",
         "id": "handleEvent",
-        "line": 388,
+        "line": 448,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 388
+            "line": 448
           }
         ],
         "kind": "method"
@@ -1199,12 +1151,12 @@
       {
         "type": "method",
         "id": "registerVideo",
-        "line": 488,
+        "line": 556,
         "params": [
           {
             "type": "params",
             "id": "video",
-            "line": 488
+            "line": 556
           }
         ],
         "comments": [
@@ -1429,13 +1381,290 @@
       },
       {
         "type": "method",
+        "id": "updatePipVideoEligibility",
+        "line": 573,
+        "params": [
+          {
+            "type": "params",
+            "id": "video",
+            "line": 573
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "handleEligiblePipVideoMutation",
+        "line": 594,
+        "params": [
+          {
+            "type": "params",
+            "id": "mutationList",
+            "line": 594
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "urlbarToggle",
+        "line": 606,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "isVideoPiPEligible",
+        "line": 636,
+        "params": [
+          {
+            "type": "params",
+            "id": "video",
+            "line": 636
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "changeToIconIfDurationEnd",
+        "line": 673,
+        "params": [
+          {
+            "type": "params",
+            "id": "firstSeenStartSeconds",
+            "line": 673
+          }
+        ],
+        "comments": [
+          {
+            "description": "Changes from the first-time toggle to the icon toggle if the Nimbus variable `displayDuration`'s end date is reached when hovering over a video. The end date is calculated according to the timestamp indicating when the PiP toggle was first seen.",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "firstSeenStartSeconds",
+                "type": "Number",
+                "optional": false,
+                "description": "the timestamp in seconds indicating when the PiP toggle was first seen",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 5,
+                    "source": "   * @param {Number} firstSeenStartSeconds the timestamp in seconds indicating when the PiP toggle was first seen",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "firstSeenStartSeconds",
+                      "postName": " ",
+                      "type": "{Number}",
+                      "postType": " ",
+                      "description": "the timestamp in seconds indicating when the PiP toggle was first seen",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 6,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 7,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Changes from the first-time toggle to the icon toggle if the Nimbus variable `displayDuration`'s",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Changes from the first-time toggle to the icon toggle if the Nimbus variable `displayDuration`'s",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * end date is reached when hovering over a video. The end date is calculated according to the timestamp",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "end date is reached when hovering over a video. The end date is calculated according to the timestamp",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * indicating when the PiP toggle was first seen.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "indicating when the PiP toggle was first seen.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * @param {Number} firstSeenStartSeconds the timestamp in seconds indicating when the PiP toggle was first seen",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "firstSeenStartSeconds",
+                  "postName": " ",
+                  "type": "{Number}",
+                  "postType": " ",
+                  "description": "the timestamp in seconds indicating when the PiP toggle was first seen",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
         "id": "worthTracking",
-        "line": 514,
+        "line": 720,
         "params": [
           {
             "type": "params",
             "id": "intersectionEntry",
-            "line": 514
+            "line": 720
           }
         ],
         "comments": [
@@ -1815,12 +2044,12 @@
       {
         "type": "method",
         "id": "onIntersection",
-        "line": 526,
+        "line": 732,
         "params": [
           {
             "type": "params",
             "id": "entries",
-            "line": 526
+            "line": 732
           }
         ],
         "comments": [
@@ -2118,21 +2347,21 @@
       {
         "type": "method",
         "id": "addMouseButtonListeners",
-        "line": 579,
+        "line": 785,
         "params": [],
         "kind": "method"
       },
       {
         "type": "method",
         "id": "removeMouseButtonListeners",
-        "line": 611,
+        "line": 817,
         "params": [],
         "kind": "method"
       },
       {
         "type": "method",
         "id": "beginTrackingMouseOverVideos",
-        "line": 654,
+        "line": 860,
         "params": [],
         "comments": [
           {
@@ -2418,7 +2647,7 @@
       {
         "type": "method",
         "id": "stopTrackingMouseOverVideos",
-        "line": 680,
+        "line": 886,
         "params": [],
         "comments": [
           {
@@ -2560,12 +2789,12 @@
       {
         "type": "method",
         "id": "onPageShow",
-        "line": 719,
+        "line": 925,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 719
+            "line": 925
           }
         ],
         "comments": [
@@ -2863,12 +3092,12 @@
       {
         "type": "method",
         "id": "onPageHide",
-        "line": 735,
+        "line": 941,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 735
+            "line": 941
           }
         ],
         "comments": [
@@ -3166,12 +3395,12 @@
       {
         "type": "method",
         "id": "onPointerDown",
-        "line": 753,
+        "line": 959,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 753
+            "line": 959
           }
         ],
         "comments": [
@@ -3487,22 +3716,22 @@
       {
         "type": "method",
         "id": "startPictureInPicture",
-        "line": 817,
+        "line": 1023,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 817
+            "line": 1023
           },
           {
             "type": "params",
             "id": "video",
-            "line": 817
+            "line": 1023
           },
           {
             "type": "params",
             "id": "toggle",
-            "line": 817
+            "line": 1023
           }
         ],
         "kind": "method"
@@ -3510,12 +3739,12 @@
       {
         "type": "method",
         "id": "onMouseButtonEvent",
-        "line": 860,
+        "line": 1065,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 860
+            "line": 1065
           }
         ],
         "comments": [
@@ -3813,12 +4042,12 @@
       {
         "type": "method",
         "id": "onMouseOut",
-        "line": 902,
+        "line": 1107,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 902
+            "line": 1107
           }
         ],
         "comments": [
@@ -4044,12 +4273,12 @@
       {
         "type": "method",
         "id": "onMouseMove",
-        "line": 922,
+        "line": 1127,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 922
+            "line": 1127
           }
         ],
         "comments": [
@@ -4275,7 +4504,7 @@
       {
         "type": "method",
         "id": "checkLastMouseMove",
-        "line": 940,
+        "line": 1145,
         "params": [],
         "comments": [
           {
@@ -4435,17 +4664,17 @@
       {
         "type": "method",
         "id": "onMouseOverVideo",
-        "line": 1000,
+        "line": 1205,
         "params": [
           {
             "type": "params",
             "id": "video",
-            "line": 1000
+            "line": 1205
           },
           {
             "type": "params",
             "id": "event",
-            "line": 1000
+            "line": 1205
           }
         ],
         "comments": [
@@ -4671,17 +4900,17 @@
       {
         "type": "method",
         "id": "checkHoverToggle",
-        "line": 1196,
+        "line": 1414,
         "params": [
           {
             "type": "params",
             "id": "toggle",
-            "line": 1196
+            "line": 1414
           },
           {
             "type": "params",
             "id": "event",
-            "line": 1196
+            "line": 1414
           }
         ],
         "comments": [
@@ -4971,12 +5200,12 @@
       {
         "type": "method",
         "id": "onMouseLeaveVideo",
-        "line": 1206,
+        "line": 1424,
         "params": [
           {
             "type": "params",
             "id": "video",
-            "line": 1206
+            "line": 1424
           }
         ],
         "comments": [
@@ -5202,17 +5431,17 @@
       {
         "type": "method",
         "id": "isMouseOverToggle",
-        "line": 1236,
+        "line": 1454,
         "params": [
           {
             "type": "params",
             "id": "toggle",
-            "line": 1236
+            "line": 1454
           },
           {
             "type": "params",
             "id": "event",
-            "line": 1236
+            "line": 1454
           }
         ],
         "comments": [
@@ -5566,12 +5795,12 @@
       {
         "type": "method",
         "id": "checkContextMenu",
-        "line": 1279,
+        "line": 1497,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 1279
+            "line": 1497
           }
         ],
         "comments": [
@@ -5815,12 +6044,12 @@
       {
         "type": "method",
         "id": "getToggleElement",
-        "line": 1310,
+        "line": 1528,
         "params": [
           {
             "type": "params",
             "id": "shadowRoot",
-            "line": 1310
+            "line": 1528
           }
         ],
         "comments": [
@@ -6092,12 +6321,12 @@
       {
         "type": "method",
         "id": "isTracking",
-        "line": 1318,
+        "line": 1536,
         "params": [
           {
             "type": "params",
             "id": "video",
-            "line": 1318
+            "line": 1536
           }
         ],
         "comments": [
@@ -6222,7 +6451,7 @@
       {
         "type": "method",
         "id": "getSiteOverrides",
-        "line": 1333,
+        "line": 1551,
         "params": [],
         "comments": [
           {
@@ -6575,27 +6804,27 @@
   {
     "type": "class",
     "id": "PictureInPictureChild",
-    "line": 1346,
+    "line": 1564,
     "methods": [
       {
         "type": "method",
         "id": "observe",
-        "line": 1359,
+        "line": 1577,
         "params": [
           {
             "type": "params",
             "id": "subject",
-            "line": 1359
+            "line": 1577
           },
           {
             "type": "params",
             "id": "topic",
-            "line": 1359
+            "line": 1577
           },
           {
             "type": "params",
             "id": "data",
-            "line": 1359
+            "line": 1577
           }
         ],
         "kind": "method"
@@ -6603,7 +6832,7 @@
       {
         "type": "method",
         "id": "createTextTracksStyleSheet",
-        "line": 1387,
+        "line": 1605,
         "params": [],
         "comments": [
           {
@@ -6810,12 +7039,12 @@
       {
         "type": "method",
         "id": "setupTextTracks",
-        "line": 1410,
+        "line": 1628,
         "params": [
           {
             "type": "params",
             "id": "originatingVideo",
-            "line": 1410
+            "line": 1628
           }
         ],
         "comments": [
@@ -7167,7 +7396,7 @@
       {
         "type": "method",
         "id": "toggleTextTracks",
-        "line": 1438,
+        "line": 1656,
         "params": [],
         "comments": [
           {
@@ -7273,12 +7502,12 @@
       {
         "type": "method",
         "id": "removeTextTracks",
-        "line": 1453,
+        "line": 1671,
         "params": [
           {
             "type": "params",
             "id": "originatingVideo",
-            "line": 1453
+            "line": 1671
           }
         ],
         "comments": [
@@ -7576,12 +7805,12 @@
       {
         "type": "method",
         "id": "moveTextTracks",
-        "line": 1481,
+        "line": 1699,
         "params": [
           {
             "type": "params",
             "id": "data",
-            "line": 1481
+            "line": 1699
           }
         ],
         "comments": [
@@ -7897,12 +8126,12 @@
       {
         "type": "method",
         "id": "updateWebVTTTextTracksDisplay",
-        "line": 1530,
+        "line": 1748,
         "params": [
           {
             "type": "params",
             "id": "textTrackCues",
-            "line": 1530
+            "line": 1748
           }
         ],
         "comments": [
@@ -8146,12 +8375,12 @@
       {
         "type": "method",
         "id": "getOrderedWebVTTCues",
-        "line": 1586,
+        "line": 1804,
         "params": [
           {
             "type": "params",
             "id": "allCuesArray",
-            "line": 1586
+            "line": 1804
           }
         ],
         "comments": [
@@ -8647,7 +8876,7 @@
       {
         "type": "method",
         "id": "getWeakVideo",
-        "line": 1607,
+        "line": 1825,
         "params": [],
         "comments": [
           {
@@ -8908,7 +9137,7 @@
       {
         "type": "method",
         "id": "getWeakPlayerContent",
-        "line": 1627,
+        "line": 1845,
         "params": [],
         "comments": [
           {
@@ -9169,12 +9398,12 @@
       {
         "type": "method",
         "id": "inPictureInPicture",
-        "line": 1648,
+        "line": 1866,
         "params": [
           {
             "type": "params",
             "id": "video",
-            "line": 1648
+            "line": 1866
           }
         ],
         "comments": [
@@ -9482,12 +9711,12 @@
       {
         "type": "method",
         "id": "videoIsPlaying",
-        "line": 1652,
+        "line": 1870,
         "params": [
           {
             "type": "params",
             "id": "video",
-            "line": 1652
+            "line": 1870
           }
         ],
         "kind": "method"
@@ -9495,12 +9724,12 @@
       {
         "type": "method",
         "id": "videoIsMuted",
-        "line": 1656,
+        "line": 1874,
         "params": [
           {
             "type": "params",
             "id": "video",
-            "line": 1656
+            "line": 1874
           }
         ],
         "kind": "method"
@@ -9508,12 +9737,12 @@
       {
         "type": "method",
         "id": "handleEvent",
-        "line": 1660,
+        "line": 1878,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 1660
+            "line": 1878
           }
         ],
         "kind": "method"
@@ -9521,7 +9750,7 @@
       {
         "type": "method",
         "id": "closePictureInPicture",
-        "line": 1800,
+        "line": 2018,
         "params": [],
         "comments": [
           {
@@ -9864,12 +10093,12 @@
       {
         "type": "method",
         "id": "receiveMessage",
-        "line": 1826,
+        "line": 2044,
         "params": [
           {
             "type": "params",
             "id": "message",
-            "line": 1826
+            "line": 2044
           }
         ],
         "kind": "method"
@@ -9877,17 +10106,17 @@
       {
         "type": "method",
         "id": "setVideoTime",
-        "line": 1916,
+        "line": 2134,
         "params": [
           {
             "type": "params",
             "id": "scrubberPosition",
-            "line": 1916
+            "line": 2134
           },
           {
             "type": "params",
             "id": "wasPlaying",
-            "line": 1916
+            "line": 2134
           }
         ],
         "comments": [
@@ -10077,12 +10306,12 @@
       {
         "type": "method",
         "id": "setActiveTextTrack",
-        "line": 1928,
+        "line": 2146,
         "params": [
           {
             "type": "params",
             "id": "textTrackList",
-            "line": 1928
+            "line": 2146
           }
         ],
         "comments": [
@@ -10290,7 +10519,7 @@
       {
         "type": "method",
         "id": "setTextTrackFontSize",
-        "line": 1945,
+        "line": 2163,
         "params": [],
         "comments": [
           {
@@ -10414,12 +10643,12 @@
       {
         "type": "method",
         "id": "trackOriginatingVideo",
-        "line": 1965,
+        "line": 2183,
         "params": [
           {
             "type": "params",
             "id": "originatingVideo",
-            "line": 1965
+            "line": 2183
           }
         ],
         "comments": [
@@ -10562,12 +10791,12 @@
       {
         "type": "method",
         "id": "setUpCaptionChangeListener",
-        "line": 2002,
+        "line": 2220,
         "params": [
           {
             "type": "params",
             "id": "originatingVideo",
-            "line": 2002
+            "line": 2220
           }
         ],
         "kind": "method"
@@ -10575,12 +10804,12 @@
       {
         "type": "method",
         "id": "untrackOriginatingVideo",
-        "line": 2014,
+        "line": 2232,
         "params": [
           {
             "type": "params",
             "id": "originatingVideo",
-            "line": 2014
+            "line": 2232
           }
         ],
         "comments": [
@@ -10741,12 +10970,12 @@
       {
         "type": "method",
         "id": "setupPlayer",
-        "line": 2063,
+        "line": 2281,
         "params": [
           {
             "type": "params",
             "id": "videoRef",
-            "line": 2063
+            "line": 2281
           }
         ],
         "comments": [
@@ -11262,40 +11491,40 @@
       {
         "type": "method",
         "id": "play",
-        "line": 2147,
+        "line": 2365,
         "params": [],
         "kind": "method"
       },
       {
         "type": "method",
         "id": "pause",
-        "line": 2154,
+        "line": 2372,
         "params": [],
         "kind": "method"
       },
       {
         "type": "method",
         "id": "mute",
-        "line": 2161,
+        "line": 2379,
         "params": [],
         "kind": "method"
       },
       {
         "type": "method",
         "id": "unmute",
-        "line": 2168,
+        "line": 2386,
         "params": [],
         "kind": "method"
       },
       {
         "type": "method",
         "id": "onCueChange",
-        "line": 2175,
+        "line": 2393,
         "params": [
           {
             "type": "params",
             "id": "e",
-            "line": 2175
+            "line": 2393
           }
         ],
         "kind": "method"
@@ -11303,12 +11532,12 @@
       {
         "type": "method",
         "id": "isKeyDisabled",
-        "line": 2188,
+        "line": 2406,
         "params": [
           {
             "type": "params",
             "id": "key",
-            "line": 2188
+            "line": 2406
           }
         ],
         "comments": [
@@ -11433,7 +11662,7 @@
       {
         "type": "method",
         "id": "keyDown",
-        "line": 2217,
+        "line": 2435,
         "params": [],
         "comments": [
           {
@@ -11636,19 +11865,19 @@
       {
         "type": "method",
         "id": "isSubtitlesEnabled",
-        "line": 2394,
+        "line": 2612,
         "params": [],
         "kind": "get"
       },
       {
         "type": "method",
         "id": "isSubtitlesEnabled",
-        "line": 2398,
+        "line": 2616,
         "params": [
           {
             "type": "params",
             "id": "val",
-            "line": 2398
+            "line": 2616
           }
         ],
         "kind": "set"
