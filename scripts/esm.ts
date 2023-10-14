@@ -67,46 +67,51 @@ if (!existsSync(join(outFolder, 'parsed')))
 let files = []
 
 for (const file of sync(join(geckoDevDir, './**/*.sys.mjs'))) {
-  if (ignoreFiles.some((path) => file.includes(path))) continue
-  if (file.includes('test')) continue
-  const fileName = basename(file)
-  console.log(fileName)
+  try {
+    if (ignoreFiles.some((path) => file.includes(path))) continue
+    if (file.includes('test')) continue
+    const fileName = basename(file)
+    console.log(fileName)
 
-  let exports: ExportType[] = []
-  const data = parse(readFileSync(file, { encoding: 'utf-8' }), {
-    sourceType: 'module',
-    sourceFilename: file,
+    let exports: ExportType[] = []
+    const data = parse(readFileSync(file, { encoding: 'utf-8' }), {
+      sourceType: 'module',
+      sourceFilename: file,
 
-    plugins: ['privateIn'],
-  })
+      plugins: ['privateIn'],
+    })
 
-  writeFileSync(
-    join(outFolder, `./parsed/${fileName}.json`),
-    JSON.stringify(data, null, 2)
-  )
+    writeFileSync(
+      join(outFolder, `./parsed/${fileName}.json`),
+      JSON.stringify(data, null, 2),
+    )
 
-  for (const bodyItems of data.program.body) {
-    if (bodyItems.type != 'ExportNamedDeclaration') continue
+    for (const bodyItems of data.program.body) {
+      if (bodyItems.type != 'ExportNamedDeclaration') continue
 
-    if (bodyItems.declaration?.type == 'ClassDeclaration')
-      exports.push(handleClassDeclaration(bodyItems.declaration))
+      if (bodyItems.declaration?.type == 'ClassDeclaration')
+        exports.push(handleClassDeclaration(bodyItems.declaration))
 
-    if (bodyItems.declaration?.type == 'VariableDeclaration') {
-      bodyItems.declaration.declarations.forEach((decl) => {
-        const vardecl = handleVariableDeclaration(decl)
-        if (vardecl) exports.push(vardecl)
-      })
+      if (bodyItems.declaration?.type == 'VariableDeclaration') {
+        bodyItems.declaration.declarations.forEach((decl) => {
+          const vardecl = handleVariableDeclaration(decl)
+          if (vardecl) exports.push(vardecl)
+        })
+      }
+
+      if (bodyItems.declaration?.type == 'FunctionDeclaration')
+        exports.push(handleFunctionDeclaration(bodyItems.declaration))
     }
 
-    if (bodyItems.declaration?.type == 'FunctionDeclaration')
-      exports.push(handleFunctionDeclaration(bodyItems.declaration))
+    writeFileSync(
+      join(outFolder, `./${fileName}.json`),
+      JSON.stringify(exports, null, 2),
+    )
+    files.push(fileName)
+  } catch (e) {
+    console.error(e)
+    console.log('Skipping...')
   }
-
-  writeFileSync(
-    join(outFolder, `./${fileName}.json`),
-    JSON.stringify(exports, null, 2)
-  )
-  files.push(fileName)
 }
 
 writeFileSync(join(outFolder, './_.json'), JSON.stringify(files, null, 2))
@@ -158,7 +163,7 @@ function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
 }
 
 function handleVariableDeclaration(
-  declaration: VariableDeclarator
+  declaration: VariableDeclarator,
 ): VariableDeclarationExport | undefined {
   if (!(declaration.id.type === 'Identifier')) return
 
@@ -181,7 +186,7 @@ function handleVariableDeclaration(
 }
 
 function handleFunctionDeclaration(
-  declaration: FunctionDeclaration
+  declaration: FunctionDeclaration,
 ): FunctionDeclarationExport {
   const id = declaration.id?.name || ''
 
@@ -201,7 +206,7 @@ function handleFunctionDeclaration(
             : undefined
           : param.type === 'ObjectPattern'
           ? `param${index}`
-          : undefined
+          : undefined,
       )
       .filter(Boolean),
   }
