@@ -1,0 +1,2026 @@
+[
+  {
+    "type": "class",
+    "id": "FindContent",
+    "line": 15,
+    "methods": [
+      {
+        "type": "method",
+        "id": "constructor",
+        "line": 16,
+        "params": [
+          {
+            "type": "params",
+            "id": "docShell",
+            "line": 16
+          }
+        ],
+        "kind": "constructor"
+      },
+      {
+        "type": "method",
+        "id": "iterator",
+        "line": 20,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "highlighter",
+        "line": 27,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "findRanges",
+        "line": 52,
+        "params": [
+          {
+            "type": "params",
+            "id": "params",
+            "line": 52
+          }
+        ],
+        "comments": [
+          {
+            "description": "findRanges Performs a search which will cache found ranges in `iterator._previousRanges`.  Cached data can then be used by `highlightResults`, `_collectRectData` and `_serializeRangeData`.",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "params",
+                "type": "object",
+                "optional": false,
+                "description": "- the params.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 7,
+                    "source": "   * @param {object} params - the params.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "params",
+                      "postName": " ",
+                      "type": "{object}",
+                      "postType": " ",
+                      "description": "- the params.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "param",
+                "name": "params.queryphrase",
+                "type": "string",
+                "optional": false,
+                "description": "- the text to search for.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 8,
+                    "source": "   * @param {string} params.queryphrase - the text to search for.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "params.queryphrase",
+                      "postName": " ",
+                      "type": "{string}",
+                      "postType": " ",
+                      "description": "- the text to search for.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "param",
+                "name": "params.caseSensitive",
+                "type": "boolean",
+                "optional": false,
+                "description": "- whether to use case sensitive matches.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 9,
+                    "source": "   * @param {boolean} params.caseSensitive - whether to use case sensitive matches.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "params.caseSensitive",
+                      "postName": " ",
+                      "type": "{boolean}",
+                      "postType": " ",
+                      "description": "- whether to use case sensitive matches.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "param",
+                "name": "params.includeRangeData",
+                "type": "boolean",
+                "optional": false,
+                "description": "- whether to collect and return range data.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 10,
+                    "source": "   * @param {boolean} params.includeRangeData - whether to collect and return range data.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "params.includeRangeData",
+                      "postName": " ",
+                      "type": "{boolean}",
+                      "postType": " ",
+                      "description": "- whether to collect and return range data.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "param",
+                "name": "params.matchDiacritics",
+                "type": "boolean",
+                "optional": false,
+                "description": "- whether diacritics must match.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 11,
+                    "source": "   * @param {boolean} params.matchDiacritics - whether diacritics must match.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "params.matchDiacritics",
+                      "postName": " ",
+                      "type": "{boolean}",
+                      "postType": " ",
+                      "description": "- whether diacritics must match.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "param",
+                "name": "params.searchString",
+                "type": "boolean",
+                "optional": false,
+                "description": "- whether to collect and return rect data.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 12,
+                    "source": "   * @param {boolean} params.searchString - whether to collect and return rect data.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "params.searchString",
+                      "postName": " ",
+                      "type": "{boolean}",
+                      "postType": " ",
+                      "description": "- whether to collect and return rect data.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 13,
+                    "source": "   *",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "returns",
+                "name": "that",
+                "type": "object",
+                "optional": false,
+                "description": "includes: {number} count - number of results found. {array} rangeData (if opted) - serialized representation of ranges found. {array} rectData (if opted) - rect data of ranges found.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 14,
+                    "source": "   * @returns {object} that includes:",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "that",
+                      "postName": " ",
+                      "type": "{object}",
+                      "postType": " ",
+                      "description": "includes:",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 15,
+                    "source": "   *   {number} count - number of results found.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "{number} count - number of results found.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 16,
+                    "source": "   *   {array} rangeData (if opted) - serialized representation of ranges found.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "{array} rangeData (if opted) - serialized representation of ranges found.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 17,
+                    "source": "   *   {array} rectData (if opted) - rect data of ranges found.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "{array} rectData (if opted) - rect data of ranges found.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 18,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 19,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * findRanges",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "findRanges",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * Performs a search which will cache found ranges in `iterator._previousRanges`.  Cached",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Performs a search which will cache found ranges in `iterator._previousRanges`.  Cached",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * data can then be used by `highlightResults`, `_collectRectData` and `_serializeRangeData`.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "data can then be used by `highlightResults`, `_collectRectData` and `_serializeRangeData`.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   * @param {object} params - the params.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "params",
+                  "postName": " ",
+                  "type": "{object}",
+                  "postType": " ",
+                  "description": "- the params.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   * @param {string} params.queryphrase - the text to search for.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "params.queryphrase",
+                  "postName": " ",
+                  "type": "{string}",
+                  "postType": " ",
+                  "description": "- the text to search for.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   * @param {boolean} params.caseSensitive - whether to use case sensitive matches.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "params.caseSensitive",
+                  "postName": " ",
+                  "type": "{boolean}",
+                  "postType": " ",
+                  "description": "- whether to use case sensitive matches.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   * @param {boolean} params.includeRangeData - whether to collect and return range data.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "params.includeRangeData",
+                  "postName": " ",
+                  "type": "{boolean}",
+                  "postType": " ",
+                  "description": "- whether to collect and return range data.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "   * @param {boolean} params.matchDiacritics - whether diacritics must match.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "params.matchDiacritics",
+                  "postName": " ",
+                  "type": "{boolean}",
+                  "postType": " ",
+                  "description": "- whether diacritics must match.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 12,
+                "source": "   * @param {boolean} params.searchString - whether to collect and return rect data.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "params.searchString",
+                  "postName": " ",
+                  "type": "{boolean}",
+                  "postType": " ",
+                  "description": "- whether to collect and return rect data.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 13,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 14,
+                "source": "   * @returns {object} that includes:",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "that",
+                  "postName": " ",
+                  "type": "{object}",
+                  "postType": " ",
+                  "description": "includes:",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 15,
+                "source": "   *   {number} count - number of results found.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "{number} count - number of results found.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 16,
+                "source": "   *   {array} rangeData (if opted) - serialized representation of ranges found.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "{array} rangeData (if opted) - serialized representation of ranges found.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 17,
+                "source": "   *   {array} rectData (if opted) - rect data of ranges found.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "{array} rectData (if opted) - rect data of ranges found.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 18,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 19,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_serializeRangeData",
+        "line": 105,
+        "params": [],
+        "comments": [
+          {
+            "description": "_serializeRangeData Optionally returned by `findRanges`. Collects DOM data from ranges found on the most recent search made by `findRanges` and encodes it into a serializable form.  Useful to extensions for custom UI presentation of search results, eg, getting surrounding context of results.",
+            "tags": [
+              {
+                "tag": "returns",
+                "name": "-",
+                "type": "Array",
+                "optional": false,
+                "description": "serializable range data.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 9,
+                    "source": "   * @returns {Array} - serializable range data.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "-",
+                      "postName": " ",
+                      "type": "{Array}",
+                      "postType": " ",
+                      "description": "serializable range data.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 10,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 11,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * _serializeRangeData",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "_serializeRangeData",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * Optionally returned by `findRanges`.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Optionally returned by `findRanges`.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * Collects DOM data from ranges found on the most recent search made by `findRanges`",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Collects DOM data from ranges found on the most recent search made by `findRanges`",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * and encodes it into a serializable form.  Useful to extensions for custom UI presentation",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "and encodes it into a serializable form.  Useful to extensions for custom UI presentation",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   * of search results, eg, getting surrounding context of results.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "of search results, eg, getting surrounding context of results.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   * @returns {Array} - serializable range data.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "-",
+                  "postName": " ",
+                  "type": "{Array}",
+                  "postType": " ",
+                  "description": "serializable range data.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_collectRectData",
+        "line": 175,
+        "params": [],
+        "comments": [
+          {
+            "description": "_collectRectData Optionally returned by `findRanges`. Collects rect data of ranges found by most recent search made by `findRanges`. Useful to extensions for custom highlighting of search results.",
+            "tags": [
+              {
+                "tag": "returns",
+                "name": "rectData",
+                "type": "Array",
+                "optional": false,
+                "description": "- serializable rect data.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 8,
+                    "source": "   * @returns {Array} rectData - serializable rect data.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "rectData",
+                      "postName": " ",
+                      "type": "{Array}",
+                      "postType": " ",
+                      "description": "- serializable rect data.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 9,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 10,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * _collectRectData",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "_collectRectData",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * Optionally returned by `findRanges`.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Optionally returned by `findRanges`.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * Collects rect data of ranges found by most recent search made by `findRanges`.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Collects rect data of ranges found by most recent search made by `findRanges`.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * Useful to extensions for custom highlighting of search results.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Useful to extensions for custom highlighting of search results.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   * @returns {Array} rectData - serializable rect data.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "rectData",
+                  "postName": " ",
+                  "type": "{Array}",
+                  "postType": " ",
+                  "description": "- serializable rect data.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "highlightResults",
+        "line": 207,
+        "params": [
+          {
+            "type": "params",
+            "id": "params",
+            "line": 207
+          }
+        ],
+        "comments": [
+          {
+            "description": "highlightResults Highlights range(s) found in previous browser.find.find.",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "params",
+                "type": "object",
+                "optional": false,
+                "description": "- may contain any of the following properties: all of which are optional: {number} rangeIndex - Found range to be highlighted held in API's ranges array for the tabId. Default highlights all ranges. {number} tabId - Tab to highlight.  Defaults to the active tab. {boolean} noScroll - Don't scroll to highlighted item.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 6,
+                    "source": "   * @param {object} params - may contain any of the following properties:",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "params",
+                      "postName": " ",
+                      "type": "{object}",
+                      "postType": " ",
+                      "description": "- may contain any of the following properties:",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 7,
+                    "source": "   *   all of which are optional:",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "all of which are optional:",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 8,
+                    "source": "   *   {number} rangeIndex -",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "{number} rangeIndex -",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 9,
+                    "source": "   *            Found range to be highlighted held in API's ranges array for the tabId.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "            ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "Found range to be highlighted held in API's ranges array for the tabId.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 10,
+                    "source": "   *            Default highlights all ranges.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "            ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "Default highlights all ranges.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 11,
+                    "source": "   *   {number} tabId - Tab to highlight.  Defaults to the active tab.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "{number} tabId - Tab to highlight.  Defaults to the active tab.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 12,
+                    "source": "   *   {boolean} noScroll - Don't scroll to highlighted item.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "{boolean} noScroll - Don't scroll to highlighted item.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 13,
+                    "source": "   *",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "returns",
+                "name": "-",
+                "type": "string",
+                "optional": false,
+                "description": "a string describing the resulting status of the highlighting, which will be used as criteria for resolving or rejecting the promise. This can be: \"Success\" - Highlighting succeeded. \"OutOfRange\" - The index supplied was out of range. \"NoResults\" - There were no search results to highlight.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 14,
+                    "source": "   * @returns {string} - a string describing the resulting status of the highlighting,",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "-",
+                      "postName": " ",
+                      "type": "{string}",
+                      "postType": " ",
+                      "description": "a string describing the resulting status of the highlighting,",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 15,
+                    "source": "   *   which will be used as criteria for resolving or rejecting the promise.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "which will be used as criteria for resolving or rejecting the promise.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 16,
+                    "source": "   *   This can be:",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "This can be:",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 17,
+                    "source": "   *   \"Success\" - Highlighting succeeded.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "\"Success\" - Highlighting succeeded.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 18,
+                    "source": "   *   \"OutOfRange\" - The index supplied was out of range.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "\"OutOfRange\" - The index supplied was out of range.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 19,
+                    "source": "   *   \"NoResults\" - There were no search results to highlight.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "\"NoResults\" - There were no search results to highlight.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 20,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 21,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * highlightResults",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "highlightResults",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * Highlights range(s) found in previous browser.find.find.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Highlights range(s) found in previous browser.find.find.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * @param {object} params - may contain any of the following properties:",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "params",
+                  "postName": " ",
+                  "type": "{object}",
+                  "postType": " ",
+                  "description": "- may contain any of the following properties:",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   *   all of which are optional:",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "all of which are optional:",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   *   {number} rangeIndex -",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "{number} rangeIndex -",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   *            Found range to be highlighted held in API's ranges array for the tabId.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "            ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Found range to be highlighted held in API's ranges array for the tabId.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   *            Default highlights all ranges.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "            ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Default highlights all ranges.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "   *   {number} tabId - Tab to highlight.  Defaults to the active tab.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "{number} tabId - Tab to highlight.  Defaults to the active tab.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 12,
+                "source": "   *   {boolean} noScroll - Don't scroll to highlighted item.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "{boolean} noScroll - Don't scroll to highlighted item.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 13,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 14,
+                "source": "   * @returns {string} - a string describing the resulting status of the highlighting,",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "-",
+                  "postName": " ",
+                  "type": "{string}",
+                  "postType": " ",
+                  "description": "a string describing the resulting status of the highlighting,",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 15,
+                "source": "   *   which will be used as criteria for resolving or rejecting the promise.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "which will be used as criteria for resolving or rejecting the promise.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 16,
+                "source": "   *   This can be:",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "This can be:",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 17,
+                "source": "   *   \"Success\" - Highlighting succeeded.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "\"Success\" - Highlighting succeeded.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 18,
+                "source": "   *   \"OutOfRange\" - The index supplied was out of range.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "\"OutOfRange\" - The index supplied was out of range.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 19,
+                "source": "   *   \"NoResults\" - There were no search results to highlight.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "\"NoResults\" - There were no search results to highlight.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 20,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 21,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      }
+    ]
+  }
+]

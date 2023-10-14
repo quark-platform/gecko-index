@@ -1,0 +1,2496 @@
+[
+  {
+    "type": "class",
+    "id": "LoginManagerStorage_json",
+    "line": 49,
+    "methods": [
+      {
+        "type": "method",
+        "id": "constructor",
+        "line": 50,
+        "params": [],
+        "kind": "constructor"
+      },
+      {
+        "type": "method",
+        "id": "_crypto",
+        "line": 55,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "_decryptedPotentiallyVulnerablePasswords",
+        "line": 64,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "initialize",
+        "line": 81,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "terminate",
+        "line": 115,
+        "params": [],
+        "comments": [
+          {
+            "description": "Internal method used by regression tests only.  It is called before replacing this storage module with a new instance.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Internal method used by regression tests only.  It is called before",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Internal method used by regression tests only.  It is called before",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * replacing this storage module with a new instance.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "replacing this storage module with a new instance.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getSyncID",
+        "line": 132,
+        "params": [],
+        "comments": [
+          {
+            "description": "Returns the \"sync id\" used by Sync to know whether the store is current with respect to the sync servers. It is stored encrypted, but only so we can detect failure to decrypt (for example, a \"reset\" of the primary password will leave all logins alone, but they will fail to decrypt. We also want this metadata to be unavailable in that scenario) Returns null if the data doesn't exist or if the data can't be decrypted (including if the primary-password prompt is cancelled). This is OK for Sync as it can't even begin syncing if the primary-password is locked as the sync encrytion keys are stored in this login manager.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Returns the \"sync id\" used by Sync to know whether the store is current with",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Returns the \"sync id\" used by Sync to know whether the store is current with",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * respect to the sync servers. It is stored encrypted, but only so we",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "respect to the sync servers. It is stored encrypted, but only so we",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * can detect failure to decrypt (for example, a \"reset\" of the primary",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "can detect failure to decrypt (for example, a \"reset\" of the primary",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * password will leave all logins alone, but they will fail to decrypt. We",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "password will leave all logins alone, but they will fail to decrypt. We",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * also want this metadata to be unavailable in that scenario)",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "also want this metadata to be unavailable in that scenario)",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   * Returns null if the data doesn't exist or if the data can't be",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Returns null if the data doesn't exist or if the data can't be",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   * decrypted (including if the primary-password prompt is cancelled). This is",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "decrypted (including if the primary-password prompt is cancelled). This is",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   * OK for Sync as it can't even begin syncing if the primary-password is",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "OK for Sync as it can't even begin syncing if the primary-password is",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "   * locked as the sync encrytion keys are stored in this login manager.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "locked as the sync encrytion keys are stored in this login manager.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 12,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 13,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "setSyncID",
+        "line": 150,
+        "params": [
+          {
+            "type": "params",
+            "id": "syncID",
+            "line": 150
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getLastSync",
+        "line": 159,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "setLastSync",
+        "line": 167,
+        "params": [
+          {
+            "type": "params",
+            "id": "timestamp",
+            "line": 167
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "resetSyncCounter",
+        "line": 180,
+        "params": [
+          {
+            "type": "params",
+            "id": "guid",
+            "line": 180
+          },
+          {
+            "type": "params",
+            "id": "value",
+            "line": 180
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "loginIsDeleted",
+        "line": 194,
+        "params": [
+          {
+            "type": "params",
+            "id": "guid",
+            "line": 194
+          }
+        ],
+        "comments": [
+          {
+            "description": "Returns false if the login has marked as deleted or doesn't exist.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": " Returns false if the login has marked as deleted or doesn't exist.",
+                "tokens": {
+                  "start": " ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Returns false if the login has marked as deleted or doesn't exist.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "addLoginsAsync",
+        "line": 279,
+        "params": [
+          {
+            "type": "params",
+            "id": "logins",
+            "line": 279
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "removeLogin",
+        "line": 322,
+        "params": [
+          {
+            "type": "params",
+            "id": "login",
+            "line": 322
+          },
+          {
+            "type": "params",
+            "id": "fromSync",
+            "line": 322
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "modifyLogin",
+        "line": 352,
+        "params": [
+          {
+            "type": "params",
+            "id": "oldLogin",
+            "line": 352
+          },
+          {
+            "type": "params",
+            "id": "newLoginData",
+            "line": 352
+          },
+          {
+            "type": "params",
+            "id": "fromSync",
+            "line": 352
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "recordPasswordUse",
+        "line": 431,
+        "params": [
+          {
+            "type": "params",
+            "id": "login",
+            "line": 431
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "recordBreachAlertDismissal",
+        "line": 441,
+        "params": [
+          {
+            "type": "params",
+            "id": "loginGUID",
+            "line": 441
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getBreachAlertDismissalsByLoginGUID",
+        "line": 453,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getAllLogins",
+        "line": 465,
+        "params": [
+          {
+            "type": "params",
+            "id": "includeDeleted",
+            "line": 465
+          }
+        ],
+        "comments": [
+          {
+            "description": "Returns an array of nsILoginInfo. If decryption of a login fails due to a corrupt entry, the login is not included in the resulting array.",
+            "tags": [
+              {
+                "tag": "resolve",
+                "name": "",
+                "type": "nsILoginInfo[]",
+                "optional": false,
+                "description": "",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 6,
+                    "source": "   * @resolve {nsILoginInfo[]}",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@resolve",
+                      "postTag": " ",
+                      "name": "",
+                      "postName": "",
+                      "type": "{nsILoginInfo[]}",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 7,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 8,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Returns an array of nsILoginInfo. If decryption of a login",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Returns an array of nsILoginInfo. If decryption of a login",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * fails due to a corrupt entry, the login is not included in",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "fails due to a corrupt entry, the login is not included in",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * the resulting array.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "the resulting array.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * @resolve {nsILoginInfo[]}",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@resolve",
+                  "postTag": " ",
+                  "name": "",
+                  "postName": "",
+                  "type": "{nsILoginInfo[]}",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "searchLoginsAsync",
+        "line": 476,
+        "params": [
+          {
+            "type": "params",
+            "id": "matchData",
+            "line": 476
+          },
+          {
+            "type": "params",
+            "id": "includeDeleted",
+            "line": 476
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "searchLogins",
+        "line": 492,
+        "params": [
+          {
+            "type": "params",
+            "id": "matchData",
+            "line": 492
+          },
+          {
+            "type": "params",
+            "id": "includeDeleted",
+            "line": 492
+          }
+        ],
+        "comments": [
+          {
+            "description": "Public wrapper around _searchLogins to convert the nsIPropertyBag to a JavaScript object and decrypt the results.",
+            "tags": [
+              {
+                "tag": "return",
+                "name": "which",
+                "type": "nsILoginInfo[]",
+                "optional": false,
+                "description": "are decrypted.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 5,
+                    "source": "   * @return {nsILoginInfo[]} which are decrypted.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@return",
+                      "postTag": " ",
+                      "name": "which",
+                      "postName": " ",
+                      "type": "{nsILoginInfo[]}",
+                      "postType": " ",
+                      "description": "are decrypted.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 6,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 7,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Public wrapper around _searchLogins to convert the nsIPropertyBag to a",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Public wrapper around _searchLogins to convert the nsIPropertyBag to a",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * JavaScript object and decrypt the results.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "JavaScript object and decrypt the results.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * @return {nsILoginInfo[]} which are decrypted.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@return",
+                  "postTag": " ",
+                  "name": "which",
+                  "postName": " ",
+                  "type": "{nsILoginInfo[]}",
+                  "postType": " ",
+                  "description": "are decrypted.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_searchLogins",
+        "line": 541,
+        "params": [
+          {
+            "type": "params",
+            "id": "matchData",
+            "line": 542
+          }
+        ],
+        "comments": [
+          {
+            "description": "Private method to perform arbitrary searches on any field. Decryption is left to the caller. Returns [logins, ids] for logins that match the arguments, where logins is an array of encrypted nsLoginInfo and ids is an array of associated ids in the database.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Private method to perform arbitrary searches on any field. Decryption is",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Private method to perform arbitrary searches on any field. Decryption is",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * left to the caller.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "left to the caller.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * Returns [logins, ids] for logins that match the arguments, where logins",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Returns [logins, ids] for logins that match the arguments, where logins",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * is an array of encrypted nsLoginInfo and ids is an array of associated",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "is an array of encrypted nsLoginInfo and ids is an array of associated",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   * ids in the database.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "ids in the database.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "removeAllLogins",
+        "line": 694,
+        "params": [],
+        "comments": [
+          {
+            "description": "Removes all logins from local storage, including FxA Sync key. NOTE: You probably want removeAllUserFacingLogins instead of this function.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Removes all logins from local storage, including FxA Sync key.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Removes all logins from local storage, including FxA Sync key.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * NOTE: You probably want removeAllUserFacingLogins instead of this function.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "NOTE: You probably want removeAllUserFacingLogins instead of this function.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "removeAllUserFacingLogins",
+        "line": 705,
+        "params": [
+          {
+            "type": "params",
+            "id": "fullyRemove",
+            "line": 705
+          }
+        ],
+        "comments": [
+          {
+            "description": "Removes all user facing logins from storage. e.g. all logins except the FxA Sync key If you need to remove the FxA key, use `removeAllLogins` instead",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "fullyRemove",
+                "type": "",
+                "optional": false,
+                "description": "remove the logins rather than mark them deleted.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 6,
+                    "source": "   * @param fullyRemove remove the logins rather than mark them deleted.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "fullyRemove",
+                      "postName": " ",
+                      "type": "",
+                      "postType": "",
+                      "description": "remove the logins rather than mark them deleted.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 7,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 8,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Removes all user facing logins from storage. e.g. all logins except the FxA Sync key",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Removes all user facing logins from storage. e.g. all logins except the FxA Sync key",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * If you need to remove the FxA key, use `removeAllLogins` instead",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "If you need to remove the FxA key, use `removeAllLogins` instead",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * @param fullyRemove remove the logins rather than mark them deleted.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "fullyRemove",
+                  "postName": " ",
+                  "type": "",
+                  "postType": "",
+                  "description": "remove the logins rather than mark them deleted.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "findLogins",
+        "line": 749,
+        "params": [
+          {
+            "type": "params",
+            "id": "origin",
+            "line": 749
+          },
+          {
+            "type": "params",
+            "id": "formActionOrigin",
+            "line": 749
+          },
+          {
+            "type": "params",
+            "id": "httpRealm",
+            "line": 749
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "countLogins",
+        "line": 772,
+        "params": [
+          {
+            "type": "params",
+            "id": "origin",
+            "line": 772
+          },
+          {
+            "type": "params",
+            "id": "formActionOrigin",
+            "line": 772
+          },
+          {
+            "type": "params",
+            "id": "httpRealm",
+            "line": 772
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "addPotentiallyVulnerablePassword",
+        "line": 792,
+        "params": [
+          {
+            "type": "params",
+            "id": "login",
+            "line": 792
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "isPotentiallyVulnerablePassword",
+        "line": 806,
+        "params": [
+          {
+            "type": "params",
+            "id": "login",
+            "line": 806
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "clearAllPotentiallyVulnerablePasswords",
+        "line": 812,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "uiBusy",
+        "line": 823,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "isLoggedIn",
+        "line": 827,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "_getIdForLogin",
+        "line": 836,
+        "params": [
+          {
+            "type": "params",
+            "id": "login",
+            "line": 836
+          }
+        ],
+        "comments": [
+          {
+            "description": "Returns an array with two items: [id, login]. If the login was not found, both items will be null. The returned login contains the actual stored login (useful for looking at the actual nsILoginMetaInfo values).",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Returns an array with two items: [id, login]. If the login was not",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Returns an array with two items: [id, login]. If the login was not",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * found, both items will be null. The returned login contains the actual",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "found, both items will be null. The returned login contains the actual",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * stored login (useful for looking at the actual nsILoginMetaInfo values).",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "stored login (useful for looking at the actual nsILoginMetaInfo values).",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_isGuidUnique",
+        "line": 873,
+        "params": [
+          {
+            "type": "params",
+            "id": "guid",
+            "line": 873
+          }
+        ],
+        "comments": [
+          {
+            "description": "Checks to see if the specified GUID already exists.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Checks to see if the specified GUID already exists.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Checks to see if the specified GUID already exists.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_encryptLogin",
+        "line": 970,
+        "params": [
+          {
+            "type": "params",
+            "id": "login",
+            "line": 970
+          }
+        ],
+        "comments": [
+          {
+            "description": "Returns the encrypted username, password, and encrypton type for the specified login. Can throw if the user cancels a primary password entry.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Returns the encrypted username, password, and encrypton type for the specified",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Returns the encrypted username, password, and encrypton type for the specified",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * login. Can throw if the user cancels a primary password entry.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "login. Can throw if the user cancels a primary password entry.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_decryptLogins",
+        "line": 996,
+        "params": [
+          {
+            "type": "params",
+            "id": "logins",
+            "line": 996
+          }
+        ],
+        "comments": [
+          {
+            "description": "Decrypts username and password fields in the provided array of logins. The entries specified by the array will be decrypted, if possible. An array of successfully decrypted logins will be returned. The return value should be given to external callers (since still-encrypted entries are useless), whereas internal callers generally don't want to lose unencrypted entries (eg, because the user clicked Cancel instead of entering their primary password)",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Decrypts username and password fields in the provided array of",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Decrypts username and password fields in the provided array of",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * logins.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "logins.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * The entries specified by the array will be decrypted, if possible.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "The entries specified by the array will be decrypted, if possible.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * An array of successfully decrypted logins will be returned. The return",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "An array of successfully decrypted logins will be returned. The return",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   * value should be given to external callers (since still-encrypted",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "value should be given to external callers (since still-encrypted",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   * entries are useless), whereas internal callers generally don't want",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "entries are useless), whereas internal callers generally don't want",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   * to lose unencrypted entries (eg, because the user clicked Cancel",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "to lose unencrypted entries (eg, because the user clicked Cancel",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   * instead of entering their primary password)",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "instead of entering their primary password)",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 12,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      }
+    ]
+  }
+]

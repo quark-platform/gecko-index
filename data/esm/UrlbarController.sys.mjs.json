@@ -2,12 +2,12 @@
   {
     "type": "class",
     "id": "UrlbarController",
-    "line": 55,
+    "line": 50,
     "methods": [
       {
         "type": "method",
         "id": "constructor",
-        "line": 68,
+        "line": 63,
         "params": [],
         "comments": [
           {
@@ -468,19 +468,19 @@
       {
         "type": "method",
         "id": "NOTIFICATIONS",
-        "line": 103,
+        "line": 98,
         "params": [],
         "kind": "get"
       },
       {
         "type": "method",
         "id": "setView",
-        "line": 113,
+        "line": 108,
         "params": [
           {
             "type": "params",
             "id": "view",
-            "line": 113
+            "line": 108
           }
         ],
         "comments": [
@@ -724,12 +724,12 @@
       {
         "type": "method",
         "id": "startQuery",
-        "line": 122,
+        "line": 117,
         "params": [
           {
             "type": "params",
             "id": "queryContext",
-            "line": 122
+            "line": 117
           }
         ],
         "comments": [
@@ -937,7 +937,7 @@
       {
         "type": "method",
         "id": "cancelQuery",
-        "line": 161,
+        "line": 156,
         "params": [],
         "comments": [
           {
@@ -1061,12 +1061,12 @@
       {
         "type": "method",
         "id": "receiveResults",
-        "line": 186,
+        "line": 181,
         "params": [
           {
             "type": "params",
             "id": "queryContext",
-            "line": 186
+            "line": 181
           }
         ],
         "comments": [
@@ -1274,12 +1274,12 @@
       {
         "type": "method",
         "id": "addQueryListener",
-        "line": 226,
+        "line": 221,
         "params": [
           {
             "type": "params",
             "id": "listener",
-            "line": 226
+            "line": 221
           }
         ],
         "comments": [
@@ -1533,12 +1533,12 @@
       {
         "type": "method",
         "id": "removeQueryListener",
-        "line": 238,
+        "line": 233,
         "params": [
           {
             "type": "params",
             "id": "listener",
-            "line": 238
+            "line": 233
           }
         ],
         "comments": [
@@ -1746,12 +1746,12 @@
       {
         "type": "method",
         "id": "keyEventMovesCaret",
-        "line": 255,
+        "line": 250,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 255
+            "line": 250
           }
         ],
         "comments": [
@@ -2185,12 +2185,12 @@
       {
         "type": "method",
         "id": "handleKeyNavigation",
-        "line": 291,
+        "line": 286,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 291
+            "line": 286
           }
         ],
         "comments": [
@@ -2642,22 +2642,22 @@
       {
         "type": "method",
         "id": "speculativeConnect",
-        "line": 468,
+        "line": 474,
         "params": [
           {
             "type": "params",
             "id": "result",
-            "line": 468
+            "line": 474
           },
           {
             "type": "params",
             "id": "context",
-            "line": 468
+            "line": 474
           },
           {
             "type": "params",
             "id": "reason",
-            "line": 468
+            "line": 474
           }
         ],
         "comments": [
@@ -3065,12 +3065,12 @@
       {
         "type": "method",
         "id": "userSelectionBehavior",
-        "line": 527,
+        "line": 533,
         "params": [
           {
             "type": "params",
             "id": "behavior",
-            "line": 527
+            "line": 533
           }
         ],
         "comments": [
@@ -3314,17 +3314,17 @@
       {
         "type": "method",
         "id": "recordSelectedResult",
-        "line": 545,
+        "line": 551,
         "params": [
           {
             "type": "params",
             "id": "event",
-            "line": 545
+            "line": 551
           },
           {
             "type": "params",
             "id": "result",
-            "line": 545
+            "line": 551
           }
         ],
         "comments": [
@@ -3667,65 +3667,37 @@
       },
       {
         "type": "method",
-        "id": "handleDeleteEntry",
-        "line": 614,
+        "id": "removeResult",
+        "line": 650,
         "params": [
           {
             "type": "params",
-            "id": "event",
-            "line": 614
+            "id": "result",
+            "line": 650
           }
         ],
         "comments": [
           {
-            "description": "Handles deletion of results from the last query context and the view. There are two kinds of results that can be deleted: - Results for which `provider.blockResult()` returns true - Results whose source is `HISTORY` are handled specially by this method and can always be removed No other results can be deleted and this method will ignore them.",
+            "description": "Removes a result from the current query context and notifies listeners. Heuristic results cannot be removed.",
             "tags": [
-              {
-                "tag": "param",
-                "name": "event",
-                "type": "Event",
-                "optional": false,
-                "description": "The event that triggered deletion.",
-                "problems": [],
-                "source": [
-                  {
-                    "number": 11,
-                    "source": "   * @param {Event} event The event that triggered deletion.",
-                    "tokens": {
-                      "start": "   ",
-                      "delimiter": "*",
-                      "postDelimiter": " ",
-                      "tag": "@param",
-                      "postTag": " ",
-                      "name": "event",
-                      "postName": " ",
-                      "type": "{Event}",
-                      "postType": " ",
-                      "description": "The event that triggered deletion.",
-                      "end": "",
-                      "lineEnd": ""
-                    }
-                  }
-                ]
-              },
               {
                 "tag": "param",
                 "name": "result",
                 "type": "UrlbarResult",
-                "optional": true,
-                "description": "The result to delete. If given, it must be present in the controller's most recent query context. If not given, the currently selected result in the view is used.",
+                "optional": false,
+                "description": "The result to remove.",
                 "problems": [],
                 "source": [
                   {
-                    "number": 12,
-                    "source": "   * @param {UrlbarResult} [result]",
+                    "number": 5,
+                    "source": "   * @param {UrlbarResult} result",
                     "tokens": {
                       "start": "   ",
                       "delimiter": "*",
                       "postDelimiter": " ",
                       "tag": "@param",
                       "postTag": " ",
-                      "name": "[result]",
+                      "name": "result",
                       "postName": "",
                       "type": "{UrlbarResult}",
                       "postType": " ",
@@ -3735,8 +3707,8 @@
                     }
                   },
                   {
-                    "number": 13,
-                    "source": "   *   The result to delete. If given, it must be present in the controller's",
+                    "number": 6,
+                    "source": "   *   The result to remove.",
                     "tokens": {
                       "start": "   ",
                       "delimiter": "*",
@@ -3747,95 +3719,13 @@
                       "postName": "",
                       "type": "",
                       "postType": "",
-                      "description": "The result to delete. If given, it must be present in the controller's",
+                      "description": "The result to remove.",
                       "end": "",
                       "lineEnd": ""
                     }
                   },
                   {
-                    "number": 14,
-                    "source": "   *   most recent query context. If not given, the currently selected result",
-                    "tokens": {
-                      "start": "   ",
-                      "delimiter": "*",
-                      "postDelimiter": "   ",
-                      "tag": "",
-                      "postTag": "",
-                      "name": "",
-                      "postName": "",
-                      "type": "",
-                      "postType": "",
-                      "description": "most recent query context. If not given, the currently selected result",
-                      "end": "",
-                      "lineEnd": ""
-                    }
-                  },
-                  {
-                    "number": 15,
-                    "source": "   *   in the view is used.",
-                    "tokens": {
-                      "start": "   ",
-                      "delimiter": "*",
-                      "postDelimiter": "   ",
-                      "tag": "",
-                      "postTag": "",
-                      "name": "",
-                      "postName": "",
-                      "type": "",
-                      "postType": "",
-                      "description": "in the view is used.",
-                      "end": "",
-                      "lineEnd": ""
-                    }
-                  }
-                ]
-              },
-              {
-                "tag": "returns",
-                "name": "",
-                "type": "boolean",
-                "optional": false,
-                "description": "Returns true if the result was deleted and false if not.",
-                "problems": [],
-                "source": [
-                  {
-                    "number": 16,
-                    "source": "   * @returns {boolean}",
-                    "tokens": {
-                      "start": "   ",
-                      "delimiter": "*",
-                      "postDelimiter": " ",
-                      "tag": "@returns",
-                      "postTag": " ",
-                      "name": "",
-                      "postName": "",
-                      "type": "{boolean}",
-                      "postType": "",
-                      "description": "",
-                      "end": "",
-                      "lineEnd": ""
-                    }
-                  },
-                  {
-                    "number": 17,
-                    "source": "   *   Returns true if the result was deleted and false if not.",
-                    "tokens": {
-                      "start": "   ",
-                      "delimiter": "*",
-                      "postDelimiter": "   ",
-                      "tag": "",
-                      "postTag": "",
-                      "name": "",
-                      "postName": "",
-                      "type": "",
-                      "postType": "",
-                      "description": "Returns true if the result was deleted and false if not.",
-                      "end": "",
-                      "lineEnd": ""
-                    }
-                  },
-                  {
-                    "number": 18,
+                    "number": 7,
                     "source": "   ",
                     "tokens": {
                       "start": "   ",
@@ -3853,7 +3743,7 @@
                     }
                   },
                   {
-                    "number": 19,
+                    "number": 8,
                     "source": "*/",
                     "tokens": {
                       "start": "",
@@ -3912,7 +3802,7 @@
               },
               {
                 "number": 2,
-                "source": "   * Handles deletion of results from the last query context and the view. There",
+                "source": "   * Removes a result from the current query context and notifies listeners.",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -3923,14 +3813,14 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "Handles deletion of results from the last query context and the view. There",
+                  "description": "Removes a result from the current query context and notifies listeners.",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
                 "number": 3,
-                "source": "   * are two kinds of results that can be deleted:",
+                "source": "   * Heuristic results cannot be removed.",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -3941,7 +3831,7 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "are two kinds of results that can be deleted:",
+                  "description": "Heuristic results cannot be removed.",
                   "end": "",
                   "lineEnd": ""
                 }
@@ -3966,140 +3856,14 @@
               },
               {
                 "number": 5,
-                "source": "   * - Results for which `provider.blockResult()` returns true",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": " ",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "- Results for which `provider.blockResult()` returns true",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 6,
-                "source": "   * - Results whose source is `HISTORY` are handled specially by this method",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": " ",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "- Results whose source is `HISTORY` are handled specially by this method",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 7,
-                "source": "   *   and can always be removed",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": "   ",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "and can always be removed",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 8,
-                "source": "   *",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": "",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 9,
-                "source": "   * No other results can be deleted and this method will ignore them.",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": " ",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "No other results can be deleted and this method will ignore them.",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 10,
-                "source": "   *",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": "",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 11,
-                "source": "   * @param {Event} event The event that triggered deletion.",
+                "source": "   * @param {UrlbarResult} result",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
                   "postDelimiter": " ",
                   "tag": "@param",
                   "postTag": " ",
-                  "name": "event",
-                  "postName": " ",
-                  "type": "{Event}",
-                  "postType": " ",
-                  "description": "The event that triggered deletion.",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 12,
-                "source": "   * @param {UrlbarResult} [result]",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": " ",
-                  "tag": "@param",
-                  "postTag": " ",
-                  "name": "[result]",
+                  "name": "result",
                   "postName": "",
                   "type": "{UrlbarResult}",
                   "postType": " ",
@@ -4109,8 +3873,8 @@
                 }
               },
               {
-                "number": 13,
-                "source": "   *   The result to delete. If given, it must be present in the controller's",
+                "number": 6,
+                "source": "   *   The result to remove.",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -4121,85 +3885,13 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "The result to delete. If given, it must be present in the controller's",
+                  "description": "The result to remove.",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
-                "number": 14,
-                "source": "   *   most recent query context. If not given, the currently selected result",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": "   ",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "most recent query context. If not given, the currently selected result",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 15,
-                "source": "   *   in the view is used.",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": "   ",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "in the view is used.",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 16,
-                "source": "   * @returns {boolean}",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": " ",
-                  "tag": "@returns",
-                  "postTag": " ",
-                  "name": "",
-                  "postName": "",
-                  "type": "{boolean}",
-                  "postType": "",
-                  "description": "",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 17,
-                "source": "   *   Returns true if the result was deleted and false if not.",
-                "tokens": {
-                  "start": "   ",
-                  "delimiter": "*",
-                  "postDelimiter": "   ",
-                  "tag": "",
-                  "postTag": "",
-                  "name": "",
-                  "postName": "",
-                  "type": "",
-                  "postType": "",
-                  "description": "Returns true if the result was deleted and false if not.",
-                  "end": "",
-                  "lineEnd": ""
-                }
-              },
-              {
-                "number": 18,
+                "number": 7,
                 "source": "   ",
                 "tokens": {
                   "start": "   ",
@@ -4217,7 +3909,7 @@
                 }
               },
               {
-                "number": 19,
+                "number": 8,
                 "source": "*/",
                 "tokens": {
                   "start": "",
@@ -4243,7 +3935,7 @@
       {
         "type": "method",
         "id": "clearLastQueryContextCache",
-        "line": 705,
+        "line": 674,
         "params": [],
         "comments": [
           {
@@ -4349,12 +4041,12 @@
       {
         "type": "method",
         "id": "notify",
-        "line": 715,
+        "line": 684,
         "params": [
           {
             "type": "params",
             "id": "name",
-            "line": 715
+            "line": 684
           }
         ],
         "comments": [

@@ -2,19 +2,26 @@
   {
     "type": "class",
     "id": "WindowGlobalMessageHandler",
-    "line": 17,
+    "line": 28,
     "methods": [
       {
         "type": "method",
         "id": "constructor",
-        "line": 20,
+        "line": 32,
         "params": [],
         "kind": "constructor"
       },
       {
         "type": "method",
+        "id": "destroy",
+        "line": 42,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
         "id": "modulePath",
-        "line": 31,
+        "line": 56,
         "params": [],
         "comments": [
           {
@@ -221,7 +228,7 @@
       {
         "type": "method",
         "id": "type",
-        "line": 40,
+        "line": 65,
         "params": [],
         "comments": [
           {
@@ -428,12 +435,12 @@
       {
         "type": "method",
         "id": "getIdFromContext",
-        "line": 54,
+        "line": 79,
         "params": [
           {
             "type": "params",
             "id": "context",
-            "line": 54
+            "line": 79
           }
         ],
         "comments": [
@@ -813,33 +820,33 @@
       {
         "type": "method",
         "id": "innerWindowId",
-        "line": 58,
+        "line": 83,
         "params": [],
         "kind": "get"
       },
       {
         "type": "method",
-        "id": "processActor",
-        "line": 62,
+        "id": "realms",
+        "line": 87,
         "params": [],
         "kind": "get"
       },
       {
         "type": "method",
         "id": "window",
-        "line": 66,
+        "line": 91,
         "params": [],
         "kind": "get"
       },
       {
         "type": "method",
         "id": "applyInitialSessionDataItems",
-        "line": 70,
+        "line": 113,
         "params": [
           {
             "type": "params",
             "id": "sessionDataItems",
-            "line": 70
+            "line": 113
           }
         ],
         "kind": "method"
@@ -847,12 +854,537 @@
       {
         "type": "method",
         "id": "forwardCommand",
-        "line": 134,
+        "line": 174,
         "params": [
           {
             "type": "params",
             "id": "command",
-            "line": 134
+            "line": 174
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getRealm",
+        "line": 201,
+        "params": [],
+        "comments": [
+          {
+            "description": "If <var>realmId</var> is null or not provided get the realm for a given <var>sandboxName</var>, otherwise find the realm in the cache with the realm id equal given <var>realmId</var>.",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "options",
+                "type": "object",
+                "optional": false,
+                "description": "",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 6,
+                    "source": "   * @param {object} options",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "options",
+                      "postName": "",
+                      "type": "{object}",
+                      "postType": " ",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "param",
+                "name": "options.realmId",
+                "type": "string|null=",
+                "optional": false,
+                "description": "The realm id.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 7,
+                    "source": "   * @param {string|null=} options.realmId",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "options.realmId",
+                      "postName": "",
+                      "type": "{string|null=}",
+                      "postType": " ",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 8,
+                    "source": "   *     The realm id.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "     ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "The realm id.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "param",
+                "name": "options.sandboxName",
+                "type": "string=",
+                "optional": false,
+                "description": "The name of sandbox",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 9,
+                    "source": "   * @param {string=} options.sandboxName",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "options.sandboxName",
+                      "postName": "",
+                      "type": "{string=}",
+                      "postType": " ",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 10,
+                    "source": "   *     The name of sandbox",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "     ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "The name of sandbox",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 11,
+                    "source": "   *",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "returns",
+                "name": "",
+                "type": "Realm",
+                "optional": false,
+                "description": "The realm object.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 12,
+                    "source": "   * @returns {Realm}",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "",
+                      "postName": "",
+                      "type": "{Realm}",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 13,
+                    "source": "   *     The realm object.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "     ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "The realm object.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 14,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 15,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * If <var>realmId</var> is null or not provided get the realm for",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "If <var>realmId</var> is null or not provided get the realm for",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * a given <var>sandboxName</var>, otherwise find the realm",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "a given <var>sandboxName</var>, otherwise find the realm",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * in the cache with the realm id equal given <var>realmId</var>.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "in the cache with the realm id equal given <var>realmId</var>.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * @param {object} options",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "options",
+                  "postName": "",
+                  "type": "{object}",
+                  "postType": " ",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   * @param {string|null=} options.realmId",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "options.realmId",
+                  "postName": "",
+                  "type": "{string|null=}",
+                  "postType": " ",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   *     The realm id.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "     ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "The realm id.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   * @param {string=} options.sandboxName",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "options.sandboxName",
+                  "postName": "",
+                  "type": "{string=}",
+                  "postType": " ",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   *     The name of sandbox",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "     ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "The name of sandbox",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 12,
+                "source": "   * @returns {Realm}",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "",
+                  "postName": "",
+                  "type": "{Realm}",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 13,
+                "source": "   *     The realm object.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "     ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "The realm object.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 14,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 15,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
           }
         ],
         "kind": "method"
@@ -860,12 +1392,343 @@
       {
         "type": "method",
         "id": "matchesContext",
-        "line": 140,
+        "line": 218,
         "params": [
           {
             "type": "params",
             "id": "contextDescriptor",
-            "line": 140
+            "line": 218
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "sendRootCommand",
+        "line": 234,
+        "params": [
+          {
+            "type": "params",
+            "id": "command",
+            "line": 234
+          }
+        ],
+        "comments": [
+          {
+            "description": "Send a command to the root MessageHandler.",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "command",
+                "type": "Command",
+                "optional": false,
+                "description": "The command to send to the root MessageHandler.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 4,
+                    "source": "   * @param {Command} command",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "command",
+                      "postName": "",
+                      "type": "{Command}",
+                      "postType": " ",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 5,
+                    "source": "   *     The command to send to the root MessageHandler.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "     ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "The command to send to the root MessageHandler.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "returns",
+                "name": "",
+                "type": "Promise",
+                "optional": false,
+                "description": "A promise which resolves with the return value of the command.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 6,
+                    "source": "   * @returns {Promise}",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "",
+                      "postName": "",
+                      "type": "{Promise}",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 7,
+                    "source": "   *     A promise which resolves with the return value of the command.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "     ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "A promise which resolves with the return value of the command.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 8,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 9,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Send a command to the root MessageHandler.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Send a command to the root MessageHandler.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * @param {Command} command",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "command",
+                  "postName": "",
+                  "type": "{Command}",
+                  "postType": " ",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   *     The command to send to the root MessageHandler.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "     ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "The command to send to the root MessageHandler.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * @returns {Promise}",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "",
+                  "postName": "",
+                  "type": "{Promise}",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   *     A promise which resolves with the return value of the command.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "     ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "A promise which resolves with the return value of the command.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
           }
         ],
         "kind": "method"

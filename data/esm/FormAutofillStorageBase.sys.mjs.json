@@ -1,0 +1,1597 @@
+[
+  {
+    "type": "variable-declaration",
+    "id": "ADDRESS_SCHEMA_VERSION",
+    "line": 156,
+    "typeEstimation": {
+      "type": "number-estimation",
+      "defaultValue": 1
+    }
+  },
+  {
+    "type": "variable-declaration",
+    "id": "CREDIT_CARD_SCHEMA_VERSION",
+    "line": 164,
+    "typeEstimation": {
+      "type": "number-estimation",
+      "defaultValue": 3
+    }
+  },
+  {
+    "type": "class",
+    "id": "AddressesBase",
+    "line": 1488,
+    "methods": [
+      {
+        "type": "method",
+        "id": "constructor",
+        "line": 1489,
+        "params": [
+          {
+            "type": "params",
+            "id": "store",
+            "line": 1489
+          }
+        ],
+        "kind": "constructor"
+      },
+      {
+        "type": "method",
+        "id": "_recordReadProcessor",
+        "line": 1499,
+        "params": [
+          {
+            "type": "params",
+            "id": "address",
+            "line": 1499
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "computeFields",
+        "line": 1506,
+        "params": [
+          {
+            "type": "params",
+            "id": "address",
+            "line": 1506
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_normalizeFields",
+        "line": 1611,
+        "params": [
+          {
+            "type": "params",
+            "id": "address",
+            "line": 1611
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_normalizeNameFields",
+        "line": 1618,
+        "params": [
+          {
+            "type": "params",
+            "id": "address",
+            "line": 1618
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_normalizeAddressFields",
+        "line": 1634,
+        "params": [
+          {
+            "type": "params",
+            "id": "address",
+            "line": 1634
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_normalizeCountryFields",
+        "line": 1659,
+        "params": [
+          {
+            "type": "params",
+            "id": "address",
+            "line": 1659
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_normalizeTelFields",
+        "line": 1687,
+        "params": [
+          {
+            "type": "params",
+            "id": "address",
+            "line": 1687
+          }
+        ],
+        "kind": "method"
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "id": "CreditCardsBase",
+    "line": 1703,
+    "methods": [
+      {
+        "type": "method",
+        "id": "constructor",
+        "line": 1704,
+        "params": [
+          {
+            "type": "params",
+            "id": "store",
+            "line": 1704
+          }
+        ],
+        "kind": "constructor"
+      },
+      {
+        "type": "method",
+        "id": "computeFields",
+        "line": 1714,
+        "params": [
+          {
+            "type": "params",
+            "id": "creditCard",
+            "line": 1714
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_encryptNumber",
+        "line": 1763,
+        "params": [
+          {
+            "type": "params",
+            "id": "creditCard",
+            "line": 1763
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_isMigrationNeeded",
+        "line": 1767,
+        "params": [
+          {
+            "type": "params",
+            "id": "recordVersion",
+            "line": 1767
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_computeMigratedRecord",
+        "line": 1774,
+        "params": [
+          {
+            "type": "params",
+            "id": "creditCard",
+            "line": 1774
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_stripComputedFields",
+        "line": 1819,
+        "params": [
+          {
+            "type": "params",
+            "id": "creditCard",
+            "line": 1819
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_normalizeFields",
+        "line": 1837,
+        "params": [
+          {
+            "type": "params",
+            "id": "creditCard",
+            "line": 1837
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_validateFields",
+        "line": 1841,
+        "params": [
+          {
+            "type": "params",
+            "id": "creditCard",
+            "line": 1841
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_ensureMatchingVersion",
+        "line": 1847,
+        "params": [
+          {
+            "type": "params",
+            "id": "record",
+            "line": 1847
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getMatchRecords",
+        "line": 1902,
+        "params": [
+          {
+            "type": "params",
+            "id": "record",
+            "line": 1902
+          }
+        ],
+        "comments": [
+          {
+            "description": "Find a match credit card record in storage that is either exactly the same as the given record or a superset of the given record. See the comments in `getDuplicateRecords` to see the difference between `getDuplicateRecords` and `getMatchRecords`",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "record",
+                "type": "object",
+                "optional": false,
+                "description": "The credit card for match checking. please make sure the record is normalized.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 8,
+                    "source": "   * @param {object} record",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "record",
+                      "postName": "",
+                      "type": "{object}",
+                      "postType": " ",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 9,
+                    "source": "   *        The credit card for match checking. please make sure the",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "        ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "The credit card for match checking. please make sure the",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 10,
+                    "source": "   *        record is normalized.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "        ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "record is normalized.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "returns",
+                "name": "",
+                "type": "object",
+                "optional": false,
+                "description": "Return the first matched record found in storage, null otherwise.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 11,
+                    "source": "   * @returns {object}",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "",
+                      "postName": "",
+                      "type": "{object}",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 12,
+                    "source": "   *          Return the first matched record found in storage, null otherwise.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "          ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "Return the first matched record found in storage, null otherwise.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 13,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 14,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Find a match credit card record in storage that is either exactly the same",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Find a match credit card record in storage that is either exactly the same",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   * as the given record or a superset of the given record.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "as the given record or a superset of the given record.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * See the comments in `getDuplicateRecords` to see the difference between",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "See the comments in `getDuplicateRecords` to see the difference between",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * `getDuplicateRecords` and `getMatchRecords`",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "`getDuplicateRecords` and `getMatchRecords`",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   * @param {object} record",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "record",
+                  "postName": "",
+                  "type": "{object}",
+                  "postType": " ",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   *        The credit card for match checking. please make sure the",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "        ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "The credit card for match checking. please make sure the",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   *        record is normalized.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "        ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "record is normalized.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "   * @returns {object}",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "",
+                  "postName": "",
+                  "type": "{object}",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 12,
+                "source": "   *          Return the first matched record found in storage, null otherwise.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "          ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Return the first matched record found in storage, null otherwise.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 13,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 14,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getDuplicateRecords",
+        "line": 1933,
+        "params": [
+          {
+            "type": "params",
+            "id": "record",
+            "line": 1933
+          }
+        ],
+        "comments": [
+          {
+            "description": "Find a duplicate credit card record in the storage. A record is considered as a duplicate of another record when two records are the \"same\". This might be true even when some of their fields are different. For example, one record has the same credit card number but has different expiration date as the other record are still considered as \"duplicate\". This is different from `getMatchRecords`, which ensures all the fields with value in the the record is equal to the returned record.",
+            "tags": [
+              {
+                "tag": "param",
+                "name": "record",
+                "type": "object",
+                "optional": false,
+                "description": "The credit card for duplication checking. please make sure the record is normalized.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 12,
+                    "source": "   * @param {object} record",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@param",
+                      "postTag": " ",
+                      "name": "record",
+                      "postName": "",
+                      "type": "{object}",
+                      "postType": " ",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 13,
+                    "source": "   *        The credit card for duplication checking. please make sure the",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "        ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "The credit card for duplication checking. please make sure the",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 14,
+                    "source": "   *        record is normalized.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "        ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "record is normalized.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "returns",
+                "name": "",
+                "type": "object",
+                "optional": false,
+                "description": "Return the first duplicated record found in storage, null otherwise.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 15,
+                    "source": "   * @returns {object}",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "",
+                      "postName": "",
+                      "type": "{object}",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 16,
+                    "source": "   *          Return the first duplicated record found in storage, null otherwise.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "          ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "Return the first duplicated record found in storage, null otherwise.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 17,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 18,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Find a duplicate credit card record in the storage.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Find a duplicate credit card record in the storage.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * A record is considered as a duplicate of another record when two records",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "A record is considered as a duplicate of another record when two records",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * are the \"same\". This might be true even when some of their fields are",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "are the \"same\". This might be true even when some of their fields are",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   * different. For example, one record has the same credit card number but has",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "different. For example, one record has the same credit card number but has",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "   * different expiration date as the other record are still considered as",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "different expiration date as the other record are still considered as",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 8,
+                "source": "   * \"duplicate\".",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "\"duplicate\".",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 9,
+                "source": "   * This is different from `getMatchRecords`, which ensures all the fields with",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "This is different from `getMatchRecords`, which ensures all the fields with",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 10,
+                "source": "   * value in the the record is equal to the returned record.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "value in the the record is equal to the returned record.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 11,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 12,
+                "source": "   * @param {object} record",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@param",
+                  "postTag": " ",
+                  "name": "record",
+                  "postName": "",
+                  "type": "{object}",
+                  "postType": " ",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 13,
+                "source": "   *        The credit card for duplication checking. please make sure the",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "        ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "The credit card for duplication checking. please make sure the",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 14,
+                "source": "   *        record is normalized.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "        ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "record is normalized.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 15,
+                "source": "   * @returns {object}",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "",
+                  "postName": "",
+                  "type": "{object}",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 16,
+                "source": "   *          Return the first duplicated record found in storage, null otherwise.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "          ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Return the first duplicated record found in storage, null otherwise.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 17,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 18,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "id": "FormAutofillStorageBase",
+    "line": 1956,
+    "methods": [
+      {
+        "type": "method",
+        "id": "constructor",
+        "line": 1957,
+        "params": [
+          {
+            "type": "params",
+            "id": "path",
+            "line": 1957
+          }
+        ],
+        "kind": "constructor"
+      },
+      {
+        "type": "method",
+        "id": "version",
+        "line": 1963,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "addresses",
+        "line": 1967,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "creditCards",
+        "line": 1971,
+        "params": [],
+        "kind": "get"
+      },
+      {
+        "type": "method",
+        "id": "getAddresses",
+        "line": 1975,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "getCreditCards",
+        "line": 1979,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "initialize",
+        "line": 1989,
+        "params": [],
+        "comments": [
+          {
+            "description": "Initialize storage to memory.",
+            "tags": [
+              {
+                "tag": "returns",
+                "name": "When",
+                "type": "Promise",
+                "optional": false,
+                "description": "the operation finished successfully.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 4,
+                    "source": "   * @returns {Promise} When the operation finished successfully.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@returns",
+                      "postTag": " ",
+                      "name": "When",
+                      "postName": " ",
+                      "type": "{Promise}",
+                      "postType": " ",
+                      "description": "the operation finished successfully.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "tag": "throws",
+                "name": "JavaScript",
+                "type": "",
+                "optional": false,
+                "description": "exception.",
+                "problems": [],
+                "source": [
+                  {
+                    "number": 5,
+                    "source": "   * @throws  JavaScript exception.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": " ",
+                      "tag": "@throws",
+                      "postTag": "  ",
+                      "name": "JavaScript",
+                      "postName": " ",
+                      "type": "",
+                      "postType": "",
+                      "description": "exception.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 6,
+                    "source": "   ",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 7,
+                    "source": "*/",
+                    "tokens": {
+                      "start": "",
+                      "delimiter": "",
+                      "postDelimiter": "",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "",
+                      "end": "*/",
+                      "lineEnd": ""
+                    }
+                  }
+                ]
+              }
+            ],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": "*",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "   * Initialize storage to memory.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "Initialize storage to memory.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 3,
+                "source": "   *",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 4,
+                "source": "   * @returns {Promise} When the operation finished successfully.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@returns",
+                  "postTag": " ",
+                  "name": "When",
+                  "postName": " ",
+                  "type": "{Promise}",
+                  "postType": " ",
+                  "description": "the operation finished successfully.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 5,
+                "source": "   * @throws  JavaScript exception.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": " ",
+                  "tag": "@throws",
+                  "postTag": "  ",
+                  "name": "JavaScript",
+                  "postName": " ",
+                  "type": "",
+                  "postType": "",
+                  "description": "exception.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 6,
+                "source": "   ",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 7,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_initializeStore",
+        "line": 2003,
+        "params": [],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_saveImmediately",
+        "line": 2008,
+        "params": [],
+        "comments": [
+          {
+            "description": "For test only.",
+            "tags": [],
+            "source": [
+              {
+                "number": 0,
+                "source": "/**",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "/**",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 1,
+                "source": " For test only.",
+                "tokens": {
+                  "start": " ",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "For test only.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 2,
+                "source": "*/",
+                "tokens": {
+                  "start": "",
+                  "delimiter": "",
+                  "postDelimiter": "",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "",
+                  "end": "*/",
+                  "lineEnd": ""
+                }
+              }
+            ],
+            "problems": []
+          }
+        ],
+        "kind": "method"
+      },
+      {
+        "type": "method",
+        "id": "_finalize",
+        "line": 2012,
+        "params": [],
+        "kind": "method"
+      }
+    ]
+  }
+]

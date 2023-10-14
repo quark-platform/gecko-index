@@ -1169,17 +1169,17 @@
       {
         "type": "method",
         "id": "getResources",
-        "line": 150,
+        "line": 154,
         "params": [
           {
             "type": "params",
             "id": "aProfile",
-            "line": 150
+            "line": 154
           }
         ],
         "comments": [
           {
-            "description": "MUST BE OVERRIDDEN. Returns an array of \"migration resources\" objects for the given profile, or for the \"default\" profile, if the migrator does not support multiple profiles. Each migration resource should provide: - a |type| getter, returning any of the migration resource types (see MigrationUtils.resourceTypes). - a |migrate| method, taking a single argument, aCallback(bool success), for migrating the data for this resource.  It may do its job synchronously or asynchronously.  Either way, it must call aCallback(bool aSuccess) when it's done.  In the case of an exception thrown from |migrate|, it's taken as if aCallback(false) is called. Note: In the case of a simple asynchronous implementation, you may find MigrationUtils.wrapMigrateFunction handy for handling aCallback easily. For each migration type listed in MigrationUtils.resourceTypes, multiple migration resources may be provided.  This practice is useful when the data for a certain migration type is independently stored in few locations.  For example, the mac version of Safari stores its \"reading list\" bookmarks in a separate property list. Note that the importation of a particular migration type is reported as successful if _any_ of its resources succeeded to import (that is, called, |aCallback(true)|).  However, completion-status for a particular migration type is reported to the UI only once all of its migrators have called aCallback. NOTE: The returned array should only include resources from which data can be imported.  So, for example, before adding a resource for the BOOKMARKS migration type, you should check if you should check that the bookmarks file exists.",
+            "description": "MUST BE OVERRIDDEN. Returns an array of \"migration resources\" objects for the given profile, or for the \"default\" profile, if the migrator does not support multiple profiles. Each migration resource should provide: - a |type| getter, returning any of the migration resource types (see MigrationUtils.resourceTypes). - a |migrate| method, taking two arguments, aCallback(bool success, object details), for migrating the data for this resource.  It may do its job synchronously or asynchronously. Either way, it must call aCallback(bool aSuccess, object details) when it's done.  In the case of an exception thrown from |migrate|, it's taken as if aCallback(false, {}) is called. The details argument is sometimes optional, but conditional on how the migration wizard wants to display the migration state for the resource. Note: In the case of a simple asynchronous implementation, you may find MigrationUtils.wrapMigrateFunction handy for handling aCallback easily. For each migration type listed in MigrationUtils.resourceTypes, multiple migration resources may be provided.  This practice is useful when the data for a certain migration type is independently stored in few locations.  For example, the mac version of Safari stores its \"reading list\" bookmarks in a separate property list. Note that the importation of a particular migration type is reported as successful if _any_ of its resources succeeded to import (that is, called, |aCallback(true, {})|).  However, completion-status for a particular migration type is reported to the UI only once all of its migrators have called aCallback. NOTE: The returned array should only include resources from which data can be imported.  So, for example, before adding a resource for the BOOKMARKS migration type, you should check if you should check that the bookmarks file exists.",
             "tags": [
               {
                 "tag": "abstract",
@@ -1190,7 +1190,7 @@
                 "problems": [],
                 "source": [
                   {
-                    "number": 38,
+                    "number": 42,
                     "source": "   * @abstract",
                     "tokens": {
                       "start": "   ",
@@ -1218,7 +1218,7 @@
                 "problems": [],
                 "source": [
                   {
-                    "number": 39,
+                    "number": 43,
                     "source": "   * @param {object|string} aProfile",
                     "tokens": {
                       "start": "   ",
@@ -1236,7 +1236,7 @@
                     }
                   },
                   {
-                    "number": 40,
+                    "number": 44,
                     "source": "   *  The profile from which data may be imported, or an empty string",
                     "tokens": {
                       "start": "   ",
@@ -1254,7 +1254,7 @@
                     }
                   },
                   {
-                    "number": 41,
+                    "number": 45,
                     "source": "   *  in the case of a single-profile migrator.",
                     "tokens": {
                       "start": "   ",
@@ -1272,7 +1272,7 @@
                     }
                   },
                   {
-                    "number": 42,
+                    "number": 46,
                     "source": "   *  In the case of multiple-profiles migrator, it is guaranteed that",
                     "tokens": {
                       "start": "   ",
@@ -1290,7 +1290,7 @@
                     }
                   },
                   {
-                    "number": 43,
+                    "number": 47,
                     "source": "   *  aProfile is a value returned by the sourceProfiles getter (see",
                     "tokens": {
                       "start": "   ",
@@ -1308,7 +1308,7 @@
                     }
                   },
                   {
-                    "number": 44,
+                    "number": 48,
                     "source": "   *  above).",
                     "tokens": {
                       "start": "   ",
@@ -1336,7 +1336,7 @@
                 "problems": [],
                 "source": [
                   {
-                    "number": 45,
+                    "number": 49,
                     "source": "   * @returns {Promise<MigratorResource[]>|MigratorResource[]}",
                     "tokens": {
                       "start": "   ",
@@ -1354,7 +1354,7 @@
                     }
                   },
                   {
-                    "number": 46,
+                    "number": 50,
                     "source": "   ",
                     "tokens": {
                       "start": "   ",
@@ -1372,7 +1372,7 @@
                     }
                   },
                   {
-                    "number": 47,
+                    "number": 51,
                     "source": "*/",
                     "tokens": {
                       "start": "",
@@ -1611,7 +1611,7 @@
               },
               {
                 "number": 12,
-                "source": "   * - a |migrate| method, taking a single argument, aCallback(bool success),",
+                "source": "   * - a |migrate| method, taking two arguments,",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -1622,14 +1622,14 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "- a |migrate| method, taking a single argument, aCallback(bool success),",
+                  "description": "- a |migrate| method, taking two arguments,",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
                 "number": 13,
-                "source": "   *   for migrating the data for this resource.  It may do its job",
+                "source": "   *   aCallback(bool success, object details), for migrating the data for",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -1640,14 +1640,14 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "for migrating the data for this resource.  It may do its job",
+                  "description": "aCallback(bool success, object details), for migrating the data for",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
                 "number": 14,
-                "source": "   *   synchronously or asynchronously.  Either way, it must call",
+                "source": "   *   this resource.  It may do its job synchronously or asynchronously.",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -1658,14 +1658,14 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "synchronously or asynchronously.  Either way, it must call",
+                  "description": "this resource.  It may do its job synchronously or asynchronously.",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
                 "number": 15,
-                "source": "   *   aCallback(bool aSuccess) when it's done.  In the case of an exception",
+                "source": "   *   Either way, it must call aCallback(bool aSuccess, object details)",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -1676,14 +1676,14 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "aCallback(bool aSuccess) when it's done.  In the case of an exception",
+                  "description": "Either way, it must call aCallback(bool aSuccess, object details)",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
                 "number": 16,
-                "source": "   *   thrown from |migrate|, it's taken as if aCallback(false) is called.",
+                "source": "   *   when it's done.  In the case of an exception thrown from |migrate|,",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -1694,13 +1694,85 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "thrown from |migrate|, it's taken as if aCallback(false) is called.",
+                  "description": "when it's done.  In the case of an exception thrown from |migrate|,",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
                 "number": 17,
+                "source": "   *   it's taken as if aCallback(false, {}) is called. The details",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "it's taken as if aCallback(false, {}) is called. The details",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 18,
+                "source": "   *   argument is sometimes optional, but conditional on how the",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "argument is sometimes optional, but conditional on how the",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 19,
+                "source": "   *   migration wizard wants to display the migration state for the",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "migration wizard wants to display the migration state for the",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 20,
+                "source": "   *   resource.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "resource.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 21,
                 "source": "   *",
                 "tokens": {
                   "start": "   ",
@@ -1718,7 +1790,7 @@
                 }
               },
               {
-                "number": 18,
+                "number": 22,
                 "source": "   *   Note: In the case of a simple asynchronous implementation, you may find",
                 "tokens": {
                   "start": "   ",
@@ -1736,7 +1808,7 @@
                 }
               },
               {
-                "number": 19,
+                "number": 23,
                 "source": "   *   MigrationUtils.wrapMigrateFunction handy for handling aCallback easily.",
                 "tokens": {
                   "start": "   ",
@@ -1754,7 +1826,7 @@
                 }
               },
               {
-                "number": 20,
+                "number": 24,
                 "source": "   *",
                 "tokens": {
                   "start": "   ",
@@ -1772,7 +1844,7 @@
                 }
               },
               {
-                "number": 21,
+                "number": 25,
                 "source": "   * For each migration type listed in MigrationUtils.resourceTypes, multiple",
                 "tokens": {
                   "start": "   ",
@@ -1790,7 +1862,7 @@
                 }
               },
               {
-                "number": 22,
+                "number": 26,
                 "source": "   * migration resources may be provided.  This practice is useful when the",
                 "tokens": {
                   "start": "   ",
@@ -1808,7 +1880,7 @@
                 }
               },
               {
-                "number": 23,
+                "number": 27,
                 "source": "   * data for a certain migration type is independently stored in few",
                 "tokens": {
                   "start": "   ",
@@ -1826,7 +1898,7 @@
                 }
               },
               {
-                "number": 24,
+                "number": 28,
                 "source": "   * locations.  For example, the mac version of Safari stores its \"reading list\"",
                 "tokens": {
                   "start": "   ",
@@ -1844,7 +1916,7 @@
                 }
               },
               {
-                "number": 25,
+                "number": 29,
                 "source": "   * bookmarks in a separate property list.",
                 "tokens": {
                   "start": "   ",
@@ -1862,7 +1934,7 @@
                 }
               },
               {
-                "number": 26,
+                "number": 30,
                 "source": "   *",
                 "tokens": {
                   "start": "   ",
@@ -1880,7 +1952,7 @@
                 }
               },
               {
-                "number": 27,
+                "number": 31,
                 "source": "   * Note that the importation of a particular migration type is reported as",
                 "tokens": {
                   "start": "   ",
@@ -1898,7 +1970,7 @@
                 }
               },
               {
-                "number": 28,
+                "number": 32,
                 "source": "   * successful if _any_ of its resources succeeded to import (that is, called,",
                 "tokens": {
                   "start": "   ",
@@ -1916,8 +1988,8 @@
                 }
               },
               {
-                "number": 29,
-                "source": "   * |aCallback(true)|).  However, completion-status for a particular migration",
+                "number": 33,
+                "source": "   * |aCallback(true, {})|).  However, completion-status for a particular migration",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -1928,13 +2000,13 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "|aCallback(true)|).  However, completion-status for a particular migration",
+                  "description": "|aCallback(true, {})|).  However, completion-status for a particular migration",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
-                "number": 30,
+                "number": 34,
                 "source": "   * type is reported to the UI only once all of its migrators have called",
                 "tokens": {
                   "start": "   ",
@@ -1952,7 +2024,7 @@
                 }
               },
               {
-                "number": 31,
+                "number": 35,
                 "source": "   * aCallback.",
                 "tokens": {
                   "start": "   ",
@@ -1970,7 +2042,7 @@
                 }
               },
               {
-                "number": 32,
+                "number": 36,
                 "source": "   *",
                 "tokens": {
                   "start": "   ",
@@ -1988,7 +2060,7 @@
                 }
               },
               {
-                "number": 33,
+                "number": 37,
                 "source": "   * NOTE: The returned array should only include resources from which data",
                 "tokens": {
                   "start": "   ",
@@ -2006,7 +2078,7 @@
                 }
               },
               {
-                "number": 34,
+                "number": 38,
                 "source": "   * can be imported.  So, for example, before adding a resource for the",
                 "tokens": {
                   "start": "   ",
@@ -2024,7 +2096,7 @@
                 }
               },
               {
-                "number": 35,
+                "number": 39,
                 "source": "   * BOOKMARKS migration type, you should check if you should check that the",
                 "tokens": {
                   "start": "   ",
@@ -2042,7 +2114,7 @@
                 }
               },
               {
-                "number": 36,
+                "number": 40,
                 "source": "   * bookmarks file exists.",
                 "tokens": {
                   "start": "   ",
@@ -2060,7 +2132,7 @@
                 }
               },
               {
-                "number": 37,
+                "number": 41,
                 "source": "   *",
                 "tokens": {
                   "start": "   ",
@@ -2078,7 +2150,7 @@
                 }
               },
               {
-                "number": 38,
+                "number": 42,
                 "source": "   * @abstract",
                 "tokens": {
                   "start": "   ",
@@ -2096,7 +2168,7 @@
                 }
               },
               {
-                "number": 39,
+                "number": 43,
                 "source": "   * @param {object|string} aProfile",
                 "tokens": {
                   "start": "   ",
@@ -2114,7 +2186,7 @@
                 }
               },
               {
-                "number": 40,
+                "number": 44,
                 "source": "   *  The profile from which data may be imported, or an empty string",
                 "tokens": {
                   "start": "   ",
@@ -2132,7 +2204,7 @@
                 }
               },
               {
-                "number": 41,
+                "number": 45,
                 "source": "   *  in the case of a single-profile migrator.",
                 "tokens": {
                   "start": "   ",
@@ -2150,7 +2222,7 @@
                 }
               },
               {
-                "number": 42,
+                "number": 46,
                 "source": "   *  In the case of multiple-profiles migrator, it is guaranteed that",
                 "tokens": {
                   "start": "   ",
@@ -2168,7 +2240,7 @@
                 }
               },
               {
-                "number": 43,
+                "number": 47,
                 "source": "   *  aProfile is a value returned by the sourceProfiles getter (see",
                 "tokens": {
                   "start": "   ",
@@ -2186,7 +2258,7 @@
                 }
               },
               {
-                "number": 44,
+                "number": 48,
                 "source": "   *  above).",
                 "tokens": {
                   "start": "   ",
@@ -2204,7 +2276,7 @@
                 }
               },
               {
-                "number": 45,
+                "number": 49,
                 "source": "   * @returns {Promise<MigratorResource[]>|MigratorResource[]}",
                 "tokens": {
                   "start": "   ",
@@ -2222,7 +2294,7 @@
                 }
               },
               {
-                "number": 46,
+                "number": 50,
                 "source": "   ",
                 "tokens": {
                   "start": "   ",
@@ -2240,7 +2312,7 @@
                 }
               },
               {
-                "number": 47,
+                "number": 51,
                 "source": "*/",
                 "tokens": {
                   "start": "",
@@ -2327,7 +2399,7 @@
       {
         "type": "method",
         "id": "getLastUsedDate",
-        "line": 165,
+        "line": 169,
         "params": [],
         "comments": [
           {
@@ -2660,7 +2732,7 @@
       {
         "type": "method",
         "id": "startupOnlyMigrator",
-        "line": 183,
+        "line": 187,
         "params": [],
         "comments": [
           {
@@ -3047,7 +3119,7 @@
       {
         "type": "method",
         "id": "enabled",
-        "line": 195,
+        "line": 199,
         "params": [],
         "comments": [
           {
@@ -3326,7 +3398,7 @@
       {
         "type": "method",
         "id": "hasPermissions",
-        "line": 208,
+        "line": 212,
         "params": [],
         "comments": [
           {
@@ -3587,12 +3659,12 @@
       {
         "type": "method",
         "id": "getPermissions",
-        "line": 230,
+        "line": 234,
         "params": [
           {
             "type": "params",
             "id": "win",
-            "line": 230
+            "line": 234
           }
         ],
         "comments": [
@@ -4159,12 +4231,12 @@
       {
         "type": "method",
         "id": "getMigrateData",
-        "line": 244,
+        "line": 248,
         "params": [
           {
             "type": "params",
             "id": "aProfile",
-            "line": 244
+            "line": 248
           }
         ],
         "comments": [
@@ -4526,22 +4598,22 @@
       {
         "type": "method",
         "id": "migrate",
-        "line": 271,
+        "line": 277,
         "params": [
           {
             "type": "params",
             "id": "aItems",
-            "line": 271
+            "line": 277
           },
           {
             "type": "params",
             "id": "aStartup",
-            "line": 271
+            "line": 277
           },
           {
             "type": "params",
             "id": "aProfile",
-            "line": 271
+            "line": 277
           }
         ],
         "comments": [
@@ -4755,7 +4827,7 @@
                 "name": "aProgressCallback",
                 "type": "Function|null",
                 "optional": false,
-                "description": "An optional callback that will be fired once a resourceType has finished migrating. The callback will be passed the numeric representation of the resource type.",
+                "description": "An optional callback that will be fired once a resourceType has finished migrating. The callback will be passed the numeric representation of the resource type followed by a boolean indicating whether or not the resource was migrated successfully and optionally an object containing additional details.",
                 "problems": [],
                 "source": [
                   {
@@ -4814,7 +4886,7 @@
                   },
                   {
                     "number": 14,
-                    "source": "   *   resource type.",
+                    "source": "   *   resource type followed by a boolean indicating whether or not the resource",
                     "tokens": {
                       "start": "   ",
                       "delimiter": "*",
@@ -4825,13 +4897,49 @@
                       "postName": "",
                       "type": "",
                       "postType": "",
-                      "description": "resource type.",
+                      "description": "resource type followed by a boolean indicating whether or not the resource",
                       "end": "",
                       "lineEnd": ""
                     }
                   },
                   {
                     "number": 15,
+                    "source": "   *   was migrated successfully and optionally an object containing additional",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "was migrated successfully and optionally an object containing additional",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 16,
+                    "source": "   *   details.",
+                    "tokens": {
+                      "start": "   ",
+                      "delimiter": "*",
+                      "postDelimiter": "   ",
+                      "tag": "",
+                      "postTag": "",
+                      "name": "",
+                      "postName": "",
+                      "type": "",
+                      "postType": "",
+                      "description": "details.",
+                      "end": "",
+                      "lineEnd": ""
+                    }
+                  },
+                  {
+                    "number": 17,
                     "source": "   ",
                     "tokens": {
                       "start": "   ",
@@ -4849,7 +4957,7 @@
                     }
                   },
                   {
-                    "number": 16,
+                    "number": 18,
                     "source": "*/",
                     "tokens": {
                       "start": "",
@@ -5124,7 +5232,7 @@
               },
               {
                 "number": 14,
-                "source": "   *   resource type.",
+                "source": "   *   resource type followed by a boolean indicating whether or not the resource",
                 "tokens": {
                   "start": "   ",
                   "delimiter": "*",
@@ -5135,13 +5243,49 @@
                   "postName": "",
                   "type": "",
                   "postType": "",
-                  "description": "resource type.",
+                  "description": "resource type followed by a boolean indicating whether or not the resource",
                   "end": "",
                   "lineEnd": ""
                 }
               },
               {
                 "number": 15,
+                "source": "   *   was migrated successfully and optionally an object containing additional",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "was migrated successfully and optionally an object containing additional",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 16,
+                "source": "   *   details.",
+                "tokens": {
+                  "start": "   ",
+                  "delimiter": "*",
+                  "postDelimiter": "   ",
+                  "tag": "",
+                  "postTag": "",
+                  "name": "",
+                  "postName": "",
+                  "type": "",
+                  "postType": "",
+                  "description": "details.",
+                  "end": "",
+                  "lineEnd": ""
+                }
+              },
+              {
+                "number": 17,
                 "source": "   ",
                 "tokens": {
                   "start": "   ",
@@ -5159,7 +5303,7 @@
                 }
               },
               {
-                "number": 16,
+                "number": 18,
                 "source": "*/",
                 "tokens": {
                   "start": "",
@@ -5185,7 +5329,7 @@
       {
         "type": "method",
         "id": "isSourceAvailable",
-        "line": 542,
+        "line": 546,
         "params": [],
         "comments": [
           {
