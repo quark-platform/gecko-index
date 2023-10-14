@@ -5,13 +5,6 @@
       "kind": "ANY_COMMENT_$0",
       "doc": {
         "kind": "DOC_COMMENT",
-        "contents": "/* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
-      }
-    },
-    {
-      "kind": "ANY_COMMENT_$0",
-      "doc": {
-        "kind": "DOC_COMMENT",
         "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
       }
     },
@@ -21,10 +14,7 @@
     },
     {
       "kind": "interface_main",
-      "doc_comment": {
-        "kind": "DOC_COMMENT",
-        "contents": "/* NOTE: this interface is only implemented in debug builds */"
-      },
+      "doc_comment": null,
       "attrs": {
         "kind": "attributes",
         "first_attribute": {
@@ -40,13 +30,13 @@
               "name": "uuid",
               "param": {
                 "kind": "attribute_$0",
-                "value": "ca7b0bc7-c67c-4b79-8270-ed7ba002af08"
+                "value": "4866F748-29DA-4C10-8EAA-ED2F7851E6B1"
               }
             }
           }
         ]
       },
-      "name": "nsIGfxInfoDebug",
+      "name": "nsIBounceTrackingProtection",
       "base": {
         "kind": "ifacebase",
         "extends": "nsISupports"
@@ -62,20 +52,115 @@
                 "kind": "member_$0",
                 "docComment": [],
                 "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "bounceTrackerCandidateHosts"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "userActivationHosts"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
                   "kind": "func",
                   "attributes": null,
                   "return_type": "void",
-                  "name": "spoofVendorID",
+                  "name": "reset",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "testRunPurgeBounceTrackers",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "testAddBounceTrackerCandidate",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "AString",
-                      "name": "aVendorID"
+                      "type": "ACString",
+                      "name": "aHost"
                     },
-                    "other": []
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aBounceTime"
+                        }
+                      }
+                    ]
                   },
                   "raises": null
                 }
@@ -90,67 +175,28 @@
                   "kind": "func",
                   "attributes": null,
                   "return_type": "void",
-                  "name": "spoofDeviceID",
+                  "name": "testAddUserActivation",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "AString",
-                      "name": "aDeviceID"
+                      "type": "ACString",
+                      "name": "aHost"
                     },
-                    "other": []
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "spoofDriverVersion",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "AString",
-                      "name": "aDriverVersion"
-                    },
-                    "other": []
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "spoofOSVersion",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "unsigned long",
-                      "name": "aVersion"
-                    },
-                    "other": []
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "PRTime",
+                          "name": "aActivationTime"
+                        }
+                      }
+                    ]
                   },
                   "raises": null
                 }

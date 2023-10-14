@@ -30,14 +30,6 @@
             "kind": "attributes_$0",
             "attr": {
               "kind": "attribute",
-              "name": "function",
-              "param": null
-            }
-          },
-          {
-            "kind": "attributes_$0",
-            "attr": {
-              "kind": "attribute",
               "name": "uuid",
               "param": {
                 "kind": "attribute_$0",
@@ -93,6 +85,46 @@
                         }
                       }
                     ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Called by nsIQueryStrippingListService when the list of query stripping\n   * parameters for strip-on-share feature is updated and when the observer is first registered.\n   *\n   * @param aStripRules\n   *        An Array of stringified strip rules.\n   *        A stringified rule has the form of:\n   *        \"'queryParams': ['param1', 'param2', ...], 'topLevelSites': ['www.site.com', 'www.site.de', ...]\"\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "onStripOnShareUpdate",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "aStripRules"
+                    },
+                    "other": []
                   },
                   "raises": null
                 }
@@ -177,6 +209,36 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Register a new observer to strip-on-share stripping list updates\n   * (this is the strip-on-share list combined with the QPS list).\n   * When the observer is registered it is called immediately once. Afterwards it will be called\n   * when there is an remote settings update to the QPS strip list.\n   *\n   * @param aObserver\n   *        An nsIURLQueryStrippingListObserver object or function that\n   *        will receive updates to the strip list and the allow list. Will be\n   *        called immediately with the current list value.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerAndRunObserverStripOnShare",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURLQueryStrippingListObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Unregister an observer.\n   *\n   * @param aObserver\n   *        The nsIURLQueryStrippingListObserver object to unregister.\n   */"
                   }
                 ],
@@ -185,6 +247,36 @@
                   "attributes": null,
                   "return_type": "void",
                   "name": "unregisterObserver",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURLQueryStrippingListObserver",
+                      "name": "aObserver"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Unregister an observer for strip-on-share.\n   *\n   * @param aObserver\n   *        The nsIURLQueryStrippingListObserver object to unregister.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unregisterStripOnShareObserver",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {

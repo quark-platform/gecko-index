@@ -1578,6 +1578,25 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Determines if the base directory is writable. If not, we assume that\n   * further permissions are required and that we are dealing with an elevated\n   * installation.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isAppBaseDirWritable"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * This can be set to true to prevent updates being processed beyond starting\n   * an update download. This should only be used when we are being run as a\n   * background task.\n   * This exists to prevent a particularly fast update download from beginning\n   * to stage while the background task is shutting down.\n   */"
                   }
                 ],
@@ -1873,6 +1892,38 @@
                   "return_type": "bool",
                   "name": "getServiceRegKeyExists",
                   "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * Registers an application restart upon program exit with the same\n  * arguments it was started with, while accepting additional arguments.\n  * The application must have been running for a minimum of 60 seconds\n  * before invoking this function due to limitations in\n  * RegisterApplicationRestart.\n  *\n  * This function should only be called on Windows.\n  *\n  * @param  argvExtra\n  *         An array of strings to be passed to the application upon\n  *         restart as additional arguments.\n  * @throws NS_ERROR_ABORT\n  *         If the application is in a restart loop.\n  * @throws NS_ERROR_NOT_IMPLEMENTED\n  *         If this is called on a non-Windows platform.\n  * @throws NS_ERROR_NOT_AVAILABLE\n  *         If the command line cannot be read.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "registerApplicationRestartWithLaunchArgs",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "argvExtra"
+                    },
+                    "other": []
+                  },
                   "raises": null
                 }
               }
@@ -2227,6 +2278,46 @@
                   "attributes": null,
                   "return_type": "void",
                   "name": "cleanupReadyUpdate",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Runs cleanup that ought to happen on a Firefox paveover install to\n   * prevent a stale update from being processed when Firefox is first\n   * launched.\n   * This is best-effort. It will not throw on cleanup failure.\n   *\n   * The returned promise does not resolve with any particular value. It simply\n   * conveys that the cleanup has completed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "doInstallCleanup",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Runs cleanup that ought to happen when Firefox is uninstalled to clean up\n   * old update data that is no longer needed.\n   * This is best-effort. It will not throw on cleanup failure.\n   *\n   * The returned promise does not resolve with any particular value. It simply\n   * conveys that the cleanup has completed.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "doUninstallCleanup",
                   "params": null,
                   "raises": null
                 }

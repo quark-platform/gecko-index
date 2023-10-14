@@ -189,7 +189,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Puts up a username/password dialog with OK and Cancel buttons.\n     * Puts up a password dialog with OK and Cancel buttons.\n     * @param  dialogText    The title for the dialog.\n     * @param  text          The text to display in the dialog.\n     * @param  passwordRealm The \"realm\" the password belongs to: e.g.\n     *                       ldap://localhost/dc=test\n     * @param  savePassword  One of the SAVE_PASSWORD_* options above.\n     * @param  user          The username entered in the dialog.\n     * @param  pwd           The password entered by the user if OK was\n     *                       selected.\n     * @return true for OK, false for Cancel\n     */"
+                    "contents": "/**\n     * Puts up a username/password dialog with OK and Cancel buttons.\n     * @param  dialogText    The title for the dialog.\n     * @param  text          The text to display in the dialog.\n     * @param  passwordRealm The \"realm\" the password belongs to: e.g.\n     *                       ldap://localhost/dc=test\n     * @param  savePassword  One of the SAVE_PASSWORD_* options above.\n     * @param  user          The username entered in the dialog.\n     * @param  pwd           The password entered by the user if OK was\n     *                       selected.\n     * @return true for OK, false for Cancel\n     */"
                   }
                 ],
                 "code": {
@@ -197,6 +197,87 @@
                   "attributes": null,
                   "return_type": "boolean",
                   "name": "promptUsernameAndPassword",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "dialogTitle"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "text"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "passwordRealm"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "savePassword"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "inout",
+                          "type": "wstring",
+                          "name": "user"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "inout",
+                          "type": "wstring",
+                          "name": "pwd"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Puts up an async username/password dialog with OK and Cancel buttons.\n     * @param  dialogText    The title for the dialog.\n     * @param  text          The text to display in the dialog.\n     * @param  passwordRealm The \"realm\" the password belongs to: e.g.\n     *                       ldap://localhost/dc=test\n     * @param  savePassword  One of the SAVE_PASSWORD_* options above.\n     * @param  user          The username entered in the dialog.\n     * @param  pwd           The password entered by the user if OK was\n     *                       selected.\n     * @return promise resolving to true for OK, false for Cancel\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "asyncPromptUsernameAndPassword",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
@@ -278,6 +359,77 @@
                   "attributes": null,
                   "return_type": "boolean",
                   "name": "promptPassword",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "wstring",
+                      "name": "dialogTitle"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "text"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "wstring",
+                          "name": "passwordRealm"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "uint32_t",
+                          "name": "savePassword"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "inout",
+                          "type": "wstring",
+                          "name": "pwd"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Puts up an async password dialog with OK and Cancel buttons.\n     * @param  dialogText    The title for the dialog.\n     * @param  text          The text to display in the dialog.\n     * @param  passwordRealm The \"realm\" the password belongs to: e.g.\n     *                       ldap://localhost/dc=test. If a username is\n     *                       specified (http://user@site.com) it will be used\n     *                       when matching existing logins or saving new ones.\n     *                       If no username is specified, only password-only\n     *                       logins will be matched or saved.\n     *                       Note: if a username is specified, the username\n     *                       should be escaped.\n     * @param  savePassword  One of the SAVE_PASSWORD_* options above.\n     * @param  pwd           The password entered by the user if OK was\n     *                       selected.\n     * @return promise resolving to true for OK, false for Cancel\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "asyncPromptPassword",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {

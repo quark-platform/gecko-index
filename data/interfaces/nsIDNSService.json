@@ -497,20 +497,6 @@
                         "value": {
                           "kind": "cenum",
                           "comment": [],
-                          "identifier": "RESOLVE_DISABLE_ODOH",
-                          "value": {
-                            "kind": "cenum_$0",
-                            "value": {
-                              "kind": "unary_$0"
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "kind": "cenumlist_$0",
-                        "value": {
-                          "kind": "cenum",
-                          "comment": [],
                           "identifier": "RESOLVE_WANT_RECORD_ON_ERROR",
                           "value": {
                             "kind": "cenum_$0",
@@ -531,6 +517,92 @@
                             "value": {
                               "kind": "unary_$0"
                             }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "enum_code",
+                  "name": "ConfirmationState",
+                  "base": "8",
+                  "values": {
+                    "kind": "cenumlist",
+                    "first_value": {
+                      "kind": "cenum",
+                      "comment": [],
+                      "identifier": "CONFIRM_OFF",
+                      "value": {
+                        "kind": "cenum_$0",
+                        "value": "0"
+                      }
+                    },
+                    "other_values": [
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "CONFIRM_TRYING_OK",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "1"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "CONFIRM_OK",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "2"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "CONFIRM_FAILED",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "3"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "CONFIRM_TRYING_FAILED",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "4"
+                          }
+                        }
+                      },
+                      {
+                        "kind": "cenumlist_$0",
+                        "value": {
+                          "kind": "cenum",
+                          "comment": [],
+                          "identifier": "CONFIRM_DISABLED",
+                          "value": {
+                            "kind": "cenum_$0",
+                            "value": "5"
                           }
                         }
                       }
@@ -1349,6 +1421,44 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The channel status of the last TRR confirmation attempt.\n     * In strict mode it reflects the channel status of the last TRR request.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsresult",
+                  "name": "lastConfirmationStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * The TRR skip reason of the last TRR confirmation attempt.\n     * In strict mode it reflects the TRR skip reason of the last TRR request.\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "nsITRRSkipReason_value",
+                  "name": "lastConfirmationSkipReason"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n     * Notifies the DNS service that we failed to connect to this alternative\n     * endpoint.\n     * @param aOwnerName\n     *        The owner name of this HTTPS RRs.\n     * @param aSVCDomainName\n     *        The domain name of this alternative endpoint.\n     */"
                   }
                 ],
@@ -1520,31 +1630,6 @@
               "kind": "ifacebody_$0_$0",
               "contents": {
                 "kind": "member_$0",
-                "docComment": [],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "setTRRModeInChild",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "nsIDNSService_ResolverMode",
-                      "name": "mode"
-                    },
-                    "other": []
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
@@ -1605,15 +1690,15 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Returns true when we have valid ODoHConfigs to encrypt/decrypt oblivious\n     * DNS packets.\n     */"
+                    "contents": "/**\n     * returns the telemetry key for current TRR domain.\n     */"
                   }
                 ],
                 "code": {
                   "kind": "attribute_code",
                   "attributes": null,
                   "readonly": "readonly",
-                  "type": "boolean",
-                  "name": "ODoHActivated"
+                  "type": "ACString",
+                  "name": "TRRDomainKey"
                 }
               }
             },

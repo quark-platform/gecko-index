@@ -12,7 +12,7 @@
       "kind": "INCLUDE",
       "ident": "nsISupports"
     },
-    "%{C++\n\nnamespace mozilla {\n// Simple C++ getter for nsIXULRuntime::browserTabsRemoteAutostart\n// This getter is a temporary function that checks for special\n// conditions in which e10s support is not great yet, and should\n// therefore be disabled. Bug 1065561 tracks its removal.\nbool BrowserTabsRemoteAutostart();\nuint32_t GetMaxWebProcessCount();\n\n// Returns the value of the fission.autostart pref. Since fission can be\n// disabled on a per-window basis, this should only be used when you need the\n// global value of the pref. For other use cases, you should use\n// nsILoadContext::UseRemoteSubframes instead. This will also check for special\n// conditions, like safe mode, which may require fission to be disabled, or\n// environment variables MOZ_FORCE_ENABLE_FISSION and MOZ_FORCE_DISABLE_FISSION,\n// used by mach run to enable/disable fission regardless of pref settings.\nbool FissionAutostart();\n\n// Returns whether or not we are currently enrolled in the fission experiment.\nbool FissionExperimentEnrolled();\n\n// Returns true if fission.sessionHistoryInParent or FissionAutostart() is true.\nbool SessionHistoryInParent();\n\n// Returns true if SessionHistoryInParent() returns true and\n// fission.bfcacheInParent is true.\nbool BFCacheInParent();\n}\n\n%}\n\n",
+    "%{C++\n\nnamespace mozilla {\n// Simple C++ getter for nsIXULRuntime::browserTabsRemoteAutostart\n// This getter is a temporary function that checks for special\n// conditions in which e10s support is not great yet, and should\n// therefore be disabled. Bug 1065561 tracks its removal.\nbool BrowserTabsRemoteAutostart();\nuint32_t GetMaxWebProcessCount();\n\n// Returns the value of the fission.autostart pref. Since fission can be\n// disabled on a per-window basis, this should only be used when you need the\n// global value of the pref. For other use cases, you should use\n// nsILoadContext::UseRemoteSubframes instead. This will also check for special\n// conditions, like safe mode, which may require fission to be disabled, or\n// environment variables MOZ_FORCE_ENABLE_FISSION and MOZ_FORCE_DISABLE_FISSION,\n// used by mach run to enable/disable fission regardless of pref settings.\nbool FissionAutostart();\n\n// Returns whether or not we are currently enrolled in the fission experiment.\nbool FissionExperimentEnrolled();\n\n// Returns true if FissionAutostart() is true or\n// fission.disableSessionHistoryInParent is false.\nbool SessionHistoryInParent();\n\n// Returns true if SessionHistoryInParent() returns true and\n// fission.bfcacheInParent is true.\nbool BFCacheInParent();\n}\n\n%}\n\n",
     {
       "kind": "interface_main",
       "doc_comment": {
@@ -1063,25 +1063,6 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * If true, the AccessibleHandler dll is used.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "attribute_code",
-                  "attributes": null,
-                  "readonly": "readonly",
-                  "type": "boolean",
-                  "name": "accessibleHandlerUsed"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Executable of Windows service that activated accessibility.\n   */"
                   }
                 ],
@@ -1091,25 +1072,6 @@
                   "readonly": "readonly",
                   "type": "AString",
                   "name": "accessibilityInstantiator"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Temporary, do not use. Indicates if an incompat version of JAWS\n   * screen reader software is loaded in our process space.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "attribute_code",
-                  "attributes": null,
-                  "readonly": "readonly",
-                  "type": "boolean",
-                  "name": "shouldBlockIncompatJaws"
                 }
               }
             },
@@ -1331,6 +1293,25 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/** Whether the user prefers reduced motion */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "prefersReducedMotion"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/** Whether we should draw over the titlebar */"
                   }
                 ],
@@ -1359,6 +1340,25 @@
                   "readonly": "readonly",
                   "type": "ACString",
                   "name": "desktopEnvironment"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/** Whether we use Wayland. Only meaningful on GTK */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "isWayland"
                 }
               }
             },

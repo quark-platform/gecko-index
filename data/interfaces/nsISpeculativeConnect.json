@@ -46,6 +46,11 @@
       "body": null
     },
     "\n\n",
+    "%{C++\nnamespace mozilla {\n\nclass OriginAttributes;\n\n}\n%}\n\n",
+    {
+      "kind": "native"
+    },
+    "\n\n",
     {
       "kind": "interface_main",
       "doc_comment": null,
@@ -57,6 +62,14 @@
           "param": null
         },
         "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
           {
             "kind": "attributes_$0",
             "attr": {
@@ -87,7 +100,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Called as a hint to indicate a new transaction for the URI is likely coming\n     * soon. The implementer may use this information to start a TCP\n     * and/or SSL level handshake for that resource immediately so that it is\n     * ready and/or progressed when the transaction is actually submitted.\n     *\n     * No obligation is taken on by the implementer, nor is the submitter obligated\n     * to actually open the new channel.\n     *\n     * @param aURI the URI of the hinted transaction\n     * @param aPrincipal the principal that will be used for opening the\n     *        channel of the hinted transaction.\n     * @param aCallbacks any security callbacks for use with SSL for interfaces.\n     *        May be null.\n     *\n     */"
+                    "contents": "/**\n     * Called as a hint to indicate a new transaction for the URI is likely coming\n     * soon. The implementer may use this information to start a TCP\n     * and/or SSL level handshake for that resource immediately so that it is\n     * ready and/or progressed when the transaction is actually submitted.\n     *\n     * No obligation is taken on by the implementer, nor is the submitter obligated\n     * to actually open the new channel.\n     *\n     * @param aURI the URI of the hinted transaction\n     * @param aPrincipal the principal that will be used for opening the\n     *        channel of the hinted transaction.\n     * @param aCallbacks any security callbacks for use with SSL for interfaces.\n     *        May be null.\n     * @param aAnonymous indicates if this is an anonymous connection.\n     *\n     */"
                   }
                 ],
                 "code": {
@@ -124,6 +137,16 @@
                           "type": "nsIInterfaceRequestor",
                           "name": "aCallbacks"
                         }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aAnonymous"
+                        }
                       }
                     ]
                   },
@@ -135,12 +158,25 @@
               "kind": "ifacebody_$0_$0",
               "contents": {
                 "kind": "member_$0",
-                "docComment": [],
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This method is similar to speculativeConnect, but it use\n     * the partition key of the originAttributes directly to create the\n     * connection.\n     */"
+                  }
+                ],
                 "code": {
                   "kind": "func",
-                  "attributes": null,
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
                   "return_type": "void",
-                  "name": "speculativeAnonymousConnect",
+                  "name": "speculativeConnectWithOriginAttributes",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
@@ -157,8 +193,8 @@
                           "kind": "param",
                           "attribute": null,
                           "refType": "in",
-                          "type": "nsIPrincipal",
-                          "name": "aPrincipal"
+                          "type": "jsval",
+                          "name": "originAttributes"
                         }
                       },
                       {
@@ -169,6 +205,80 @@
                           "refType": "in",
                           "type": "nsIInterfaceRequestor",
                           "name": "aCallbacks"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aAnonymous"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "notxpcom",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "void",
+                  "name": "speculativeConnectWithOriginAttributesNative",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "aURI"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "OriginAttributes",
+                          "name": "originAttributes"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIInterfaceRequestor",
+                          "name": "aCallbacks"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aAnonymous"
                         }
                       }
                     ]
@@ -315,33 +425,6 @@
                   "readonly": "readonly",
                   "type": "boolean",
                   "name": "allow1918"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * By default the speculative connections triggered by nsISpeculativeConnect\n     * should respect the user certificate checks implemented in nsHttpHandler.\n     * The checks can be ignored for `Link: rel=preconnect` and is also\n     * controlled by a pref.\n     */"
-                  }
-                ],
-                "code": {
-                  "kind": "attribute_code",
-                  "attributes": {
-                    "kind": "attributes",
-                    "first_attribute": {
-                      "kind": "attribute",
-                      "name": "infallible",
-                      "param": null
-                    },
-                    "other_attributes": []
-                  },
-                  "readonly": "readonly",
-                  "type": "boolean",
-                  "name": "ignoreUserCertCheck"
                 }
               }
             }

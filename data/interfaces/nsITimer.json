@@ -756,6 +756,20 @@
               "kind": "ifacebody_$0_$0",
               "contents": {
                 "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "ACString",
+                  "name": "name"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
@@ -826,6 +840,75 @@
       }
     },
     "\n\n",
-    "%{C++\n#include \"nsCOMPtr.h\"\n\nalready_AddRefed<nsITimer> NS_NewTimer();\n\nalready_AddRefed<nsITimer> NS_NewTimer(nsIEventTarget* aTarget);\n\nnsresult\nNS_NewTimerWithObserver(nsITimer** aTimer,\n                        nsIObserver* aObserver,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithObserver(nsIObserver* aObserver,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        nsITimerCallback* aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(nsITimerCallback* aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        nsITimerCallback* aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(nsITimerCallback* aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        std::function<void(nsITimer*)>&& aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(std::function<void(nsITimer*)>&& aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        std::function<void(nsITimer*)>&& aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(std::function<void(nsITimer*)>&& aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithFuncCallback(nsITimer** aTimer,\n                            nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            uint32_t aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithFuncCallback(nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            uint32_t aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithFuncCallback(nsITimer** aTimer,\n                            nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            const mozilla::TimeDuration& aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithFuncCallback(nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            const mozilla::TimeDuration& aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\n\n#define NS_TIMER_CALLBACK_TOPIC \"timer-callback\"\n\n#ifndef RELEASE_OR_BETA\n#undef NS_DECL_NSITIMERCALLBACK\n#define NS_DECL_NSITIMERCALLBACK                                        \\\n  NS_IMETHOD Notify(nsITimer *timer) override;                          \\\n  inline void _ensure_GetName_exists(void) {                            \\\n    static_assert(std::is_convertible<decltype(this), nsINamed*>::value, \\\n                  \"nsITimerCallback implementations must also implement nsINamed\");     \\\n  }\n#endif\n%}\n"
+    "%{C++\n#include \"nsCOMPtr.h\"\n\nalready_AddRefed<nsITimer> NS_NewTimer();\n\nalready_AddRefed<nsITimer> NS_NewTimer(nsIEventTarget* aTarget);\n\nnsresult\nNS_NewTimerWithObserver(nsITimer** aTimer,\n                        nsIObserver* aObserver,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithObserver(nsIObserver* aObserver,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        nsITimerCallback* aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(nsITimerCallback* aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        nsITimerCallback* aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(nsITimerCallback* aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        std::function<void(nsITimer*)>&& aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(std::function<void(nsITimer*)>&& aCallback,\n                        uint32_t aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithCallback(nsITimer** aTimer,\n                        std::function<void(nsITimer*)>&& aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithCallback(std::function<void(nsITimer*)>&& aCallback,\n                        const mozilla::TimeDuration& aDelay,\n                        uint32_t aType,\n                        const char* aNameString,\n                        nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithFuncCallback(nsITimer** aTimer,\n                            nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            uint32_t aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithFuncCallback(nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            uint32_t aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\n\nnsresult\nNS_NewTimerWithFuncCallback(nsITimer** aTimer,\n                            nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            const mozilla::TimeDuration& aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\nmozilla::Result<nsCOMPtr<nsITimer>, nsresult>\nNS_NewTimerWithFuncCallback(nsTimerCallbackFunc aCallback,\n                            void* aClosure,\n                            const mozilla::TimeDuration& aDelay,\n                            uint32_t aType,\n                            const char* aNameString,\n                            nsIEventTarget* aTarget = nullptr);\n\n#define NS_TIMER_CALLBACK_TOPIC \"timer-callback\"\n\n#ifndef RELEASE_OR_BETA\n#undef NS_DECL_NSITIMERCALLBACK\n#define NS_DECL_NSITIMERCALLBACK                                        \\\n  NS_IMETHOD Notify(nsITimer *timer) override;                          \\\n  inline void _ensure_GetName_exists(void) {                            \\\n    static_assert(std::is_convertible<decltype(this), nsINamed*>::value, \\\n                  \"nsITimerCallback implementations must also implement nsINamed\");     \\\n  }\n#endif\n%}\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "5482506d-1d21-4d08-b01c-95c87e1295ad"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsITimerManager",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Returns a read-only list of nsITimer objects, implementing only the name,\n   * delay and type attribute getters.\n   * This is meant to be used for tests, to verify that no timer is leftover\n   * at the end of a test. */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getTimers",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n"
   ]
 }

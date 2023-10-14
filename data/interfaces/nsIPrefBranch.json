@@ -1258,36 +1258,6 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Called to reset all of the preferences referenced by this branch to their\n   * default values.\n   *\n   * @param aStartingAt The point on the branch at which to start the resetting\n   *                    preferences to their default values. Pass in \"\" to\n   *                    reset all preferences referenced by this branch.\n   *\n   * @note\n   * This method can be called on either a default or user branch but, in\n   * effect, always operates on the user branch.\n   *\n   * @throws Error The preference(s) do not exist or an error occurred.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "resetBranch",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "string",
-                      "name": "aStartingAt"
-                    },
-                    "other": []
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Add a preference change observer. On preference changes, the following\n   * arguments will be passed to the nsIObserver.observe() method:\n   *   aSubject - The nsIPrefBranch object (this)\n   *   aTopic   - The string defined by NS_PREFBRANCH_PREFCHANGE_TOPIC_ID\n   *   aData    - The name of the preference which has changed, relative to\n   *              the |root| of the aSubject branch.\n   *\n   * aSubject.get*Pref(aData) will get the new value of the modified\n   * preference. For example, if your observer is registered with\n   * addObserver(\"bar.\", ...) on a branch with root \"foo.\", modifying\n   * the preference \"foo.bar.baz\" will trigger the observer, and aData\n   * parameter will be \"bar.baz\".\n   *\n   * @param aDomain   The preference on which to listen for changes. This can\n   *                  be the name of an entire branch to observe.\n   *                  e.g. Holding the \"root\" prefbranch and calling\n   *                  addObserver(\"foo.bar.\", ...) will observe changes to\n   *                  foo.bar.baz and foo.bar.bzip\n   * @param aObserver The object to be notified if the preference changes.\n   * @param aHoldWeak true  Hold a weak reference to |aObserver|. The object\n   *                        must implement the nsISupportsWeakReference\n   *                        interface or this will fail.\n   *                  false Hold a strong reference to |aObserver|.\n   *\n   * @note\n   * Registering as a preference observer can open an object to potential\n   * cyclical references which will cause memory leaks. These cycles generally\n   * occur because an object both registers itself as an observer (causing the\n   * branch to hold a reference to the observer) and holds a reference to the\n   * branch object for the purpose of getting/setting preference values. There\n   * are 3 approaches which have been implemented in an attempt to avoid these\n   * situations.\n   * 1) The nsPrefBranch object supports nsISupportsWeakReference. Any consumer\n   *    may hold a weak reference to it instead of a strong one.\n   * 2) The nsPrefBranch object listens for xpcom-shutdown and frees all of the\n   *    objects currently in its observer list. This ensures that long lived\n   *    objects (services for example) will be freed correctly.\n   * 3) The observer can request to be held as a weak reference when it is\n   *    registered. This insures that shorter lived objects (say one tied to an\n   *    open window) will not fall into the cyclical reference trap.\n   *\n   * @note\n   * The list of registered observers may be changed during the dispatch of\n   * nsPref:changed notification. However, the observers are not guaranteed\n   * to be notified in any particular order, so you can't be sure whether the\n   * added/removed observer will be called during the notification when it\n   * is added/removed.\n   *\n   * @note\n   * It is possible to change preferences during the notification.\n   *\n   * @note\n   * It is not safe to change observers during this callback in Gecko\n   * releases before 1.9. If you want a safe way to remove a pref observer,\n   * please use an nsITimer.\n   *\n   * @see nsIObserver\n   * @see removeObserver\n   */"
                   }
                 ],

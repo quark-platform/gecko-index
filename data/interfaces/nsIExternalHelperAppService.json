@@ -25,7 +25,7 @@
       "kind": "interface_main",
       "doc_comment": null,
       "attrs": null,
-      "name": "nsIRequest",
+      "name": "nsIChannel",
       "base": null,
       "body": null
     },
@@ -123,7 +123,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Binds an external helper application to a stream listener. The caller\n   * should pump data into the returned stream listener. When the OnStopRequest\n   * is issued, the stream listener implementation will launch the helper app\n   * with this data.\n   * @param aMimeContentType The content type of the incoming data\n   * @param aRequest The request corresponding to the incoming data\n   * @param aContentContext Used in processing content document refresh\n   *  headers after target content is downloaded.\n   * @param aForceSave True to always save this content to disk, regardless of\n   *  nsIMIMEInfo and other such influences.\n   * @param aWindowContext Used in parenting helper app dialogs, usually\n   *  points to the parent browser window. This parameter may be null,\n   *  in which case dialogs will be parented to aContentContext.\n   * @return A nsIStreamListener which the caller should pump the data into.\n   */"
+                    "contents": "/**\n   * Binds an external helper application to a stream listener. The caller\n   * should pump data into the returned stream listener. When the OnStopRequest\n   * is issued, the stream listener implementation will launch the helper app\n   * with this data.\n   * @param aMimeContentType The content type of the incoming data\n   * @param aChannel The channel corresponding to the incoming data\n   * @param aContentContext Used in processing content document refresh\n   *  headers after target content is downloaded.\n   * @param aForceSave True to always save this content to disk, regardless of\n   *  nsIMIMEInfo and other such influences.\n   * @param aWindowContext Used in parenting helper app dialogs, usually\n   *  points to the parent browser window. This parameter may be null,\n   *  in which case dialogs will be parented to aContentContext.\n   * @return A nsIStreamListener which the caller should pump the data into.\n   */"
                   }
                 ],
                 "code": {
@@ -147,8 +147,8 @@
                           "kind": "param",
                           "attribute": null,
                           "refType": "in",
-                          "type": "nsIRequest",
-                          "name": "aRequest"
+                          "type": "nsIChannel",
+                          "name": "aChannel"
                         }
                       },
                       {
@@ -202,7 +202,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Binds an external helper application to a stream listener. The caller\n   * should pump data into the returned stream listener. When the OnStopRequest\n   * is issued, the stream listener implementation will launch the helper app\n   * with this data.\n   * Replaces doContent for native code, and uses BrowsingContext.\n   *\n   * @param aMimeContentType The content type of the incoming data\n   * @param aRequest The request corresponding to the incoming data\n   * @param aContentContext The BrowsingContext that the request was initiated\n   *  by. Used for closing the window if we opened one specifically for this download.\n   * @param aForceSave True to always save this content to disk, regardless of\n   *  nsIMIMEInfo and other such influences.\n   * @param aWindowContext Used in parenting helper app dialogs, usually\n   *  points to the parent browser window. This parameter may be null,\n   *  in which case dialogs will be parented to aContentContext.\n   * @return A nsIStreamListener which the caller should pump the data into.\n   */"
+                    "contents": "/**\n   * Binds an external helper application to a stream listener. The caller\n   * should pump data into the returned stream listener. When the OnStopRequest\n   * is issued, the stream listener implementation will launch the helper app\n   * with this data.\n   * Replaces doContent for native code, and uses BrowsingContext.\n   *\n   * @param aMimeContentType The content type of the incoming data\n   * @param aChannel The channel corresponding to the incoming data\n   * @param aContentContext The BrowsingContext that the channel was initiated\n   *  by. Used for closing the window if we opened one specifically for this download.\n   * @param aForceSave True to always save this content to disk, regardless of\n   *  nsIMIMEInfo and other such influences.\n   * @param aWindowContext Used in parenting helper app dialogs, usually\n   *  points to the parent browser window. This parameter may be null,\n   *  in which case dialogs will be parented to aContentContext.\n   * @return A nsIStreamListener which the caller should pump the data into.\n   */"
                   }
                 ],
                 "code": {
@@ -226,8 +226,8 @@
                           "kind": "param",
                           "attribute": null,
                           "refType": "in",
-                          "type": "nsIRequest",
-                          "name": "aRequest"
+                          "type": "nsIChannel",
+                          "name": "aChannel"
                         }
                       },
                       {

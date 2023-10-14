@@ -191,6 +191,36 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Like addLogin, but asynchronous.\n   *\n   * @param aLogin\n   *        The login to be added.\n   * @return A promise which resolves with a cloned login with the guid set.\n   *\n   * Default values for each login's nsILoginMetaInfo properties will be\n   * created. However, if the caller specifies non-default values, they will\n   * be used instead.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "Promise",
+                  "name": "addLoginAsync",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsILoginInfo",
+                      "name": "aLogin"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Like addLogin, but asynchronous and for many logins.\n   *\n   * @param aLogins\n   *        A JS Array of nsILoginInfos to add.\n   * @return A promise which resolves with a JS Array of cloned logins with\n   *         the guids set.\n   *\n   * Default values for each login's nsILoginMetaInfo properties will be\n   * created. However, if the caller specifies non-default values, they will\n   * be used instead.\n   */"
                   }
                 ],
@@ -393,15 +423,13 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Fetch all logins in the login manager. An array is always returned;\n   * if there are no logins the array is empty.\n   *\n   * @deprecated Use `getAllLoginsAsync` instead.\n   *\n   * @return An array of nsILoginInfo objects.\n   */"
+                    "contents": "/**\n   * Fetch all logins in the login manager. An array is always returned;\n   * if there are no logins the array is empty. Decryption is handled in\n   * one batch.\n   *\n   * @return A promise which resolves with a JS Array of nsILoginInfo objects.\n   */"
                   }
                 ],
                 "code": {
                   "kind": "func",
                   "attributes": null,
-                  "return_type": {
-                    "kind": "IDENTIFIER_$0"
-                  },
+                  "return_type": "Promise",
                   "name": "getAllLogins",
                   "params": null,
                   "raises": null
@@ -415,34 +443,14 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Like getAllLogins, but asynchronous. This method is faster when large\n   * amounts of logins are present since it will handle decryption in one batch.\n   *\n   * @return A promise which resolves with a JS Array of nsILoginInfo objects.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "Promise",
-                  "name": "getAllLoginsAsync",
-                  "params": null,
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Like getAllLoginsAsync, but with a callback returning the search results.\n   *\n   * @param {nsILoginSearchCallback} aCallback\n   *        The interface to notify when the search is complete.\n   *\n   */"
+                    "contents": "/**\n   * Like getAllLogins, but with a callback returning the search results.\n   *\n   * @param {nsILoginSearchCallback} aCallback\n   *        The interface to notify when the search is complete.\n   *\n   */"
                   }
                 ],
                 "code": {
                   "kind": "func",
                   "attributes": null,
                   "return_type": "void",
-                  "name": "getAllLoginsWithCallbackAsync",
+                  "name": "getAllLoginsWithCallback",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {

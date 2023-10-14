@@ -1150,6 +1150,55 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * The window id and storage access status of the window of the\n  * context that triggered the load. This is used to allow self-initiated\n  * same-origin navigations to propogate their \"has storage access\" bit\n  * to the next Document.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "unsigned long long",
+                  "name": "triggeringWindowId"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "triggeringStorageAccess"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Allows to query only the security mode bits from above.\n   */"
                   }
                 ],
@@ -1344,7 +1393,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * This flag indicates that the request should not be logged to the\n   * console.\n   */"
+                    "contents": "/**\n   * This flag indicates that the request was upgraded by https-first mode.\n   */"
                   }
                 ],
                 "code": {
@@ -1384,6 +1433,26 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * This flag indicates that HTTPS_ONLY_EXEMPT should be\n   * set the next time HTTPS-Only exemptions are checked.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "HTTPS_ONLY_EXEMPT_NEXT_LOAD",
+                  "value": {
+                    "kind": "unary_$0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Upgrade state of HTTPS-Only Mode. The flag HTTPS_ONLY_EXEMPT can get\n   * set on requests that should be excempt from an upgrade.\n   */"
                   }
                 ],
@@ -1401,6 +1470,33 @@
                   "readonly": null,
                   "type": "unsigned long",
                   "name": "httpsOnlyStatus"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Reflects whetehr this is an HTTP Strict Transport Security host\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "hstsStatus"
                 }
               }
             },
@@ -2461,6 +2557,55 @@
                   "readonly": "readonly",
                   "type": "BrowsingContext",
                   "name": "browsingContext"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The BrowsingContext which the worker is associated.\n   *\n   * Note that this could be 0 if the load is not triggered in a WorkerScope.\n   * This value is only set and used in the parent process for some sitautions\n   * the channel is created in the parent process for Workers. Such as fetch().\n   * In content process, it is always 0.\n   * This value would not be propagated through IPC.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "unsigned long long",
+                  "name": "workerAssociatedBrowsingContextID"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": "readonly",
+                  "type": "BrowsingContext",
+                  "name": "workerAssociatedBrowsingContext"
                 }
               }
             },
@@ -4538,6 +4683,24 @@
                   "readonly": null,
                   "type": "AString",
                   "name": "cspNonce"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": null,
+                  "type": "AString",
+                  "name": "integrityMetadata"
                 }
               }
             },

@@ -576,6 +576,34 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Removes all storages stored for private browsing. The files may not be\n   * deleted immediately depending on prohibitive concurrent operations.  In\n   * terms of locks, it will get an exclusive multi directory lock for entire\n   * private repository.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIQuotaRequest",
+                  "name": "clearStoragesForPrivateBrowsing",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Removes all storages stored for the given pattern. The files may not be\n   * deleted immediately depending on prohibitive concurrent operations.  In\n   * terms of locks, it will get an exclusive multi directory lock for given\n   * pattern.  For example, given pattern {\"userContextId\":1007} and set of 3\n   * origins [\"http://www.mozilla.org^userContextId=1007\",\n   * \"http://www.example.org^userContextId=1007\",\n   * \"http://www.example.org^userContextId=1008\"], the method will only lock 2\n   * origins [\"http://www.mozilla.org^userContextId=1007\",\n   * \"http://www.example.org^userContextId=1007\"].\n   *\n   * @param aPattern\n   *        A pattern for the origins whose storages are to be cleared.\n   *        Currently this is expected to be a JSON representation of the\n   *        OriginAttributesPatternDictionary defined in ChromeUtils.webidl.\n   */"
                   }
                 ],
