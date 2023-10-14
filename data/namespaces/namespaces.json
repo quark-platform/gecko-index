@@ -687,6 +687,22 @@
       },
       {
         "type": "method",
+        "name": "getLibcConstants",
+        "trivia": "",
+        "introduced": "118.0.2",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "LibcConstants"
+        }
+      },
+      {
+        "type": "method",
         "name": "originAttributesToSuffix",
         "trivia": "",
         "introduced": "104.0.2",
@@ -1575,40 +1591,6 @@
       },
       {
         "type": "method",
-        "name": "requestPerformanceMetrics",
-        "trivia": "Request performance metrics to the current process & all content processes.",
-        "introduced": "104.0.2",
-        "arguments": [],
-        "special": "",
-        "return": {
-          "type": "return-type",
-          "extAttrs": [],
-          "generic": "Promise",
-          "nullable": false,
-          "union": false,
-          "idlType": [
-            {
-              "type": "return-type",
-              "extAttrs": [],
-              "generic": "sequence",
-              "nullable": false,
-              "union": false,
-              "idlType": [
-                {
-                  "type": "return-type",
-                  "extAttrs": [],
-                  "generic": "",
-                  "nullable": false,
-                  "union": false,
-                  "idlType": "PerformanceInfoDictionary"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "type": "method",
         "name": "setPerfStatsCollectionMask",
         "trivia": "",
         "introduced": "104.0.2",
@@ -2230,6 +2212,36 @@
             }
           ]
         }
+      },
+      {
+        "type": "method",
+        "name": "shouldResistFingerprinting",
+        "trivia": "",
+        "introduced": "118.0.2",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "target",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "JSRFPTarget"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "boolean"
+        }
       }
     ]
   },
@@ -2325,7 +2337,7 @@
       {
         "type": "method",
         "name": "readUTF8",
-        "trivia": "Reads the UTF-8 text file located at |path| and returns the decoded\ncontents as a |DOMString|.\n\nNB: The maximum file size that can be read is UINT32_MAX.\n\n@param path An absolute file path.\n\n@return Resolves with the file contents encoded as a string, otherwise\nrejects with a DOMException.",
+        "trivia": "Reads the UTF-8 text file located at |path| and returns the decoded\ncontents as a |DOMString|. If a UTF-8 byte order marker (BOM) is\npresent, it will be stripped from the returned string.\n\nNB: The maximum file size that can be read is UINT32_MAX.\n\n@param path An absolute file path.\n\n@return Resolves with the file contents encoded as a string, otherwise\nrejects with a DOMException.",
         "introduced": "104.0.2",
         "arguments": [
           {
@@ -4125,21 +4137,21 @@
       },
       {
         "type": "method",
-        "name": "getSelectorCount",
+        "name": "getAllStyleSheetCSSStyleRules",
         "trivia": "",
-        "introduced": "104.0.2",
+        "introduced": "118.0.2",
         "arguments": [
           {
             "optional": false,
             "varadic": false,
-            "name": "rule",
+            "name": "sheet",
             "type": {
               "type": "argument-type",
               "extAttrs": [],
               "generic": "",
               "nullable": false,
               "union": false,
-              "idlType": "CSSStyleRule"
+              "idlType": "CSSStyleSheet"
             }
           }
         ],
@@ -4147,193 +4159,19 @@
         "return": {
           "type": "return-type",
           "extAttrs": [],
-          "generic": "",
+          "generic": "sequence",
           "nullable": false,
           "union": false,
-          "idlType": "unsigned long"
-        }
-      },
-      {
-        "type": "method",
-        "name": "getSelectorText",
-        "trivia": "",
-        "introduced": "104.0.2",
-        "arguments": [
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "rule",
-            "type": {
-              "type": "argument-type",
+          "idlType": [
+            {
+              "type": "return-type",
               "extAttrs": [],
               "generic": "",
               "nullable": false,
               "union": false,
-              "idlType": "CSSStyleRule"
+              "idlType": "CSSRule"
             }
-          },
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "selectorIndex",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "unsigned long"
-            }
-          }
-        ],
-        "special": "",
-        "return": {
-          "type": "return-type",
-          "extAttrs": [],
-          "generic": "",
-          "nullable": false,
-          "union": false,
-          "idlType": "DOMString"
-        }
-      },
-      {
-        "type": "method",
-        "name": "getSpecificity",
-        "trivia": "",
-        "introduced": "104.0.2",
-        "arguments": [
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "rule",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "CSSStyleRule"
-            }
-          },
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "selectorIndex",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "unsigned long"
-            }
-          }
-        ],
-        "special": "",
-        "return": {
-          "type": "return-type",
-          "extAttrs": [],
-          "generic": "",
-          "nullable": false,
-          "union": false,
-          "idlType": "unsigned long long"
-        }
-      },
-      {
-        "type": "method",
-        "name": "selectorMatchesElement",
-        "trivia": "",
-        "introduced": "104.0.2",
-        "arguments": [
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "element",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "Element"
-            }
-          },
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "rule",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "CSSStyleRule"
-            }
-          },
-          {
-            "optional": false,
-            "varadic": false,
-            "name": "selectorIndex",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "unsigned long"
-            }
-          },
-          {
-            "defaultValue": {
-              "type": "string",
-              "value": ""
-            },
-            "optional": true,
-            "varadic": false,
-            "name": "pseudo",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [
-                {
-                  "type": "extended-attribute",
-                  "name": "LegacyNullToEmptyString",
-                  "rhs": null,
-                  "arguments": []
-                }
-              ],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "DOMString"
-            }
-          },
-          {
-            "defaultValue": {
-              "type": "boolean",
-              "value": false
-            },
-            "optional": true,
-            "varadic": false,
-            "name": "includeVisitedStyle",
-            "type": {
-              "type": "argument-type",
-              "extAttrs": [],
-              "generic": "",
-              "nullable": false,
-              "union": false,
-              "idlType": "boolean"
-            }
-          }
-        ],
-        "special": "",
-        "return": {
-          "type": "return-type",
-          "extAttrs": [],
-          "generic": "",
-          "nullable": false,
-          "union": false,
-          "idlType": "boolean"
+          ]
         }
       },
       {
@@ -5481,6 +5319,62 @@
           "nullable": false,
           "union": false,
           "idlType": "NodeList"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getRegisteredCssHighlights",
+        "trivia": "",
+        "introduced": "118.0.2",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "document",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "Document"
+            }
+          },
+          {
+            "defaultValue": {
+              "type": "boolean",
+              "value": false
+            },
+            "optional": true,
+            "varadic": false,
+            "name": "activeOnly",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
         }
       }
     ]
@@ -8660,6 +8554,36 @@
           "union": false,
           "idlType": "DOMString"
         }
+      },
+      {
+        "type": "method",
+        "name": "registerProperty",
+        "trivia": "",
+        "introduced": "118.0.2",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "definition",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "PropertyDefinition"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
       }
     ]
   },
@@ -9632,6 +9556,22 @@
           "nullable": false,
           "union": false,
           "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "getMediaContext",
+        "trivia": "",
+        "introduced": "118.0.2",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "WebrtcGlobalMediaContext"
         }
       },
       {
