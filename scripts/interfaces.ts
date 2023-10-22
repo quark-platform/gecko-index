@@ -36,7 +36,7 @@ const interfaceFiles = interfaceFileLocations
   }))
   .filter(
     ({ name, path }) =>
-      !INVALID_INTERFACES.includes(name) && !FROM_INVALID_PATH(path)
+      !INVALID_INTERFACES.includes(name) && !FROM_INVALID_PATH(path),
   )
 
 const failedFiles: any[] = []
@@ -61,14 +61,15 @@ def defined(_any):
 
 # From: https://searchfox.org/mozilla-central/source/xpcom/components/gen_static_components.py#58
 class ProcessSelector:
-    ANY_PROCESS = 0x0
-    MAIN_PROCESS_ONLY = 0x1
-    CONTENT_PROCESS_ONLY = 0x2
-    ALLOW_IN_GPU_PROCESS = 0x4
-    ALLOW_IN_VR_PROCESS = 0x8
-    ALLOW_IN_SOCKET_PROCESS = 0x10
-    ALLOW_IN_RDD_PROCESS = 0x20
-    ALLOW_IN_UTILITY_PROCESS = 0x30
+    ANY_PROCESS = 0
+    MAIN_PROCESS_ONLY = 1 << 0
+    CONTENT_PROCESS_ONLY = 1 << 1
+    ALLOW_IN_GPU_PROCESS = 1 << 2
+    ALLOW_IN_VR_PROCESS = 1 << 3
+    ALLOW_IN_SOCKET_PROCESS = 1 << 4
+    ALLOW_IN_RDD_PROCESS = 1 << 5
+    ALLOW_IN_UTILITY_PROCESS = 1 << 6
+    ALLOW_IN_GMPLUGIN_PROCESS = 1 << 7
     ALLOW_IN_GPU_AND_MAIN_PROCESS = ALLOW_IN_GPU_PROCESS | MAIN_PROCESS_ONLY
     ALLOW_IN_GPU_AND_SOCKET_PROCESS = ALLOW_IN_GPU_PROCESS | ALLOW_IN_SOCKET_PROCESS
     ALLOW_IN_GPU_AND_VR_PROCESS = ALLOW_IN_GPU_PROCESS | ALLOW_IN_VR_PROCESS
@@ -98,6 +99,14 @@ class ProcessSelector:
         | ALLOW_IN_SOCKET_PROCESS
         | ALLOW_IN_UTILITY_PROCESS
     )
+    ALLOW_IN_GPU_RDD_VR_SOCKET_UTILITY_AND_GMPLUGIN_PROCESS = (
+        ALLOW_IN_GPU_PROCESS
+        | ALLOW_IN_RDD_PROCESS
+        | ALLOW_IN_VR_PROCESS
+        | ALLOW_IN_SOCKET_PROCESS
+        | ALLOW_IN_UTILITY_PROCESS
+        | ALLOW_IN_GMPLUGIN_PROCESS
+    )
 
 class BackgroundTasksSelector:
     NO_TASKS = 0x0
@@ -105,11 +114,11 @@ class BackgroundTasksSelector:
 
 
 ${fileContents}`,
-      false
+      false,
     )
 
     const moduleClasses = Sk.ffi.remapToJs(
-      module.tp$getattr(CLASSES_IDENTIFIER)
+      module.tp$getattr(CLASSES_IDENTIFIER),
     )
 
     for (const moduleClass of moduleClasses) {
@@ -135,7 +144,7 @@ for (const interfaceFile of interfaceFiles) {
     console.error(
       'Error with',
       interfaceFile.path,
-      JSON.stringify(errs, null, 2)
+      JSON.stringify(errs, null, 2),
     )
     failedInterfaceFiles.push({ file: interfaceFile, errs })
     continue
@@ -143,7 +152,7 @@ for (const interfaceFile of interfaceFiles) {
 
   await writeFile(
     join(outFolder, `${interfaceFile.name}.json`),
-    JSON.stringify(ast, null, 2)
+    JSON.stringify(ast, null, 2),
   )
 }
 
@@ -154,5 +163,5 @@ if (!existsSync(join(outFolder, '_')))
 
 await writeFile(
   join(outFolder, '_', 'classes.json'),
-  JSON.stringify({ failedFiles, classes, interfacedClasses }, null, 2)
+  JSON.stringify({ failedFiles, classes, interfacedClasses }, null, 2),
 )
