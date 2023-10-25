@@ -1092,7 +1092,7 @@
         },
         {
           "type": "object-property",
-          "line": 412,
+          "line": 423,
           "id": "getClosedTabCount",
           "comments": [
             {
@@ -1100,32 +1100,271 @@
               "tags": [
                 {
                   "tag": "param",
-                  "name": "aWindow",
-                  "type": "Window",
+                  "name": "aOptions",
+                  "type": "Window|Object",
                   "optional": true,
-                  "description": "Optional window argument used to determine if we're counting for private or non-private windows",
+                  "description": "Either a DOMWindow (see aOptions.sourceWindow) or an object with properties to identify which closed tabs to include in the count.",
                   "problems": [],
                   "source": [
                     {
                       "number": 3,
-                      "source": "   * @param {Window} [aWindow] Optional window argument used to determine if we're counting for private or non-private windows",
+                      "source": "   * @param {Window|Object} [aOptions]",
                       "tokens": {
                         "start": "   ",
                         "delimiter": "*",
                         "postDelimiter": " ",
                         "tag": "@param",
                         "postTag": " ",
-                        "name": "[aWindow]",
-                        "postName": " ",
-                        "type": "{Window}",
+                        "name": "[aOptions]",
+                        "postName": "",
+                        "type": "{Window|Object}",
                         "postType": " ",
-                        "description": "Optional window argument used to determine if we're counting for private or non-private windows",
+                        "description": "",
                         "end": "",
                         "lineEnd": ""
                       }
                     },
                     {
                       "number": 4,
+                      "source": "   *        Either a DOMWindow (see aOptions.sourceWindow) or an object with properties",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "        ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Either a DOMWindow (see aOptions.sourceWindow) or an object with properties",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 5,
+                      "source": "            to identify which closed tabs to include in the count.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "to identify which closed tabs to include in the count.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "aOptions.sourceWindow",
+                  "type": "Window",
+                  "optional": false,
+                  "description": "A browser window used to identity privateness. When closedTabsFromAllWindows is false, we only count closed tabs assocated with this window.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 6,
+                      "source": "   * @param {Window} aOptions.sourceWindow",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "aOptions.sourceWindow",
+                        "postName": "",
+                        "type": "{Window}",
+                        "postType": " ",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 7,
+                      "source": "            A browser window used to identity privateness.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "A browser window used to identity privateness.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 8,
+                      "source": "            When closedTabsFromAllWindows is false, we only count closed tabs assocated with this window.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "When closedTabsFromAllWindows is false, we only count closed tabs assocated with this window.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "aOptions.private",
+                  "type": "boolean",
+                  "optional": true,
+                  "description": "Explicit indicator to constrain tab count to only private or non-private windows,",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 9,
+                      "source": "   * @param {boolean} [aOptions.private = false]",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "[aOptions.private = false]",
+                        "postName": "",
+                        "type": "{boolean}",
+                        "postType": " ",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 10,
+                      "source": "            Explicit indicator to constrain tab count to only private or non-private windows,",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Explicit indicator to constrain tab count to only private or non-private windows,",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ],
+                  "default": "false"
+                },
+                {
+                  "tag": "param",
+                  "name": "aOptions.closedTabsFromAllWindows",
+                  "type": "boolean",
+                  "optional": true,
+                  "description": "Override the value of the closedTabsFromAllWindows preference.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 11,
+                      "source": "   * @param {boolean} [aOptions.closedTabsFromAllWindows]",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "[aOptions.closedTabsFromAllWindows]",
+                        "postName": "",
+                        "type": "{boolean}",
+                        "postType": " ",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 12,
+                      "source": "            Override the value of the closedTabsFromAllWindows preference.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Override the value of the closedTabsFromAllWindows preference.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "aOptions.closedTabsFromClosedWindows",
+                  "type": "boolean",
+                  "optional": true,
+                  "description": "Override the value of the closedTabsFromClosedWindows preference.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 13,
+                      "source": "   * @param {boolean} [aOptions.closedTabsFromClosedWindows]",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "[aOptions.closedTabsFromClosedWindows]",
+                        "postName": "",
+                        "type": "{boolean}",
+                        "postType": " ",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 14,
+                      "source": "            Override the value of the closedTabsFromClosedWindows preference.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Override the value of the closedTabsFromClosedWindows preference.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 15,
                       "source": "   ",
                       "tokens": {
                         "start": "   ",
@@ -1143,7 +1382,7 @@
                       }
                     },
                     {
-                      "number": 5,
+                      "number": 16,
                       "source": "*/",
                       "tokens": {
                         "start": "",
@@ -1220,24 +1459,222 @@
                 },
                 {
                   "number": 3,
-                  "source": "   * @param {Window} [aWindow] Optional window argument used to determine if we're counting for private or non-private windows",
+                  "source": "   * @param {Window|Object} [aOptions]",
                   "tokens": {
                     "start": "   ",
                     "delimiter": "*",
                     "postDelimiter": " ",
                     "tag": "@param",
                     "postTag": " ",
-                    "name": "[aWindow]",
-                    "postName": " ",
-                    "type": "{Window}",
+                    "name": "[aOptions]",
+                    "postName": "",
+                    "type": "{Window|Object}",
                     "postType": " ",
-                    "description": "Optional window argument used to determine if we're counting for private or non-private windows",
+                    "description": "",
                     "end": "",
                     "lineEnd": ""
                   }
                 },
                 {
                   "number": 4,
+                  "source": "   *        Either a DOMWindow (see aOptions.sourceWindow) or an object with properties",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "        ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Either a DOMWindow (see aOptions.sourceWindow) or an object with properties",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "            to identify which closed tabs to include in the count.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "to identify which closed tabs to include in the count.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * @param {Window} aOptions.sourceWindow",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "aOptions.sourceWindow",
+                    "postName": "",
+                    "type": "{Window}",
+                    "postType": " ",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "            A browser window used to identity privateness.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "A browser window used to identity privateness.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "            When closedTabsFromAllWindows is false, we only count closed tabs assocated with this window.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "When closedTabsFromAllWindows is false, we only count closed tabs assocated with this window.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * @param {boolean} [aOptions.private = false]",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "[aOptions.private = false]",
+                    "postName": "",
+                    "type": "{boolean}",
+                    "postType": " ",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "            Explicit indicator to constrain tab count to only private or non-private windows,",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Explicit indicator to constrain tab count to only private or non-private windows,",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   * @param {boolean} [aOptions.closedTabsFromAllWindows]",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "[aOptions.closedTabsFromAllWindows]",
+                    "postName": "",
+                    "type": "{boolean}",
+                    "postType": " ",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "            Override the value of the closedTabsFromAllWindows preference.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Override the value of the closedTabsFromAllWindows preference.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 13,
+                  "source": "   * @param {boolean} [aOptions.closedTabsFromClosedWindows]",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "[aOptions.closedTabsFromClosedWindows]",
+                    "postName": "",
+                    "type": "{boolean}",
+                    "postType": " ",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 14,
+                  "source": "            Override the value of the closedTabsFromClosedWindows preference.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Override the value of the closedTabsFromClosedWindows preference.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 15,
                   "source": "   ",
                   "tokens": {
                     "start": "   ",
@@ -1255,7 +1692,7 @@
                   }
                 },
                 {
-                  "number": 5,
+                  "number": 16,
                   "source": "*/",
                   "tokens": {
                     "start": "",
@@ -1279,7 +1716,7 @@
         },
         {
           "type": "object-property",
-          "line": 427,
+          "line": 433,
           "id": "getClosedTabCountFromClosedWindows",
           "comments": [
             {
@@ -1437,7 +1874,7 @@
         },
         {
           "type": "object-property",
-          "line": 436,
+          "line": 442,
           "id": "getClosedTabDataForWindow",
           "comments": [
             {
@@ -1624,7 +2061,7 @@
         },
         {
           "type": "object-property",
-          "line": 445,
+          "line": 461,
           "id": "getClosedTabData",
           "comments": [
             {
@@ -1632,50 +2069,271 @@
               "tags": [
                 {
                   "tag": "param",
-                  "name": "aWindow",
-                  "type": "Window",
+                  "name": "aOptions",
+                  "type": "Window|Object",
                   "optional": true,
-                  "description": "Optional window argument used to determine if we're collecting data for private or non-private windows, will default to non-private only due to SessionStoreInternal._getTopWindow(false).",
+                  "description": "Either a DOMWindow (see aOptions.sourceWindow) or an object with properties to identify which closed tabs to get data from",
                   "problems": [],
                   "source": [
                     {
                       "number": 3,
-                      "source": "   * @param {Window} [aWindow] Optional window argument used to determine if we're collecting data for private or non-private windows, will",
+                      "source": "   * @param {Window|Object} [aOptions]",
                       "tokens": {
                         "start": "   ",
                         "delimiter": "*",
                         "postDelimiter": " ",
                         "tag": "@param",
                         "postTag": " ",
-                        "name": "[aWindow]",
-                        "postName": " ",
-                        "type": "{Window}",
+                        "name": "[aOptions]",
+                        "postName": "",
+                        "type": "{Window|Object}",
                         "postType": " ",
-                        "description": "Optional window argument used to determine if we're collecting data for private or non-private windows, will",
+                        "description": "",
                         "end": "",
                         "lineEnd": ""
                       }
                     },
                     {
                       "number": 4,
-                      "source": "   *                           default to non-private only due to SessionStoreInternal._getTopWindow(false).",
+                      "source": "   *        Either a DOMWindow (see aOptions.sourceWindow) or an object with properties",
                       "tokens": {
                         "start": "   ",
                         "delimiter": "*",
-                        "postDelimiter": "                           ",
+                        "postDelimiter": "        ",
                         "tag": "",
                         "postTag": "",
                         "name": "",
                         "postName": "",
                         "type": "",
                         "postType": "",
-                        "description": "default to non-private only due to SessionStoreInternal._getTopWindow(false).",
+                        "description": "Either a DOMWindow (see aOptions.sourceWindow) or an object with properties",
                         "end": "",
                         "lineEnd": ""
                       }
                     },
                     {
                       "number": 5,
+                      "source": "            to identify which closed tabs to get data from",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "to identify which closed tabs to get data from",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "aOptions.sourceWindow",
+                  "type": "Window",
+                  "optional": false,
+                  "description": "A browser window used to identity privateness. When closedTabsFromAllWindows is false, we only include closed tabs assocated with this window.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 6,
+                      "source": "   * @param {Window} aOptions.sourceWindow",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "aOptions.sourceWindow",
+                        "postName": "",
+                        "type": "{Window}",
+                        "postType": " ",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 7,
+                      "source": "            A browser window used to identity privateness.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "A browser window used to identity privateness.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 8,
+                      "source": "            When closedTabsFromAllWindows is false, we only include closed tabs assocated with this window.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "When closedTabsFromAllWindows is false, we only include closed tabs assocated with this window.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "aOptions.private",
+                  "type": "boolean",
+                  "optional": true,
+                  "description": "Explicit indicator to constrain tab data to only private or non-private windows,",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 9,
+                      "source": "   * @param {boolean} [aOptions.private = false]",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "[aOptions.private = false]",
+                        "postName": "",
+                        "type": "{boolean}",
+                        "postType": " ",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 10,
+                      "source": "            Explicit indicator to constrain tab data to only private or non-private windows,",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Explicit indicator to constrain tab data to only private or non-private windows,",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ],
+                  "default": "false"
+                },
+                {
+                  "tag": "param",
+                  "name": "aOptions.closedTabsFromAllWindows",
+                  "type": "boolean",
+                  "optional": true,
+                  "description": "Override the value of the closedTabsFromAllWindows preference.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 11,
+                      "source": "   * @param {boolean} [aOptions.closedTabsFromAllWindows]",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "[aOptions.closedTabsFromAllWindows]",
+                        "postName": "",
+                        "type": "{boolean}",
+                        "postType": " ",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 12,
+                      "source": "            Override the value of the closedTabsFromAllWindows preference.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Override the value of the closedTabsFromAllWindows preference.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "aOptions.closedTabsFromClosedWindows",
+                  "type": "boolean",
+                  "optional": true,
+                  "description": "Override the value of the closedTabsFromClosedWindows preference.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 13,
+                      "source": "   * @param {boolean} [aOptions.closedTabsFromClosedWindows]",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "[aOptions.closedTabsFromClosedWindows]",
+                        "postName": "",
+                        "type": "{boolean}",
+                        "postType": " ",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 14,
+                      "source": "            Override the value of the closedTabsFromClosedWindows preference.",
+                      "tokens": {
+                        "start": "            ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "Override the value of the closedTabsFromClosedWindows preference.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 15,
                       "source": "   ",
                       "tokens": {
                         "start": "   ",
@@ -1693,7 +2351,7 @@
                       }
                     },
                     {
-                      "number": 6,
+                      "number": 16,
                       "source": "*/",
                       "tokens": {
                         "start": "",
@@ -1770,42 +2428,222 @@
                 },
                 {
                   "number": 3,
-                  "source": "   * @param {Window} [aWindow] Optional window argument used to determine if we're collecting data for private or non-private windows, will",
+                  "source": "   * @param {Window|Object} [aOptions]",
                   "tokens": {
                     "start": "   ",
                     "delimiter": "*",
                     "postDelimiter": " ",
                     "tag": "@param",
                     "postTag": " ",
-                    "name": "[aWindow]",
-                    "postName": " ",
-                    "type": "{Window}",
+                    "name": "[aOptions]",
+                    "postName": "",
+                    "type": "{Window|Object}",
                     "postType": " ",
-                    "description": "Optional window argument used to determine if we're collecting data for private or non-private windows, will",
+                    "description": "",
                     "end": "",
                     "lineEnd": ""
                   }
                 },
                 {
                   "number": 4,
-                  "source": "   *                           default to non-private only due to SessionStoreInternal._getTopWindow(false).",
+                  "source": "   *        Either a DOMWindow (see aOptions.sourceWindow) or an object with properties",
                   "tokens": {
                     "start": "   ",
                     "delimiter": "*",
-                    "postDelimiter": "                           ",
+                    "postDelimiter": "        ",
                     "tag": "",
                     "postTag": "",
                     "name": "",
                     "postName": "",
                     "type": "",
                     "postType": "",
-                    "description": "default to non-private only due to SessionStoreInternal._getTopWindow(false).",
+                    "description": "Either a DOMWindow (see aOptions.sourceWindow) or an object with properties",
                     "end": "",
                     "lineEnd": ""
                   }
                 },
                 {
                   "number": 5,
+                  "source": "            to identify which closed tabs to get data from",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "to identify which closed tabs to get data from",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * @param {Window} aOptions.sourceWindow",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "aOptions.sourceWindow",
+                    "postName": "",
+                    "type": "{Window}",
+                    "postType": " ",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "            A browser window used to identity privateness.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "A browser window used to identity privateness.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "            When closedTabsFromAllWindows is false, we only include closed tabs assocated with this window.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "When closedTabsFromAllWindows is false, we only include closed tabs assocated with this window.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * @param {boolean} [aOptions.private = false]",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "[aOptions.private = false]",
+                    "postName": "",
+                    "type": "{boolean}",
+                    "postType": " ",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "            Explicit indicator to constrain tab data to only private or non-private windows,",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Explicit indicator to constrain tab data to only private or non-private windows,",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   * @param {boolean} [aOptions.closedTabsFromAllWindows]",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "[aOptions.closedTabsFromAllWindows]",
+                    "postName": "",
+                    "type": "{boolean}",
+                    "postType": " ",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "            Override the value of the closedTabsFromAllWindows preference.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Override the value of the closedTabsFromAllWindows preference.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 13,
+                  "source": "   * @param {boolean} [aOptions.closedTabsFromClosedWindows]",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "[aOptions.closedTabsFromClosedWindows]",
+                    "postName": "",
+                    "type": "{boolean}",
+                    "postType": " ",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 14,
+                  "source": "            Override the value of the closedTabsFromClosedWindows preference.",
+                  "tokens": {
+                    "start": "            ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Override the value of the closedTabsFromClosedWindows preference.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 15,
                   "source": "   ",
                   "tokens": {
                     "start": "   ",
@@ -1823,7 +2661,7 @@
                   }
                 },
                 {
-                  "number": 6,
+                  "number": 16,
                   "source": "*/",
                   "tokens": {
                     "start": "",
@@ -1847,7 +2685,7 @@
         },
         {
           "type": "object-property",
-          "line": 460,
+          "line": 469,
           "id": "getClosedTabDataFromClosedWindows",
           "comments": [
             {
@@ -2034,7 +2872,7 @@
         },
         {
           "type": "object-property",
-          "line": 479,
+          "line": 488,
           "id": "undoCloseTab",
           "comments": [
             {
@@ -2633,7 +3471,7 @@
         },
         {
           "type": "object-property",
-          "line": 497,
+          "line": 506,
           "id": "undoClosedTabFromClosedWindow",
           "comments": [
             {
@@ -3231,7 +4069,7 @@
         },
         {
           "type": "object-property",
-          "line": 525,
+          "line": 534,
           "id": "forgetClosedTab",
           "comments": [
             {
@@ -3837,7 +4675,7 @@
         },
         {
           "type": "object-property",
-          "line": 548,
+          "line": 557,
           "id": "forgetClosedTabById",
           "comments": [
             {
@@ -4561,7 +5399,7 @@
         },
         {
           "type": "object-property",
-          "line": 564,
+          "line": 573,
           "id": "forgetClosedWindowById",
           "comments": [
             {
@@ -4884,7 +5722,7 @@
         },
         {
           "type": "object-method",
-          "line": 572,
+          "line": 581,
           "id": "getObjectTypeForClosedId",
           "comments": [
             {
@@ -5075,7 +5913,7 @@
         },
         {
           "type": "object-property",
-          "line": 580,
+          "line": 589,
           "id": "getWindowById",
           "comments": [
             {
@@ -5262,12 +6100,12 @@
         },
         {
           "type": "object-property",
-          "line": 584,
+          "line": 593,
           "id": "getClosedWindowCount"
         },
         {
           "type": "object-property",
-          "line": 589,
+          "line": 598,
           "id": "popLastClosedAction",
           "comments": [
             {
@@ -5335,7 +6173,7 @@
         },
         {
           "type": "object-property",
-          "line": 594,
+          "line": 603,
           "id": "resetLastClosedActions",
           "comments": [
             {
@@ -5403,12 +6241,12 @@
         },
         {
           "type": "object-property",
-          "line": 598,
+          "line": 607,
           "id": "getClosedWindowData"
         },
         {
           "type": "object-method",
-          "line": 602,
+          "line": 611,
           "id": "maybeDontRestoreTabs",
           "kind": "method",
           "params": [
@@ -5417,17 +6255,17 @@
         },
         {
           "type": "object-property",
-          "line": 606,
+          "line": 615,
           "id": "undoCloseWindow"
         },
         {
           "type": "object-property",
-          "line": 610,
+          "line": 619,
           "id": "forgetClosedWindow"
         },
         {
           "type": "object-method",
-          "line": 614,
+          "line": 623,
           "id": "getCustomWindowValue",
           "kind": "method",
           "params": [
@@ -5437,7 +6275,7 @@
         },
         {
           "type": "object-method",
-          "line": 618,
+          "line": 627,
           "id": "setCustomWindowValue",
           "kind": "method",
           "params": [
@@ -5448,7 +6286,7 @@
         },
         {
           "type": "object-method",
-          "line": 622,
+          "line": 631,
           "id": "deleteCustomWindowValue",
           "kind": "method",
           "params": [
@@ -5458,7 +6296,7 @@
         },
         {
           "type": "object-method",
-          "line": 626,
+          "line": 635,
           "id": "getCustomTabValue",
           "kind": "method",
           "params": [
@@ -5468,7 +6306,7 @@
         },
         {
           "type": "object-method",
-          "line": 630,
+          "line": 639,
           "id": "setCustomTabValue",
           "kind": "method",
           "params": [
@@ -5479,7 +6317,7 @@
         },
         {
           "type": "object-method",
-          "line": 634,
+          "line": 643,
           "id": "deleteCustomTabValue",
           "kind": "method",
           "params": [
@@ -5489,7 +6327,7 @@
         },
         {
           "type": "object-method",
-          "line": 638,
+          "line": 647,
           "id": "getLazyTabValue",
           "kind": "method",
           "params": [
@@ -5499,7 +6337,7 @@
         },
         {
           "type": "object-method",
-          "line": 642,
+          "line": 651,
           "id": "getCustomGlobalValue",
           "kind": "method",
           "params": [
@@ -5508,7 +6346,7 @@
         },
         {
           "type": "object-method",
-          "line": 646,
+          "line": 655,
           "id": "setCustomGlobalValue",
           "kind": "method",
           "params": [
@@ -5518,7 +6356,7 @@
         },
         {
           "type": "object-method",
-          "line": 650,
+          "line": 659,
           "id": "deleteCustomGlobalValue",
           "kind": "method",
           "params": [
@@ -5527,17 +6365,17 @@
         },
         {
           "type": "object-property",
-          "line": 654,
+          "line": 663,
           "id": "persistTabAttribute"
         },
         {
           "type": "object-property",
-          "line": 658,
+          "line": 667,
           "id": "restoreLastSession"
         },
         {
           "type": "object-method",
-          "line": 662,
+          "line": 671,
           "id": "speculativeConnectOnTabHover",
           "kind": "method",
           "params": [
@@ -5546,7 +6384,7 @@
         },
         {
           "type": "object-method",
-          "line": 666,
+          "line": 675,
           "id": "getCurrentState",
           "kind": "method",
           "params": [
@@ -5555,7 +6393,7 @@
         },
         {
           "type": "object-method",
-          "line": 670,
+          "line": 679,
           "id": "reviveCrashedTab",
           "kind": "method",
           "params": [
@@ -5564,14 +6402,14 @@
         },
         {
           "type": "object-method",
-          "line": 674,
+          "line": 683,
           "id": "reviveAllCrashedTabs",
           "kind": "method",
           "params": []
         },
         {
           "type": "object-method",
-          "line": 678,
+          "line": 687,
           "id": "updateSessionStoreFromTablistener",
           "kind": "method",
           "params": [
@@ -5584,7 +6422,7 @@
         },
         {
           "type": "object-method",
-          "line": 694,
+          "line": 703,
           "id": "getSessionHistory",
           "kind": "method",
           "params": [
@@ -5594,7 +6432,7 @@
         },
         {
           "type": "object-method",
-          "line": 711,
+          "line": 720,
           "id": "undoCloseById",
           "comments": [
             {
@@ -6124,7 +6962,7 @@
         },
         {
           "type": "object-method",
-          "line": 719,
+          "line": 728,
           "id": "resetBrowserToLazyState",
           "kind": "method",
           "params": [
@@ -6133,7 +6971,7 @@
         },
         {
           "type": "object-method",
-          "line": 723,
+          "line": 732,
           "id": "maybeExitCrashedState",
           "kind": "method",
           "params": [
@@ -6142,7 +6980,7 @@
         },
         {
           "type": "object-method",
-          "line": 727,
+          "line": 736,
           "id": "isBrowserInCrashedSet",
           "kind": "method",
           "params": [
@@ -6151,7 +6989,7 @@
         },
         {
           "type": "object-method",
-          "line": 732,
+          "line": 741,
           "id": "resetNextClosedId",
           "comments": [
             {
@@ -6221,7 +7059,7 @@
         },
         {
           "type": "object-method",
-          "line": 741,
+          "line": 750,
           "id": "ensureInitialized",
           "comments": [
             {
@@ -6448,7 +7286,7 @@
         },
         {
           "type": "object-method",
-          "line": 752,
+          "line": 761,
           "id": "getCurrentEpoch",
           "kind": "method",
           "params": [
@@ -6457,7 +7295,7 @@
         },
         {
           "type": "object-method",
-          "line": 763,
+          "line": 772,
           "id": "isFormatVersionCompatible",
           "comments": [
             {
@@ -6720,7 +7558,7 @@
         },
         {
           "type": "object-method",
-          "line": 789,
+          "line": 798,
           "id": "keepOnlyWorthSavingTabs",
           "comments": [
             {
@@ -7001,7 +7839,7 @@
         },
         {
           "type": "object-method",
-          "line": 825,
+          "line": 834,
           "id": "prepareToChangeRemoteness",
           "comments": [
             {
@@ -7127,7 +7965,7 @@
         },
         {
           "type": "object-method",
-          "line": 829,
+          "line": 838,
           "id": "finishTabRemotenessChange",
           "kind": "method",
           "params": [
@@ -7141,6 +7979,6 @@
   {
     "type": "variable-declaration",
     "id": "_LastSession",
-    "line": 7640
+    "line": 7691
   }
 ]

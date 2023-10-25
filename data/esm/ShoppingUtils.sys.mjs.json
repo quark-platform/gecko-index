@@ -2,30 +2,52 @@
   {
     "type": "variable-declaration",
     "id": "ShoppingUtils",
-    "line": 13,
+    "line": 26,
     "typeEstimation": {
       "type": "object-estimation",
       "keys": [
         {
           "type": "object-property",
-          "line": 14,
+          "line": 27,
           "id": "initialized"
         },
         {
           "type": "object-property",
-          "line": 15,
+          "line": 28,
           "id": "registered"
         },
         {
+          "type": "object-property",
+          "line": 29,
+          "id": "handledAutoActivate"
+        },
+        {
+          "type": "object-property",
+          "line": 30,
+          "id": "nimbusEnabled"
+        },
+        {
+          "type": "object-property",
+          "line": 31,
+          "id": "nimbusControl"
+        },
+        {
           "type": "object-method",
-          "line": 17,
+          "line": 33,
+          "id": "_updateNimbusVariables",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 40,
           "id": "onNimbusUpdate",
           "kind": "method",
           "params": []
         },
         {
           "type": "object-method",
-          "line": 30,
+          "line": 54,
           "id": "init",
           "comments": [
             {
@@ -217,7 +239,7 @@
         },
         {
           "type": "object-method",
-          "line": 62,
+          "line": 84,
           "id": "uninit",
           "comments": [
             {
@@ -409,13 +431,790 @@
         },
         {
           "type": "object-method",
-          "line": 73,
+          "line": 95,
+          "id": "isProductPageNavigation",
+          "kind": "method",
+          "params": [
+            "aLocationURI",
+            "aFlags"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 139,
+          "id": "maybeRecordExposure",
+          "comments": [
+            {
+              "description": "For users in either the nimbus control or treatment groups, increment a",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": " For users in either the nimbus control or treatment groups, increment a",
+                  "tokens": {
+                    "start": " ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "For users in either the nimbus control or treatment groups, increment a",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            },
+            {
+              "description": "counter when they visit supported product pages.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": " counter when they visit supported product pages.",
+                  "tokens": {
+                    "start": " ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "counter when they visit supported product pages.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "aLocationURI",
+            "aFlags"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 148,
           "id": "setOnUpdate",
           "kind": "method",
           "params": [
             "_pref",
             "_prev",
             "current"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 160,
+          "id": "handleAutoActivateOnProduct",
+          "comments": [
+            {
+              "description": "If the user has not opted in, automatically set the sidebar to `active` if: 1. The sidebar has not already been automatically set to `active` twice. 2. It's been at least 24 hours since the user last saw the sidebar because of this auto-activation behavior. 3. This method has not already been called (handledAutoActivate is false)",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * If the user has not opted in, automatically set the sidebar to `active` if:",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "If the user has not opted in, automatically set the sidebar to `active` if:",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * 1. The sidebar has not already been automatically set to `active` twice.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "1. The sidebar has not already been automatically set to `active` twice.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * 2. It's been at least 24 hours since the user last saw the sidebar because",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "2. It's been at least 24 hours since the user last saw the sidebar because",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   *    of this auto-activation behavior.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "    ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "of this auto-activation behavior.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * 3. This method has not already been called (handledAutoActivate is false)",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "3. This method has not already been called (handledAutoActivate is false)",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 203,
+          "id": "sendTrigger",
+          "comments": [
+            {
+              "description": "Send a Shopping-related trigger message to ASRouter.",
+              "tags": [
+                {
+                  "tag": "param",
+                  "name": "trigger",
+                  "type": "object",
+                  "optional": false,
+                  "description": "The trigger object to send to ASRouter.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 4,
+                      "source": "   * @param {object} trigger The trigger object to send to ASRouter.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "trigger",
+                        "postName": " ",
+                        "type": "{object}",
+                        "postType": " ",
+                        "description": "The trigger object to send to ASRouter.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "trigger.context",
+                  "type": "object",
+                  "optional": false,
+                  "description": "Additional trigger properties to pass to the targeting context.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 5,
+                      "source": "   * @param {object} trigger.context Additional trigger properties to pass to",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "trigger.context",
+                        "postName": " ",
+                        "type": "{object}",
+                        "postType": " ",
+                        "description": "Additional trigger properties to pass to",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 6,
+                      "source": "   *   the targeting context.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "the targeting context.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "trigger.id",
+                  "type": "string",
+                  "optional": false,
+                  "description": "The id of the trigger.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 7,
+                      "source": "   * @param {string} trigger.id The id of the trigger.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "trigger.id",
+                        "postName": " ",
+                        "type": "{string}",
+                        "postType": " ",
+                        "description": "The id of the trigger.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "trigger.browser",
+                  "type": "MozBrowser",
+                  "optional": false,
+                  "description": "The browser to associate with the trigger. (This can determine the tab/window the message is shown in, depending on the message surface)",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 8,
+                      "source": "   * @param {MozBrowser} trigger.browser The browser to associate with the",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "trigger.browser",
+                        "postName": " ",
+                        "type": "{MozBrowser}",
+                        "postType": " ",
+                        "description": "The browser to associate with the",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 9,
+                      "source": "   *   trigger. (This can determine the tab/window the message is shown in,",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "trigger. (This can determine the tab/window the message is shown in,",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 10,
+                      "source": "   *   depending on the message surface)",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "depending on the message surface)",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 11,
+                      "source": "   ",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 12,
+                      "source": "*/",
+                      "tokens": {
+                        "start": "",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "*/",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                }
+              ],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Send a Shopping-related trigger message to ASRouter.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Send a Shopping-related trigger message to ASRouter.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * @param {object} trigger The trigger object to send to ASRouter.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "trigger",
+                    "postName": " ",
+                    "type": "{object}",
+                    "postType": " ",
+                    "description": "The trigger object to send to ASRouter.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * @param {object} trigger.context Additional trigger properties to pass to",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "trigger.context",
+                    "postName": " ",
+                    "type": "{object}",
+                    "postType": " ",
+                    "description": "Additional trigger properties to pass to",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   *   the targeting context.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "the targeting context.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * @param {string} trigger.id The id of the trigger.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "trigger.id",
+                    "postName": " ",
+                    "type": "{string}",
+                    "postType": " ",
+                    "description": "The id of the trigger.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   * @param {MozBrowser} trigger.browser The browser to associate with the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "trigger.browser",
+                    "postName": " ",
+                    "type": "{MozBrowser}",
+                    "postType": " ",
+                    "description": "The browser to associate with the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   *   trigger. (This can determine the tab/window the message is shown in,",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "trigger. (This can determine the tab/window the message is shown in,",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   *   depending on the message surface)",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "depending on the message surface)",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "trigger"
           ]
         }
       ]
