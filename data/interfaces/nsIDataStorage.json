@@ -68,7 +68,20 @@
               "kind": "ifacebody_$0_$0",
               "contents": {
                 "kind": "member_$0",
-                "docComment": [],
+                "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  }
+                ],
                 "code": {
                   "kind": "enum_code",
                   "name": "DataStorage",
@@ -137,7 +150,10 @@
     "\n\n",
     {
       "kind": "interface_main",
-      "doc_comment": null,
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIDataStorage is a threadsafe, generic, narrow string-based hash map that\n * persists data on disk and additionally handles private (temporary) data.\n * The file format is portable across architectures. If used in a context where\n * there is no profile directory, data will not be persisted.\n *\n * Its lifecycle is as follows:\n * - Use nsIDataStorageManager to obtain the nsIDataStorage of a particular\n *   purpose. Its backing file will be read on a background thread.\n * - Should the profile directory not be available, (e.g. in xpcshell),\n *   nsIDataStorage will not read any persistent data.\n * - When data in the nsIDataStorage changes, those changes will be written\n *   to the backing file on a background thread. If the program crashes or is\n *   closed unexpectedly before the write completes, the changes may be lost.\n *   If the changes were an update to previously stored data, the original data\n *   may be lost as well. A checksum associated with each entry helps identify\n *   incompletely written entries.\n * - nsIDataStorage does not support transactions. Each entry is independent of\n *   the others.\n * - When an nsIDataStorage instance observes the topic \"profile-before-change\"\n *   in anticipation of shutdown, no more changes will be written to the\n *   backing file. To ensure no data is lost, users of nsIDataStorage should\n *   not attempt to change any data after this point.\n *   If \"profile-before-change\" is not observed, this happens upon observing\n *   \"xpcom-shutdown-threads\".\n * - To prevent unbounded memory and disk use, the number of entries in each\n *   table is limited to 2048. Evictions are handled in by a modified LRU scheme\n *   (see implementation comments).\n * - Note that instances of nsIDataStorage have long lifetimes because they are\n *   strong observers of events and won't go away until the observer service\n *   does.\n *\n * For each key/value:\n * - The key must have a length no more than 256.\n * - The value have a length no more than 1024 (24 for the site security\n *   service state).\n *   The length limits are to prevent unbounded disk and memory usage, and\n *   nsIDataStorage will throw/return an error if given keys or values of\n *   excess length.\n *   Take care when storing data containing bytes that may be 0. When read\n *   from disk, all trailing 0 bytes from keys and values are stripped.\n */"
+      },
       "attrs": {
         "kind": "attributes",
         "first_attribute": {
@@ -176,7 +192,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Data that is Persistent is saved on disk. Temporary and Private are not\n   * saved. Private is meant to only be set and accessed from private contexts.\n   * It will be cleared upon observing the event \"last-pb-context-exited\".\n   */"
+                    "contents": "/**\n   * Data that is Persistent is saved on disk. Data that is Private is not\n   * saved. Private is meant to only be set and accessed from private contexts.\n   * It will be cleared upon observing the event \"last-pb-context-exited\".\n   */"
                   }
                 ],
                 "code": {
@@ -192,15 +208,6 @@
                       "value": null
                     },
                     "other_values": [
-                      {
-                        "kind": "cenumlist_$0",
-                        "value": {
-                          "kind": "cenum",
-                          "comment": [],
-                          "identifier": "Temporary",
-                          "value": null
-                        }
-                      },
                       {
                         "kind": "cenumlist_$0",
                         "value": {
@@ -274,6 +281,12 @@
                   },
                   {
                     "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
                   }
                 ],
                 "code": {
@@ -324,6 +337,12 @@
                 "docComment": [
                   {
                     "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
                   }
                 ],
                 "code": {
@@ -364,6 +383,12 @@
                 "docComment": [
                   {
                     "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
                   }
                 ],
                 "code": {
@@ -383,6 +408,12 @@
                 "docComment": [
                   {
                     "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
                   }
                 ],
                 "code": {
@@ -400,6 +431,12 @@
               "contents": {
                 "kind": "member_$0",
                 "docComment": [
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
+                  {
+                    "kind": "SINGLE_LINE_COMMENT"
+                  },
                   {
                     "kind": "SINGLE_LINE_COMMENT"
                   }
