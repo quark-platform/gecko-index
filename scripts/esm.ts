@@ -38,6 +38,7 @@ export interface Method extends BaseExport {
 
 export interface ClassExport extends BaseExport {
   type: 'class'
+  superClass?: string
   methods: Method[]
 }
 
@@ -83,7 +84,7 @@ for (const file of sync(join(geckoDevDir, './**/*.sys.mjs'))) {
 
     writeFileSync(
       join(outFolder, `./parsed/${fileName}.json`),
-      JSON.stringify(data, null, 2),
+      JSON.stringify(data, null, 2)
     )
 
     for (const bodyItems of data.program.body) {
@@ -105,7 +106,7 @@ for (const file of sync(join(geckoDevDir, './**/*.sys.mjs'))) {
 
     writeFileSync(
       join(outFolder, `./${fileName}.json`),
-      JSON.stringify(exports, null, 2),
+      JSON.stringify(exports, null, 2)
     )
     files.push(fileName)
   } catch (e) {
@@ -121,6 +122,10 @@ function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
 
   const exportId = declaration.id.name
   const exportLine = declaration.id.loc?.start.line || 0
+  const superClass =
+    declaration.superClass?.type == 'Identifier'
+      ? declaration.superClass.name
+      : undefined
 
   for (const item of declaration.body.body) {
     if (item.type == 'ClassMethod') {
@@ -157,13 +162,14 @@ function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
   return {
     type: 'class',
     id: exportId,
+    superClass,
     line: exportLine,
     methods,
   }
 }
 
 function handleVariableDeclaration(
-  declaration: VariableDeclarator,
+  declaration: VariableDeclarator
 ): VariableDeclarationExport | undefined {
   if (!(declaration.id.type === 'Identifier')) return
 
@@ -186,7 +192,7 @@ function handleVariableDeclaration(
 }
 
 function handleFunctionDeclaration(
-  declaration: FunctionDeclaration,
+  declaration: FunctionDeclaration
 ): FunctionDeclarationExport {
   const id = declaration.id?.name || ''
 
@@ -206,7 +212,7 @@ function handleFunctionDeclaration(
             : undefined
           : param.type === 'ObjectPattern'
           ? `param${index}`
-          : undefined,
+          : undefined
       )
       .filter(Boolean),
   }
