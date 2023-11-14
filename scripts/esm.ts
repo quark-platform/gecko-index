@@ -40,6 +40,7 @@ export interface ClassExport extends BaseExport {
   type: 'class'
   superClass?: string
   methods: Method[]
+  properties: string[]
 }
 
 export interface VariableDeclarationExport extends BaseExport {
@@ -119,6 +120,7 @@ writeFileSync(join(outFolder, './_.json'), JSON.stringify(files, null, 2))
 
 function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
   let methods: Method[] = []
+  let properties: string[] = []
 
   const exportId = declaration.id.name
   const exportLine = declaration.id.loc?.start.line || 0
@@ -162,6 +164,11 @@ function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
         kind,
       })
     }
+    if (item.type == 'ClassProperty') {
+      if (item.key.type != 'Identifier') continue
+
+      properties.push(item.key.name)
+    }
   }
 
   return {
@@ -170,6 +177,7 @@ function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
     superClass,
     line: exportLine,
     methods,
+    properties,
   }
 }
 
