@@ -132,7 +132,13 @@ function handleClassDeclaration(declaration: ClassDeclaration): ClassExport {
       if (item.key.type != 'Identifier') continue
 
       const params: Params[] = item.params
-        .map((param) => {
+        .map((param, index) => {
+          if (param.type == 'ObjectPattern')
+            return {
+              type: 'params',
+              id: `param${index}`,
+              line: param.loc?.start.line || 0,
+            }
           if (param.type != 'Identifier') return
 
           return {
