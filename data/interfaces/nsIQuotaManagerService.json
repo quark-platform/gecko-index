@@ -347,6 +347,114 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initializes persistent client directory for the given origin and client.\n   * This can be used in tests to verify client initialization.\n   *\n   * If the dom.quotaManager.testing preference is not true the call will be\n   * a no-op.\n   *\n   * @param aPrincipal\n   *        A principal for the origin whose client directory is to be\n   *        initialized.\n   * @param aClientType\n   *        A string that tells what client type will be initialized.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIQuotaRequest",
+                  "name": "initializePersistentClient",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "aPrincipal"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aClientType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Initializes temporary client directory for the given origin and client.\n   * This can be used in tests to verify client initialization.\n   *\n   * If the dom.quotaManager.testing preference is not true the call will be\n   * a no-op.\n   *\n   * @param aPersistenceType\n   *        A string that tells what persistence type will be initialized\n   *        (either \"temporary\" or \"default\").\n   * @param aPrincipal\n   *        A principal for the origin whose client directory is to be\n   *        initialized.\n   * @param aClientType\n   *        A string that tells what client type will be initialized.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIQuotaRequest",
+                  "name": "initializeTemporaryClient",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "aPersistenceType"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIPrincipal",
+                          "name": "aPrincipal"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "AString",
+                          "name": "aClientType"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n   * Gets full origin metadata cached in memory for the given persistence type\n   * and origin.\n   *\n   * NOTE: This operation may still be delayed by other operations on the QM\n   *       I/O thread that are peforming I/O.\n   *\n   * @param aPersistenceType\n   *        A string that tells what persistence type will be used for getting\n   *        the metadata (either \"temporary\" or \"default\").\n   * @param aPrincipal\n   *        A principal that tells which origin will be used for getting the\n   *        metadata.\n   */"
                   }
                 ],
@@ -642,7 +750,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Removes all storages stored for the given principal. The files may not be\n   * deleted immediately depending on prohibitive concurrent operations.\n   *\n   * @param aPrincipal\n   *        A principal for the origin whose storages are to be cleared.\n   * @param aPersistenceType\n   *        An optional string that tells what persistence type of storages\n   *        will be cleared.  If omitted (or void), all persistence types will\n   *        be cleared for the principal.  If a single persistence type\n   *        (\"persistent\", \"temporary\", or \"default\") is provided, then only\n   *        that persistence directory will be considered.  Note that\n   *        \"persistent\" is different than being \"persisted\" via persist() and\n   *        is only for chrome principals.  See bug 1354500 for more info.\n   *        In general, null is the right thing to pass here.\n   * @param aClientType\n   *        An optional string that tells what client type of storages\n   *        will be cleared.  If omitted (or void), all client types will be\n   *        cleared for the principal.  If a single client type is provided\n   *        from Client.h, then only that client's storage will be cleared.\n   *        If you want to clear multiple client types (but not all), then you\n   *        must call this method multiple times.\n   * @param aClearAll\n   *        An optional boolean to indicate clearing all storages under the\n   *        given origin.\n   */"
+                    "contents": "/**\n   * Removes all storages stored for the given principal. The files may not be\n   * deleted immediately depending on prohibitive concurrent operations.\n   *\n   * @param aPrincipal\n   *        A principal for the origin whose storages are to be cleared.\n   * @param aPersistenceType\n   *        An optional string that tells what persistence type of storages\n   *        will be cleared.  If omitted (or void), all persistence types will\n   *        be cleared for the principal.  If a single persistence type\n   *        (\"persistent\", \"temporary\", or \"default\") is provided, then only\n   *        that persistence directory will be considered.  Note that\n   *        \"persistent\" is different than being \"persisted\" via persist() and\n   *        is only for chrome principals.  See bug 1354500 for more info.\n   *        In general, null is the right thing to pass here.\n   * @param aClientType\n   *        An optional string that tells what client type of storages\n   *        will be cleared.  If omitted (or void), all client types will be\n   *        cleared for the principal.  If a single client type is provided\n   *        from Client.h, then only that client's storage will be cleared.\n   *        If you want to clear multiple client types (but not all), then you\n   *        must call this method multiple times.\n   */"
                   }
                 ],
                 "code": {
@@ -703,7 +811,46 @@
                           "type": "AString",
                           "name": "aClientType"
                         }
-                      },
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Removes all storages stored for the given prefix. The files may not be\n   * deleted immediately depending on prohibitive concurrent operations.\n   *\n   * Effectively, this clears all possible OriginAttribute suffixes that\n   * could exist.  So this clears the given origin across all userContextIds,\n   * in private browsing, all third-party partitioned uses of the origin (by\n   * way of partitionKey), etc.\n   *\n   * @param aPrincipal\n   *        A prefix for the origins whose storages are to be cleared.\n   * @param aPersistenceType\n   *        An optional string that tells what persistence type of storages\n   *        will be cleared.  If omitted (or void), all persistence types will\n   *        be cleared for the prefix.  If a single persistence type\n   *        (\"persistent\", \"temporary\", or \"default\") is provided, then only\n   *        that persistence directory will be considered.  Note that\n   *        \"persistent\" is different than being \"persisted\" via persist() and\n   *        is only for chrome principals.  See bug 1354500 for more info.\n   *        In general, null is the right thing to pass here.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "must_use",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIQuotaRequest",
+                  "name": "clearStoragesForOriginPrefix",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIPrincipal",
+                      "name": "aPrincipal"
+                    },
+                    "other": [
                       {
                         "kind": "paramlist_$0",
                         "param": {
@@ -718,8 +865,8 @@
                             "other_attributes": []
                           },
                           "refType": "in",
-                          "type": "boolean",
-                          "name": "aClearAll"
+                          "type": "ACString",
+                          "name": "aPersistenceType"
                         }
                       }
                     ]

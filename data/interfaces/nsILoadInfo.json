@@ -108,7 +108,7 @@
       "kind": "native"
     },
     "\n",
-    "%{C++\n#include \"nsTArray.h\"\n#include \"mozilla/LoadTainting.h\"\n#include \"mozilla/OriginAttributes.h\"\n#include \"mozilla/UniquePtr.h\"\n#include \"nsStringFwd.h\"\n\nnamespace mozilla {\nnamespace dom {\nclass ClientInfo;\nclass ClientSource;\nclass PerformanceStorage;\nclass ServiceWorkerDescriptor;\n} // namespace dom\n} // namespace mozilla\n%}\n\n",
+    "%{C++\n#include \"nsTArray.h\"\n#include \"mozilla/LoadTainting.h\"\n#include \"mozilla/OriginAttributes.h\"\n#include \"mozilla/UniquePtr.h\"\n#include \"nsRFPService.h\"\n#include \"nsStringFwd.h\"\n\nnamespace mozilla {\nnamespace dom {\nclass ClientInfo;\nclass ClientSource;\nclass PerformanceStorage;\nclass ServiceWorkerDescriptor;\n} // namespace dom\n} // namespace mozilla\n%}\n\n",
     {
       "kind": "native"
     },
@@ -157,6 +157,14 @@
       "kind": "native"
     },
     "\n",
+    {
+      "kind": "native"
+    },
+    "\n",
+    {
+      "kind": "native"
+    },
+    "\n      ",
     {
       "kind": "native"
     },
@@ -1809,6 +1817,106 @@
                   "readonly": null,
                   "type": "nsILoadInfo_StoragePermissionState",
                   "name": "storagePermission"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the granular overrides of fingerprinting protections associated to the\n   * channel, the value will override the default fingerprinting protection\n   * settings. This field will only get populated if these is one that comes\n   * from the local granular overrides pref or WebCompat. Otherwise, a value of\n   * Nothing() indicates no granular overrides are present for this channel.\n   *\n   * The RFPTarget defined in the RFPTargets.inc.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "const_MaybeRFPTarget",
+                  "name": "GetOverriddenFingerprintingSettings",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Set the granular overrides of fingerprinting protections for the channel.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "nostdcall",
+                          "param": null
+                        }
+                      },
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "notxpcom",
+                          "param": null
+                        }
+                      }
+                    ]
+                  },
+                  "return_type": "void",
+                  "name": "SetOverriddenFingerprintingSettings",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "RFPTarget",
+                      "name": "aTargets"
+                    },
+                    "other": []
+                  },
+                  "raises": null
                 }
               }
             },
@@ -5713,6 +5821,33 @@
                   "readonly": null,
                   "type": "boolean",
                   "name": "hasInjectedCookieForCookieBannerHandling"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Whether the load has gone through the URL bar, where the fixup had to add * the protocol scheme.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "infallible",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "readonly": null,
+                  "type": "boolean",
+                  "name": "wasSchemelessInput"
                 }
               }
             }

@@ -1,5 +1,10 @@
 {
-  "failedFiles": [],
+  "failedFiles": [
+    {
+      "path": "../mozilla/toolkit/mozapps/defaultagent/components.conf",
+      "e": {}
+    }
+  ],
   "classes": [
     {
       "componentFile": "../mozilla/devtools/client/jsonview/components.conf",
@@ -817,7 +822,8 @@
           "URI_STD",
           "URI_DANGEROUS_TO_LOAD",
           "URI_DOES_NOT_RETURN_DATA",
-          "URI_NON_PERSISTABLE"
+          "URI_NON_PERSISTABLE",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ]
       }
     },
@@ -848,12 +854,12 @@
       "componentFile": "../mozilla/dom/webauthn/components.conf",
       "cid": "{ebe8a51d-bd54-4838-b031-cd2289990e14}",
       "contract_ids": [
-        "@mozilla.org/webauthn/transport;1"
+        "@mozilla.org/webauthn/service;1"
       ],
       "headers": [
-        "/dom/webauthn/AuthrsTransport.h"
+        "/dom/webauthn/WebAuthnService.h"
       ],
-      "constructor": "mozilla::dom::NewAuthrsTransport"
+      "constructor": "mozilla::dom::NewWebAuthnService"
     },
     {
       "componentFile": "../mozilla/dom/webidl/components.conf",
@@ -2103,7 +2109,8 @@
         "flags": [
           "URI_NORELATIVE",
           "URI_NOAUTH",
-          "URI_LOADABLE_BY_ANYONE"
+          "URI_LOADABLE_BY_ANYONE",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ]
       }
     },
@@ -2713,7 +2720,8 @@
           "URI_STD",
           "ALLOWS_PROXY",
           "ALLOWS_PROXY_HTTP",
-          "URI_LOADABLE_BY_ANYONE"
+          "URI_LOADABLE_BY_ANYONE",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ],
         "default_port": 80
       }
@@ -2734,7 +2742,8 @@
           "ALLOWS_PROXY",
           "ALLOWS_PROXY_HTTP",
           "URI_LOADABLE_BY_ANYONE",
-          "URI_IS_POTENTIALLY_TRUSTWORTHY"
+          "URI_IS_POTENTIALLY_TRUSTWORTHY",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ],
         "default_port": 443
       }
@@ -2756,7 +2765,8 @@
         "flags": [
           "URI_STD",
           "URI_IS_LOCAL_RESOURCE",
-          "URI_IS_POTENTIALLY_TRUSTWORTHY"
+          "URI_IS_POTENTIALLY_TRUSTWORTHY",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ],
         "has_dynamic_flags": true
       }
@@ -2823,7 +2833,8 @@
           "URI_STD",
           "URI_IS_UI_RESOURCE",
           "URI_IS_LOCAL_RESOURCE",
-          "URI_IS_POTENTIALLY_TRUSTWORTHY"
+          "URI_IS_POTENTIALLY_TRUSTWORTHY",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ]
       }
     },
@@ -2865,7 +2876,8 @@
           "ALLOWS_PROXY",
           "ALLOWS_PROXY_HTTP",
           "URI_DOES_NOT_RETURN_DATA",
-          "URI_DANGEROUS_TO_LOAD"
+          "URI_DANGEROUS_TO_LOAD",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ],
         "default_port": 80
       }
@@ -2887,7 +2899,8 @@
           "ALLOWS_PROXY_HTTP",
           "URI_DOES_NOT_RETURN_DATA",
           "URI_DANGEROUS_TO_LOAD",
-          "URI_IS_POTENTIALLY_TRUSTWORTHY"
+          "URI_IS_POTENTIALLY_TRUSTWORTHY",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ],
         "default_port": 443
       }
@@ -4967,6 +4980,48 @@
       ]
     },
     {
+      "componentFile": "../mozilla/toolkit/components/resistfingerprinting/components.conf",
+      "name": "RFPService",
+      "cid": "{20093b2e-d5d5-4ce0-8355-96b8d2dc7ff5}",
+      "interfaces": [
+        "nsIRFPService"
+      ],
+      "contract_ids": [
+        "@mozilla.org/rfp-service;1"
+      ],
+      "type": "mozilla::nsRFPService",
+      "headers": [
+        "/toolkit/components/resistfingerprinting/nsRFPService.h"
+      ],
+      "singleton": true,
+      "constructor": "mozilla::nsRFPService::GetOrCreate",
+      "js_name": "rfp",
+      "categories": {
+        "profile-after-change": "nsRFPService"
+      },
+      "processes": 1
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/resistfingerprinting/components.conf",
+      "cid": "{07f45442-1806-44be-9230-12eb79de9bac}",
+      "contract_ids": [
+        "@mozilla.org/fingerprinting-override;1"
+      ],
+      "esModule": "resource://gre/modules/FingerprintingWebCompatService.sys.mjs",
+      "constructor": "FingerprintingOverride"
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/resistfingerprinting/components.conf",
+      "cid": "{e7b1da06-2594-4670-aea4-131070baca4c}",
+      "contract_ids": [
+        "@mozilla.org/fingerprinting-webcompat-service;1"
+      ],
+      "singleton": true,
+      "esModule": "resource://gre/modules/FingerprintingWebCompatService.sys.mjs",
+      "constructor": "FingerprintingWebCompatService",
+      "processes": 1
+    },
+    {
       "componentFile": "../mozilla/toolkit/components/satchel/components.conf",
       "cid": "{895db6c7-dbdf-40ea-9f64-b175033243dc}",
       "contract_ids": [
@@ -6675,7 +6730,8 @@
         "flags": [
           "URI_STD",
           "URI_IS_UI_RESOURCE",
-          "URI_IS_LOCAL_RESOURCE"
+          "URI_IS_LOCAL_RESOURCE",
+          "URI_HAS_WEB_EXPOSED_ORIGIN"
         ]
       }
     },

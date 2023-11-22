@@ -168,6 +168,26 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * This is a internal redirect used to handle http authentication retries.\n     * Upon receiving a 401 or 407 the channel gets redirected to a new channel\n     * (same URL) that performs the request with the appropriate credentials.\n     * Auth retry to the server must be made after redirecting to a new channel\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "const_code",
+                  "type": "unsigned long",
+                  "name": "REDIRECT_AUTH_RETRY",
+                  "value": {
+                    "kind": "num_$2"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/**\n     * Called when a redirect occurs. This may happen due to an HTTP 3xx status\n     * code. The purpose of this method is to notify the sink that a redirect\n     * is about to happen, but also to give the sink the right to veto the\n     * redirect by throwing or passing a failure-code in the callback.\n     *\n     * Note that vetoing the redirect simply means that |newChannel| will not\n     * be opened. It is important to understand that |oldChannel| will continue\n     * loading as if it received a HTTP 200, which includes notifying observers\n     * and possibly display or process content attached to the HTTP response.\n     * If the sink wants to prevent this loading it must explicitly deal with\n     * it, e.g. by calling |oldChannel->Cancel()|\n     *\n     * There is a certain freedom in implementing this method:\n     *\n     * If the return-value indicates success, a callback on |callback| is\n     * required. This callback can be done from within asyncOnChannelRedirect\n     * (effectively making the call synchronous) or at some point later\n     * (making the call asynchronous). Repeat: A callback must be done\n     * if this method returns successfully.\n     *\n     * If the return value indicates error (method throws an exception)\n     * the redirect is vetoed and no callback must be done. Repeat: No\n     * callback must be done if this method throws!\n     *\n     * NOTE: originalURI isn't yet set on the new channel when\n     * asyncOnChannelRedirect is called.\n     *\n     * @see nsIAsyncVerifyRedirectCallback::onRedirectVerifyCallback()\n     *\n     * @param oldChannel\n     *        The channel that's being redirected.\n     * @param newChannel\n     *        The new channel. This channel is not opened yet.\n     * @param flags\n     *        Flags indicating the type of redirect. A bitmask consisting\n     *        of flags from above.\n     *        One of REDIRECT_TEMPORARY and REDIRECT_PERMANENT will always be\n     *        set.\n     * @param callback\n     *        Object to inform about the async result of this method\n     *\n     * @throw <any> Throwing an exception will cause the redirect to be\n     *        cancelled\n     */"
                   }
                 ],

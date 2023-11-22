@@ -5,13 +5,6 @@
       "kind": "ANY_COMMENT_$0",
       "doc": {
         "kind": "DOC_COMMENT",
-        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
-      }
-    },
-    {
-      "kind": "ANY_COMMENT_$0",
-      "doc": {
-        "kind": "DOC_COMMENT",
         "contents": "/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this\n * file, You can obtain one at http://mozilla.org/MPL/2.0/. */"
       }
     },
@@ -20,19 +13,14 @@
       "ident": "nsISupports"
     },
     {
-      "kind": "interface_main",
-      "doc_comment": null,
-      "attrs": null,
-      "name": "nsIRequest",
-      "base": null,
-      "body": null
+      "kind": "INCLUDE",
+      "ident": "nsIFingerprintingWebCompatService"
     },
-    "\n\n",
     {
       "kind": "interface_main",
       "doc_comment": {
         "kind": "DOC_COMMENT",
-        "contents": "/**\n * nsIRequestObserver\n */"
+        "contents": "/**\n * The singleton serivce which handles fingerprinting protection stuffs.\n */"
       },
       "attrs": {
         "kind": "attributes",
@@ -46,16 +34,24 @@
             "kind": "attributes_$0",
             "attr": {
               "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
               "name": "uuid",
               "param": {
                 "kind": "attribute_$0",
-                "value": "fd91e2e0-1481-11d3-9333-00104ba0fd40"
+                "value": "20093b2e-d5d5-4ce0-8355-96b8d2dc7ff5"
               }
             }
           }
         ]
       },
-      "name": "nsIRequestObserver",
+      "name": "nsIRFPService",
       "base": {
         "kind": "ifacebase",
         "extends": "nsISupports"
@@ -72,22 +68,24 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Called to signify the beginning of an asynchronous request.\n     *\n     * @param aRequest request being observed\n     *\n     * An exception thrown from onStartRequest has the side-effect of\n     * causing the request to be canceled.\n     *\n     * Note: if this request is an nsIMultiPartChannelListener then\n     * OnStartRequest may be called multiple times.\n     */"
+                    "contents": "/**\n   * Set the fingerprinting overrides.\n   *\n   * @param aOverrides\n   *        An array of fingerprinting overrides.\n   */"
                   }
                 ],
                 "code": {
                   "kind": "func",
                   "attributes": null,
                   "return_type": "void",
-                  "name": "onStartRequest",
+                  "name": "setFingerprintingOverrides",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "nsIRequest",
-                      "name": "aRequest"
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "aOverrides"
                     },
                     "other": []
                   },
@@ -102,37 +100,65 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Called to signify the end of an asynchronous request.  This\n     * call is always preceded by a call to onStartRequest.\n     *\n     * @param aRequest request being observed\n     * @param aStatusCode reason for stopping (NS_OK if completed successfully)\n     *\n     * An exception thrown from onStopRequest is generally ignored.\n     *\n     * Note: if this request is an nsIMultiPartChannelListener then\n     * OnStopRequest may be called multiple times.\n     */"
+                    "contents": "/**\n   * Get the fingerprinting overrides of the given scope. This is for testing\n   * purpose.\n   *\n   * @param aScope\n   *        The scope of the fingerprinting override.\n   * @return The RFPTarget flags for the fingerprinting overrides of the given\n   *         scope. 0 if the overridden scope doesn't exist.\n   *\n   */"
                   }
                 ],
                 "code": {
                   "kind": "func",
                   "attributes": null,
-                  "return_type": "void",
-                  "name": "onStopRequest",
+                  "return_type": "uint64_t",
+                  "name": "getFingerprintingOverrides",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "nsIRequest",
-                      "name": "aRequest"
+                      "type": "ACString",
+                      "name": "aDomainKey"
                     },
-                    "other": [
-                      {
-                        "kind": "paramlist_$0",
-                        "param": {
-                          "kind": "param",
-                          "attribute": null,
-                          "refType": "in",
-                          "type": "nsresult",
-                          "name": "aStatusCode"
-                        }
-                      }
-                    ]
+                    "other": []
                   },
                   "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Clean all overrides. This is for testing purpose.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "cleanAllOverrides",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The bitfield of the default enabled RFP Targets.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "uint64_t",
+                  "name": "enabledFingerprintingProtections"
                 }
               }
             }
