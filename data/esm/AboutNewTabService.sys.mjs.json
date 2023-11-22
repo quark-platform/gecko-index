@@ -1,0 +1,2156 @@
+[
+  {
+    "type": "variable-declaration",
+    "id": "AboutHomeStartupCacheChild",
+    "line": 71,
+    "typeEstimation": {
+      "type": "object-estimation",
+      "keys": [
+        {
+          "type": "object-property",
+          "line": 72,
+          "id": "_initted"
+        },
+        {
+          "type": "object-property",
+          "line": 73,
+          "id": "CACHE_REQUEST_MESSAGE"
+        },
+        {
+          "type": "object-property",
+          "line": 74,
+          "id": "CACHE_RESPONSE_MESSAGE"
+        },
+        {
+          "type": "object-property",
+          "line": 75,
+          "id": "CACHE_USAGE_RESULT_MESSAGE"
+        },
+        {
+          "type": "object-property",
+          "line": 76,
+          "id": "STATES",
+          "typeEstimation": {
+            "type": "object-estimation",
+            "keys": [
+              {
+                "type": "object-property",
+                "line": 77,
+                "id": "UNAVAILABLE",
+                "typeEstimation": {
+                  "type": "number-estimation",
+                  "defaultValue": 0
+                }
+              },
+              {
+                "type": "object-property",
+                "line": 78,
+                "id": "UNCONSUMED",
+                "typeEstimation": {
+                  "type": "number-estimation",
+                  "defaultValue": 1
+                }
+              },
+              {
+                "type": "object-property",
+                "line": 79,
+                "id": "PAGE_CONSUMED",
+                "typeEstimation": {
+                  "type": "number-estimation",
+                  "defaultValue": 2
+                }
+              },
+              {
+                "type": "object-property",
+                "line": 80,
+                "id": "PAGE_AND_SCRIPT_CONSUMED",
+                "typeEstimation": {
+                  "type": "number-estimation",
+                  "defaultValue": 3
+                }
+              },
+              {
+                "type": "object-property",
+                "line": 81,
+                "id": "FAILED",
+                "typeEstimation": {
+                  "type": "number-estimation",
+                  "defaultValue": 4
+                }
+              },
+              {
+                "type": "object-property",
+                "line": 82,
+                "id": "DISQUALIFIED",
+                "typeEstimation": {
+                  "type": "number-estimation",
+                  "defaultValue": 5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "object-property",
+          "line": 84,
+          "id": "REQUEST_TYPE",
+          "typeEstimation": {
+            "type": "object-estimation",
+            "keys": [
+              {
+                "type": "object-property",
+                "line": 85,
+                "id": "PAGE",
+                "typeEstimation": {
+                  "type": "number-estimation",
+                  "defaultValue": 0
+                }
+              },
+              {
+                "type": "object-property",
+                "line": 86,
+                "id": "SCRIPT",
+                "typeEstimation": {
+                  "type": "number-estimation",
+                  "defaultValue": 1
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "object-property",
+          "line": 88,
+          "id": "_state",
+          "typeEstimation": {
+            "type": "number-estimation",
+            "defaultValue": 0
+          }
+        },
+        {
+          "type": "object-property",
+          "line": 89,
+          "id": "_consumerBCID"
+        },
+        {
+          "type": "object-method",
+          "line": 102,
+          "id": "init",
+          "comments": [
+            {
+              "description": "Called via a process script very early on in the process lifetime. This prepares the AboutHomeStartupCacheChild to pass an nsIChannel back to the nsIAboutNewTabService when the initial about:home document is eventually requested.",
+              "tags": [
+                {
+                  "tag": "param",
+                  "name": "pageInputStream",
+                  "type": "",
+                  "optional": false,
+                  "description": "(nsIInputStream) The stream for the cached page markup.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 7,
+                      "source": "   * @param pageInputStream (nsIInputStream)",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "pageInputStream",
+                        "postName": " ",
+                        "type": "",
+                        "postType": "",
+                        "description": "(nsIInputStream)",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 8,
+                      "source": "   *   The stream for the cached page markup.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "The stream for the cached page markup.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "scriptInputStream",
+                  "type": "",
+                  "optional": false,
+                  "description": "(nsIInputStream) The stream for the cached script to run on the page.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 9,
+                      "source": "   * @param scriptInputStream (nsIInputStream)",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "scriptInputStream",
+                        "postName": " ",
+                        "type": "",
+                        "postType": "",
+                        "description": "(nsIInputStream)",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 10,
+                      "source": "   *   The stream for the cached script to run on the page.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "The stream for the cached script to run on the page.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 11,
+                      "source": "   ",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 12,
+                      "source": "*/",
+                      "tokens": {
+                        "start": "",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "*/",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                }
+              ],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Called via a process script very early on in the process lifetime. This",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Called via a process script very early on in the process lifetime. This",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * prepares the AboutHomeStartupCacheChild to pass an nsIChannel back to",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "prepares the AboutHomeStartupCacheChild to pass an nsIChannel back to",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * the nsIAboutNewTabService when the initial about:home document is",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "the nsIAboutNewTabService when the initial about:home document is",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * eventually requested.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "eventually requested.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * @param pageInputStream (nsIInputStream)",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "pageInputStream",
+                    "postName": " ",
+                    "type": "",
+                    "postType": "",
+                    "description": "(nsIInputStream)",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   *   The stream for the cached page markup.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "The stream for the cached page markup.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * @param scriptInputStream (nsIInputStream)",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "scriptInputStream",
+                    "postName": " ",
+                    "type": "",
+                    "postType": "",
+                    "description": "(nsIInputStream)",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   *   The stream for the cached script to run on the page.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "The stream for the cached script to run on the page.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "pageInputStream",
+            "scriptInputStream"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 135,
+          "id": "uninit",
+          "comments": [
+            {
+              "description": "A function that lets us put the AboutHomeStartupCacheChild back into its initial state. This is used by tests to let us simulate the startup behaviour of the module without having to manually launch a new privileged about content process every time.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * A function that lets us put the AboutHomeStartupCacheChild back into",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "A function that lets us put the AboutHomeStartupCacheChild back into",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * its initial state. This is used by tests to let us simulate the startup",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "its initial state. This is used by tests to let us simulate the startup",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * behaviour of the module without having to manually launch a new privileged",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "behaviour of the module without having to manually launch a new privileged",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * about content process every time.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "about content process every time.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 182,
+          "id": "maybeGetCachedPageChannel",
+          "comments": [
+            {
+              "description": "A public method called from nsIAboutNewTabService that attempts return an nsIChannel for a cached about:home document that we were initialized with. If we failed to be initted with the cache, or the input streams that we were sent have no data yet available, this function returns null. The caller should fall back to generating the page dynamically. This function will be called when loading about:home, or about:home?jscache - the latter returns the cached script. It is expected that the same BrowsingContext that loads the cached page will also load the cached script.",
+              "tags": [
+                {
+                  "tag": "param",
+                  "name": "uri",
+                  "type": "",
+                  "optional": false,
+                  "description": "(nsIURI) The URI for the requested page, as passed by nsIAboutNewTabService.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 15,
+                      "source": "   * @param uri (nsIURI)",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "uri",
+                        "postName": " ",
+                        "type": "",
+                        "postType": "",
+                        "description": "(nsIURI)",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 16,
+                      "source": "   *   The URI for the requested page, as passed by nsIAboutNewTabService.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "The URI for the requested page, as passed by nsIAboutNewTabService.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "param",
+                  "name": "loadInfo",
+                  "type": "",
+                  "optional": false,
+                  "description": "(nsILoadInfo) The nsILoadInfo for the requested load, as passed by nsIAboutNewWTabService.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 17,
+                      "source": "   * @param loadInfo (nsILoadInfo)",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "loadInfo",
+                        "postName": " ",
+                        "type": "",
+                        "postType": "",
+                        "description": "(nsILoadInfo)",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 18,
+                      "source": "   *   The nsILoadInfo for the requested load, as passed by",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "The nsILoadInfo for the requested load, as passed by",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 19,
+                      "source": "   *   nsIAboutNewWTabService.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "nsIAboutNewWTabService.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "return",
+                  "name": "nsIChannel",
+                  "type": "",
+                  "optional": false,
+                  "description": "or null.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 20,
+                      "source": "   * @return nsIChannel or null.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@return",
+                        "postTag": " ",
+                        "name": "nsIChannel",
+                        "postName": " ",
+                        "type": "",
+                        "postType": "",
+                        "description": "or null.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 21,
+                      "source": "   ",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 22,
+                      "source": "*/",
+                      "tokens": {
+                        "start": "",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "*/",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                }
+              ],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * A public method called from nsIAboutNewTabService that attempts",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "A public method called from nsIAboutNewTabService that attempts",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * return an nsIChannel for a cached about:home document that we",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "return an nsIChannel for a cached about:home document that we",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * were initialized with. If we failed to be initted with the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "were initialized with. If we failed to be initted with the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * cache, or the input streams that we were sent have no data",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "cache, or the input streams that we were sent have no data",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * yet available, this function returns null. The caller should",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "yet available, this function returns null. The caller should",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   * fall back to generating the page dynamically.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "fall back to generating the page dynamically.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   * This function will be called when loading about:home, or",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "This function will be called when loading about:home, or",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   * about:home?jscache - the latter returns the cached script.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "about:home?jscache - the latter returns the cached script.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "   * It is expected that the same BrowsingContext that loads the cached",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "It is expected that the same BrowsingContext that loads the cached",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 13,
+                  "source": "   * page will also load the cached script.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "page will also load the cached script.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 14,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 15,
+                  "source": "   * @param uri (nsIURI)",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "uri",
+                    "postName": " ",
+                    "type": "",
+                    "postType": "",
+                    "description": "(nsIURI)",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 16,
+                  "source": "   *   The URI for the requested page, as passed by nsIAboutNewTabService.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "The URI for the requested page, as passed by nsIAboutNewTabService.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 17,
+                  "source": "   * @param loadInfo (nsILoadInfo)",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "loadInfo",
+                    "postName": " ",
+                    "type": "",
+                    "postType": "",
+                    "description": "(nsILoadInfo)",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 18,
+                  "source": "   *   The nsILoadInfo for the requested load, as passed by",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "The nsILoadInfo for the requested load, as passed by",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 19,
+                  "source": "   *   nsIAboutNewWTabService.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "nsIAboutNewWTabService.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 20,
+                  "source": "   * @return nsIChannel or null.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@return",
+                    "postTag": " ",
+                    "name": "nsIChannel",
+                    "postName": " ",
+                    "type": "",
+                    "postType": "",
+                    "description": "or null.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 21,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 22,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "uri",
+            "loadInfo"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 286,
+          "id": "constructAndSendCache",
+          "comments": [
+            {
+              "description": "This function takes the state information required to generate the about:home cache markup and script, and then generates that markup in script asynchronously. Once that's done, a message is sent to the parent process with the nsIInputStream's for the markup and script contents.",
+              "tags": [
+                {
+                  "tag": "param",
+                  "name": "state",
+                  "type": "",
+                  "optional": false,
+                  "description": "(Object) The Redux state of the about:home document to render.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 8,
+                      "source": "   * @param state (Object)",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@param",
+                        "postTag": " ",
+                        "name": "state",
+                        "postName": " ",
+                        "type": "",
+                        "postType": "",
+                        "description": "(Object)",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 9,
+                      "source": "   *   The Redux state of the about:home document to render.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "The Redux state of the about:home document to render.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "return",
+                  "name": "Promise",
+                  "type": "",
+                  "optional": false,
+                  "description": "",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 10,
+                      "source": "   * @return Promise",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@return",
+                        "postTag": " ",
+                        "name": "Promise",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "tag": "resolves",
+                  "name": "undefined",
+                  "type": "",
+                  "optional": false,
+                  "description": "After the message with the nsIInputStream's have been sent to the parent.",
+                  "problems": [],
+                  "source": [
+                    {
+                      "number": 11,
+                      "source": "   * @resolves undefined",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": " ",
+                        "tag": "@resolves",
+                        "postTag": " ",
+                        "name": "undefined",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 12,
+                      "source": "   *   After the message with the nsIInputStream's have been sent to",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "After the message with the nsIInputStream's have been sent to",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 13,
+                      "source": "   *   the parent.",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "*",
+                        "postDelimiter": "   ",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "the parent.",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 14,
+                      "source": "   ",
+                      "tokens": {
+                        "start": "   ",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "",
+                        "lineEnd": ""
+                      }
+                    },
+                    {
+                      "number": 15,
+                      "source": "*/",
+                      "tokens": {
+                        "start": "",
+                        "delimiter": "",
+                        "postDelimiter": "",
+                        "tag": "",
+                        "postTag": "",
+                        "name": "",
+                        "postName": "",
+                        "type": "",
+                        "postType": "",
+                        "description": "",
+                        "end": "*/",
+                        "lineEnd": ""
+                      }
+                    }
+                  ]
+                }
+              ],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * This function takes the state information required to generate",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "This function takes the state information required to generate",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * the about:home cache markup and script, and then generates that",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "the about:home cache markup and script, and then generates that",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * markup in script asynchronously. Once that's done, a message",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "markup in script asynchronously. Once that's done, a message",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * is sent to the parent process with the nsIInputStream's for the",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "is sent to the parent process with the nsIInputStream's for the",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * markup and script contents.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "markup and script contents.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "   * @param state (Object)",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@param",
+                    "postTag": " ",
+                    "name": "state",
+                    "postName": " ",
+                    "type": "",
+                    "postType": "",
+                    "description": "(Object)",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 9,
+                  "source": "   *   The Redux state of the about:home document to render.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "The Redux state of the about:home document to render.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 10,
+                  "source": "   * @return Promise",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@return",
+                    "postTag": " ",
+                    "name": "Promise",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 11,
+                  "source": "   * @resolves undefined",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "@resolves",
+                    "postTag": " ",
+                    "name": "undefined",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 12,
+                  "source": "   *   After the message with the nsIInputStream's have been sent to",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "After the message with the nsIInputStream's have been sent to",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 13,
+                  "source": "   *   the parent.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "   ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "the parent.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 14,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 15,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "type": "object-property",
+          "line": 319,
+          "id": "_cacheWorker"
+        },
+        {
+          "type": "object-method",
+          "line": 320,
+          "id": "getOrCreateWorker",
+          "kind": "method",
+          "params": []
+        },
+        {
+          "type": "object-method",
+          "line": 329,
+          "id": "receiveMessage",
+          "kind": "method",
+          "params": [
+            "message"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 336,
+          "id": "reportUsageResult",
+          "kind": "method",
+          "params": [
+            "success"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 342,
+          "id": "observe",
+          "kind": "method",
+          "params": [
+            "subject",
+            "topic",
+            "data"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 356,
+          "id": "setState",
+          "comments": [
+            {
+              "description": "Transitions the AboutHomeStartupCacheChild from one state to the next, where each state is defined in this.STATES. States can only be transitioned in increasing order, otherwise an error is logged.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * Transitions the AboutHomeStartupCacheChild from one state",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "Transitions the AboutHomeStartupCacheChild from one state",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * to the next, where each state is defined in this.STATES.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "to the next, where each state is defined in this.STATES.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   *",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * States can only be transitioned in increasing order, otherwise",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "States can only be transitioned in increasing order, otherwise",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   * an error is logged.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "an error is logged.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 8,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "type": "object-method",
+          "line": 374,
+          "id": "disqualifyCache",
+          "comments": [
+            {
+              "description": "If the cache hasn't been used, transitions it into the DISQUALIFIED state so that it cannot be used. This should be called if it's been determined that about:newtab is going to be loaded, which doesn't use the cache.",
+              "tags": [],
+              "source": [
+                {
+                  "number": 0,
+                  "source": "/**",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "/**",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 1,
+                  "source": "*",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "*",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 2,
+                  "source": "   * If the cache hasn't been used, transitions it into the DISQUALIFIED",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "If the cache hasn't been used, transitions it into the DISQUALIFIED",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 3,
+                  "source": "   * state so that it cannot be used. This should be called if it's been",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "state so that it cannot be used. This should be called if it's been",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 4,
+                  "source": "   * determined that about:newtab is going to be loaded, which doesn't",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "determined that about:newtab is going to be loaded, which doesn't",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 5,
+                  "source": "   * use the cache.",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "*",
+                    "postDelimiter": " ",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "use the cache.",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 6,
+                  "source": "   ",
+                  "tokens": {
+                    "start": "   ",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "",
+                    "lineEnd": ""
+                  }
+                },
+                {
+                  "number": 7,
+                  "source": "*/",
+                  "tokens": {
+                    "start": "",
+                    "delimiter": "",
+                    "postDelimiter": "",
+                    "tag": "",
+                    "postTag": "",
+                    "name": "",
+                    "postName": "",
+                    "type": "",
+                    "postType": "",
+                    "description": "",
+                    "end": "*/",
+                    "lineEnd": ""
+                  }
+                }
+              ],
+              "problems": []
+            }
+          ],
+          "kind": "method",
+          "params": []
+        }
+      ]
+    }
+  },
+  {
+    "type": "function-declaration",
+    "id": "AboutNewTabStubService",
+    "line": 505,
+    "params": []
+  }
+]
