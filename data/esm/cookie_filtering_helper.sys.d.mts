@@ -1,0 +1,12 @@
+export function browserTestPath(uri: any): string;
+export function waitForAllExpectedTests(): any;
+export function cleanupObservers(): void;
+export function preclean_test(): Promise<void>;
+export function cleanup_test(): Promise<void>;
+export function fetchHelper(url: any, cookie: any, secure: any, domain?: string): Promise<void>;
+export function triggerSetCookieFromHttp(uri: any, cookie: any, fpd?: string, ucd?: number): void;
+export function triggerSetCookieFromHttpPrivate(uri: any, cookie: any): Promise<void>;
+export function checkExpectedCookies(expected: any, browserName: any): void;
+export const HTTPS_EXAMPLE_ORG: string;
+export const HTTPS_EXAMPLE_COM: string;
+export const HTTP_EXAMPLE_COM: string;
