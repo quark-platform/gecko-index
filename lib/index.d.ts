@@ -287,6 +287,7 @@ declare module 'gecko-index' {
   export function guessTypeDefName(filename: string): string
   export async function hasTypeDef(name: string): boolean
   export async function getTypeDef(filename: string): Promise<string>
+  export async function getExports(): Promise<{ name: string; path: string }[]>
 
   // ===========================================================================
   // Mozbuild
