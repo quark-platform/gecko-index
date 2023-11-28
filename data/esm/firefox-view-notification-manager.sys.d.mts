@@ -1,5 +1,5 @@
 export const FirefoxViewNotificationManager: {
-    "__#456@#currentlyShowing": boolean;
+    "__#473@#currentlyShowing": boolean;
     handleTabSync(): Promise<void>;
     syncedTabs: any;
     showNotificationDot(): void;

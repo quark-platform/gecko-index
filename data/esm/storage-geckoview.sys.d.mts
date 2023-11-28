@@ -1,5 +1,5 @@
 export class LoginManagerStorage {
-    static "__#558@#storage": any;
+    static "__#575@#storage": any;
     static create(callback: any): any;
     get _crypto(): void;
     initialize(): Promise<void>;

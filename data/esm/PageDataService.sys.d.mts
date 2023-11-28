@@ -21,44 +21,44 @@ export const PageDataService: {
      *
      * @type {PageDataCache}
      */
-    "__#467@#pageDataCache": PageDataCache;
+    "__#484@#pageDataCache": PageDataCache;
     /**
      * The number of currently running background fetches.
      *
      * @type {number}
      */
-    "__#467@#backgroundFetches": number;
+    "__#484@#backgroundFetches": number;
     /**
      * The list of urls waiting to be loaded in the background.
      *
      * @type {Set<string>}
      */
-    "__#467@#backgroundQueue": Set<string>;
+    "__#484@#backgroundQueue": Set<string>;
     /**
      * Tracks whether the user is currently idle.
      *
      * @type {boolean}
      */
-    "__#467@#userIsIdle": boolean;
+    "__#484@#userIsIdle": boolean;
     /**
      * A manager for hidden browsers.
      *
      * @type {HiddenBrowserManager}
      */
-    "__#467@#browserManager": HiddenBrowserManager;
+    "__#484@#browserManager": HiddenBrowserManager;
     /**
      * A map of hidden browsers to a resolve function that should be passed the
      * actor that was created for the browser.
      *
      * @type {WeakMap<Browser, function(PageDataParent): void>}
      */
-    "__#467@#backgroundBrowsers": WeakMap<Browser, (arg0: PageDataParent) => void>;
+    "__#484@#backgroundBrowsers": WeakMap<Browser, (arg0: PageDataParent) => void>;
     /**
      * Tracks windows that have browsers with entries in the cache.
      *
      * @type {Map<Window, Set<Browser>>}
      */
-    "__#467@#trackedWindows": Map<Window, Set<Browser>>;
+    "__#484@#trackedWindows": Map<Window, Set<Browser>>;
     /**
      * Initializes a new instance of the service, not called externally.
      */
@@ -74,7 +74,7 @@ export const PageDataService: {
      * @param {Browser} browser
      *   The browser to track.
      */
-    "__#467@#trackBrowser"(browser: Browser): void;
+    "__#484@#trackBrowser"(browser: Browser): void;
     /**
      * Requests that any page data for this url is retained in memory until
      * unlocked. By calling this you are committing to later call `unlockEntry`
@@ -150,12 +150,12 @@ export const PageDataService: {
      * Starts as many background workers as are allowed to process the background
      * queue.
      */
-    "__#467@#startBackgroundWorkers"(): void;
+    "__#484@#startBackgroundWorkers"(): void;
     /**
      * Starts a background fetch worker which will pull urls from the queue and
      * load them until the queue is empty.
      */
-    "__#467@#backgroundFetch"(): Promise<void>;
+    "__#484@#backgroundFetch"(): Promise<void>;
     /**
      * Queues page data retrieval for a url. The page-data notification will be
      * generated if data becomes available.
@@ -174,7 +174,7 @@ export const PageDataService: {
      * @returns {boolean}
      *   True if the browser element is contained within a tab.
      */
-    "__#467@#isATabBrowser"(browser: DOMElement): boolean;
+    "__#484@#isATabBrowser"(browser: DOMElement): boolean;
 };
 /**
  * An entry in the page data cache.
