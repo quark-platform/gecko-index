@@ -1,3 +1,13 @@
+/**
+ * The definition of Deferred object which is returned by PromiseUtils.defer(),
+ * It contains a Promise and methods to resolve/reject it.
+ */
+export function Deferred(): void;
+export class Deferred {
+    resolve: (value: any) => void;
+    reject: (reason?: any) => void;
+    promise: Promise<any>;
+}
 export namespace PromiseUtils {
     function defer(): Deferred;
     /**
@@ -14,14 +24,3 @@ export namespace PromiseUtils {
      */
     function idleDispatch(callback: Function, timeout?: integer): Promise<any>;
 }
-/**
- * The definition of Deferred object which is returned by PromiseUtils.defer(),
- * It contains a Promise and methods to resolve/reject it.
- */
-declare function Deferred(): void;
-declare class Deferred {
-    resolve: (value: any) => void;
-    reject: (reason?: any) => void;
-    promise: Promise<any>;
-}
-export {};

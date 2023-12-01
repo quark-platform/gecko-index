@@ -20,6 +20,7 @@ jobs:
           wget -O mozilla.tar.xz https://moz-latest-release.gluon.dev/source/stable
           mkdir -p mozilla
           tar --strip-components=1 -xf ./mozilla.tar.xz -C ./mozilla
+           cd mozilla/ && git init && git add . && git commit -m \"Root\"
 
       - name: Set gecko version
         run: |
@@ -28,6 +29,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: index
+
+      - name: Apply patches
+        run: |
+          cd mozilla
+          git apply ../index/patches/*.patch
 
       - name: Generate Namespaces
         run: |

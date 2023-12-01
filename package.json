@@ -15,7 +15,9 @@
     "parser:gen": "tspeg scripts/parser/idl.tspeg scripts/parser/parser.ts",
     "parser:buildTypes": "npm run parser:gen && tsc --declaration --emitDeclarationOnly scripts/parser/parser.ts && mv -f scripts/parser/parser.d.ts lib/parser.d.ts",
     "test": "pnpm parser:gen && ava scripts",
-    "xulElements": "node --loader ts-node/esm ./scripts/xulElements.ts"
+    "xulElements": "node --loader ts-node/esm ./scripts/xulElements.ts",
+    "patch:init": "cd mozilla/ && git init && git add . && git commit -m \"Root\" && git am ../patches/*.patch",
+    "patch:commit": "mkdir -p patches && cd mozilla/ && git add . && git commit && git format-patch -1 HEAD --stdout > ../patches/$(git rev-parse HEAD).patch"
   },
   "files": [
     "data/**/*",

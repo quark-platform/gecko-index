@@ -1,0 +1,56 @@
+From 9ec9f47646133b36f85d48adbc54930b235bc0b3 Mon Sep 17 00:00:00 2001
+From: trickypr <23250792+trickypr@users.noreply.github.com>
+Date: Fri, 1 Dec 2023 14:43:08 +1100
+Subject: [PATCH] 001 - Fix DeferredTask, E10SUtils & PromiseUtils
+
+---
+ toolkit/modules/DeferredTask.sys.mjs | 2 +-
+ toolkit/modules/E10SUtils.sys.mjs    | 5 ++++-
+ toolkit/modules/PromiseUtils.sys.mjs | 2 +-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/toolkit/modules/DeferredTask.sys.mjs b/toolkit/modules/DeferredTask.sys.mjs
+index 9f112a54d0..1711d51d34 100644
+--- a/toolkit/modules/DeferredTask.sys.mjs
++++ b/toolkit/modules/DeferredTask.sys.mjs
+@@ -110,7 +110,7 @@ const Timer = Components.Constructor(
+  *        aDelayMs have elapsed. If omitted, waits indefinitely for an idle
+  *        callback.
+  */
+-export var DeferredTask = function (aTaskFn, aDelayMs, aIdleTimeoutMs) {
++export function DeferredTask(aTaskFn, aDelayMs, aIdleTimeoutMs) {
+   this._taskFn = aTaskFn;
+   this._delayMs = aDelayMs;
+   this._timeoutMs = aIdleTimeoutMs;
+diff --git a/toolkit/modules/E10SUtils.sys.mjs b/toolkit/modules/E10SUtils.sys.mjs
+index 34da17fc50..2be1ab1394 100644
+--- a/toolkit/modules/E10SUtils.sys.mjs
++++ b/toolkit/modules/E10SUtils.sys.mjs
+@@ -276,7 +276,10 @@ export var E10SUtils = {
+     return aUri ? aUri.spec : "undefined";
+   },
+ 
+-  log: function log() {
++  /**
++   * @returns {Console}
++   */
++  log() {
+     if (!this._log) {
+       this._log = console.createInstance({
+         prefix: "ProcessSwitch",
+diff --git a/toolkit/modules/PromiseUtils.sys.mjs b/toolkit/modules/PromiseUtils.sys.mjs
+index fa6b2aa423..009dbf598d 100644
+--- a/toolkit/modules/PromiseUtils.sys.mjs
++++ b/toolkit/modules/PromiseUtils.sys.mjs
+@@ -42,7 +42,7 @@ export var PromiseUtils = {
+  * The definition of Deferred object which is returned by PromiseUtils.defer(),
+  * It contains a Promise and methods to resolve/reject it.
+  */
+-function Deferred() {
++export function Deferred() {
+   /* A method to resolve the associated Promise with the value passed.
+    * If the promise is already settled it does nothing.
+    *
+-- 
+2.42.0
+
