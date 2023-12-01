@@ -41,7 +41,7 @@ export class AddonSearchEngine extends SearchEngine {
      *   The options object.
      * @param {Extension} options.extension
      *   The extension object representing the add-on.
-     * @param {object} options.locale
+     * @param {string} options.locale
      *   The locale to use from the extension for getting details of the search
      *   engine.
      * @param {object} [options.config]
@@ -50,7 +50,7 @@ export class AddonSearchEngine extends SearchEngine {
      */
     init({ extension, locale, config }: {
         extension: Extension;
-        locale: object;
+        locale: string;
         config?: object;
     }): Promise<void>;
     /**
