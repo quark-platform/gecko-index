@@ -11,7 +11,7 @@ export class amContentHandler {
      *         The nsIRequest dealing with the content
      */
     handleContent(aMimetype: any, aContext: any, aRequest: any): void;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     log(aMsg: any): void;
 }

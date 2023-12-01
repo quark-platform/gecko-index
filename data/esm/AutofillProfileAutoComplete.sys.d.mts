@@ -1,5 +1,5 @@
 export namespace ProfileAutocomplete {
-    let QueryInterface: any;
+    let QueryInterface: MozQueryInterface;
     let lastProfileAutoCompleteResult: any;
     let lastProfileAutoCompleteFocusedInput: any;
     let _registered: boolean;

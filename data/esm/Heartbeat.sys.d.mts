@@ -48,11 +48,11 @@ export const Heartbeat: {
         notificationBox: any;
         notice: any;
         ratingContainer: any;
-        surveyEndTimer: any;
+        surveyEndTimer: number;
         maybeNotifyHeartbeat(name: any, data?: {}): void;
         pingSent: boolean;
         userEngaged(engagementParams: any): void;
-        engagementCloseTimer: any;
+        engagementCloseTimer: number;
         endTimerIfPresent(timerName: any): void;
         cleanup(): void;
     };

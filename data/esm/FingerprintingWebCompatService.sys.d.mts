@@ -3,8 +3,8 @@
  */
 export class FingerprintingOverride {
     constructor(firstPartyDomain: any, thirdPartyDomain: any, overrides: any);
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     firstPartyDomain: any;
     thirdPartyDomain: any;
     overrides: any;
@@ -15,8 +15,8 @@ export class FingerprintingOverride {
  * settings and the local test pref.
  */
 export class FingerprintingWebCompatService {
-    classId: any;
-    QueryInterface: any;
+    classId: unknown;
+    QueryInterface: MozQueryInterface;
     init(): Promise<void>;
     observe(subject: any, topic: any, prefName: any): void;
     shutdown(): void;

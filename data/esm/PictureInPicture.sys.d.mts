@@ -1,14 +1,14 @@
-export class PictureInPictureLauncherParent {
+export class PictureInPictureLauncherParent extends JSWindowActorParent {
     receiveMessage(aMessage: any): void;
 }
-export class PictureInPictureToggleParent {
+export class PictureInPictureToggleParent extends JSWindowActorParent {
     receiveMessage(aMessage: any): void;
 }
 /**
  * This module is responsible for creating a Picture in Picture window to host
  * a clone of a video element running in web content.
  */
-export class PictureInPictureParent {
+export class PictureInPictureParent extends JSWindowActorParent {
     receiveMessage(aMessage: any): void;
 }
 export namespace PictureInPicture {

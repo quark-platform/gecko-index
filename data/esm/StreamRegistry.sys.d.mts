@@ -2,7 +2,7 @@ export class Stream {
     constructor(path: any);
     destroy(): Promise<void>;
     seek(seekTo: any): Promise<void>;
-    readBytes(count: any): Promise<any>;
+    readBytes(count: any): Promise<Uint8Array>;
     available(): Promise<number>;
     length(): Promise<any>;
     get path(): any;

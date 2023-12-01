@@ -1,4 +1,4 @@
-export class PrintingChild {
+export class PrintingChild extends JSWindowActorChild {
     actorCreated(): void;
     didDestroy(): void;
     handleEvent(event: any): void;

@@ -1,4 +1,4 @@
-export class AboutNewTabParent {
+export class AboutNewTabParent extends JSWindowActorParent {
     static get loadedTabs(): Map<any, any>;
     getTabDetails(): any;
     handleEvent(event: any): void;

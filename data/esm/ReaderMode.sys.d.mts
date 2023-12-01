@@ -20,7 +20,7 @@ export namespace ReaderMode {
      *         a properly formatted about:reader URL.
      */
     function getOriginalUrl(url: any): string;
-    function getOriginalUrlObjectForDisplay(url: any): any;
+    function getOriginalUrlObjectForDisplay(url: any): nsIURIType;
     /**
      * Gets an article from a loaded browser's document. This method will not attempt
      * to parse certain URIs (e.g. about: URIs).

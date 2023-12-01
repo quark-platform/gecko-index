@@ -16,18 +16,18 @@ export class amManager {
     receiveMessage(aMessage: any): any;
     childClosed(target: any): void;
     sendEvent(mm: any, data: any): void;
-    classID: any;
+    classID: unknown;
     QueryInterface: any;
 }
 export function BlocklistService(): void;
 export class BlocklistService {
     wrappedJSObject: this;
-    STATE_NOT_BLOCKED: any;
-    STATE_SOFTBLOCKED: any;
-    STATE_BLOCKED: any;
+    STATE_NOT_BLOCKED: 0;
+    STATE_SOFTBLOCKED: 1;
+    STATE_BLOCKED: 2;
     get isLoaded(): any;
     observe(...args: any[]): any;
     notify(): void;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
 }

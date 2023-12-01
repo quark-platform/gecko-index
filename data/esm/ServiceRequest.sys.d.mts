@@ -6,7 +6,7 @@
  */
 export class ServiceRequest extends XMLHttpRequest {
     static logProxySource(channel: any, service: any): Promise<void>;
-    static get isOffline(): any;
+    static get isOffline(): boolean;
     constructor(options: any);
     /**
      * Opens an XMLHttpRequest, and sets the NSS "beConservative" flag.
@@ -19,5 +19,5 @@ export class ServiceRequest extends XMLHttpRequest {
     open(method: string, url: string, options: any): void;
     get bypassProxy(): any;
     get isProxied(): boolean;
-    get bypassProxyEnabled(): any;
+    get bypassProxyEnabled(): boolean;
 }

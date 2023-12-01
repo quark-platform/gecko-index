@@ -1,8 +1,8 @@
 export function WebProtocolHandlerRegistrar(): void;
 export class WebProtocolHandlerRegistrar {
-    get stringBundle(): any;
-    _getFormattedString(key: any, params: any): any;
-    _getString(key: any): any;
+    get stringBundle(): nsIStringBundleType;
+    _getFormattedString(key: any, params: any): string;
+    _getString(key: any): string;
     /**
      * See nsIWebProtocolHandlerRegistrar
      */
@@ -21,5 +21,5 @@ export class WebProtocolHandlerRegistrar {
      * See nsIWebProtocolHandlerRegistrar
      */
     registerProtocolHandler(aProtocol: any, aURI: any, aTitle: any, aDocumentURI: any, aBrowserOrWindow: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }

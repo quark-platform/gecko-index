@@ -1,7 +1,7 @@
 /**
  * Receives messages from PageDataChild and passes them to the PageData service.
  */
-export class PageDataParent {
+export class PageDataParent extends JSWindowActorParent {
     /**
      * Starts data collection in the child process. Returns a promise that
      * resolves to the page data or null if the page is closed before data

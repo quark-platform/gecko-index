@@ -1,4 +1,5 @@
-export class SelectionActionDelegateParent {
+/// <reference types="gecko-types" />
+export class SelectionActionDelegateParent extends GeckoViewActorParent {
     respondTo: any;
     actionId: any;
     get rootActor(): any;
@@ -7,3 +8,4 @@ export class SelectionActionDelegateParent {
     showSelectionAction(aRespondTo: any, aData: any): void;
     executeSelectionAction(aData: any): void;
 }
+import { GeckoViewActorParent } from "resource://gre/modules/GeckoViewActorParent.sys.mjs";

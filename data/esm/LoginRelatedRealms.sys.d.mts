@@ -1,4 +1,4 @@
-export class LoginRelatedRealmsParent {
+export class LoginRelatedRealmsParent extends JSWindowActorParent {
     /**
      * @type RemoteSettingsClient
      *

@@ -1,4 +1,4 @@
-export class WebChannelChild {
+export class WebChannelChild extends JSWindowActorChild {
     handleEvent(event: any): void;
     receiveMessage(msg: any): void;
     _getWhitelistedPrincipals(): any;

@@ -30,8 +30,8 @@ export class MockExtension {
     startup(): Promise<any>;
     addonPromise: Promise<any>;
     resolveAddon: (value: any) => void;
-    shutdown(): Promise<any>;
-    cleanupGeneratedFile(): Promise<any>;
+    shutdown(): Promise<undefined>;
+    cleanupGeneratedFile(): Promise<undefined>;
     terminateBackground(...args: any[]): Promise<any>;
     wakeupBackground(): Promise<any>;
 }

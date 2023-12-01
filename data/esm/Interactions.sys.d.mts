@@ -118,7 +118,7 @@ declare class _Interactions {
      * @param {InteractionsStore} store
      *   The interactions store.
      */
-    static "__#225836@#updateInteraction_async"(browser: Browser, activeWindow: DOMWindow, userIsIdle: boolean, interactions: WeakMap<Browser, InteractionInfo>, pageViewStartTime: number, store: InteractionsStore): Promise<void>;
+    static "__#543868@#updateInteraction_async"(browser: Browser, activeWindow: DOMWindow, userIsIdle: boolean, interactions: WeakMap<Browser, InteractionInfo>, pageViewStartTime: number, store: InteractionsStore): Promise<void>;
     DOCUMENT_TYPE: {
         GENERIC: number;
         MEDIA: number;
@@ -194,7 +194,7 @@ declare class _Interactions {
      *   The data attached to the notification.
      */
     observe(subject: nsISupports, topic: string, data: string): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     #private;
 }
 /**

@@ -1,11 +1,11 @@
 export namespace AttributionIOUtils {
-    function write(path: any, bytes: any): Promise<any>;
-    function read(path: any): Promise<any>;
-    function exists(path: any): Promise<any>;
+    function write(path: any, bytes: any): Promise<number>;
+    function read(path: any): Promise<Uint8Array>;
+    function exists(path: any): Promise<boolean>;
 }
 export namespace AttributionCode {
     const msixCampaignId: any;
-    const attributionFile: any;
+    const attributionFile: void | nsISupportsType;
     /**
      * Write the given attribution code to the attribution file.
      * @param {String} code to write.

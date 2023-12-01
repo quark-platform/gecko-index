@@ -1,7 +1,7 @@
 export function UrlClassifierExceptionListService(): void;
 export class UrlClassifierExceptionListService {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     features: {};
     _initialized: boolean;
     lazyInit(): Promise<void>;

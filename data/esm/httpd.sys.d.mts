@@ -27,7 +27,7 @@ export class nsHttpServer {
     /** The port on which this server listens. */
     _port: any;
     /** The socket associated with this. */
-    _socket: any;
+    _socket: unknown;
     /** The handler used to process requests to this server. */
     _handler: ServerHandler;
     /** Naming information for this server. */
@@ -140,7 +140,7 @@ export class nsHttpServer {
         getObjectState(k: any): any;
         setObjectState(k: any, v: any): void;
         readonly wrappedJSObject: any;
-        QueryInterface: any;
+        QueryInterface: MozQueryInterface;
         /**
          * Returns true iff this server is not running (and is not in the process of
          * serving any requests still to be processed when the server was last
@@ -163,7 +163,7 @@ export class nsHttpServer {
          */
         _requestQuit(): void;
     };
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     /**
      * Returns true iff this server is not running (and is not in the process of
      * serving any requests still to be processed when the server was last
@@ -283,7 +283,7 @@ export class WriteThroughCopier {
     status: any;
     /** Arrays of byte strings waiting to be written to output. */
     _pendingData: any[];
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     /**
      * Receives a more-data-in-input notification and writes the corresponding
      * data to the output.
@@ -810,7 +810,7 @@ declare class ServerIdentity {
     has(scheme: any, host: any, port: any): boolean;
     getScheme(host: any, port: any): any;
     setPrimary(scheme: any, host: any, port: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     /**
      * Initializes the primary name for the corresponding server, based on the
      * provided port number.
@@ -852,7 +852,7 @@ declare class nsSimpleEnumerator {
     _nextIndex: number;
     hasMoreElements(): boolean;
     getNext(): any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 /**
  * Maps absolute paths to files on the local file system (as nsILocalFiles).

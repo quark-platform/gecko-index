@@ -17,7 +17,7 @@ export class DOMRequestIpcHelper {
     _listeners: {};
     _requests: {};
     _window: any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     /**
      *  'aMessages' is expected to be an array of either:
      *  - objects of this form:
@@ -69,7 +69,7 @@ export class DOMRequestIpcHelper {
     takeRequest(aId: any): any;
     takePromiseResolver(aId: any): any;
     _getRandomId(): any;
-    createRequest(): any;
+    createRequest(): DOMRequest;
     /**
      * createPromise() creates a new Promise, with `aPromiseInit` as the
      * PromiseInit callback. The promise constructor is obtained from the

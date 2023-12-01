@@ -1,4 +1,4 @@
-export class DevToolsWorkerChild {
+export class DevToolsWorkerChild extends JSWindowActorChild {
     _connections: Map<any, any>;
     _onWorkerRegistered(dbg: any): void;
     _onWorkerUnregistered(dbg: any): void;
@@ -52,7 +52,7 @@ export class DevToolsWorkerChild {
         watcherActorID: any;
     }): Promise<void>;
     _destroyTargetActors(watcherActorID: any): void;
-    sendPacket(packet: any, prefix: any): Promise<any>;
+    sendPacket(packet: any, prefix: any): Promise<void>;
     _addSessionDataEntry(watcherActorID: any, type: any, entries: any): Promise<void>;
     _removeSessionDataEntry(watcherActorID: any, type: any, entries: any): void;
     handleEvent({ type }: {

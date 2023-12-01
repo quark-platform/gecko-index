@@ -1,4 +1,4 @@
-export class PageStyleParent {
+export class PageStyleParent extends JSWindowActorParent {
     receiveMessage(msg: any): void;
     /**
      * Add/append styleSheets to the _pageStyleSheets weakmap.

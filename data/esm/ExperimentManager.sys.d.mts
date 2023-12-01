@@ -13,7 +13,7 @@ export class _ExperimentManager {
     extraContext: {};
     _prefs: Map<any, any>;
     _prefsBySlug: Map<any, any>;
-    get studiesEnabled(): any;
+    get studiesEnabled(): boolean;
     /**
      * Creates a targeting context with following filters:
      *

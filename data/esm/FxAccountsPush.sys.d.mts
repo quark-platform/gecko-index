@@ -20,8 +20,8 @@ export class FxAccountsPushService {
     _initialized: boolean;
     pushService: null;
     fxai: null;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     /**
      * Initialize the service and register all the required observers.
      *

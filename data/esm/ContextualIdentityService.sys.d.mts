@@ -32,12 +32,12 @@ declare class _ContextualIdentityService {
     _saver: null;
     init(path: any): void;
     observe(aSubject: any, aTopic: any): Promise<void>;
-    load(): any;
+    load(): Promise<void>;
     resetDefault(): void;
     loadError(error: any): void;
     saveSoon(): void;
     _saverCallback: () => any;
-    save(): any;
+    save(): Promise<number>;
     create(name: any, icon: any, color: any): any;
     update(userContextId: any, name: any, icon: any, color: any): boolean;
     remove(userContextId: any): boolean;

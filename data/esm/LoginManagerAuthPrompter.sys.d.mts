@@ -5,8 +5,8 @@
  */
 export function LoginManagerAuthPromptFactory(): void;
 export class LoginManagerAuthPromptFactory {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     _pendingPrompts: WeakMap<object, any>;
     _pendingSavePrompts: WeakMap<object, any>;
     _noBrowser: {};
@@ -40,8 +40,8 @@ export class LoginManagerAuthPromptFactory {
  */
 export function LoginManagerAuthPrompter(): void;
 export class LoginManagerAuthPrompter {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     _factory: null;
     _chromeWindow: null;
     _browser: null;
@@ -55,12 +55,12 @@ export class LoginManagerAuthPrompter {
      * Wrapper around the prompt service prompt. Saving random fields here
      * doesn't really make sense and therefore isn't implemented.
      */
-    prompt(aDialogTitle: any, aText: any, aPasswordRealm: any, aSavePassword: any, aDefaultText: any, aResult: any): any;
+    prompt(aDialogTitle: any, aText: any, aPasswordRealm: any, aSavePassword: any, aDefaultText: any, aResult: any): boolean;
     /**
      * Looks up a username and password in the database. Will prompt the user
      * with a dialog, even if a username and password are found.
      */
-    asyncPromptUsernameAndPassword(aDialogTitle: any, aText: any, aPasswordRealm: any, aSavePassword: any, aUsername: any, aPassword: any): Promise<any>;
+    asyncPromptUsernameAndPassword(aDialogTitle: any, aText: any, aPasswordRealm: any, aSavePassword: any, aUsername: any, aPassword: any): Promise<boolean>;
     /**
      * If a password is found in the database for the password realm, it is
      * returned straight away without displaying a dialog.
@@ -69,7 +69,7 @@ export class LoginManagerAuthPrompter {
      * with a dialog with a text field and ok/cancel buttons. If the user
      * allows it, then the password will be saved in the database.
      */
-    asyncPromptPassword(aDialogTitle: any, aText: any, aPasswordRealm: any, aSavePassword: any, aPassword: any): Promise<any>;
+    asyncPromptPassword(aDialogTitle: any, aText: any, aPasswordRealm: any, aSavePassword: any, aPassword: any): Promise<boolean>;
     /**
      * Given aRealmString, such as "http://user@example.com/foo", returns an
      * array of:
@@ -82,7 +82,7 @@ export class LoginManagerAuthPrompter {
      * arguments to let callers know the login can't be saved because we don't
      * know whether it's http or https.
      */
-    _getRealmInfo(aRealmString: any): any[];
+    _getRealmInfo(aRealmString: any): string[];
     promptAuthInternal(aChannel: any, aLevel: any, aAuthInfo: any): Promise<boolean>;
     /**
      * Implementation of nsIAuthPrompt2.
@@ -93,7 +93,7 @@ export class LoginManagerAuthPrompter {
      */
     promptAuth(aChannel: nsIChannel, aLevel: int, aAuthInfo: nsIAuthInformation): boolean;
     asyncPromptAuth(aChannel: any, aCallback: any, aContext: any, aLevel: any, aAuthInfo: any): {
-        QueryInterface: any;
+        QueryInterface: MozQueryInterface;
         callback: any;
         context: any;
         cancel(): void;
@@ -166,7 +166,7 @@ export class LoginManagerAuthPrompter {
      */
     _SetAuthInfo(aAuthInfo: any, username: any, password: any): void;
     _newAsyncPromptConsumer(aCallback: any, aContext: any): {
-        QueryInterface: any;
+        QueryInterface: MozQueryInterface;
         callback: any;
         context: any;
         cancel(): void;

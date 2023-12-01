@@ -1,4 +1,4 @@
-export class PluginChild {
+export class PluginChild extends JSWindowActorChild {
     handleEvent(event: any): void;
     /**
      * Determines whether or not the crashed plugin is contained within current

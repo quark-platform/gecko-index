@@ -1,4 +1,4 @@
-export class DateTimePickerParent {
+export class DateTimePickerParent extends JSWindowActorParent {
     receiveMessage(aMessage: any): void;
     handleEvent(aEvent: any): void;
     showPicker(aData: any): void;

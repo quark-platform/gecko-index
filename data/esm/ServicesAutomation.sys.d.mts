@@ -3,8 +3,8 @@ export function triggerSync(username: any, password: any, autoconfig: any): Prom
     result: number;
     logs: {
         sync: {
-            name: any;
-            content: any;
+            name: string;
+            content: string;
         }[];
         condprof: {
             name: string;
@@ -23,14 +23,14 @@ export namespace Authentication {
     function signOut(): Promise<void>;
 }
 export namespace Sync {
-    function getSyncLogsDirectory(): any;
+    function getSyncLogsDirectory(): string;
     function init(): Promise<void>;
     function observe(subject: any, topic: any, data: any): void;
     function configureSync(): Promise<void>;
     function triggerSync(): Promise<number>;
     function wipeLogs(): Promise<void>;
     function getLogs(): Promise<{
-        name: any;
-        content: any;
+        name: string;
+        content: string;
     }[]>;
 }

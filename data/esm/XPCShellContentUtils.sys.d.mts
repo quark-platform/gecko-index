@@ -27,7 +27,7 @@ export namespace XPCShellContentUtils {
         hosts?: sequence<string>;
     }): HttpServer;
     function registerJSON(server: any, path: any, obj: any): void;
-    let remoteContentScripts: any;
+    let remoteContentScripts: boolean;
     function fetch(origin: any, url: any, options: any): Promise<any>;
     /**
      * Loads a content page into a hidden docShell.
@@ -58,15 +58,15 @@ export namespace XPCShellContentUtils {
     }): ContentPage;
 }
 declare class ContentPage {
-    constructor(remote?: any, remoteSubframes?: any, extension?: any, privateBrowsing?: boolean, userContextId?: any);
+    constructor(remote?: boolean, remoteSubframes?: boolean, extension?: any, privateBrowsing?: boolean, userContextId?: any);
     remote: any;
-    remoteSubframes: any;
+    remoteSubframes: boolean;
     extension: any;
     privateBrowsing: boolean;
     userContextId: any;
-    browserReady: Promise<any>;
-    _initBrowser(): Promise<any>;
-    windowlessBrowser: any;
+    browserReady: Promise<XULElementTypes>;
+    _initBrowser(): Promise<XULElementTypes>;
+    windowlessBrowser: nsIWindowlessBrowserType;
     browser: any;
     get browsingContext(): any;
     get SpecialPowers(): any;

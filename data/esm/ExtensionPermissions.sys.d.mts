@@ -114,7 +114,7 @@ export namespace OriginControls {
 }
 export namespace QuarantinedDomains {
     function getUserAllowedAddonIdPrefName(addonId: any): string;
-    function isUserAllowedAddonId(addonId: any): any;
+    function isUserAllowedAddonId(addonId: any): boolean;
     function setUserAllowedAddonIdPref(addonId: any, userAllowed: any): void;
     function clearUserPref(addonId: any): void;
     let PREF_ADDONS_BRANCH_NAME: string;
@@ -125,7 +125,7 @@ export namespace QuarantinedDomains {
     function _onUserAllowedPrefChanged(_subject: any, _topic: any, prefName: any): Promise<void>;
     function _onUpdatedDomainsListTelemetry(_subject: any, _topic: any, _prefName: any): void;
     function _transformDomainsListPrefValue(value: any): {
-        hash: any;
+        hash: string;
         set: Set<any>;
     };
 }

@@ -13,7 +13,7 @@ export namespace TelemetryHealthPing {
         SEND_FAILURE: "sendFailure";
     }>;
     let OsInfo: Readonly<{
-        name: any;
+        name: string;
         version: any;
     }>;
     let HEALTH_PING_TYPE: string;

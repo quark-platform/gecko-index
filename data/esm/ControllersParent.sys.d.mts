@@ -1,4 +1,4 @@
-export class ControllersParent {
+export class ControllersParent extends JSWindowActorParent {
     supportedCommands: {};
     get browser(): any;
     enableDisableCommands(aAction: any, aEnabledCommands: any, aDisabledCommands: any): void;
@@ -9,5 +9,5 @@ export class ControllersParent {
     doCommandWithParams(aCommand: any, aCommandParams: any): void;
     getSupportedCommands(): void;
     onEvent(): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }

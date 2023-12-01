@@ -38,7 +38,7 @@ export class UrlbarInput {
     _suppressPrimaryAdjustment: boolean;
     _untrimmedValue: string;
     _searchModesByBrowser: WeakMap<object, any>;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _enableAutofillPlaceholder: boolean;
     inputField: any;
     _inputContainer: any;
@@ -432,7 +432,7 @@ export class UrlbarInput {
      */
     getSearchSource(event: Event): string;
     _addObservers(): void;
-    _getURIFixupInfo(searchString: any): any;
+    _getURIFixupInfo(searchString: any): nsIURIFixupInfoType;
     _afterTabSelectAndFocusChange(): void;
     _gotTabSelect: boolean;
     _updateLayoutBreakoutDimensions(): Promise<void>;

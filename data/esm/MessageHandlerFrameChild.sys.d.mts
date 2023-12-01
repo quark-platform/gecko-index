@@ -13,10 +13,10 @@ export function getMessageHandlerFrameChildActor(messageHandler: WindowGlobalMes
  * MessageHandlerFrame actor is used by RootTransport to communicate between
  * ROOT MessageHandlers and WINDOW_GLOBAL MessageHandlers.
  */
-export class MessageHandlerFrameChild {
+export class MessageHandlerFrameChild extends JSWindowActorChild {
     actorCreated(): void;
     type: any;
-    context: any;
+    context: BrowsingContext;
     _registry: any;
     _onRegistryEvent(eventName: any, wrappedEvent: any): void;
     handleEvent({ persisted, type }: {
@@ -24,6 +24,6 @@ export class MessageHandlerFrameChild {
         type: any;
     }): void;
     receiveMessage(message: any): Promise<any>;
-    sendCommand(command: any, sessionId: any): any;
+    sendCommand(command: any, sessionId: any): Promise<any>;
     didDestroy(): void;
 }

@@ -1,4 +1,4 @@
-export function getCustomTypesDemo(demo: any): any;
+export function getCustomTypesDemo(demo: any): Promise<any>;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };
 }

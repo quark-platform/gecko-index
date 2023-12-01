@@ -7,7 +7,7 @@ export namespace UpdateListener {
     let promptMaxFutureVariation: number;
     let latestUpdate: any;
     let availablePromptScheduled: boolean;
-    const badgeWaitTime: any;
+    const badgeWaitTime: number;
     const suppressedPromptDelay: number;
     function maybeShowUnsupportedNotification(): void;
     function reset(): void;

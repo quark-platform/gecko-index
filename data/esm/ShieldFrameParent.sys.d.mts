@@ -1,3 +1,3 @@
-export class ShieldFrameParent {
+export class ShieldFrameParent extends JSWindowActorParent {
     receiveMessage(msg: any): Promise<any>;
 }

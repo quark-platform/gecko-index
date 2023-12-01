@@ -1,7 +1,7 @@
 /**
  * LightweightThemeChild forwards theme data to in-content pages.
  */
-export class LightweightThemeChild {
+export class LightweightThemeChild extends JSWindowActorChild {
     _initted: boolean;
     didDestroy(): void;
     _getChromeOuterWindowID(): any;

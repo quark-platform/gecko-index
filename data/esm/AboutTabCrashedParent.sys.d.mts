@@ -1,4 +1,4 @@
-export class AboutTabCrashedParent {
+export class AboutTabCrashedParent extends JSWindowActorParent {
     didDestroy(): void;
     receiveMessage(message: any): Promise<void>;
     removeCrashedPage(): void;

@@ -121,7 +121,6 @@ export class FileMigratorBase {
  * the display name, but this FileMigrator accepts both.
  */
 export class PasswordFileMigrator extends FileMigratorBase {
-    get enabled(): any;
     get displayedResourceTypes(): any[];
     getFilePickerConfig(): Promise<{
         title: any;
@@ -141,7 +140,6 @@ export class PasswordFileMigrator extends FileMigratorBase {
  * @augments {FileMigratorBase}
  */
 export class BookmarksFileMigrator extends FileMigratorBase {
-    get enabled(): any;
     get displayedResourceTypes(): any[];
     getFilePickerConfig(): Promise<{
         title: any;

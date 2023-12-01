@@ -6,9 +6,9 @@ export class HistogramStopwatch {
     constructor(aName: any, aAssociated: any);
     _name: any;
     _obj: any;
-    isRunning(): any;
+    isRunning(): boolean;
     start(): void;
     finish(): void;
     cancel(): void;
-    timeElapsed(): any;
+    timeElapsed(): number;
 }

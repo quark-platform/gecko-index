@@ -1,4 +1,4 @@
-export class DevToolsWorkerParent {
+export class DevToolsWorkerParent extends JSWindowActorParent {
     _destroyed: boolean;
     _connections: Map<any, any>;
     _onConnectionClosed(status: any, prefix: any): void;
@@ -15,7 +15,7 @@ export class DevToolsWorkerParent {
     destroyWorkerTargets({ watcherActorID, sessionContext }: {
         watcherActorID: any;
         sessionContext: any;
-    }): any;
+    }): void;
     /**
      * Communicate to the content process that some data have been added.
      */
@@ -57,7 +57,7 @@ export class DevToolsWorkerParent {
     /**
      * Supported Queries
      */
-    sendPacket(packet: any, prefix: any): Promise<any>;
+    sendPacket(packet: any, prefix: any): Promise<void>;
     /**
      * JsWindowActor API
      */

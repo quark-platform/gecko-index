@@ -1,4 +1,4 @@
-export class InlineSpellCheckerParent {
+export class InlineSpellCheckerParent extends JSWindowActorParent {
     selectDictionaries({ localeCodes }: {
         localeCodes: any;
     }): void;

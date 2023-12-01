@@ -1,8 +1,8 @@
-export class ContentEventListenerChild {
+export class ContentEventListenerChild extends JSWindowActorChild {
     actorCreated(): void;
     _contentEvents: Map<any, any>;
     _shutdown: boolean;
-    _chromeEventHandler: any;
+    _chromeEventHandler: EventTarget;
     didDestroy(): void;
     handleEvent(event: any): void;
     /**

@@ -26,7 +26,7 @@ export class UrlClassifierLib {
         RequestBackoffV4: typeof RequestBackoffV4;
         BindToObject: typeof BindToObject;
     };
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 /**
  * @param maxErrors Number of times to request before backing off.

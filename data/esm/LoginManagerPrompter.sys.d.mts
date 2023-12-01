@@ -88,8 +88,8 @@ export class LoginManagerPrompter {
      * @returns {object[]} an ordered list of usernames to be used the next time the username autocomplete popup is opened.
      */
     static _getUsernameSuggestions(login: nsILoginInfo, possibleUsernames?: Set<string> | null): object[];
-    get classID(): any;
-    get QueryInterface(): any;
+    get classID(): unknown;
+    get QueryInterface(): MozQueryInterface;
     /**
      * Called when we detect a password or username that is not yet saved as
      * an existing login.

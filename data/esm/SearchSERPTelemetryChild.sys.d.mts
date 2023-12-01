@@ -9,7 +9,7 @@ export const domainExtractor: DomainExtractor;
  * page are returned to SearchTelemetry. If no ads are found, no notification is
  * given.
  */
-export class SearchSERPTelemetryChild {
+export class SearchSERPTelemetryChild extends JSWindowActorChild {
     /**
      * Determines if there is a provider that matches the supplied URL and returns
      * the information associated with that provider.

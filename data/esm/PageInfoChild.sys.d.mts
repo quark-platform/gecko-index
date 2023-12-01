@@ -1,4 +1,4 @@
-export class PageInfoChild {
+export class PageInfoChild extends JSWindowActorChild {
     receiveMessage(message: any): Promise<{
         metaViewRows: any[][];
         docInfo: {
@@ -18,7 +18,7 @@ export class PageInfoChild {
         };
         windowInfo: {
             isTopWindow: boolean;
-            hostName: any;
+            hostName: string;
         };
     } | {
         mediaItems: any[];
@@ -29,7 +29,7 @@ export class PageInfoChild {
     getMetaInfo(document: any): any[][];
     getWindowInfo(window: any): {
         isTopWindow: boolean;
-        hostName: any;
+        hostName: string;
     };
     getDocumentInfo(document: any): {
         title: any;

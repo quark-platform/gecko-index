@@ -6,7 +6,7 @@
  *        Optional arguments to format in the string.
  * @return string
  */
-export function getString(name: any, ...args: any[]): any;
+export function getString(name: any, ...args: any[]): string;
 /**
  * Assert an expression is true or throw if false.
  *

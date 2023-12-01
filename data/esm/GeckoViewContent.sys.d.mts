@@ -1,7 +1,5 @@
-export class GeckoViewContent {
-    onInit(): void;
-    onEnable(): void;
-    onDisable(): void;
+/// <reference types="gecko-types" />
+export class GeckoViewContent extends GeckoViewModule {
     get actor(): any;
     get isPdfJs(): boolean;
     sendToAllChildren(aEvent: any, aData: any): void;
@@ -42,3 +40,4 @@ export class GeckoViewContent {
     _displayMatches(aData: any): void;
     _matchDisplayOptions: any;
 }
+import { GeckoViewModule } from "resource://gre/modules/GeckoViewModule.sys.mjs";

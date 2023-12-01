@@ -21,7 +21,7 @@ export class ErrorSanitizer {
         NotFoundError: string;
         NotAllowedError: string;
     };
-    static "__#335066@#cleanOSErrorMessage"(message: any, error?: any): any;
+    static "__#811032@#cleanOSErrorMessage"(message: any, error?: any): any;
     static reProfileDir: RegExp;
     /**
      * Clean an error message, removing PII and normalizing OS-specific messages.
@@ -57,7 +57,7 @@ export class SyncRecord {
     };
     syncNodeType: any;
     when: number;
-    startTime: any;
+    startTime: number;
     took: number;
     why: any;
     engines: any[];
@@ -108,7 +108,7 @@ export class SyncRecord {
 export const SyncTelemetry: SyncTelemetryImpl;
 declare class EngineRecord {
     constructor(name: any);
-    startTime: any;
+    startTime: number;
     name: any;
     overrideTelemetryName: any;
     toJSON(): {
@@ -186,7 +186,7 @@ declare class SyncTelemetryImpl {
     maxEventsCount: any;
     maxPayloadCount: any;
     submissionInterval: number;
-    lastSubmissionTime: any;
+    lastSubmissionTime: number;
     lastUID: string;
     lastSyncNodeType: any;
     currentSyncNodeType: any;

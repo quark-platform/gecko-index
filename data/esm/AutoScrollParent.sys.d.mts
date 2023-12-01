@@ -1,3 +1,3 @@
-export class AutoScrollParent {
+export class AutoScrollParent extends JSWindowActorParent {
     receiveMessage(msg: any): Promise<any>;
 }

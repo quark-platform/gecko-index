@@ -86,6 +86,6 @@ export class ProgressListener {
      */
     stopIfStarted(options?: object | undefined): void;
     toString(): string;
-    get QueryInterface(): any;
+    get QueryInterface(): MozQueryInterface;
     #private;
 }

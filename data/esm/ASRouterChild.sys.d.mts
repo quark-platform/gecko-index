@@ -1,4 +1,4 @@
-export class ASRouterChild {
+export class ASRouterChild extends JSWindowActorChild {
     observers: Set<any>;
     didDestroy(): void;
     actorCreated(): void;

@@ -1,7 +1,7 @@
 export function SlowScriptDebug(): void;
 export class SlowScriptDebug {
     classDescription: string;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     set activationHandler(cb: any);
     get activationHandler(): any;
     _activationHandler: any;

@@ -8,6 +8,6 @@ export namespace ComponentUtils {
     function generateSingletonFactory(aServiceConstructor: any): {
         _instance: any;
         createInstance(aIID: any): any;
-        QueryInterface: any;
+        QueryInterface: MozQueryInterface;
     };
 }

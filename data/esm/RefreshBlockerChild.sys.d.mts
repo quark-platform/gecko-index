@@ -1,4 +1,4 @@
-export class RefreshBlockerChild {
+export class RefreshBlockerChild extends JSWindowActorChild {
     didDestroy(): void;
     enable(): void;
     disable(): void;

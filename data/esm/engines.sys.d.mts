@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 /**
  * Trackers are associated with a single engine and deal with
  * listening for changes to their particular data type.
@@ -57,12 +58,12 @@ export class LegacyTracker {
     constructor(name: any, engine: any);
     _ignored: any[];
     file: any;
-    _storage: any;
+    _storage: JSONFile;
     _ignoreAll: boolean;
     set ignoreAll(value: any);
     get ignoreAll(): any;
     _dataPostProcessor(json: any): any;
-    _beforeSave(): any;
+    _beforeSave(): Promise<undefined>;
     getChangedIDs(): Promise<any>;
     _saveChangedIDs(): void;
     ignoreID(id: any): void;
@@ -290,8 +291,8 @@ export class SyncEngine {
     _notify: any;
     _log: any;
     _modified: Changeset;
-    _toFetchStorage: any;
-    _previousFailedStorage: any;
+    _toFetchStorage: JSONFile;
+    _previousFailedStorage: JSONFile;
     asyncObserver: any;
     _recordObj: any;
     _storeObj: typeof Store;
@@ -532,3 +533,4 @@ export class Changeset {
     count(): number;
     clear(): void;
 }
+import { JSONFile } from "resource://gre/modules/JSONFile.sys.mjs";

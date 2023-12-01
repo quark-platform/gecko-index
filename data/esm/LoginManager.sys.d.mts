@@ -1,7 +1,7 @@
 export function LoginManager(): void;
 export class LoginManager {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     getInterface(aIID: any): any;
     _storage: null;
     /**
@@ -15,7 +15,7 @@ export class LoginManager {
     initializationPromise: Promise<any>;
     _observer: {
         _pwmgr: null;
-        QueryInterface: any;
+        QueryInterface: MozQueryInterface;
         observe(subject: any, topic: any, data: any): void;
     };
     /**

@@ -24,5 +24,5 @@ export class TabObserver {
     _unregisterDOMWindow(win: any): void;
     onOpenWindow(xulWindow: any): Promise<void>;
     onCloseWindow(xulWindow: any): void;
-    get QueryInterface(): any;
+    get QueryInterface(): MozQueryInterface;
 }

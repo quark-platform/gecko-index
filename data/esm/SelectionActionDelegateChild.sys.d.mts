@@ -1,16 +1,17 @@
-export class SelectionActionDelegateChild {
+/// <reference types="gecko-types" />
+export class SelectionActionDelegateChild extends GeckoViewActorChild {
     constructor(aModuleName: any, aMessageManager: any);
     _actionCallback: () => void;
     _isActive: boolean;
     _previousMessage: string;
     _observerFunction: (subject: any, topic: any, data: any) => void;
-    _magnifierEnabled: any;
+    _magnifierEnabled: boolean;
     _accessiblecaretHeight: number;
     didDestroy(): void;
     _actions: {
         id: string;
         predicate: (e: any) => any;
-        perform: (_: any) => void;
+        perform: (_: any) => any;
     }[];
     receiveMessage({ name, data }: {
         name: any;
@@ -36,3 +37,4 @@ export class SelectionActionDelegateChild {
     handleEvent(aEvent: any): void;
     observe(aSubject: any, aTopic: any, aData: any): void;
 }
+import { GeckoViewActorChild } from "resource://gre/modules/GeckoViewActorChild.sys.mjs";

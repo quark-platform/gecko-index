@@ -53,7 +53,7 @@ export class GeckoDriver {
     get currentURL(): URL;
     get title(): any;
     get windowType(): any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     /**
      * Callback used to observe the closing of modal dialogs
      * during the session's lifetime.

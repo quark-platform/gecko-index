@@ -98,7 +98,7 @@ export class StyleSheetEditor {
      *
      * @return Boolean
      */
-    get transitionsEnabled(): any;
+    get transitionsEnabled(): boolean;
     /**
      * If this is an original source, get the path of the CSS file it generated.
      */

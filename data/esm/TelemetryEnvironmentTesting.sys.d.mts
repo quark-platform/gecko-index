@@ -3,7 +3,7 @@ export namespace TelemetryEnvironmentTesting {
     export function init(appInfo: any): void;
     export function setSysInfoOverrides(overrides: any): void;
     export function spoofGfxAdapter(): void;
-    export function spoofProfileReset(): any;
+    export function spoofProfileReset(): Promise<number>;
     export function spoofPartnerInfo(): void;
     export function spoofAttributionData(): Promise<void>;
     export function cleanupAttributionData(): void;

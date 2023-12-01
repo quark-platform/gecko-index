@@ -1,22 +1,23 @@
-export class GeckoViewContentChild {
+/// <reference types="gecko-types" />
+export class GeckoViewContentChild extends GeckoViewActorChild {
     lastOrientation: number;
-    actorCreated(): void;
     pageShow: Promise<any>;
     receivedPageShow: (value: any) => void;
     toPixels(aLength: any, aType: any): any;
     toScrollBehavior(aBehavior: any): any;
     collectSessionState(): {
         history: any;
-        formdata: any;
-        scrolldata: any;
+        formdata: CollectedData;
+        scrolldata: CollectedData;
     };
     orientation(): 0 | 1;
     receiveMessage(message: any): Promise<boolean> | {
         history: any;
-        formdata: any;
-        scrolldata: any;
+        formdata: CollectedData;
+        scrolldata: CollectedData;
     };
     containsFormData(): Promise<boolean>;
     restoreSessionState(message: any): Promise<void>;
     handleEvent(aEvent: any): void;
 }
+import { GeckoViewActorChild } from "resource://gre/modules/GeckoViewActorChild.sys.mjs";

@@ -11,5 +11,5 @@
  */
 export class Sniffer {
     getMIMETypeFromContent(request: any, data: any, length: any): "" | "application/vnd.mozilla.json.view" | "application/json";
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }

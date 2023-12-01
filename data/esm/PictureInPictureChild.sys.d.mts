@@ -1,4 +1,4 @@
-export class PictureInPictureLauncherChild {
+export class PictureInPictureLauncherChild extends JSWindowActorChild {
     handleEvent(event: any): void;
     receiveMessage(message: any): void;
     /**
@@ -29,7 +29,7 @@ export class PictureInPictureLauncherChild {
  * Picture-in-Picture toggle over top of <video> elements that the mouse is
  * hovering.
  */
-export class PictureInPictureToggleChild {
+export class PictureInPictureToggleChild extends JSWindowActorChild {
     /**
      * This is a test-only function that returns true if a video is being tracked
      * for mouseover events after having intersected the viewport.
@@ -48,8 +48,8 @@ export class PictureInPictureToggleChild {
      */
     static getSiteOverrides(): Array<Array<2>>;
     weakDocStates: WeakMap<object, any>;
-    toggleEnabled: any;
-    toggleTesting: any;
+    toggleEnabled: boolean;
+    toggleTesting: boolean;
     observerFunction: (subject: any, topic: any, data: any) => void;
     eligiblePipVideos: WeakSet<object>;
     trackingVideos: WeakSet<object>;
@@ -249,7 +249,7 @@ export class PictureInPictureToggleChild {
      */
     getToggleElement(shadowRoot: Element): Element;
 }
-export class PictureInPictureChild {
+export class PictureInPictureChild extends JSWindowActorChild {
     static videoIsPlaying(video: any): boolean;
     static videoIsMuted(video: any): any;
     weakVideo: any;
@@ -359,7 +359,7 @@ export class PictureInPictureChild {
      */
     inPictureInPicture(video: Element): boolean;
     handleEvent(event: any): void;
-    emptiedTimeout: any;
+    emptiedTimeout: number;
     /**
      * Tells the parent to close a pre-existing Picture-in-Picture
      * window.

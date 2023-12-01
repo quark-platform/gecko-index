@@ -22,7 +22,7 @@ export namespace GMPUtils {
      * @param   aPlugin
      *          The plugin to check.
      */
-    function _isPluginVisible(aPlugin: any): any;
+    function _isPluginVisible(aPlugin: any): boolean;
     /**
      * Checks whether or not a given plugin is forced-supported. This is used
      * in automated tests to override the checks that prevent GMPs running on an
@@ -30,7 +30,7 @@ export namespace GMPUtils {
      * @param   aPlugin
      *          The plugin to check.
      */
-    function _isPluginForceSupported(aPlugin: any): any;
+    function _isPluginForceSupported(aPlugin: any): boolean;
     function _isWindowsOnARM64(): any;
     function _expectedABI(aPlugin: any): string;
 }
@@ -75,7 +75,7 @@ export namespace GMPPrefs {
      * @param aPlugin The plugin to scope the preference to.
      * @return The obtained preference value, or the defaultValue if none exists.
      */
-    function getString(aKey: any, aDefaultValue: any, aPlugin: any): any;
+    function getString(aKey: any, aDefaultValue: any, aPlugin: any): string;
     /**
      * Obtains the specified int preference in relation to the specified plugin.
      * @param aKey The preference key value to use.
@@ -83,7 +83,7 @@ export namespace GMPPrefs {
      * @param aPlugin The plugin to scope the preference to.
      * @return The obtained preference value, or the defaultValue if none exists.
      */
-    function getInt(aKey: any, aDefaultValue: any, aPlugin: any): any;
+    function getInt(aKey: any, aDefaultValue: any, aPlugin: any): number;
     /**
      * Obtains the specified bool preference in relation to the specified plugin.
      * @param aKey The preference key value to use.
@@ -91,7 +91,7 @@ export namespace GMPPrefs {
      * @param aPlugin The plugin to scope the preference to.
      * @return The obtained preference value, or the defaultValue if none exists.
      */
-    function getBool(aKey: any, aDefaultValue: any, aPlugin: any): any;
+    function getBool(aKey: any, aDefaultValue: any, aPlugin: any): boolean;
     /**
      * Sets the specified string preference in relation to the specified plugin.
      * @param aKey The preference key value to use.
@@ -120,7 +120,7 @@ export namespace GMPPrefs {
      * @param aPlugin The plugin to scope the preference to.
      * @return true if the preference is set, false otherwise.
      */
-    function isSet(aKey: any, aPlugin: any): any;
+    function isSet(aKey: any, aPlugin: any): boolean;
     /**
      * Resets the specified preference in relation to the specified plugin to its
      * default.

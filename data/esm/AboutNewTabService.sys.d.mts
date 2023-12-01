@@ -64,7 +64,7 @@ export namespace AboutHomeStartupCacheChild {
      *   nsIAboutNewWTabService.
      * @return nsIChannel or null.
      */
-    function maybeGetCachedPageChannel(uri: any, loadInfo: any): any;
+    function maybeGetCachedPageChannel(uri: any, loadInfo: any): nsISupportsType;
     /**
      * This function takes the state information required to generate
      * the about:home cache markup and script, and then generates that
@@ -107,8 +107,8 @@ export namespace AboutHomeStartupCacheChild {
  */
 declare class BaseAboutNewTabService {
     activityStreamDebug: boolean;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     /**
      * Returns the default URL.
      *

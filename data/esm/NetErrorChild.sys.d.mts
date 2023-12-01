@@ -2,8 +2,8 @@ export class NetErrorChild {
     actorCreated(): void;
     getFailedCertChain(docShell: any): any;
     handleEvent(aEvent: any): void;
-    RPMGetInnerMostURI(uriString: any): any;
-    RPMGetAppBuildID(): any;
+    RPMGetInnerMostURI(uriString: any): string;
+    RPMGetAppBuildID(): string;
     RPMAddToHistogram(histID: any, bin: any): void;
     RPMRecordTelemetryEvent(category: any, event: any, object: any, value: any, extra: any): void;
     RPMCheckAlternateHostAvailable(): void;
@@ -12,8 +12,8 @@ export class NetErrorChild {
     RPMIsFirefox(): any;
     _getTRRSkipReason(): any;
     RPMIsNativeFallbackFailure(): boolean;
-    RPMGetTRRSkipReason(): any;
-    RPMGetTRRDomain(): any;
+    RPMGetTRRSkipReason(): string;
+    RPMGetTRRDomain(): string;
     RPMIsSiteSpecificTRRError(): boolean;
     RPMSetTRRDisabledLoadFlags(): void;
 }

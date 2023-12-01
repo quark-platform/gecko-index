@@ -1,4 +1,4 @@
-export class AboutWelcomeChild {
+export class AboutWelcomeChild extends JSWindowActorChild {
     _destroyed: boolean;
     didDestroy(): void;
     actorCreated(): void;

@@ -23,7 +23,7 @@ function chunk<T>(arr: T[], chunkSize: number): T[][] {
 function compile(
   fileNames: string[],
   options: ts.CompilerOptions
-): Record<string, string> {
+): { createdFiles: Record<string, string>; errors: readonly ts.Diagnostic[] } {
   // Create a Program with an in-memory emit
   const createdFiles: Record<string, string> = {}
   const host = ts.createCompilerHost(options)
@@ -33,9 +33,8 @@ function compile(
 
   // Prepare and emit the d.ts files
   const program = ts.createProgram(fileNames, options, host)
-  program.emit()
 
-  return createdFiles
+  return { createdFiles, errors: program.emit().diagnostics }
 }
 
 export async function generateTypeDefinitions(
@@ -48,11 +47,12 @@ export async function generateTypeDefinitions(
 
   const outFiles: string[] = []
   const exports = []
+  const errors = []
 
   for (const chunk of chunks) {
     console.log(`Compiling chunk ${currentChunk++} of ${chunks.length}`)
 
-    const output = compile(
+    const { createdFiles: output, errors: localErrors } = compile(
       // If we have already written a specific file, we don't want to overwrite
       // it
       chunk.filter((file) => !outFiles.includes(guessRawName(basename(file)))),
@@ -60,8 +60,10 @@ export async function generateTypeDefinitions(
         allowJs: true,
         declaration: true,
         emitDeclarationOnly: true,
+        typeRoots: ['./node_modules', './node_modules/@types'],
       }
     )
+    errors.push(...localErrors)
 
     for (const [fileName, content] of Object.entries(output)) {
       const baseName = basename(fileName)
@@ -87,6 +89,18 @@ export async function generateTypeDefinitions(
   )
 
   await writeFile(join(outFolder, '_.json'), JSON.stringify(outFiles, null, 2))
+  await writeFile(
+    join(outFolder, '_.errors.json'),
+    JSON.stringify(
+      errors.map((diagnostic) => ({
+        file: diagnostic.file?.fileName,
+        source: diagnostic.source,
+        message: diagnostic.messageText,
+      })),
+      null,
+      2
+    )
+  )
 }
 
 // Generate type definitions

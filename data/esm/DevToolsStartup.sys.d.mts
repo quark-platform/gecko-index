@@ -17,7 +17,7 @@ export class DevToolsStartup {
     _telemetry: any;
     developerToggleCreated: boolean;
     profilerRecordingButtonCreated: boolean;
-    isDisabledByPolicy(): any;
+    isDisabledByPolicy(): boolean;
     handle(cmdLine: any): void;
     devtoolsFlag: any;
     commandLine: boolean;
@@ -167,7 +167,7 @@ export class DevToolsStartup {
          * customizableUI.
          */
         profilerRecordingButtonCreated: boolean;
-        isDisabledByPolicy(): any;
+        isDisabledByPolicy(): boolean;
         handle(cmdLine: any): void;
         /**
          * Lookup in all arguments passed to firefox binary to find
@@ -295,11 +295,11 @@ export class DevToolsStartup {
         readonly wrappedJSObject: any;
         readonly jsdebuggerHelpInfo: string;
         readonly helpInfo: string;
-        classID: any;
-        QueryInterface: any;
+        classID: unknown;
+        QueryInterface: MozQueryInterface;
     };
     get jsdebuggerHelpInfo(): string;
     get helpInfo(): string;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
 }

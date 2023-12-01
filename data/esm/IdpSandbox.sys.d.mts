@@ -17,7 +17,7 @@ export class IdpSandbox {
      * @throws if the domain or protocol aren't valid
      */
     constructor(domain: any, protocol: any, win: any);
-    source: any;
+    source: nsIURIType;
     active: Promise<any>;
     sandbox: any;
     window: any;
@@ -27,7 +27,7 @@ export class IdpSandbox {
     _createSandbox(result: any): any;
     _logError(e: any): void;
     stop(): void;
-    toString(): any;
+    toString(): string;
 }
 export namespace IdpSandbox {
     function checkDomain(domain: any): void;
@@ -41,5 +41,5 @@ export namespace IdpSandbox {
      * Turns a domain and protocol into a URI.  This does some aggressive checking
      * to make sure that we aren't being fooled somehow.  Throws on fooling.
      */
-    function createIdpUri(domain: any, protocol: any): any;
+    function createIdpUri(domain: any, protocol: any): nsIURIType;
 }

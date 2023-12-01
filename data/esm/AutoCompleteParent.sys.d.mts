@@ -1,4 +1,4 @@
-export class AutoCompleteParent {
+export class AutoCompleteParent extends JSWindowActorParent {
     static getCurrentActor(): any;
     static addPopupStateListener(listener: any): void;
     static removePopupStateListener(listener: any): void;

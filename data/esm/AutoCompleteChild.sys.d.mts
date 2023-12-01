@@ -1,4 +1,4 @@
-export class AutoCompleteChild {
+export class AutoCompleteChild extends JSWindowActorChild {
     static addPopupStateListener(listener: any): void;
     static removePopupStateListener(listener: any): void;
     _input: any;
@@ -14,5 +14,5 @@ export class AutoCompleteChild {
     invalidate(): void;
     selectBy(reverse: any, page: any): void;
     getResultsFromController(inputField: any): any[];
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }

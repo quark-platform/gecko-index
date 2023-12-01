@@ -163,7 +163,7 @@ declare class PrefObserver {
     prefName: any;
     callback: any;
     thisObject: any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     observe(subject: any, topic: any, data: any): void;
 }
 export {};

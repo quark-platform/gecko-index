@@ -1,6 +1,6 @@
 export class URLQueryStrippingListService {
-    classId: any;
-    QueryInterface: any;
+    classId: unknown;
+    QueryInterface: MozQueryInterface;
     observers: Set<any>;
     stripOnShareObservers: Set<any>;
     stripOnShareParams: any;

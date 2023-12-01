@@ -57,7 +57,7 @@ export namespace SelectParentHelper {
     function onSearchFocus(event: any): void;
     function onSearchBlur(event: any): void;
 }
-export class SelectParent {
+export class SelectParent extends JSWindowActorParent {
     get relevantBrowser(): any;
     get _document(): any;
     get _menulist(): any;

@@ -1,20 +1,20 @@
 export function nsURLFormatterService(): void;
 export class nsURLFormatterService {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     _defaults: {
-        LOCALE: () => any;
+        LOCALE: () => string;
         REGION(): any;
-        VENDOR(): any;
-        NAME(): any;
-        ID(): any;
-        VERSION(): any;
-        MAJOR_VERSION(): any;
-        APPBUILDID(): any;
-        PLATFORMVERSION(): any;
-        PLATFORMBUILDID(): any;
-        APP(): any;
-        OS(): any;
+        VENDOR(): string;
+        NAME(): string;
+        ID(): string;
+        VERSION(): string;
+        MAJOR_VERSION(): string;
+        APPBUILDID(): string;
+        PLATFORMVERSION(): string;
+        PLATFORMBUILDID(): string;
+        APP(): string;
+        OS(): string;
         XPCOMABI(): any;
         BUILD_TARGET(): string;
         OS_VERSION(): any;

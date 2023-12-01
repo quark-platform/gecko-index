@@ -37,8 +37,8 @@ export class MozIntl {
     getScriptDirection(locale: any): "ltr" | "rtl";
     get DateTimeFormat(): any;
     get DisplayNames(): any;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
 }
 declare class MozRelativeTimeFormat extends Intl.RelativeTimeFormat {
     constructor(locales: any, options?: {}, ...args: any[]);

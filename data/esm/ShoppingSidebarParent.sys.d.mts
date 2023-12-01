@@ -1,4 +1,4 @@
-export class ShoppingSidebarParent {
+export class ShoppingSidebarParent extends JSWindowActorParent {
     static SHOPPING_ACTIVE_PREF: string;
     static SHOPPING_OPTED_IN_PREF: string;
     /**

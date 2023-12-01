@@ -4,7 +4,7 @@ export namespace WebNavigationManager {
     function uninit(): void;
     function addListener(type: any, listener: any): void;
     function removeListener(type: any, listener: any): void;
-    let QueryInterface: any;
+    let QueryInterface: MozQueryInterface;
     function observe(subject: any, topic: string, data: string): void;
     /**
      * Recognize the type of urlbar user interaction (e.g. typing a new url,

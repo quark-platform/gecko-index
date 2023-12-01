@@ -90,6 +90,6 @@ export class NetworkResponseListener {
      * @returns void
      */
     onInputStreamReady(stream: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     #private;
 }

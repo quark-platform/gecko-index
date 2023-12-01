@@ -1,4 +1,4 @@
-export class ScreenshotsComponentChild {
+export class ScreenshotsComponentChild extends JSWindowActorChild {
     get overlay(): any;
     receiveMessage(message: any): any;
     handleEvent(event: any): void;
@@ -18,7 +18,7 @@ export class ScreenshotsComponentChild {
     requestDownloadScreenshot(region: any): void;
     showPanel(): void;
     hidePanel(): void;
-    getDocumentTitle(): any;
+    getDocumentTitle(): string;
     sendOverlaySelection(data: any): void;
     /**
      * Resolves when the document is ready to have an overlay injected into it.

@@ -14,7 +14,7 @@ export namespace TelemetryEventPing {
     let _testing: boolean;
     let _lastSendTime: number;
     let _processStartTimestamp: number;
-    const dataset: any;
+    const dataset: 0 | 1;
     function startup(): void;
     function shutdown(): void;
     function observe(aSubject: any, aTopic: any, aData: any): void;

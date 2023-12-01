@@ -1,7 +1,7 @@
 /**
  * Child JSWindowActor to handle navigation for reftests relying on marionette.
  */
-export class MarionetteReftestChild {
+export class MarionetteReftestChild extends JSWindowActorChild {
     _loadedURLPromise: Promise<any>;
     _resolveLoadedURLPromise: (value: any) => void;
     handleEvent(event: any): void;

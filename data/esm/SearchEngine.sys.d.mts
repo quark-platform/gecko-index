@@ -87,7 +87,7 @@ export class SearchEngine {
         id?: string;
         loadPath: string;
     });
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _metaData: {};
     _loadPath: any;
     _description: string;
@@ -504,7 +504,7 @@ export class SearchEngine {
  */
 declare class Submission {
     constructor(uri: any, postData?: any);
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _uri: any;
     _postData: any;
     get uri(): any;

@@ -48,12 +48,12 @@ declare class MessageQueue extends Handler {
      * Timeout for waiting an idle period to send data. We will set this from
      * the pref "browser.sessionstore.interval".
      */
-    _timeoutWaitIdlePeriodMs: any;
+    _timeoutWaitIdlePeriodMs: number;
     /**
      * The current timeout ID, null if there is no queue data. We use timeouts
      * to damp a flood of data changes and send lots of changes as one batch.
      */
-    _timeout: any;
+    _timeout: number;
     /**
      * Whether or not sending batched messages on a timer is disabled. This should
      * only be used for debugging or testing. If you need to access this value,
@@ -143,7 +143,7 @@ declare class SessionHistoryListener extends Handler {
      * @see nsIWebProgressListener.onStateChange
      */
     onStateChange(webProgress: any, request: any, stateFlags: any, status: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 declare class Handler {
     constructor(store: any);

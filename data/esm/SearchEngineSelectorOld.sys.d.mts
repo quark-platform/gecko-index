@@ -9,7 +9,7 @@ export class SearchEngineSelectorOld {
      *   A listener for configuration update changes.
      */
     constructor(listener: Function);
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _remoteConfig: any;
     _listenerAdded: boolean;
     /**

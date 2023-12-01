@@ -150,7 +150,7 @@ export class BitsRequest {
      * This method either resolves with no data, or rejects with a BitsError.
      */
     resumeAsync(): Promise<any>;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 export namespace Bits {
     const initialized: any;

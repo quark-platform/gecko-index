@@ -156,7 +156,7 @@ export class Runtime {
      *     Console message.
      */
     observe(subject: nsIConsoleMessage, topic: any, data: any): void;
-    get QueryInterface(): any;
+    get QueryInterface(): MozQueryInterface;
 }
 declare class SetMap extends Map<any, any> {
     constructor();

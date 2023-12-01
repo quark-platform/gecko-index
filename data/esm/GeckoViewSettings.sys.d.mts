@@ -1,10 +1,9 @@
-export class GeckoViewSettings {
-    onInit(): void;
+/// <reference types="gecko-types" />
+export class GeckoViewSettings extends GeckoViewModule {
     _userAgentMode: any;
     _userAgentOverride: any;
     _sessionContextId: any;
     onEvent(aEvent: any, aData: any, aCallback: any): void;
-    onSettingsUpdate(): void;
     set displayMode(aMode: any);
     unsafeSessionContextId: any;
     set userAgentMode(aMode: any);
@@ -23,3 +22,4 @@ export class GeckoViewSettings {
     get browsingContext(): any;
     displayModeSettingToValue(aSetting: any): "browser" | "minimal-ui" | "standalone" | "fullscreen";
 }
+import { GeckoViewModule } from "resource://gre/modules/GeckoViewModule.sys.mjs";

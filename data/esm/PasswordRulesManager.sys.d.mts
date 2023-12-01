@@ -4,7 +4,7 @@
  * @class PasswordRulesManagerParent
  * @extends {JSWindowActorParent}
  */
-export class PasswordRulesManagerParent {
+export class PasswordRulesManagerParent extends JSWindowActorParent {
     /**
      * @type RemoteSettingsClient
      *

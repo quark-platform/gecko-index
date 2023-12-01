@@ -1,6 +1,6 @@
 export let log: any;
 export let logManager: any;
-export function logPII(): any;
+export function logPII(): boolean;
 export let FXACCOUNTS_PERMISSION: string;
 export let DATA_FORMAT_VERSION: number;
 export let DEFAULT_STORAGE_FILENAME: string;

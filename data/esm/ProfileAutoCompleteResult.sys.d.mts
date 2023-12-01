@@ -19,7 +19,7 @@ declare class ProfileAutoCompleteResult {
         isInputAutofilled?: boolean;
     });
     externalEntries: any[];
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     searchString: any;
     _focusedFieldName: any;
     _matchingProfiles: any;

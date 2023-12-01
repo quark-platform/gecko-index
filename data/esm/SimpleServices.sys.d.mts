@@ -1,12 +1,12 @@
 export function AddonLocalizationConverter(): void;
 export class AddonLocalizationConverter {
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     FROM_TYPE: string;
     TO_TYPE: string;
     checkTypes(aFromType: any, aToType: any): void;
     getAddon(aContext: any): any;
-    convertToStream(aAddon: any, aString: any): any;
-    convert(aStream: any, aFromType: any, aToType: any, aContext: any): any;
+    convertToStream(aAddon: any, aString: any): unknown;
+    convert(aStream: any, aFromType: any, aToType: any, aContext: any): unknown;
     asyncConvertData(aFromType: any, aToType: any, aListener: any, aContext: any): void;
     addon: any;
     listener: any;
@@ -18,6 +18,6 @@ export class AddonLocalizationConverter {
 }
 export function HttpIndexViewer(): void;
 export class HttpIndexViewer {
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     createInstance(aCommand: any, aChannel: any, aLoadGroup: any, aContentType: any, aContainer: any, aExtraInfo: any, aDocListenerResult: any): any;
 }

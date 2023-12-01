@@ -1,9 +1,9 @@
 export function nsWebHandlerApp(): void;
 export class nsWebHandlerApp {
     classDescription: string;
-    classID: any;
+    classID: unknown;
     contractID: string;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _name: null;
     _detailedDescription: null;
     _uriTemplate: null;

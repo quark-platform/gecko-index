@@ -4,7 +4,7 @@ export namespace TabUnloader {
      */
     function init(): void;
     function isDiscardable(tab: any): boolean;
-    function unloadTabAsync(minInactiveDuration?: any): Promise<void>;
+    function unloadTabAsync(minInactiveDuration?: number): Promise<void>;
     /**
      * Get a list of tabs that can be discarded. This list includes all tabs in
      * all windows and is sorted based on a weighting described below.
@@ -37,7 +37,7 @@ export namespace TabUnloader {
      * The tabMethods are used so that unit tests can use false tab objects and
      * override their behaviour.
      */
-    function getSortedTabs(minInactiveDuration?: any, tabMethods?: {
+    function getSortedTabs(minInactiveDuration?: number, tabMethods?: {
         isNonDiscardable(tab: any, weight: any): any;
         isPinned(tab: any, weight: any): any;
         isLoading(tab: any, weight: any): number;
@@ -65,6 +65,6 @@ export namespace TabUnloader {
      * Select and discard one tab.
      * @returns true if a tab was unloaded, otherwise false.
      */
-    function unloadLeastRecentlyUsedTab(minInactiveDuration?: any): Promise<boolean>;
-    let QueryInterface: any;
+    function unloadLeastRecentlyUsedTab(minInactiveDuration?: number): Promise<boolean>;
+    let QueryInterface: MozQueryInterface;
 }

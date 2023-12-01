@@ -1,4 +1,4 @@
-export class LinkHandlerParent {
+export class LinkHandlerParent extends JSWindowActorParent {
     static addListenerForTests(listener: any): void;
     static removeListenerForTests(listener: any): void;
     receiveMessage(aMsg: any): void;

@@ -41,7 +41,7 @@ export class RemoteAgentError extends Error {
  */
 export class FatalError extends RemoteAgentError {
     constructor(...args: any[]);
-    quit(mode?: any): void;
+    quit(mode?: 3): void;
 }
 /** When an operation is not yet implemented. */
 export class UnsupportedError extends RemoteAgentError {

@@ -108,14 +108,14 @@ export class BridgedEngine {
 export class LogAdapter {
     constructor(log: any);
     log: any;
-    get maxLevel(): any;
+    get maxLevel(): 0 | 2 | 1 | 4 | 5;
     trace(message: any): void;
     debug(message: any): void;
     warn(message: any): void;
     error(message: any): void;
 }
 export class BridgeWrapperXPCOM {
-    static "__#335065@#promisify"(func: any, ...params: any[]): Promise<any>;
+    static "__#811031@#promisify"(func: any, ...params: any[]): Promise<any>;
     constructor(component: any);
     comp: any;
     get storageVersion(): any;

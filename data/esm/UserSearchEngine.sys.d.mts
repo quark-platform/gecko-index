@@ -1,7 +1,8 @@
+/// <reference types="gecko-types" />
 /**
  * UserSearchEngine represents a search engine defined by a user.
  */
-export class UserSearchEngine {
+export class UserSearchEngine extends SearchEngine {
     /**
      * Creates a UserSearchEngine.
      *
@@ -26,10 +27,5 @@ export class UserSearchEngine {
         };
         json?: object;
     });
-    /**
-     * Returns the appropriate identifier to use for telemetry.
-     *
-     * @returns {string}
-     */
-    get telemetryId(): string;
 }
+import { SearchEngine } from "resource://gre/modules/SearchEngine.sys.mjs";

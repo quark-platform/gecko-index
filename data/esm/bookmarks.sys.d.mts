@@ -142,7 +142,7 @@ declare class BookmarksTracker {
     onStop(): void;
     getChangedIDs(): Promise<any>;
     observe(subject: any, topic: any, data: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _upScore: () => void;
     handlePlacesEvents(events: any): void;
 }

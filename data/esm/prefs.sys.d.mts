@@ -4,7 +4,7 @@ export class Branch {
      *     Preference subtree.  Uses root tree given `null`.
      */
     constructor(branch?: string | undefined);
-    _branch: any;
+    _branch: nsIPrefBranchType;
     /**
      * Gets value of `pref` in its known type.
      *
@@ -33,7 +33,7 @@ export class Branch {
      * @throws {TypeError}
      *     If `value` is not the correct type for `pref`.
      */
-    set(pref: string, value: (string | boolean | number)): any;
+    set(pref: string, value: (string | boolean | number)): void;
 }
 /** Reads a JSON serialised blob stored in the environment. */
 export class EnvironmentPrefs {

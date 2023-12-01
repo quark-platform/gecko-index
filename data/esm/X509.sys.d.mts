@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 export namespace X509 {
     export { Certificate };
 }
@@ -19,7 +20,7 @@ declare class Certificate extends DecodedDER {
  * values.
  */
 declare class DecodedDER {
-    _der: any;
+    _der: DER.DERDecoder;
     _error: any;
     /**
      * Returns the first exception encountered when decoding or null if none has
@@ -69,6 +70,7 @@ declare class AlgorithmIdentifier extends DecodedDER {
     get algorithm(): OID;
     get parameters(): OID;
 }
+import { DER } from "resource://gre/modules/psm/DER.sys.mjs";
 declare class Name extends DecodedDER {
     _rdns: any[];
     get rdns(): any[];
@@ -95,7 +97,7 @@ declare class OID {
     _values: number[];
 }
 declare class Time extends DecodedDER {
-    _type: any;
+    _type: number;
     _time: Date;
     get time(): Date;
     /**

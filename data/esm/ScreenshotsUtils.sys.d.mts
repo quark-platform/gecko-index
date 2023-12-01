@@ -1,7 +1,7 @@
 export const MAX_CAPTURE_DIMENSION: 32766;
 export const MAX_CAPTURE_AREA: 472907776;
 export const MAX_SNAPSHOT_DIMENSION: 1024;
-export class ScreenshotsComponentParent {
+export class ScreenshotsComponentParent extends JSWindowActorParent {
     receiveMessage(message: any): Promise<void>;
     didDestroy(): void;
 }

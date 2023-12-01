@@ -79,16 +79,16 @@ declare namespace ExtensionBlocklistMLBF {
     function ensureInitialized(): void;
     function shutdown(): void;
     function undoShutdown(): void;
-    function getState(addon: any): Promise<any>;
+    function getState(addon: any): Promise<0 | 2>;
     function getEntry(addon: any): Promise<{
-        state: any;
-        url: any;
+        state: 2;
+        url: string;
     }>;
     function _createBlockEntry(addon: any): {
-        state: any;
-        url: any;
+        state: 2;
+        url: string;
     };
-    function createBlocklistURL(id: any, version: any): any;
+    function createBlocklistURL(id: any, version: any): string;
 }
 declare namespace ExtensionBlocklistRS {
     function _ensureEntries(): Promise<void>;
@@ -98,14 +98,14 @@ declare namespace ExtensionBlocklistRS {
     function ensureInitialized(): void;
     function shutdown(): void;
     function undoShutdown(): void;
-    function getState(addon: any, appVersion: any, toolkitVersion: any): Promise<any>;
+    function getState(addon: any, appVersion: any, toolkitVersion: any): Promise<0 | 2 | 1>;
     function getEntry(addon: any, appVersion: any, toolkitVersion: any): Promise<{
-        state: any;
+        state: 2 | 1;
         url: string;
         prefs: any;
     }>;
     function _getEntry(addon: any, addonEntries: any, appVersion: any, toolkitVersion: any): {
-        state: any;
+        state: 2 | 1;
         url: string;
         prefs: any;
     };

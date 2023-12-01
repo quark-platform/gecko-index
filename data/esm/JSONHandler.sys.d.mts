@@ -68,5 +68,5 @@ export class JSONHandler {
         status?: undefined;
     }>;
     handle(request: any, response: any): Promise<any>;
-    get QueryInterface(): any;
+    get QueryInterface(): MozQueryInterface;
 }

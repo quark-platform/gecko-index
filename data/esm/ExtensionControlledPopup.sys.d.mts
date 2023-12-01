@@ -17,7 +17,7 @@ export class ExtensionControlledPopup {
     onObserverRemoved: any;
     beforeDisableAddon: any;
     observerRegistered: boolean;
-    get topWindow(): any;
+    get topWindow(): mozIDOMWindowProxyType;
     userHasConfirmed(id: any): boolean;
     setConfirmation(id: any): Promise<any>;
     clearConfirmation(id: any): Promise<any>;

@@ -1,4 +1,4 @@
 export namespace ReturnCodeChild {
-    let QueryInterface: any;
+    let QueryInterface: MozQueryInterface;
     function doIt(behaviour: any): void;
 }

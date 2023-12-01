@@ -38,9 +38,9 @@
  */
 export function StorageSyncService(): any;
 export class StorageSyncService {
-    _storageArea: any;
+    _storageArea: unknown;
     _shutdownBound: () => Promise<void>;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     getInterface(iid: any): any;
     _shutdown(): Promise<void>;
 }

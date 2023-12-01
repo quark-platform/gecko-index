@@ -22,8 +22,8 @@
  */
 export function ConsoleAPIStorageService(): void;
 export class ConsoleAPIStorageService {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     observe: (aSubject: any, aTopic: any, aData: any) => void;
     init: () => void;
     getEvents: (aId: any) => any;

@@ -1,9 +1,10 @@
+/// <reference types="gecko-types" />
 /**
  * Extension of PlacesQuery which provides additional caches for Firefox View.
  */
-export class FirefoxViewPlacesQuery {
-    get visitsFromToday(): any;
-    get visitsFromYesterday(): any;
+export class FirefoxViewPlacesQuery extends PlacesQuery {
+    get visitsFromToday(): import("resource://gre/modules/PlacesQuery.sys.mjs").HistoryVisit[];
+    get visitsFromYesterday(): import("resource://gre/modules/PlacesQuery.sys.mjs").HistoryVisit[];
     /**
      * Get a list of visits per day for each day on this month, excluding today
      * and yesterday.
@@ -23,7 +24,7 @@ export class FirefoxViewPlacesQuery {
     get visitsByMonth(): HistoryVisit[][];
     appendToCache(visit: any): void;
     insertSortedIntoCache(visit: any): void;
-    fetchHistory(): Promise<void>;
     handlePageVisited(event: any): void;
     #private;
 }
+import { PlacesQuery } from "resource://gre/modules/PlacesQuery.sys.mjs";

@@ -1,5 +1,5 @@
-export class MarionetteEventsChild {
-    get innerWindowId(): any;
+export class MarionetteEventsChild extends JSWindowActorChild {
+    get innerWindowId(): number;
     actorCreated(): void;
     handleEvent({ target, type }: {
         target: any;

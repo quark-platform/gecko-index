@@ -1,4 +1,4 @@
-export class FindBarChild {
+export class FindBarChild extends JSWindowActorChild {
     _findKey: any;
     inQuickFind: boolean;
     inPassThrough: boolean;

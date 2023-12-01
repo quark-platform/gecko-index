@@ -8,5 +8,5 @@ export class ColorPickerDelegate {
         predefinedValues: any;
     };
     open(aColorPickerShownCallback: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }

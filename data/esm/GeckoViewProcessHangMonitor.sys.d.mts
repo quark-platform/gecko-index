@@ -1,4 +1,5 @@
-export class GeckoViewProcessHangMonitor {
+/// <reference types="gecko-types" />
+export class GeckoViewProcessHangMonitor extends GeckoViewModule {
     constructor(aModuleInfo: any);
     /**
      * Collection of hang reports that haven't expired or been dismissed
@@ -25,17 +26,13 @@ export class GeckoViewProcessHangMonitor {
      * Keys are nsIHangReports. Values are numbers.
      */
     _reportLookupIndex: Map<any, any>;
-    onInit(): void;
-    onDestroy(): void;
-    onEnable(): void;
-    onDisable(): void;
     onEvent(aEvent: any, aData: any, aCallback: any): void;
     observe(aSubject: any, aTopic: any, aData: any): void;
     /**
      * This timeout is the wait period applied after a user selects "Wait" in
      * an existing notification.
      */
-    get WAIT_EXPIRATION_TIME(): any;
+    get WAIT_EXPIRATION_TIME(): number;
     /**
      * Terminate whatever is causing this report, be it an add-on or page script.
      * This is done without updating any report notifications.
@@ -55,3 +52,4 @@ export class GeckoViewProcessHangMonitor {
     reportHang(report: any): void;
     clearHang(report: any): void;
 }
+import { GeckoViewModule } from "resource://gre/modules/GeckoViewModule.sys.mjs";

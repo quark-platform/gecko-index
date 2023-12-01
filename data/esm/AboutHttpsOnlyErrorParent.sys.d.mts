@@ -1,4 +1,4 @@
-export class AboutHttpsOnlyErrorParent {
+export class AboutHttpsOnlyErrorParent extends JSWindowActorParent {
     get browser(): any;
     receiveMessage(aMessage: any): void;
     goBackFromErrorPage(aBrowser: any): void;

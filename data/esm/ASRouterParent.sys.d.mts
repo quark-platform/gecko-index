@@ -10,7 +10,7 @@ export class ASRouterTabs {
     registerActor(actor: any): void;
     unregisterActor(actor: any): void;
 }
-export class ASRouterParent {
+export class ASRouterParent extends JSWindowActorParent {
     static tabs: any;
     static nextTabId: number;
     constructor({ tabsFactory }?: {

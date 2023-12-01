@@ -1,6 +1,6 @@
 export function TestInterfaceJS(): void;
 export class TestInterfaceJS {
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     init(win: any): void;
     _win: any;
     __init(anyArg: any, objectArg: any, dictionaryArg: any): void;

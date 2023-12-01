@@ -10,9 +10,9 @@ export namespace ManifestProcessor {
         display: any;
         orientation: any;
         name: any;
-        icons: any;
+        icons: any[];
         short_name: any;
-        theme_color: any;
-        background_color: any;
+        theme_color: string;
+        background_color: string;
     };
 }

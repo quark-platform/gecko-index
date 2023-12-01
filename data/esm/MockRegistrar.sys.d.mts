@@ -17,7 +17,7 @@ export const MockRegistrar: Readonly<{
      *
      * @return           The CID of the mock.
      */
-    register(contractID: any, mock: any, args: any): any;
+    register(contractID: any, mock: any, args: any): nsIDPtrType;
     /**
      * Unregister the mock.
      *

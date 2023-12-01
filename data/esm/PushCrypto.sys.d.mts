@@ -1,7 +1,7 @@
 export function getCryptoParamsFromHeaders(headers: any): {
-    salt: any;
+    salt: ArrayBuffer;
     rs: number;
-    senderKey: any;
+    senderKey: ArrayBuffer;
 };
 export namespace PushCrypto {
     export { concatArray };

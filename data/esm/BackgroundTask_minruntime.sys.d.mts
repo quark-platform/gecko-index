@@ -1,2 +1,2 @@
-export function runBackgroundTask(): Promise<any>;
+export function runBackgroundTask(): Promise<number>;
 export const backgroundTaskMinRuntimeMS: 2000;

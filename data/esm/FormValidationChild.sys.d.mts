@@ -1,4 +1,4 @@
-export class FormValidationChild {
+export class FormValidationChild extends JSWindowActorChild {
     _validationMessage: string;
     _element: any;
     handleEvent(aEvent: any): void;

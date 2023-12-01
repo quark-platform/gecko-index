@@ -1,1 +1,1 @@
-export function runBackgroundTask(): Promise<any>;
+export function runBackgroundTask(): Promise<number>;

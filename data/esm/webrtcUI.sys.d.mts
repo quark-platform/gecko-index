@@ -51,8 +51,8 @@ export namespace webrtcUI {
      * the specified top-level browsing context.
      */
     function getCombinedStateForBrowser(aTopBrowsingContext: any): {
-        camera: any;
-        microphone: any;
+        camera: 0 | 2 | 1;
+        microphone: 0 | 2 | 1;
     };
     function streamAddedOrRemoved(aBrowsingContext: any, aData: any): void;
     /**
@@ -88,8 +88,8 @@ export namespace webrtcUI {
      */
     function clearPermissionsAndStopSharing(types: ("screen" | "camera" | "microphone")[], tab: any): void;
     function updateIndicators(aTopBrowsingContext: any): {
-        camera: any;
-        microphone: any;
+        camera: 0 | 2 | 1;
+        microphone: 0 | 2 | 1;
     };
     function swapBrowserForNotification(aOldBrowser: any, aNewBrowser: any): void;
     /**

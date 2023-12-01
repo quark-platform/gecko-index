@@ -45,7 +45,7 @@ export namespace PlacesUtils {
         export function setWithConnection(db: any, pairs: any): Promise<void>;
         export function deleteWithConnection(db: any, ...keys: any[]): Promise<void>;
         export function canonicalizeKey(key: any): string;
-        export function _base64Encode(str: any): any;
+        export function _base64Encode(str: any): string;
         export function _base64Decode(str: any): string;
     }
     namespace keywords {

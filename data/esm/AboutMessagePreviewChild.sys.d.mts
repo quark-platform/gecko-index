@@ -1,4 +1,4 @@
-export class AboutMessagePreviewChild {
+export class AboutMessagePreviewChild extends JSWindowActorChild {
     handleEvent(event: any): void;
     actorCreated(): void;
     exportFunctions(): void;

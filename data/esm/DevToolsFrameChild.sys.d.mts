@@ -1,4 +1,4 @@
-export class DevToolsFrameChild {
+export class DevToolsFrameChild extends JSWindowActorChild {
     _connections: Map<any, any>;
     /**
      * Try to instantiate new target actors for the current WindowGlobal, and that,

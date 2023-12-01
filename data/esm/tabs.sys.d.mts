@@ -28,7 +28,7 @@ export class TabEngine {
     _sync(): Promise<void>;
 }
 export namespace TabProvider {
-    function getWindowEnumerator(): any;
+    function getWindowEnumerator(): nsISimpleEnumeratorType;
     function shouldSkipWindow(win: any): any;
     function getAllBrowserTabs(): any[];
     function getAllTabsWithEstimatedMax(filter: any, bytesMax: any): Promise<{
@@ -43,7 +43,7 @@ declare class TabTracker {
     constructor(name: any, engine: any);
     onTab: any;
     _unregisterListeners: any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     clearChangedIDs(): void;
     modified: boolean;
     _topics: string[];

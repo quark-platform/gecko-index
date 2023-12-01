@@ -1,4 +1,4 @@
-export class ManifestMessagesChild {
+export class ManifestMessagesChild extends JSWindowActorChild {
     receiveMessage(message: any): {
         success: boolean;
         result: any;

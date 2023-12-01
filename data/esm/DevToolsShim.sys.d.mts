@@ -11,7 +11,7 @@ export namespace DevToolsShim {
      * Returns true if the devtools are completely disabled and can not be enabled. All
      * entry points should return without throwing, initDevTools should never be called.
      */
-    function isDisabledByPolicy(): any;
+    function isDisabledByPolicy(): boolean;
     /**
      * Check if DevTools have already been initialized.
      *

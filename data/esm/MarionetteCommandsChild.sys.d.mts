@@ -1,7 +1,7 @@
-export class MarionetteCommandsChild {
+export class MarionetteCommandsChild extends JSWindowActorChild {
     sandboxes: any;
     actionState: any;
-    get innerWindowId(): any;
+    get innerWindowId(): number;
     actorCreated(): void;
     didDestroy(): void;
     receiveMessage(msg: any): Promise<{
@@ -56,7 +56,7 @@ export class MarionetteCommandsChild {
     /**
      * Return the active element in the document.
      */
-    getActiveElement(): Promise<any>;
+    getActiveElement(): Promise<Element>;
     /**
      * Return the accessible label for a given element.
      */
@@ -93,11 +93,11 @@ export class MarionetteCommandsChild {
     /**
      * Get the value of a css property for the given element.
      */
-    getElementValueOfCssProperty(options?: {}): Promise<any>;
+    getElementValueOfCssProperty(options?: {}): Promise<string>;
     /**
      * Get the source of the current browsing context's document.
      */
-    getPageSource(): Promise<any>;
+    getPageSource(): Promise<string>;
     /**
      * Returns the rect of the element to screenshot.
      *

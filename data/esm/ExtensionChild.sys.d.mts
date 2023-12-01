@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 export namespace ExtensionActivityLogChild {
     let _initialized: boolean;
     let enabledExtensions: Set<any>;
@@ -19,7 +20,9 @@ export namespace ExtensionChild {
     export { ProxyAPIImplementation };
     export { SimpleEventAPI };
 }
-declare class BrowserExtensionContent {
+declare const BrowserExtensionContent_base: any;
+declare class BrowserExtensionContent extends BrowserExtensionContent_base {
+    [x: string]: any;
     constructor(policy: any);
     policy: any;
     instanceId: any;
@@ -34,9 +37,9 @@ declare class BrowserExtensionContent {
     apiManager: any;
     _manifest: any;
     _localeData: any;
-    baseURI: any;
-    baseURL: any;
-    principal: any;
+    baseURI: nsIURIType;
+    baseURL: string;
+    principal: nsIPrincipalType;
     blockedParsingDocuments: WeakSet<object>;
     views: Set<any>;
     devtoolsViews: Set<any>;
@@ -77,7 +80,7 @@ declare class ChildAPIManager {
     schema: any;
     id: string;
     conduit: any;
-    listeners: any;
+    listeners: ExtensionUtils.DefaultMap;
     callPromises: Map<any, any>;
     permissionsChangedCallbacks: Set<any>;
     updatePermissions: () => void;
@@ -127,7 +130,9 @@ declare class ChildAPIManager {
     isPermissionRevokable(permission: any): any;
     setPermissionsChangedCallback(callback: any): void;
 }
-declare class ChildLocalAPIImplementation {
+declare const ChildLocalAPIImplementation_base: any;
+declare class ChildLocalAPIImplementation extends ChildLocalAPIImplementation_base {
+    [x: string]: any;
     constructor(pathObj: any, namespace: any, name: any, childApiManager: any);
     childApiManagerId: any;
     fullname: string;
@@ -238,10 +243,12 @@ declare class Port {
     }): void;
     sendPortMessage(json: any): any;
 }
+declare const ProxyAPIImplementation_base: any;
 /**
  * An object that runs an remote implementation of an API.
  */
-declare class ProxyAPIImplementation {
+declare class ProxyAPIImplementation extends ProxyAPIImplementation_base {
+    [x: string]: any;
     /**
      * @param {string} namespace The full path to the namespace that contains the
      *     `name` member. This may contain dots, e.g. "storage.local".
@@ -260,10 +267,13 @@ declare class ProxyAPIImplementation {
     removeListener(listener: any): void;
     hasListener(listener: any): any;
 }
-declare class SimpleEventAPI {
+declare const SimpleEventAPI_base: any;
+declare class SimpleEventAPI extends SimpleEventAPI_base {
+    [x: string]: any;
     constructor(context: any, name: any);
     fires: Set<any>;
     emit(...args: any[]): any[];
 }
+import { ExtensionUtils } from "resource://gre/modules/ExtensionUtils.sys.mjs";
 declare function holdMessage(name: any, anonymizedName: any, data: any, native?: any): any;
 export {};

@@ -1,6 +1,6 @@
 export namespace AddonRepository {
-    const homepageURL: any;
-    const appIsShuttingDown: any;
+    const homepageURL: string;
+    const appIsShuttingDown: boolean;
     /**
      * Retrieves the url that can be visited to see search results for the given
      * terms. If the corresponding preference is not defined, defaults to
@@ -9,7 +9,7 @@ export namespace AddonRepository {
      * @param  aSearchTerms
      *         Search terms used to search the repository
      */
-    function getSearchURL(aSearchTerms: any): any;
+    function getSearchURL(aSearchTerms: any): string;
     const cacheEnabled: any;
     /**
      * Shut down AddonRepository
@@ -124,7 +124,7 @@ export namespace AddonRepository {
      */
     function backgroundUpdateCheck(): Promise<void>;
     function _parseAddon(aEntry: any): AddonSearchResult;
-    function _formatURLPref(aPreference: any, aSubstitutions?: {}): any;
+    function _formatURLPref(aPreference: any, aSubstitutions?: {}): string;
     function flush(): any;
     function getAvailableLangpacks(): Promise<{
         target_locale: any;

@@ -4,7 +4,7 @@ export class FxAccountsCommands {
     sendTab: SendTab;
     _invokeRateLimitExpiry: number;
     availableCommands(): Promise<{
-        [x: number]: any;
+        [x: string]: any;
     }>;
     invoke(command: any, device: any, payload: any): Promise<void>;
     /**
@@ -62,7 +62,7 @@ export class SendTab {
         title: any;
         uri: any;
     }>;
-    _encrypt(bytes: any, device: any): Promise<any>;
+    _encrypt(bytes: any, device: any): Promise<string>;
     _getPersistedSendTabKeys(): Promise<any>;
     _decrypt(ciphertext: any): Promise<any>;
     _generateAndPersistSendTabKeys(): Promise<{

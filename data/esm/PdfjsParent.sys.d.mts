@@ -1,4 +1,4 @@
-export class PdfjsParent {
+export class PdfjsParent extends JSWindowActorParent {
     _boundToFindbar: any;
     _findFailedString: any;
     didDestroy(): void;

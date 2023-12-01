@@ -1,8 +1,9 @@
+/// <reference types="gecko-types" />
 /**
  * PolicySearchEngine represents a search engine defined by an enterprise
  * policy.
  */
-export class PolicySearchEngine {
+export class PolicySearchEngine extends SearchEngine {
     /**
      * Creates a PolicySearchEngine.
      *
@@ -19,24 +20,6 @@ export class PolicySearchEngine {
         json?: object;
     });
     /**
-     * Whether or not this engine is an in-memory only search engine.
-     * These engines are typically application provided or policy engines,
-     * where they are loaded every time on SearchService initialization
-     * using the policy JSON or the extension manifest. Minimal details of the
-     * in-memory engines are saved to disk, but they are never loaded
-     * from the user's saved settings file.
-     *
-     * @returns {boolean}
-     *   All policy engines are in-memory, so this always returns true.
-     */
-    get inMemory(): boolean;
-    /**
-     * Returns the appropriate identifier to use for telemetry.
-     *
-     * @returns {string}
-     */
-    get telemetryId(): string;
-    /**
      * Updates a search engine that is specified from enterprise policies.
      *
      * @param {object} details
@@ -44,8 +27,6 @@ export class PolicySearchEngine {
      *   nsISearchService.updatePolicyEngine for more details.
      */
     update(details: object): void;
-    _urls: any[];
-    _iconMapObj: any;
     /**
      * Creates a JavaScript object that represents this engine.
      *
@@ -54,3 +35,4 @@ export class PolicySearchEngine {
      */
     toJSON(): object;
 }
+import { SearchEngine } from "resource://gre/modules/SearchEngine.sys.mjs";

@@ -75,7 +75,7 @@ export class AddonValidator {
         enabled: boolean;
         id: any;
         addonID: any;
-        applicationID: any;
+        applicationID: string;
         source: string;
         original: any;
     };
@@ -99,7 +99,7 @@ declare class AddonsStore {
      */
     constructor(name: any, engine: any);
     _syncableTypes: string[];
-    _extensionsPrefs: any;
+    _extensionsPrefs: nsIPrefBranchType;
     get reconciler(): any;
     /**
      * Override applyIncoming to filter out records we can't handle.

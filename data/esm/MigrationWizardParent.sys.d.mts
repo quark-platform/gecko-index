@@ -3,7 +3,7 @@
  * actual heavy-lifting of any kinds of migration work, based on messages from
  * the associated MigrationWizardChild.
  */
-export class MigrationWizardParent {
+export class MigrationWizardParent extends JSWindowActorParent {
     didDestroy(): void;
     /**
      * General message handler function for messages received from the

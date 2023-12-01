@@ -16,7 +16,7 @@ export function getMarionetteCommandsActorProxy(browsingContextFn: () => Browsin
  */
 export function registerCommandsActor(sessionId: string): void;
 export function unregisterCommandsActor(): void;
-export class MarionetteCommandsParent {
+export class MarionetteCommandsParent extends JSWindowActorParent {
     actorCreated(): void;
     _resolveDialogOpened: (value: any) => void;
     dialogOpenedPromise(): Promise<any>;

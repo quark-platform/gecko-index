@@ -9,7 +9,7 @@ export namespace TabCrashHandler {
     let crashedBrowserQueues: Map<any, any>;
     let restartRequiredBrowsers: WeakSet<object>;
     let testBuildIDMismatch: boolean;
-    const prefs: any;
+    const prefs: nsIPrefBranchType;
     function init(): void;
     function observe(aSubject: any, aTopic: any, aData: any): void;
     /**
@@ -139,8 +139,8 @@ export namespace TabCrashHandler {
      */
     function onAboutTabCrashedLoad(browser: any): {
         hasReport: boolean;
-        sendReport: any;
-        includeURL: any;
+        sendReport: boolean;
+        includeURL: boolean;
         requestAutoSubmit: boolean;
     } | {
         hasReport: boolean;
@@ -158,9 +158,9 @@ export namespace TabCrashHandler {
     const queuedCrashedBrowsers: number;
 }
 export namespace UnsubmittedCrashHandler {
-    const prefs_1: any;
+    const prefs_1: nsIPrefBranchType;
     export { prefs_1 as prefs };
-    export const enabled: any;
+    export const enabled: boolean;
     export let showingNotification: boolean;
     export let suppressed: boolean;
     export let _checkTimeout: any;
@@ -242,7 +242,7 @@ export namespace UnsubmittedCrashHandler {
         reportIDs: any;
         onAction: any;
     }): any;
-    export let autoSubmit: any;
+    export let autoSubmit: boolean;
     /**
      * Attempt to submit reports to the crash report server.
      *

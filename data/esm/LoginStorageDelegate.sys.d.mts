@@ -14,6 +14,6 @@ export class LoginStorageDelegate {
         dismiss(): void;
     };
     promptToChangePasswordWithUsernames(aBrowser: any, aLogins: any, aNewLogin: any): void;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
 }

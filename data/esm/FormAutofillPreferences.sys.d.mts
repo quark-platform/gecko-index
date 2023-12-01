@@ -1,6 +1,6 @@
 export function FormAutofillPreferences(): void;
 export class FormAutofillPreferences {
-    bundle: any;
+    bundle: nsIStringBundleType;
     /**
      * Create the Form Autofill preference group.
      *

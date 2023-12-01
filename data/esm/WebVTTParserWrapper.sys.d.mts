@@ -9,5 +9,5 @@ export class WebVTTParserWrapper {
     convertCueToDOMTree(window: any, cue: any): any;
     processCues(window: any, cues: any, overlay: any, controls: any): void;
     classDescription: string;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }

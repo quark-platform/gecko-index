@@ -1,4 +1,4 @@
-export class TalosTabSwitchParent {
+export class TalosTabSwitchParent extends JSWindowActorParent {
     receiveMessage(message: any): Promise<{
         times: number[];
         urls: any[];
@@ -64,7 +64,7 @@ export class TalosTabSwitchParent {
      *        Resolves once garbage collection has been completed in the
      *        parent, and the content process for the actor.
      */
-    forceGC(win: any): any;
+    forceGC(win: any): Promise<any>;
     /**
      * Given some host window, open a new window, browser its initial tab to
      * about:blank, then load up our set of testing URLs. Once they've all finished

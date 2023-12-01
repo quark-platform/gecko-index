@@ -205,5 +205,5 @@ export class WebDriverSession {
      *     Response to an HTTP request (httpd.js)
      */
     handle(request: Request, response: Response): Promise<void>;
-    get QueryInterface(): any;
+    get QueryInterface(): MozQueryInterface;
 }

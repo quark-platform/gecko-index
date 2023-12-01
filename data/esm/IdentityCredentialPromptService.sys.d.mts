@@ -2,8 +2,8 @@
  * Class implementing the nsIIdentityCredentialPromptService
  * */
 export class IdentityCredentialPromptService {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     loadIconFromManifest(providerManifest: any, bestIconSize?: number, defaultIcon?: any): Promise<any>;
     /**
      * Ask the user, using a PopupNotification, to select an Identity Provider from a provided list.

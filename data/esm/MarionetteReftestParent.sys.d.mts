@@ -1,7 +1,7 @@
 /**
  * Parent JSWindowActor to handle navigation for reftests relying on marionette.
  */
-export class MarionetteReftestParent {
+export class MarionetteReftestParent extends JSWindowActorParent {
     /**
      * Wait for the expected URL to be loaded.
      *

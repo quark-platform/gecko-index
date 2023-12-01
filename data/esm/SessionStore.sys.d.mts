@@ -16,7 +16,7 @@ export namespace SessionStore {
     }[];
     const LAST_ACTION_CLOSED_TAB: string;
     const LAST_ACTION_CLOSED_WINDOW: string;
-    const willAutoRestore: any;
+    const willAutoRestore: boolean;
     function init(): void;
     /**
      * Get the collection of all matching windows tracked by SessionStore
@@ -79,7 +79,7 @@ export namespace SessionStore {
     function resetLastClosedActions(): void;
     function getClosedWindowData(): any;
     function maybeDontRestoreTabs(aWindow: any): void;
-    function undoCloseWindow(aIndex: any): any;
+    function undoCloseWindow(aIndex: any): mozIDOMWindowProxyType;
     function forgetClosedWindow(aIndex: any): void;
     function getCustomWindowValue(aWindow: any, aKey: any): any;
     function setCustomWindowValue(aWindow: any, aKey: any, aStringValue: any): void;

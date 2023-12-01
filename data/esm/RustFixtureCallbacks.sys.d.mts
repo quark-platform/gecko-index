@@ -1,4 +1,4 @@
-export function logEvenNumbers(logger: any, items: any): any;
+export function logEvenNumbers(logger: any, items: any): Promise<any>;
 export function logEvenNumbersMainThread(logger: any, items: any): any;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };

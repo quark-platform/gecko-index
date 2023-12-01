@@ -1,4 +1,4 @@
-export class ContextMenuChild {
+export class ContextMenuChild extends JSWindowActorChild {
     static getTarget(browsingContext: any, message: any, key: any): any;
     static getLastTarget(browsingContext: any): any;
     target: any;
@@ -19,13 +19,13 @@ export class ContextMenuChild {
     getTarget(aMessage: any, aKey?: string): any;
     _isXULTextLinkLabel(aNode: any): any;
     _getLinkURL(): any;
-    _getLinkURI(): any;
+    _getLinkURI(): nsIURIType;
     _getLinkText(): string;
     _getLinkProtocol(): any;
     _isLinkSaveable(aLink: any): boolean;
     _gatherTextUnder(root: any): string;
     _getComputedURL(aElem: any, aProp: any): any;
-    _makeURLAbsolute(aBase: any, aUrl: any): any;
+    _makeURLAbsolute(aBase: any, aUrl: any): string;
     _isProprietaryDRM(): boolean;
     _isMediaURLReusable(aURL: any): any;
     _isTargetATextBox(node: any): any;

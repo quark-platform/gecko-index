@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 /**
  * Acts as a proxy for a message manager or message manager owner, and
  * tracks docShell swaps so that messages are always sent to the same
@@ -25,7 +26,7 @@ export class MessageManagerProxy {
      */
     static matches(target: nsIMessageSender | MessageManagerProxy | Element, messageManager: nsIMessageSender): boolean;
     constructor(target: any);
-    listeners: any;
+    listeners: ExtensionUtils.DefaultMap;
     closed: boolean;
     messageManager: any;
     /**
@@ -101,3 +102,4 @@ export class MessageManagerProxy {
     private removeListeners;
     handleEvent(event: any): void;
 }
+import { ExtensionUtils } from "resource://gre/modules/ExtensionUtils.sys.mjs";

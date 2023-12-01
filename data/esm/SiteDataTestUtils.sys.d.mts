@@ -6,7 +6,7 @@ export namespace SiteDataTestUtils {
      *
      * @returns a Promise that resolves when storage was persisted
      */
-    function persist(origin: string, value?: any): Promise<any>;
+    function persist(origin: string, value?: uint32_t): Promise<any>;
     /**
      * Adds a new blob entry to a dummy indexedDB database for the specified origin.
      *
@@ -69,9 +69,9 @@ export namespace SiteDataTestUtils {
     function addServiceWorker(path: string): any;
     function hasCookies(origin: any, testEntries?: any, testPBMCookies?: boolean): any;
     function hasIndexedDB(origin: any): Promise<any>;
-    function _getCacheStorage(where: any, lci: any): any;
-    function hasCacheEntry(path: any, where: any, lci?: any): any;
-    function addCacheEntry(path: any, where: any, lci?: any): Promise<any>;
+    function _getCacheStorage(where: any, lci: any): nsICacheStorageType;
+    function hasCacheEntry(path: any, where: any, lci?: nsILoadContextInfo): boolean;
+    function addCacheEntry(path: any, where: any, lci?: nsILoadContextInfo): Promise<any>;
     /**
      * Checks whether the specified origin has registered ServiceWorkers.
      *

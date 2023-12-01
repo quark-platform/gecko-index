@@ -1,4 +1,4 @@
-export class AboutLoginsParent {
+export class AboutLoginsParent extends JSWindowActorParent {
     receiveMessage(message: any): Promise<void>;
     openFilePickerDialog(title: any, okButtonLabel: any, appendFilters: any, ownerGlobal: any): Promise<any>;
     #private;

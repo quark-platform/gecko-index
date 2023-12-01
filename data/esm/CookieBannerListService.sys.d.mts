@@ -2,8 +2,8 @@
  * See nsICookieBannerListService
  */
 export class CookieBannerListService {
-    classId: any;
-    QueryInterface: any;
+    classId: unknown;
+    QueryInterface: MozQueryInterface;
     init(): Promise<void>;
     initForTest(): Promise<void>;
     importAllRules(): Promise<void>;

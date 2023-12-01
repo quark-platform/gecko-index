@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 /**
  * Instances of this class have a shape similar to OSCrypto so it can be dropped
  * into code which uses that. The algorithms here are
@@ -10,7 +11,7 @@ export class ChromeWindowsLoginCrypto {
      *   SUB_DIRECTORIES object in ChromeMigrationUtils.getDataPath.
      */
     constructor(userDataPathSuffix: string);
-    osCrypto: any;
+    osCrypto: OSCrypto;
     /**
      * Must be invoked once after last use of any of the provided helpers.
      */
@@ -29,7 +30,7 @@ export class ChromeWindowsLoginCrypto {
      * @returns {string} plaintext password
      */
     decryptData(ciphertext: string): string;
-    _decryptUnversioned(ciphertext: any): Promise<any>;
+    _decryptUnversioned(ciphertext: any): Promise<string | Uint8Array>;
     _decryptV10(ciphertext: any): Promise<string>;
     /**
      * @param {USVString} plaintext to encrypt
@@ -38,6 +39,7 @@ export class ChromeWindowsLoginCrypto {
      *                   by the ENCRYPTION_VERSION_PREFIX.
      */
     encryptData(plaintext: USVString, version?: string | null): string;
-    _encryptUnversioned(plaintext: any): Promise<any>;
+    _encryptUnversioned(plaintext: any): Promise<string>;
     _encryptV10(plaintext: any): Promise<string>;
 }
+import { OSCrypto } from "resource://gre/modules/OSCrypto_win.sys.mjs";

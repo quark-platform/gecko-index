@@ -4,7 +4,7 @@ export class nsAsyncShutdownService {
         _propertyBagConverter: typeof PropertyBagConverter;
     };
     makeBarrier(name: any): nsAsyncShutdownBarrier;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 /**
  * Conversion between nsIPropertyBags and JS values.
@@ -58,7 +58,7 @@ declare class nsAsyncShutdownBarrier {
     get state(): nsIPropertyBag;
     get client(): any;
     wait(onReady: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 /**
  * Construct an instance of nsIAsyncShutdownClient from a
@@ -88,6 +88,6 @@ declare class nsAsyncShutdownClient {
     get isClosed(): any;
     addBlocker(xpcomBlocker: any, fileName: any, lineNumber: any, stack: any): void;
     removeBlocker(xpcomBlocker: any): any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 export {};

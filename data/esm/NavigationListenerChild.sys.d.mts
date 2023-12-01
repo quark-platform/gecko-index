@@ -1,4 +1,4 @@
-export class NavigationListenerChild {
+export class NavigationListenerChild extends JSWindowActorChild {
     actorCreated(): void;
     didDestroy(): void;
     /**

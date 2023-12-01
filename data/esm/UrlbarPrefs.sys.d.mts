@@ -4,7 +4,7 @@ export const UrlbarPrefs: Preferences;
  */
 declare class Preferences {
     _map: Map<any, any>;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _observerWeakRefs: any[];
     shouldHandOffToSearchModePrefs: string[];
     _firefoxSuggestScenarioStartupPromise: Promise<any>;

@@ -1,4 +1,4 @@
-export class FormHistoryParent {
+export class FormHistoryParent extends JSWindowActorParent {
     receiveMessage({ name, data }: {
         name: any;
         data: any;

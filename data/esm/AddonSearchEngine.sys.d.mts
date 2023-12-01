@@ -1,7 +1,8 @@
+/// <reference types="gecko-types" />
 /**
  * AddonSearchEngine represents a search engine defined by an add-on.
  */
-export class AddonSearchEngine {
+export class AddonSearchEngine extends SearchEngine {
     /**
      * Gets the WebExtensionPolicy for an add-on.
      *
@@ -93,27 +94,6 @@ export class AddonSearchEngine {
         locale?: string;
     }): boolean;
     /**
-     * Whether or not this engine is provided by the application, e.g. it is
-     * in the list of configured search engines. Overrides the definition in
-     * `SearchEngine`.
-     *
-     * @returns {boolean}
-     */
-    get isAppProvided(): boolean;
-    /**
-     * Whether or not this engine is an in-memory only search engine.
-     * These engines are typically application provided or policy engines,
-     * where they are loaded every time on SearchService initialization
-     * using the policy JSON or the extension manifest. Minimal details of the
-     * in-memory engines are saved to disk, but they are never loaded
-     * from the user's saved settings file.
-     *
-     * @returns {boolean}
-     *   Only returns true for application provided engines.
-     */
-    get inMemory(): boolean;
-    get isGeneralPurposeEngine(): boolean;
-    /**
      * Creates a JavaScript object that represents this engine.
      *
      * @returns {object}
@@ -125,8 +105,6 @@ export class AddonSearchEngine {
      * manager has, and reports the results to telemetry.
      */
     checkAndReportIfSettingsValid(): Promise<void>;
-    _telemetryId: any;
-    _urls: any[];
-    _iconMapObj: any;
     #private;
 }
+import { SearchEngine } from "resource://gre/modules/SearchEngine.sys.mjs";

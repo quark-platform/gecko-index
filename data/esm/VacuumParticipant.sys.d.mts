@@ -14,7 +14,7 @@ export class VacuumParticipant {
      *   Whether the vacuum operation should be granted.
      */
     constructor(databaseConnection: mozIStorageAsyncConnection, { expectedPageSize, useIncrementalVacuum, grant }?: number);
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     promiseRegistered(): any;
     dispose(): Promise<void>;
     get expectedDatabasePageSize(): number;

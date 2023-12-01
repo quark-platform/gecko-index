@@ -1,8 +1,8 @@
 export class MockRegistry {
-    roots: Map<any, Map<any, any>>;
-    oldSuffixListPref: any;
-    oldCheckForProxiesPref: any;
-    oldCheckForNRPTPref: any;
+    roots: Map<2147483650 | 2147483649 | 2147483648, Map<any, any>>;
+    oldSuffixListPref: boolean;
+    oldCheckForProxiesPref: boolean;
+    oldCheckForNRPTPref: boolean;
     cid: any;
     shutdown(): void;
     getRoot(root: any): Map<any, any>;

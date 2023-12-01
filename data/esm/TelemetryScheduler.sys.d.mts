@@ -1,7 +1,7 @@
 export namespace Policy {
     function now(): Date;
-    function setSchedulerTickTimeout(callback: any, delayMs: any): any;
-    function clearSchedulerTickTimeout(id: any): any;
+    function setSchedulerTickTimeout(callback: any, delayMs: any): number;
+    function clearSchedulerTickTimeout(id: any): void;
     function prioEncode(batchID: any, prioParams: any): any;
 }
 export namespace TelemetryScheduler {

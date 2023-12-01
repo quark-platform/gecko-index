@@ -3,7 +3,7 @@ export namespace ContentBlockingAllowList {
     function _maybeSetupLastPBContextObserver(): void;
     function _basePrincipalForAntiTrackingCommon(browser: any): any;
     function _permissionTypeFor(browser: any): "trackingprotection-pb" | "trackingprotection";
-    function _expiryFor(browser: any): any;
+    function _expiryFor(browser: any): 0 | 1;
     /**
      * Returns false if this module cannot handle the current document loaded in
      * the browser object.  This can happen for example for about: or file:

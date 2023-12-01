@@ -1,4 +1,4 @@
-export class CookieBannerChild {
+export class CookieBannerChild extends JSWindowActorChild {
     handleEvent(event: any): void;
     didDestroy(): void;
     /**

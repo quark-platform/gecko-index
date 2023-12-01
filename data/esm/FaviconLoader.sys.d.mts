@@ -22,11 +22,11 @@ declare class IconLoader {
 declare class FaviconLoad {
     constructor(iconInfo: any);
     icon: any;
-    channel: any;
+    channel: nsIChannelType;
     load(): any;
     _deferred: any;
-    dataBuffer: any;
-    stream: any;
+    dataBuffer: nsIStorageStreamType;
+    stream: nsIBufferedOutputStreamType;
     cancel(): void;
     onStartRequest(request: any): void;
     onDataAvailable(request: any, inputStream: any, offset: any, count: any): void;

@@ -1,4 +1,4 @@
-export class PromptParent {
+export class PromptParent extends JSWindowActorParent {
     didDestroy(): void;
     /**
      * Registers a new Prompt to be tracked for a particular BrowsingContext.

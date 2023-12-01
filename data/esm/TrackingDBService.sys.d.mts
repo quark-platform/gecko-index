@@ -1,8 +1,8 @@
 export function TrackingDBService(): void;
 export class TrackingDBService {
     _initPromise: Promise<void>;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     _db: null;
     waitingTasks: Set<any>;
     finishedShutdown: boolean;
@@ -10,7 +10,7 @@ export class TrackingDBService {
     _initialize(): Promise<void>;
     _shutdown(): Promise<void>;
     recordContentBlockingLog(data: any): Promise<void>;
-    identifyType(events: any): any;
+    identifyType(events: any): 2 | 1 | 3 | 4 | 5;
     /**
      * Saves data rows to the DB.
      * @param data

@@ -1,4 +1,4 @@
-export class AboutProtectionsParent {
+export class AboutProtectionsParent extends JSWindowActorParent {
     static setTestOverride(callback: any): void;
     /**
      * Fetches and validates data from the Monitor endpoint. If successful, then return

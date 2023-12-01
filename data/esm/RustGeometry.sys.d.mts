@@ -1,5 +1,5 @@
-export function gradient(ln: any): any;
-export function intersection(ln1: any, ln2: any): any;
+export function gradient(ln: any): Promise<any>;
+export function intersection(ln1: any, ln2: any): Promise<any>;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };
 }

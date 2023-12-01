@@ -9,24 +9,24 @@
  * can add getter functions that return promises for async data.
  */
 export class ClientEnvironmentBase {
-    static get distribution(): any;
+    static get distribution(): string;
     static get telemetry(): Promise<{}>;
     static get liveTelemetry(): {
         main: any;
     };
-    static get randomizationId(): any;
+    static get randomizationId(): string;
     static get version(): any;
     static get channel(): any;
     static get isDefaultBrowser(): any;
     static get searchEngine(): Promise<any>;
-    static get syncSetup(): any;
-    static get syncDesktopDevices(): any;
-    static get syncMobileDevices(): any;
-    static get syncTotalDevices(): any;
+    static get syncSetup(): boolean;
+    static get syncDesktopDevices(): number;
+    static get syncMobileDevices(): number;
+    static get syncTotalDevices(): number;
     static get addons(): Promise<any>;
     static get plugins(): Promise<any>;
-    static get locale(): any;
-    static get doNotTrack(): any;
+    static get locale(): string;
+    static get doNotTrack(): boolean;
     static get os(): {
         isWindows: boolean;
         isMac: boolean;
@@ -42,5 +42,5 @@ export class ClientEnvironmentBase {
         readonly darwinVersion: any;
     };
     static get attribution(): any;
-    static get appinfo(): any;
+    static get appinfo(): nsIXULRuntimeType & nsIXULAppInfoType & nsICrashReporterType;
 }

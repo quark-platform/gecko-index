@@ -161,7 +161,7 @@ export namespace SearchTestUtils {
         let _observers: Set<any>;
         function _reset(): void;
         function _fireObservers(state: any): void;
-        let QueryInterface: any;
+        let QueryInterface: MozQueryInterface;
         let idleTime: number;
         function addIdleObserver(observer: any, time: any): void;
         function removeIdleObserver(observer: any, time: any): void;

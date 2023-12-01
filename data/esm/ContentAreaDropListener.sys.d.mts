@@ -1,7 +1,7 @@
 export function ContentAreaDropListener(): void;
 export class ContentAreaDropListener {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     _addLink(links: any, url: any, name: any, type: any): void;
     _addLinksFromItem(links: any, dt: any, i: any): void;
     _getDropLinks(dt: any): any[];

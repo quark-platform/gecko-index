@@ -1,6 +1,6 @@
 export function EnterprisePoliciesManager(): void;
 export class EnterprisePoliciesManager {
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _initialize(): void;
     set status(val: any);
     get status(): any;
@@ -37,7 +37,7 @@ declare class JSONPoliciesProvider {
     get hasPolicies(): boolean;
     get policies(): any;
     get failed(): boolean;
-    _getConfigurationFile(): any;
+    _getConfigurationFile(): void | nsISupportsType;
     _readData(): void;
     _failed: boolean;
 }

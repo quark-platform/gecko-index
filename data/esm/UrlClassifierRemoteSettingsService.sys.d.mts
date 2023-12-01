@@ -1,7 +1,7 @@
 export function UrlClassifierRemoteSettingsService(): void;
 export class UrlClassifierRemoteSettingsService {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     _initialized: boolean;
     _entries: {};
     lazyInit(): Promise<void>;

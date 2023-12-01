@@ -1,6 +1,6 @@
 export function nsDefaultCLH(): void;
 export class nsDefaultCLH {
-    classID: any;
+    classID: unknown;
     QueryInterface: any;
     handle: (cmdLine: any) => void;
     helpInfo: string;

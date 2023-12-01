@@ -1,4 +1,4 @@
-export class Bug422543Child {
+export class Bug422543Child extends JSWindowActorChild {
     actorCreated(): void;
     shistory: any;
     cleanup(): {};

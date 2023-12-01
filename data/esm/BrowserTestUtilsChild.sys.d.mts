@@ -1,12 +1,12 @@
-export class BrowserTestUtilsChild {
+export class BrowserTestUtilsChild extends JSWindowActorChild {
     actorCreated(): void;
     _EventUtils: {
         readonly KeyboardEvent: any;
-        readonly navigator: any;
+        readonly navigator: Navigator;
     };
     get EventUtils(): {
         readonly KeyboardEvent: any;
-        readonly navigator: any;
+        readonly navigator: Navigator;
     };
     receiveMessage(aMessage: any): any;
     observer: BrowserTestUtilsChildObserver;
@@ -21,6 +21,6 @@ declare class BrowserTestUtilsChildObserver {
     stopObservingTopics(aTopics: any): void;
     observeTopic(topic: any, count: any, filterFn: any, callbackResolver: any): void;
     observe(aSubject: any, aTopic: any, aData: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 export {};

@@ -5,7 +5,7 @@ declare class Worker {
     worker: any;
     callbacks: Map<any, any>;
     lastCallbackId: number;
-    idleTimeoutId: any;
+    idleTimeoutId: number;
     _execute(method: any, args?: any[], options?: {}): Promise<any>;
     _onWorkerMessage(event: any): void;
     /**

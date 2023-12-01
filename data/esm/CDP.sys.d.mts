@@ -23,7 +23,7 @@ export class CDP {
      * Starts the CDP support.
      */
     start(): Promise<void>;
-    _activePortPath: any;
+    _activePortPath: string;
     /**
      * Stops the CDP support.
      */

@@ -1,4 +1,4 @@
-export class AllowJavascriptChild {
+export class AllowJavascriptChild extends JSWindowActorChild {
     receiveMessage(msg: any): Promise<any>;
     handleEvent(event: any): void;
     checkScriptsAllowed(): any;

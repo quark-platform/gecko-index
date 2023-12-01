@@ -7,7 +7,7 @@ export const windowManager: WindowManager;
 declare class WindowManager {
     _chromeWindowHandles: WeakMap<object, any>;
     get chromeWindowHandles(): string[];
-    get windows(): any;
+    get windows(): nsISimpleEnumeratorType;
     /**
      * Find a specific window matching the provided window handle.
      *

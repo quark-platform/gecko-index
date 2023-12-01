@@ -7,7 +7,7 @@
  * The AboutTranslationsChild is responsible for coordinating what privileged APIs
  * are exposed to the un-privileged scope of the about:translations page.
  */
-export class AboutTranslationsChild {
+export class AboutTranslationsChild extends JSWindowActorChild {
     /** @type {LanguageIdEngine | null} */
     languageIdEngine: LanguageIdEngine | null;
     /** @type {TranslationsEngine | null} */

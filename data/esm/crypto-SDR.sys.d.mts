@@ -1,7 +1,7 @@
 export function LoginManagerCrypto_SDR(): void;
 export class LoginManagerCrypto_SDR {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     __decoderRing: null;
     get _decoderRing(): any;
     __utfConverter: null;
@@ -24,6 +24,6 @@ export class LoginManagerCrypto_SDR {
     decryptMany(cipherTexts: any): Promise<any>;
     get uiBusy(): boolean;
     get isLoggedIn(): any;
-    get defaultEncType(): any;
+    get defaultEncType(): 1;
     _notifyObservers(topic: any): void;
 }

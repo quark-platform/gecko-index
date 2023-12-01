@@ -3,7 +3,7 @@
  * MessageHandlerFrame actor is used by RootTransport to communicate between
  * ROOT MessageHandlers and WINDOW_GLOBAL MessageHandlers.
  */
-export class MessageHandlerFrameParent {
+export class MessageHandlerFrameParent extends JSWindowActorParent {
     receiveMessage(message: any): Promise<any>;
     /**
      * Send a command to the corresponding MessageHandlerFrameChild actor via a

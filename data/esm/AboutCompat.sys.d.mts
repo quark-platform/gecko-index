@@ -1,7 +1,7 @@
 export function AboutCompat(): void;
 export class AboutCompat {
     chromeURL: any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     getURIFlags(): number;
-    newChannel(aURI: any, aLoadInfo: any): any;
+    newChannel(aURI: any, aLoadInfo: any): nsIChannelType;
 }

@@ -1,4 +1,4 @@
-export class SpecialPowersParent {
+export class SpecialPowersParent extends JSWindowActorParent {
     static registerActor(): void;
     static unregisterActor(): void;
     _messageManager: any;
@@ -15,7 +15,7 @@ export class SpecialPowersParent {
         observe(aSubject: any, aTopic: any, aData: any): void;
     };
     _basePrefs: Map<any, any>;
-    _crashDumpDir: any;
+    _crashDumpDir: void;
     _processCrashObserversRegistered: boolean;
     _chromeScriptListeners: any[];
     _extensions: Map<any, any>;
@@ -23,16 +23,16 @@ export class SpecialPowersParent {
     init(): void;
     uninit(): void;
     observe(aSubject: any, aTopic: any, aData: any): void;
-    _getCrashDumpDir(): any;
-    _getPendingCrashDumpDir(): any;
-    _pendingCrashDumpDir: any;
+    _getCrashDumpDir(): void;
+    _getPendingCrashDumpDir(): void;
+    _pendingCrashDumpDir: void;
     _deleteCrashDumpFiles(aFilenames: any): boolean;
     _findCrashDumpFiles(aToIgnore: any): string[];
     _deletePendingCrashDumpFiles(): boolean;
     _addProcessCrashObservers(): void;
     _removeProcessCrashObservers(): void;
     onRegister(): void;
-    _getURI(url: any): any;
+    _getURI(url: any): nsIURIType;
     _notifyCategoryAndObservers(subject: any, topic: any, data: any): void;
     _applyPrefs(actions: any): boolean;
     /**
@@ -63,8 +63,8 @@ export class SpecialPowersParent {
     flushPrefEnv(): {
         requiresRefresh: boolean;
     };
-    _setPref(name: any, type: any, value: any, iid: any): any;
-    _getPref(name: any, type: any, defaultValue: any, iid: any): any;
+    _setPref(name: any, type: any, value: any, iid: any): void;
+    _getPref(name: any, type: any, defaultValue: any, iid: any): string | number | boolean | void;
     getBaselinePrefs(): void;
     _comparePrefs(base: any, target: any, ignorePrefs: any, partialMatches: any): any[];
     comparePrefsToBaseline(ignorePrefs: any): any[];

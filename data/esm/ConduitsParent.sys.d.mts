@@ -1,8 +1,9 @@
+/// <reference types="gecko-types" />
 /**
  * Parent side conduit, registers as a global listeners for certain messages,
  * and can target specific child conduits when sending.
  */
-export class BroadcastConduit {
+export class BroadcastConduit extends BaseConduit {
     /**
      * @param {object} subject
      * @param {ConduitAddress} address
@@ -41,7 +42,7 @@ export class BroadcastConduit {
 /**
  * Implements the parent side of the Conduits actor.
  */
-export class ConduitsParent {
+export class ConduitsParent extends JSWindowActorParent {
     batchData: any[];
     batchPromise: Promise<any>;
     batchResolve: (value: any) => void;
@@ -106,3 +107,4 @@ export type ConduitAddress = {
  * Kinds of broadcast targeting filters.
  */
 export type BroadcastKind = "messenger" | "port" | "tab";
+import { BaseConduit } from "resource://gre/modules/ConduitsChild.sys.mjs";

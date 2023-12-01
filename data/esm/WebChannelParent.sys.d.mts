@@ -1,4 +1,4 @@
-export class WebChannelParent {
+export class WebChannelParent extends JSWindowActorParent {
     receiveMessage(msg: any): void;
     /**
      *

@@ -11,7 +11,7 @@ export function getTelemetryController(): Readonly<{
      * Send a notification.
      */
     observe(aSubject: any, aTopic: any, aData: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }>;
 export const TelemetryController: Readonly<{
     /**
@@ -26,5 +26,5 @@ export const TelemetryController: Readonly<{
      * Send a notification.
      */
     observe(aSubject: any, aTopic: any, aData: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }>;

@@ -1,4 +1,4 @@
-export class PopupBlockingChild {
+export class PopupBlockingChild extends JSWindowActorChild {
     weakDocStates: WeakMap<object, any>;
     /**
      * Returns the state for the current document referred to via

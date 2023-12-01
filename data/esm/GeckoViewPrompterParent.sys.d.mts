@@ -1,4 +1,5 @@
-export class GeckoViewPrompterParent {
+/// <reference types="gecko-types" />
+export class GeckoViewPrompterParent extends GeckoViewActorParent {
     _prompts: Map<any, any>;
     get rootActor(): any;
     registerPrompt(promptId: any, promptType: any, actor: any): Map<any, any>;
@@ -19,3 +20,4 @@ export class GeckoViewPrompterParent {
      */
     receiveMessage({ name, data }: string): Promise<any>;
 }
+import { GeckoViewActorParent } from "resource://gre/modules/GeckoViewActorParent.sys.mjs";

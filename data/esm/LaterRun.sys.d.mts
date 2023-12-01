@@ -2,7 +2,7 @@ export namespace LaterRun {
     const ENABLE_REASON_NEW_PROFILE: number;
     const ENABLE_REASON_UPDATE_APPLIED: number;
     function init(reason: any): void;
-    const enabled: any;
+    const enabled: boolean;
     function enable(reason: any): void;
     const hoursSinceInstall: number;
     const hoursSinceUpdate: number;
@@ -24,7 +24,7 @@ declare class Page {
     minimumSessionCount: any;
     requireBoth: any;
     url: any;
-    get hasRun(): any;
+    get hasRun(): boolean;
     applies(sessionInfo: any): boolean;
 }
 export {};

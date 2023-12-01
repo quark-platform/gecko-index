@@ -10,9 +10,9 @@ export class LoginAutoCompleteResult {
         telemetryEventData: any;
     });
     searchString: any;
-    searchResult: any;
+    searchResult: 3;
     defaultIndex: number;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     /**
      * Accessed via .wrappedJSObject
      * @private
@@ -32,8 +32,8 @@ export class LoginAutoCompleteResult {
     #private;
 }
 export class LoginAutoComplete {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     /**
      * Yuck. This is called directly by satchel:
      * nsFormFillController::StartSearch()

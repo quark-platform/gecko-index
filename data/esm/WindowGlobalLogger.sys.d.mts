@@ -12,5 +12,5 @@ export namespace WindowGlobalLogger {
      * @param {String} message
      *        A custom message that will be displayed at the beginning of the log.
      */
-    function logWindowGlobal(windowGlobal: any, message: string): void;
+    function logWindowGlobal(windowGlobal: WindowGlobalChild | WindowGlobalParent, message: string): void;
 }

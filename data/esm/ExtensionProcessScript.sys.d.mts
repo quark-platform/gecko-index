@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 export namespace ExtensionProcessScript {
     export { extensions };
     export function initExtension(extension: any): any;
@@ -20,5 +21,6 @@ export namespace ExtensionAPIRequestHandler {
         request: any;
     }): any;
 }
-declare var extensions: any;
+declare var extensions: ExtensionUtils.DefaultWeakMap;
+import { ExtensionUtils } from "resource://gre/modules/ExtensionUtils.sys.mjs";
 export {};

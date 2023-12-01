@@ -725,7 +725,7 @@ export namespace AddonManager {
         }
     }
     export const isReady: boolean;
-    export const readyPromise: any;
+    export const readyPromise: Promise<any>;
     /** @constructor */
     export function init(): void;
     export function stateToString(state: any): any;

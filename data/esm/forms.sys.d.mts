@@ -46,7 +46,7 @@ declare class FormStore {
 declare function FormTracker(name: any, engine: any): void;
 declare class FormTracker {
     constructor(name: any, engine: any);
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     onStart(): void;
     onStop(): void;
     observe(subject: any, topic: any, data: any): Promise<void>;

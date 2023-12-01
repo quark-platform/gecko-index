@@ -1,3 +1,3 @@
-export class BrowserTestUtilsParent {
+export class BrowserTestUtilsParent extends JSWindowActorParent {
     receiveMessage(aMessage: any): void;
 }

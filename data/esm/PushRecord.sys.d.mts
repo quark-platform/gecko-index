@@ -51,7 +51,7 @@ export class PushRecord {
     quotaChanged(): Promise<boolean>;
     quotaApplies(): boolean;
     isExpired(): boolean;
-    matchesOriginAttributes(pattern: any): any;
+    matchesOriginAttributes(pattern: any): boolean;
     hasAuthenticationSecret(): boolean;
     matchesAppServerKey(key: any): any;
     toSubscription(): {

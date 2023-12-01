@@ -1,7 +1,7 @@
 export class ContextObserver {
     constructor(chromeEventHandler: any);
     chromeEventHandler: any;
-    _fissionEnabled: any;
+    _fissionEnabled: boolean;
     destructor(): void;
     handleEvent({ type, target, persisted }: {
         type: any;

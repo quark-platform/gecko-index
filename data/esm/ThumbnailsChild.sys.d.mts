@@ -1,4 +1,4 @@
-export class ThumbnailsChild {
+export class ThumbnailsChild extends JSWindowActorChild {
     receiveMessage(message: any): Promise<any> | {
         width: any;
         height: any;

@@ -3,7 +3,7 @@ export class Narrator {
     constructor(win: any, languagePromise: any);
     _winRef: any;
     _languagePromise: any;
-    _inTest: any;
+    _inTest: boolean;
     _speechOptions: {};
     _startTime: number;
     _stopped: boolean;

@@ -64,7 +64,7 @@ export class WebDriverBiDi {
      * Starts the WebDriver BiDi support.
      */
     start(): Promise<void>;
-    _bidiServerPath: any;
+    _bidiServerPath: string;
     /**
      * Stops the WebDriver BiDi support.
      */

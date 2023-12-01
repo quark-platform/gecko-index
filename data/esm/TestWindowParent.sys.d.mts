@@ -1,4 +1,4 @@
-export class TestWindowParent {
+export class TestWindowParent extends JSWindowActorParent {
     wrappedJSObject: this;
     sawActorCreated: boolean;
     actorCreated(): void;

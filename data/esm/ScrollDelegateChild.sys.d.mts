@@ -1,3 +1,5 @@
-export class ScrollDelegateChild {
+/// <reference types="gecko-types" />
+export class ScrollDelegateChild extends GeckoViewActorChild {
     handleEvent(aEvent: any): void;
 }
+import { GeckoViewActorChild } from "resource://gre/modules/GeckoViewActorChild.sys.mjs";

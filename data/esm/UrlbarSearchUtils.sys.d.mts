@@ -4,7 +4,7 @@ export const UrlbarSearchUtils: SearchUtils;
  */
 declare class SearchUtils {
     _refreshEnginesByAliasPromise: Promise<void>;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     /**
      * Initializes the instance and also Services.search.
      */

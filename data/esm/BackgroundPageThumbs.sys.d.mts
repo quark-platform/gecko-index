@@ -48,7 +48,7 @@ export namespace BackgroundPageThumbs {
      * call of _ensureBrowser().
      */
     export function renewThumbnailBrowser(): void;
-    export const useFissionBrowser: any;
+    export const useFissionBrowser: boolean;
     /**
      * Ensures that initialization of the thumbnail browser's parent window has
      * begun.

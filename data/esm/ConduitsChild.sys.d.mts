@@ -45,7 +45,7 @@ export class BaseConduit {
 /**
  * Implements the child side of the Conduits actor, manages conduit lifetimes.
  */
-export class ConduitsChild {
+export class ConduitsChild extends JSWindowActorChild {
     conduits: Map<any, any>;
     /**
      * Public entry point a child-side subject uses to open a conduit.

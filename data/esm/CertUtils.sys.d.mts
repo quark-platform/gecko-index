@@ -28,7 +28,7 @@ declare class BadCertHandler {
     allowNonBuiltInCerts: any;
     asyncOnChannelRedirect(oldChannel: any, newChannel: any, flags: any, callback: any): void;
     getInterface(iid: any): any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 /**
  * Checks if the connection must be HTTPS and if so, only allows built-in

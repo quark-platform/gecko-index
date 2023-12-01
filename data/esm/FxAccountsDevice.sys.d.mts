@@ -61,5 +61,5 @@ export class FxAccountsDevice {
     _recoverFromDeviceSessionConflict(currentState: any, error: any, sessionToken: any): Promise<any>;
     _logErrorAndResetDeviceRegistrationVersion(currentState: any, error: any): Promise<void>;
     observe(subject: any, topic: any, data: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }

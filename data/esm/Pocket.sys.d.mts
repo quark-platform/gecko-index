@@ -1,5 +1,5 @@
 export namespace Pocket {
-    const site: any;
+    const site: string;
     const listURL: string;
     function _initPanelView(window: any): void;
     let _urlToSave: any;

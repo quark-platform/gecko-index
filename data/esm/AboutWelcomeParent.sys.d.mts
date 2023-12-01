@@ -1,4 +1,4 @@
-export class AboutWelcomeParent {
+export class AboutWelcomeParent extends JSWindowActorParent {
     static doesAppNeedPin(): any;
     static isDefaultBrowser(): any;
     startAboutWelcomeObserver(): void;
@@ -25,7 +25,7 @@ export class AboutWelcomeParent {
 export class AboutWelcomeShoppingParent extends AboutWelcomeParent {
 }
 declare class AboutWelcomeObserver {
-    win: any;
+    win: mozIDOMWindowProxy;
     terminateReason: string;
     onWindowClose: () => void;
     onTabClose: () => void;

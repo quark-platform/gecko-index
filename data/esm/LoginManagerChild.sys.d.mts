@@ -24,7 +24,7 @@ export namespace AUTOFILL_RESULT {
 export class LoginFormState {
     /** Remove login field highlight when its value is cleared or overwritten.
      */
-    static "__#443920@#removeFillFieldHighlight"(event: any): void;
+    static "__#1074130@#removeFillFieldHighlight"(event: any): void;
     /**
      * Highlight login fields on autocomplete or autofill on page load.
      * @param {Node} element that needs highlighting.
@@ -210,7 +210,7 @@ export class LoginFormState {
  * NOTE: there are still bits of code here that needs to be moved to
  * LoginFormState.
  */
-export class LoginManagerChild {
+export class LoginManagerChild extends JSWindowActorChild {
     static forWindow(window: any): any;
     receiveMessage(msg: any): boolean;
     repopulateAutocompletePopup(): void;
@@ -228,7 +228,12 @@ export class LoginManagerChild {
     _getLoginDataFromParent(form: HTMLFormElement, options: {
         guid: boolean;
         showPrimaryPassword: boolean;
-    }): any;
+    }): Promise<{
+        form: HTMLFormElement;
+        importable: any;
+        loginsFound: any;
+        recipes: any;
+    }>;
     setupProgressListener(window: any): void;
     onDocumentVisibilityChange(event: any): void;
     _deferHandlingEventUntilDocumentVisible(event: any, document: any, fn: any): void;

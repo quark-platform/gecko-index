@@ -1,4 +1,4 @@
-export class FissionTestHelperParent {
+export class FissionTestHelperParent extends JSWindowActorParent {
     _testCompletePromise: Promise<any>;
     _testCompletePromiseResolver: (value: any) => void;
     embedderWindow(): any;

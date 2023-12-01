@@ -1,6 +1,8 @@
+/// <reference types="gecko-types" />
 export const FirefoxRelay: RelayFeature;
-declare class RelayFeature {
-    get learnMoreUrl(): any;
+declare class RelayFeature extends OptInFeature {
+    constructor();
+    get learnMoreUrl(): string;
     updateConfig(): void;
     autocompleteItemsAsync({ origin, scenarioName, hasInput }: {
         origin: any;
@@ -10,4 +12,5 @@ declare class RelayFeature {
     generateUsername(browser: any, origin: any): Promise<any>;
     offerRelayIntegration(browser: any, origin: any): Promise<any>;
 }
+import { OptInFeature } from "resource://gre/modules/LoginHelper.sys.mjs";
 export {};

@@ -1,5 +1,5 @@
 export const TabsSetupFlowManager: {
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     setupState: Map<any, any>;
     _currentSetupStateName: string;
     syncIsConnected: any;

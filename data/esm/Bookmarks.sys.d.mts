@@ -10,9 +10,9 @@ export const Bookmarks: Readonly<{
      * Sync status constants, stored for each item.
      */
     SYNC_STATUS: {
-        UNKNOWN: any;
-        NEW: any;
-        NORMAL: any;
+        UNKNOWN: 0;
+        NEW: 1;
+        NORMAL: 2;
     };
     /**
      * Default index used to append a bookmark-item at the end of a folder.
@@ -29,12 +29,12 @@ export const Bookmarks: Readonly<{
      * forwarded to observers. See nsINavBookmarksService.idl for an explanation.
      */
     SOURCES: {
-        DEFAULT: any;
-        SYNC: any;
-        IMPORT: any;
-        SYNC_REPARENT_REMOVED_FOLDER_CHILDREN: any;
-        RESTORE: any;
-        RESTORE_ON_STARTUP: any;
+        DEFAULT: 0;
+        SYNC: 1;
+        IMPORT: 2;
+        SYNC_REPARENT_REMOVED_FOLDER_CHILDREN: 4;
+        RESTORE: 5;
+        RESTORE_ON_STARTUP: 6;
     };
     /**
      * Special GUIDs associated with bookmark roots.

@@ -157,7 +157,7 @@ export namespace PushService {
     export function notificationForOriginShown(origin: any): void;
     export function notificationForOriginClosed(origin: any): void;
     export function reportDeliveryError(messageID: any, reason: any): void;
-    export function _notifyApp(aPushRecord: any, messageID: any, message: any): any;
+    export function _notifyApp(aPushRecord: any, messageID: any, message: any): 0 | 2;
     export function getByKeyID(aKeyID: any): any;
     export function getAllUnexpired(): any;
     export function _sendRequest(action: any, ...params: any[]): any;

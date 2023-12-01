@@ -1,7 +1,7 @@
-export class MiddleMousePasteHandlerParent {
+export class MiddleMousePasteHandlerParent extends JSWindowActorParent {
     receiveMessage(message: any): void;
 }
-export class ClickHandlerParent {
+export class ClickHandlerParent extends JSWindowActorParent {
     static addContentClickListener(listener: any): void;
     static removeContentClickListener(listener: any): void;
     receiveMessage(message: any): void;

@@ -1,4 +1,4 @@
-export class UITourChild {
+export class UITourChild extends JSWindowActorChild {
     handleEvent(event: any): void;
     isTestingOrigin(aURI: any): boolean;
     isSafeScheme(aURI: any): boolean;

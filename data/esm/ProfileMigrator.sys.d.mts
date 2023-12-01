@@ -1,8 +1,8 @@
 export function ProfileMigrator(): void;
 export class ProfileMigrator {
     migrate: any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     classDescription: string;
     contractID: string;
-    classID: any;
+    classID: unknown;
 }

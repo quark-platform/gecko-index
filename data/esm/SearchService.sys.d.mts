@@ -12,7 +12,7 @@ export class SearchService implements nsISearchService {
      */
     _engines: Map<string, object> | null;
     _settings: any;
-    classID: any;
+    classID: unknown;
     set defaultEngine(newEngine: any);
     get defaultEngine(): any;
     set defaultPrivateEngine(newEngine: any);
@@ -257,7 +257,7 @@ export class SearchService implements nsISearchService {
         initEngine?: any;
     }): Promise<any>;
     _removeObservers(): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     observe(engine: any, topic: any, verb: any): void;
     /**
      * Create an engine object from the search configuration details.
@@ -299,7 +299,7 @@ declare class ParseSubmissionResult implements nsIParseSubmissionResult {
     get engine(): any;
     get terms(): string;
     get termsParameterName(): string;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     #private;
 }
 export {};

@@ -9,14 +9,14 @@ export class PingCentre {
     static _sendStandalonePing(endpoint: any, payload: any): any;
     constructor(options: any);
     _topic: any;
-    _prefs: any;
-    _enabled: any;
+    _prefs: nsIPrefBranchType;
+    _enabled: boolean;
     _onTelemetryPrefChange(aSubject: any, aTopic: any, prefKey: any): void;
-    _fhrEnabled: any;
+    _fhrEnabled: boolean;
     _onFhrPrefChange(aSubject: any, aTopic: any, prefKey: any): void;
-    logging: any;
+    logging: boolean;
     _onLoggingPrefChange(aSubject: any, aTopic: any, prefKey: any): void;
-    get enabled(): any;
+    get enabled(): boolean;
     _createExperimentsPayload(): {};
     _createStructuredIngestionPing(data: any): any;
     /**

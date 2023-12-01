@@ -5,7 +5,7 @@ export namespace ExtensionProcessCrashObserver {
     let _processSpawningDisabled: boolean;
     let currentProcessChildID: any;
     let lastCrashedProcessChildID: any;
-    let QueryInterface: any;
+    let QueryInterface: MozQueryInterface;
     let lastCrashTimestamps: any[];
     function init(): void;
     function uninit(): void;
@@ -350,7 +350,7 @@ export class Extension extends ExtensionData {
     get state(): string;
     userContextIsolation: any;
     sharedDataKeys: Set<any>;
-    instanceId: any;
+    instanceId: number;
     MESSAGE_EMIT_EVENT: string;
     cleanupFile: any;
     dontSaveStartupData: boolean;
@@ -366,7 +366,7 @@ export class Extension extends ExtensionData {
     version: any;
     baseURL: string;
     baseURI: any;
-    principal: any;
+    principal: nsIPrincipalType;
     ignoreQuarantine: any;
     views: Set<any>;
     _backgroundPageFrameLoader: any;
@@ -390,7 +390,7 @@ export class Extension extends ExtensionData {
         data: any;
     }): void;
     testMessage(...args: any[]): void;
-    createPrincipal(uri?: any, originAttributes?: {}): any;
+    createPrincipal(uri?: any, originAttributes?: {}): nsIPrincipalType;
     isExtensionURL(url: any): boolean;
     checkLoadURI(uri: any, options?: {}): any;
     checkLoadURL(url: any, options?: {}): any;
@@ -416,7 +416,7 @@ export class Extension extends ExtensionData {
         type: any;
         manifestVersion: any;
         extensionPageCSP: any;
-        instanceId: any;
+        instanceId: number;
         resourceURL: any;
         contentScripts: any;
         webAccessibleResources: any;
@@ -513,7 +513,7 @@ export class SitePermission extends ExtensionData {
     hasShutdown: boolean;
     sitePermissions: any;
     siteOrigin: any;
-    getSupportedPrincipals(): any[];
+    getSupportedPrincipals(): nsIPrincipalType[];
     startup(reason: any): Promise<void>;
     shutdown(reason: any): Promise<void>;
 }

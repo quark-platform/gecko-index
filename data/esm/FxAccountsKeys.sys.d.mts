@@ -153,7 +153,7 @@ export class FxAccountsKeys {
      */
     _deriveScopedKey(uid: any, kBbytes: any, scope: any, scopedKeyMetadata: any): Promise<{
         kid: string;
-        k: any;
+        k: string;
         kty: string;
     }>;
     /**

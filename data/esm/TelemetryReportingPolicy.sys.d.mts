@@ -1,7 +1,7 @@
 export namespace Policy {
     function now(): Date;
-    function setShowInfobarTimeout(callback: any, delayMs: any): any;
-    function clearShowInfobarTimeout(id: any): any;
+    function setShowInfobarTimeout(callback: any, delayMs: any): number;
+    function clearShowInfobarTimeout(id: any): void;
     function fakeSessionRestoreNotification(): void;
 }
 export namespace TelemetryReportingPolicy {

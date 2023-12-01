@@ -1,4 +1,4 @@
-export class ClipboardReadPasteParent {
+export class ClipboardReadPasteParent extends JSWindowActorParent {
     _menupopup: any;
     _menuitem: any;
     _delayTimer: any;

@@ -1,4 +1,4 @@
-export class FissionTestHelperChild {
+export class FissionTestHelperChild extends JSWindowActorChild {
     _msgCounter: number;
     _oopifResponsePromiseResolvers: any[];
     cw(): any;

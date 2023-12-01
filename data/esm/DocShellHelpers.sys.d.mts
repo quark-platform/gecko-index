@@ -1,4 +1,4 @@
-export class DocShellHelpersParent {
+export class DocShellHelpersParent extends JSWindowActorParent {
     static eventListener: any;
     static eventsToListenFor: any;
     static observers: any;
@@ -7,7 +7,7 @@ export class DocShellHelpersParent {
         data: any;
     }): void;
 }
-export class DocShellHelpersChild {
+export class DocShellHelpersChild extends JSWindowActorChild {
     receiveMessage({ name, data }: {
         name: any;
         data: any;

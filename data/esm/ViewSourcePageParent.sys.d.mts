@@ -1,7 +1,7 @@
 /**
  * ViewSourcePageParent manages the view source <browser> from the chrome side.
  */
-export class ViewSourcePageParent {
+export class ViewSourcePageParent extends JSWindowActorParent {
     /**
      * Holds the value of the last line found via the "Go to line"
      * command, to pre-populate the prompt the next time it is
@@ -16,8 +16,8 @@ export class ViewSourcePageParent {
     /**
      * A getter for the view source string bundle.
      */
-    get bundle(): any;
-    _bundle: any;
+    get bundle(): nsIStringBundleType;
+    _bundle: nsIStringBundleType;
     /**
      * Opens the "Go to line" prompt for a user to hop to a particular line
      * of the source code they're viewing. This will keep prompting until the

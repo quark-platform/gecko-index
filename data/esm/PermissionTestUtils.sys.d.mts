@@ -8,7 +8,7 @@ export namespace PermissionTestUtils {
      * @param {Ci.nsIPrincipal|Ci.nsIURI|string} subject
      * @param {*} args
      */
-    function add(subject: any, ...args: any): any;
+    function add(subject: any, ...args: any): void;
     /**
      * Get all custom permissions for a given subject.
      * Subject can be a principal, uri or origin string.
@@ -28,7 +28,7 @@ export namespace PermissionTestUtils {
      * @param {Ci.nsIPrincipal|Ci.nsIURI|string} subject
      * @param {*} args
      */
-    function remove(subject: any, ...args: any): any;
+    function remove(subject: any, ...args: any): void;
     /**
      * Test whether a website has permission to perform the given action.
      * Subject can be a principal, uri or origin string.
@@ -38,7 +38,7 @@ export namespace PermissionTestUtils {
      * @param {Ci.nsIPrincipal|Ci.nsIURI|string} subject
      * @param {*} args
      */
-    function testPermission(subject: any, ...args: any): any;
+    function testPermission(subject: any, ...args: any): uint32_t;
     /**
      * Test whether a website has permission to perform the given action.
      * Subject can be a principal, uri or origin string.
@@ -48,7 +48,7 @@ export namespace PermissionTestUtils {
      * @param {Ci.nsIPrincipal|Ci.nsIURI|string} subject
      * @param {*} args
      */
-    function testExactPermission(subject: any, ...args: any): any;
+    function testExactPermission(subject: any, ...args: any): uint32_t;
     /**
      * Get the permission object associated with the given subject and action.
      * Subject can be a principal, uri or origin string.
@@ -58,5 +58,5 @@ export namespace PermissionTestUtils {
      * @param {Ci.nsIPrincipal|Ci.nsIURI|string} subject
      * @param {*} args
      */
-    function getPermissionObject(subject: any, type: any, exactHost?: boolean): any;
+    function getPermissionObject(subject: any, type: any, exactHost?: boolean): nsIPermissionType;
 }

@@ -4,7 +4,7 @@ export class WeaveCrypto {
     debug: boolean;
     observer: {
         _self: null;
-        QueryInterface: any;
+        QueryInterface: MozQueryInterface;
         observe(subject: any, topic: any, data: any): void;
     };
     init(): void;

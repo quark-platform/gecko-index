@@ -2,8 +2,8 @@
  * See nsIAutoCompleteSimpleSearch
  */
 export class AutoCompleteSimpleSearch {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     _result: any;
     /**
      * See nsIAutoCompleteSimpleSearch

@@ -1,4 +1,6 @@
-export class ExtensionShortcutKeyMap {
+/// <reference types="gecko-types" />
+export class ExtensionShortcutKeyMap extends ExtensionUtils.DefaultMap {
+    constructor();
     buildForAddonIds(addonIds: any): Promise<void>;
     recordShortcut(shortcutString: any, addonName: any, commandName: any): void;
     removeShortcut(shortcutString: any, addonName: any, commandName: any): void;
@@ -97,3 +99,4 @@ export class ExtensionShortcuts {
      */
     buildKeyFromShortcut(doc: Document, name: string, shortcut: string): Document;
 }
+import { ExtensionUtils } from "resource://gre/modules/ExtensionUtils.sys.mjs";

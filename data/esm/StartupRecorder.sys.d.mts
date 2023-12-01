@@ -21,7 +21,7 @@ export class StartupRecorder {
     };
     done: Promise<any>;
     _resolve: (value: any) => void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     record(name: any): void;
     observe(subject: any, topic: any, data: any): void;
 }

@@ -55,5 +55,5 @@ export const BookmarkHTMLUtils: Readonly<{
      * @rejects JavaScript exception.
      */
     exportToFile(aFilePath: any): Promise<any>;
-    readonly defaultPath: any;
+    readonly defaultPath: string;
 }>;

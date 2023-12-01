@@ -335,44 +335,44 @@ export const History: Readonly<{
         /**
          * The user followed a link and got a new toplevel window.
          */
-        LINK: any;
+        LINK: 1;
         /**
          * The user typed the page's URL in the URL bar or selected it from
          * URL bar autocomplete results, clicked on it from a history query
          * (from the History sidebar, History menu, or history query in the
          * personal toolbar or Places organizer.
          */
-        TYPED: any;
+        TYPED: 2;
         /**
          * The user followed a bookmark to get to the page.
          */
-        BOOKMARK: any;
+        BOOKMARK: 3;
         /**
          * Some inner content is loaded. This is true of all images on a
          * page, and the contents of the iframe. It is also true of any
          * content in a frame if the user did not explicitly follow a link
          * to get there.
          */
-        EMBED: any;
+        EMBED: 4;
         /**
          * Set when the transition was a permanent redirect.
          */
-        REDIRECT_PERMANENT: any;
+        REDIRECT_PERMANENT: 5;
         /**
          * Set when the transition was a temporary redirect.
          */
-        REDIRECT_TEMPORARY: any;
+        REDIRECT_TEMPORARY: 6;
         /**
          * Set when the transition is a download.
          */
-        DOWNLOAD: any;
+        DOWNLOAD: 7;
         /**
          * The user followed a link and got a visit in a frame.
          */
-        FRAMED_LINK: any;
+        FRAMED_LINK: 8;
         /**
          * The user reloaded a page.
          */
-        RELOAD: any;
+        RELOAD: 9;
     };
 }>;

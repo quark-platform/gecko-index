@@ -1,4 +1,4 @@
-export class PageStyleChild {
+export class PageStyleChild extends JSWindowActorChild {
     actorCreated(): void;
     handleEvent(event: any): void;
     receiveMessage(msg: any): void;

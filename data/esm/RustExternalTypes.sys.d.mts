@@ -1,4 +1,4 @@
-export function gradient(value: any): any;
+export function gradient(value: any): Promise<any>;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };
 }

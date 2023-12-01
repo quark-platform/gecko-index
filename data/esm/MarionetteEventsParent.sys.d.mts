@@ -11,6 +11,6 @@ export function disableEventsActor(): void;
 export namespace EventDispatcher {
     function init(): void;
 }
-export class MarionetteEventsParent {
+export class MarionetteEventsParent extends JSWindowActorParent {
     receiveMessage(msg: any): Promise<undefined>;
 }

@@ -1,4 +1,4 @@
-export class RemotePageChild {
+export class RemotePageChild extends JSWindowActorChild {
     actorCreated(): void;
     listeners: Map<any, any>;
     exportBaseFunctions(): void;
@@ -43,10 +43,10 @@ export class RemotePageChild {
      * Removes a listener for messages.
      */
     RPMRemoveMessageListener(aName: any, aCallback: any): void;
-    RPMGetIntPref(aPref: any, defaultValue: any): any;
-    RPMGetStringPref(aPref: any): any;
-    RPMGetBoolPref(aPref: any, defaultValue: any): any;
+    RPMGetIntPref(aPref: any, defaultValue: any): number;
+    RPMGetStringPref(aPref: any): string;
+    RPMGetBoolPref(aPref: any, defaultValue: any): boolean;
     RPMSetPref(aPref: any, aVal: any): any;
-    RPMGetFormatURLPref(aFormatURL: any): any;
+    RPMGetFormatURLPref(aFormatURL: any): string;
     RPMIsWindowPrivate(): any;
 }

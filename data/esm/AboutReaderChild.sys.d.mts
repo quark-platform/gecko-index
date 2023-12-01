@@ -1,11 +1,11 @@
-export class AboutReaderChild {
+export class AboutReaderChild extends JSWindowActorChild {
     _reader: any;
     _articlePromise: any;
     _isLeavingReaderableReaderMode: boolean;
     didDestroy(): void;
     readerModeHidden(): void;
     receiveMessage(message: any): Promise<void>;
-    get isAboutReader(): any;
+    get isAboutReader(): boolean;
     get isReaderableAboutReader(): boolean;
     handleEvent(aEvent: any): void;
     /**

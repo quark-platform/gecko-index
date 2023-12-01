@@ -1,10 +1,11 @@
+/// <reference types="gecko-types" />
 export namespace PushServiceHttp2 {
     let _mainPushService: any;
     let _serverURI: any;
     let _conns: {};
     let _started: boolean;
     let _listenersPendingRetry: Set<any>;
-    function newPushDB(): any;
+    function newPushDB(): PushDB;
     function hasmainPushService(): boolean;
     function connect(broadcastListeners: any): Promise<void>;
     function sendSubscribeBroadcast(serviceId: any, version: any): Promise<void>;
@@ -49,3 +50,4 @@ export namespace PushServiceHttp2 {
     function removeListenerPendingRetry(aListener: any): void;
     function _pushChannelOnStop(aUri: any, aAckUri: any, aHeaders: any, aMessage: any): void;
 }
+import { PushDB } from "resource://gre/modules/PushDB.sys.mjs";

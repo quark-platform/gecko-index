@@ -1,4 +1,4 @@
-export function translate(position: any, direction: any): any;
+export function translate(position: any, direction: any): Promise<any>;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };
 }
@@ -32,9 +32,9 @@ export class Sprite {
      */
     static newRelativeTo(reference: any, direction: any): Promise<Sprite>;
     constructor(opts: any);
-    getPosition(): any;
-    moveTo(position: any): any;
-    moveBy(direction: any): any;
+    getPosition(): Promise<any>;
+    moveTo(position: any): Promise<any>;
+    moveBy(direction: any): Promise<any>;
     [uniffiObjectPtr]: any;
 }
 export class FfiConverterTypeSprite extends FfiConverter {

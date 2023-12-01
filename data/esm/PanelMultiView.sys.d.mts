@@ -5,8 +5,8 @@ export const PanelMultiView: {
     new (node: any): {
         readonly _panel: any;
         _transitioning: any;
-        readonly _screenManager: any;
-        __screenManager: any;
+        readonly _screenManager: unknown;
+        __screenManager: unknown;
         _openPopupPromise: Promise<boolean>;
         connect(): void;
         connected: boolean;

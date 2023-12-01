@@ -1,4 +1,4 @@
-export class DevToolsFrameParent {
+export class DevToolsFrameParent extends JSWindowActorParent {
     _connections: Map<any, any>;
     _onConnectionClosed(status: any, connectionPrefix: any): void;
     /**

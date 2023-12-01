@@ -90,7 +90,7 @@ declare class Search {
     _trimmedOriginalSearchString: any;
     _searchString: any;
     _strippedPrefix: any;
-    _matchBehavior: any;
+    _matchBehavior: 2;
     _behavior: any;
     _inPrivateWindow: any;
     _prohibitAutoFill: boolean;
@@ -99,7 +99,7 @@ declare class Search {
     _currentPage: any;
     _searchModeEngine: any;
     _searchMode: any;
-    _filterOnHost: any;
+    _filterOnHost: string;
     _leadingRestrictionToken: any;
     _searchTokens: any;
     _heuristicToken: any;

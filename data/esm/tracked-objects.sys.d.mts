@@ -8,7 +8,7 @@ export function track(obj: any): void;
  *
  * NodeId's are used by spidermonkey memory API to designates JS objects in head snapshots.
  */
-export function getAllNodeIds(): any[];
+export function getAllNodeIds(): NodeId[];
 /**
  * Used by tests to clear all tracked objects
  */

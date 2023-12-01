@@ -1,7 +1,7 @@
 export function Prompter(): void;
 export class Prompter {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     pickPrompter(options: any): ModalPrompter;
     getPrompt(domWin: any, iid: any): any;
     /**
@@ -481,8 +481,8 @@ export class Prompter {
 }
 export function AuthPromptAdapterFactory(): void;
 export class AuthPromptAdapterFactory {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     createAdapter(oldPrompter: any): AuthPromptAdapter;
 }
 declare class ModalPrompter {
@@ -496,7 +496,7 @@ declare class ModalPrompter {
     set modalType(modalType: any);
     get modalType(): any;
     async: boolean;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _modalType: any;
     /**
      * Synchronous wrapper around {@link ModalPrompter#openPrompt}
@@ -554,7 +554,7 @@ declare function AuthPromptAdapter(oldPrompter: any): void;
 declare class AuthPromptAdapter {
     constructor(oldPrompter: any);
     oldPrompter: null;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     promptAuth(channel: any, level: any, authInfo: any, checkLabel: any, checkValue: any): any;
     asyncPromptAuth(channel: any, callback: any, context: any, level: any, authInfo: any, checkLabel: any, checkValue: any): never;
 }

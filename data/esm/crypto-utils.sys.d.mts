@@ -24,4 +24,4 @@ export function computeSha1HashAsString(input: string): string;
  * @returns {string}
  *          The hex representation of a SHA256 hash.
  */
-export function getHashStringForCrypto(aCrypto: any): string;
+export function getHashStringForCrypto(aCrypto: new (...params: never) => unknown): string;

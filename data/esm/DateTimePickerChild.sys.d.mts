@@ -2,7 +2,7 @@
  * DateTimePickerChild is the communication channel between the input box
  * (content) for date/time input types and its picker (chrome).
  */
-export class DateTimePickerChild {
+export class DateTimePickerChild extends JSWindowActorChild {
     _inputElement: any;
     /**
      * Cleanup function called when picker is closed.
@@ -26,7 +26,7 @@ export class DateTimePickerChild {
      * relative to the left/top of the content area.
      */
     getBoundingContentRect(aElement: any): any;
-    getTimePickerPref(): any;
+    getTimePickerPref(): boolean;
     /**
      * nsIMessageListener.
      */

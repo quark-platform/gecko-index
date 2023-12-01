@@ -11,5 +11,5 @@ export class NotificationStorage {
     receiveMessage(message: any): void;
     _fetchFromDB(origin: any, tag: any, callback: any): void;
     _returnNotifications(notifications: any, origin: any, tag: any, callback: any): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }

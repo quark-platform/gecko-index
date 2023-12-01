@@ -12,12 +12,12 @@
  */
 export class TranslationsEngine {
     /** @type {null | { languagePairKey: string, enginePromise: Promise<TranslationsEngine> }} */
-    static "__#657494@#cachedEngine": null | {
+    static "__#1596110@#cachedEngine": null | {
         languagePairKey: string;
         enginePromise: Promise<TranslationsEngine>;
     };
     /** @type {null | TimeoutID} */
-    static "__#657494@#keepAliveTimeout": null | TimeoutID;
+    static "__#1596110@#keepAliveTimeout": null | TimeoutID;
     /**
      * Returns a getter function that will create a translations engine on the first
      * call, and then return the cached one. After a timeout when the engine hasn't

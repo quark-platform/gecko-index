@@ -1,7 +1,8 @@
+/// <reference types="gecko-types" />
 /**
  * OpenSearchEngine represents an OpenSearch base search engine.
  */
-export class OpenSearchEngine {
+export class OpenSearchEngine extends SearchEngine {
     static getAnonymizedLoadPath(shortName: any, uri: any): string;
     /**
      * Creates a OpenSearchEngine.
@@ -54,8 +55,6 @@ export class OpenSearchEngine {
      *  The loaded search engine data.
      */
     _onLoad(callback: Function, bytes: any[]): void;
-    _loadPath: any;
-    _iconURI: any;
     /**
      * Initialize this Engine object from the collected data.
      */
@@ -85,12 +84,7 @@ export class OpenSearchEngine {
      * the engine object.
      */
     _parse(): void;
-    _name: any;
-    _description: any;
-    _queryCharset: any;
-    _searchForm: any;
     _extensionID: any;
-    get _hasUpdates(): boolean;
     /**
      * Returns the engine's updateURI if it exists and returns null otherwise
      *
@@ -98,3 +92,4 @@ export class OpenSearchEngine {
      */
     get _updateURI(): string;
 }
+import { SearchEngine } from "resource://gre/modules/SearchEngine.sys.mjs";

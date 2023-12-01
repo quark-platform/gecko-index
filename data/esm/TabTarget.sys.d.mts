@@ -47,5 +47,5 @@ export class TabTarget {
         webSocketDebuggerUrl: string;
     };
     observe(subject: any, topic: any, data: any): void;
-    get QueryInterface(): any;
+    get QueryInterface(): MozQueryInterface;
 }

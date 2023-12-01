@@ -53,7 +53,7 @@ declare class Observer {
     topic: any;
     callback: any;
     thisObject: any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     observe(subject: any, topic: any, data: any): void;
 }
 export {};

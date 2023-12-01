@@ -33,7 +33,7 @@ export namespace FormAutofillStatus {
     function onCloseWindow(): void;
     function observe(subject: any, topic: any, data: any): Promise<void>;
 }
-export class FormAutofillParent {
+export class FormAutofillParent extends JSWindowActorParent {
     static addMessageObserver(observer: any): void;
     static removeMessageObserver(observer: any): void;
     /**

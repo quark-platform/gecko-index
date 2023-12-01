@@ -9,11 +9,11 @@ export class FinderIterator {
     _previousParams: any;
     _previousRanges: any[];
     _spawnId: number;
-    _timer: any;
+    _timer: number;
     ranges: any[];
     running: boolean;
     useSubFrames: boolean;
-    _timeout: any;
+    _timeout: number;
     get kIterationSizeMax(): number;
     get params(): any;
     /**

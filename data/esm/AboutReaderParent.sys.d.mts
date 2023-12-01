@@ -1,4 +1,4 @@
-export class AboutReaderParent {
+export class AboutReaderParent extends JSWindowActorParent {
     static addMessageListener(name: any, listener: any): void;
     static removeMessageListener(name: any, listener: any): void;
     static broadcastAsyncMessage(name: any, data: any): void;

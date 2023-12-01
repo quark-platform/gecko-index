@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 /**
  * LangPackMatcher.jsm calls out to to the addons store, which involves network requests.
  * Other tests create a fake addons server, and install mock XPIs. At the time of this
@@ -37,5 +38,6 @@ export function getAddonAndLocalAPIsMocker(testScope: any, sandbox: any): ({ sys
     /**
      * The mocked APIs.
      */
-    mockable: any;
+    mockable: typeof LangPackMatcher.mockable;
 };
+import { LangPackMatcher } from "resource://gre/modules/LangPackMatcher.sys.mjs";

@@ -1,4 +1,4 @@
-export class ViewSourceChild {
+export class ViewSourceChild extends JSWindowActorChild {
     receiveMessage(message: any): {
         URL: string;
         drawSelection: any;
@@ -60,5 +60,5 @@ export class ViewSourceChild {
         drawSelection: any;
         baseURI: any;
     };
-    get wrapLongLines(): any;
+    get wrapLongLines(): boolean;
 }

@@ -1,4 +1,4 @@
-export class LinkHandlerChild {
+export class LinkHandlerChild extends JSWindowActorChild {
     seenTabIcon: boolean;
     _iconLoader: any;
     get iconLoader(): any;

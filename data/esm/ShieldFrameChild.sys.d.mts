@@ -4,7 +4,7 @@
  * content process can't handle (such as reading IndexedDB), we send a message
  * to the parent process and handle it there.
  */
-export class ShieldFrameChild {
+export class ShieldFrameChild extends JSWindowActorChild {
     handleEvent(event: any): Promise<void>;
     receiveMessage(msg: any): void;
     /**

@@ -1,4 +1,4 @@
-export class AutoScrollChild {
+export class AutoScrollChild extends JSWindowActorChild {
     _scrollable: any;
     _scrolldir: string;
     _startX: any;

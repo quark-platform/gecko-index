@@ -1,7 +1,7 @@
 /**
  * The actor responsible for monitoring a page for page data.
  */
-export class PageDataChild {
+export class PageDataChild extends JSWindowActorChild {
     /**
      * Called when the actor is created for a new page.
      */

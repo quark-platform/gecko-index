@@ -1,5 +1,5 @@
 export namespace ProcessHangMonitor {
-    const WAIT_EXPIRATION_TIME: any;
+    const WAIT_EXPIRATION_TIME: number;
     let _shuttingDown: boolean;
     let _activeReports: Map<any, any>;
     let _pausedReports: Map<any, any>;

@@ -1,4 +1,5 @@
-export class GeckoViewExperimentDelegateParent {
+/// <reference types="gecko-types" />
+export class GeckoViewExperimentDelegateParent extends GeckoViewActorParent {
     /**
      * Gets experiment information on a given feature.
      *
@@ -32,3 +33,4 @@ export class GeckoViewExperimentDelegateParent {
      */
     recordExperimentMalformedConfig(feature: any, part: any): Promise<any>;
 }
+import { GeckoViewActorParent } from "resource://gre/modules/GeckoViewActorParent.sys.mjs";

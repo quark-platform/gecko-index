@@ -40,6 +40,6 @@ export class ConsoleListener {
     destroy(): void;
     startListening(): void;
     stopListening(): void;
-    get QueryInterface(): any;
+    get QueryInterface(): MozQueryInterface;
     #private;
 }

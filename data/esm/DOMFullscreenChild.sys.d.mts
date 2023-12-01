@@ -1,4 +1,4 @@
-export class DOMFullscreenChild {
+export class DOMFullscreenChild extends JSWindowActorChild {
     receiveMessage(aMessage: any): void;
     _isNotTheRequestSource: boolean;
     _waitForMozAfterPaint: boolean;

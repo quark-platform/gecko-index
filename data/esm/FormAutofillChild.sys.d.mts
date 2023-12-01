@@ -1,7 +1,7 @@
 /**
  * Handles content's interactions for the frame.
  */
-export class FormAutofillChild {
+export class FormAutofillChild extends JSWindowActorChild {
     _nextHandleElement: any;
     _alreadyDOMContentLoaded: boolean;
     _hasDOMContentLoadedHandler: boolean;

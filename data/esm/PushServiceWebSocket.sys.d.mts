@@ -1,10 +1,11 @@
+/// <reference types="gecko-types" />
 export namespace PushServiceWebSocket {
-    export let QueryInterface: any;
+    export let QueryInterface: MozQueryInterface;
     export let name: string;
     export let _mainPushService: any;
     export let _serverURI: any;
     export let _currentlyRegistering: Set<any>;
-    export function newPushDB(): any;
+    export function newPushDB(): PushDB;
     export function disconnect(): void;
     export function observe(aSubject: any, aTopic: any, aData: any): void;
     /**
@@ -23,7 +24,7 @@ export namespace PushServiceWebSocket {
     export function _sendPing(): void;
     /** Times out any pending requests. */
     export function _timeOutRequests(): void;
-    export let _UAID: any;
+    export let _UAID: string;
     export let _ws: any;
     export let _pendingRequests: Map<any, any>;
     export { STATE_SHUT_DOWN as _currentState };
@@ -145,5 +146,6 @@ export namespace PushServiceWebSocket {
     export function _takeRequestForReply(reply: any): any;
     export function sendSubscribeBroadcast(serviceId: any, version: any): void;
 }
+import { PushDB } from "resource://gre/modules/PushDB.sys.mjs";
 declare const STATE_SHUT_DOWN: 0;
 export {};

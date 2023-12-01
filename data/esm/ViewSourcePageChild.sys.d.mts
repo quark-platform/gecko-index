@@ -1,4 +1,4 @@
-export class ViewSourcePageChild {
+export class ViewSourcePageChild extends JSWindowActorChild {
     static setNeedsDrawSelection(value: any): void;
     static setInitialLineNumber(value: any): void;
     receiveMessage(msg: any): boolean;

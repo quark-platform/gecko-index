@@ -112,7 +112,7 @@ export class PopupBlocker {
  *   2. Something in the parent process is querying a frame for information about
  *      any popups that may have been blocked inside of it.
  */
-export class PopupBlockingParent {
+export class PopupBlockingParent extends JSWindowActorParent {
     didDestroy(): void;
     receiveMessage(message: any): void;
     /**

@@ -24,7 +24,7 @@ export function getTrimmedString(str: string): string;
  *          - "NoError" if error is falsey.
  *          - "UnkownError" as a fallback.
  */
-export function getErrorNameForTelemetry(error: Error | DOMException | Components.Exception): string;
+export function getErrorNameForTelemetry(error: Error | DOMException | typeof Components.Exception): string;
 /**
  * This proxy object provides the telemetry helpers for the currently supported metrics (the ones listed in
  * ExtensionTelemetryHelpers._histograms), the telemetry helpers for a particular metric are lazily created

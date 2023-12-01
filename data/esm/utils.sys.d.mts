@@ -23,7 +23,7 @@ export namespace CommonUtils {
      */
     function arrayEqual(a: any, b: any): boolean;
     function encodeBase64URL(bytes: any, pad?: boolean): string;
-    function makeURI(URIString: any): any;
+    function makeURI(URIString: any): nsIURIType;
     function nextTick(callback: any, thisObj: any): void;
     function namedTimer(callback: any, wait: any, thisObj: any, name: any): any;
     function encodeUTF8(str: any): any;
@@ -44,7 +44,7 @@ export namespace CommonUtils {
     function decodeBase32(str: any): any;
     function safeAtoB(b64: any): string;
     function ensureMillisecondsTimestamp(value: any): void;
-    function readBytesFromInputStream(stream: any, count: any): any;
+    function readBytesFromInputStream(stream: any, count: any): void;
     function generateUUID(): any;
     function getEpochPref(branch: any, pref: any, def?: number, log?: any): number;
     function getDatePref(branch: any, pref: any, def?: number, log?: any, oldestYear?: number): Date;

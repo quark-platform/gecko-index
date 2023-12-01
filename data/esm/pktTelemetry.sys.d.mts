@@ -1,6 +1,6 @@
 export namespace pktTelemetry {
     const impressionId: any;
-    function getOrCreateImpressionId(): any;
+    function getOrCreateImpressionId(): string;
     function _profileCreationDate(): any;
     /**
      * Records the provided data and common pocket-button data to Glean,

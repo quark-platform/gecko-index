@@ -94,7 +94,7 @@ export class FxAccountsWebChannelHelpers {
             uid: any;
             verified: any;
         };
-        clientId: any;
+        clientId: string;
         capabilities: {
             multiService: boolean;
             pairing: any;
@@ -106,7 +106,7 @@ export class FxAccountsWebChannelHelpers {
     /**
      * Get the hash of account name of the previously signed in account
      */
-    getPreviousAccountNameHashPref(): any;
+    getPreviousAccountNameHashPref(): string;
     /**
      * Given an account name, set the hash of the previously signed in account
      *

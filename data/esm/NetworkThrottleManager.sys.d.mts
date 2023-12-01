@@ -23,7 +23,7 @@ export class NetworkThrottleManager {
         uploadBPSMean: any;
         uploadBPSMax: any;
     });
-    uploadQueue: any;
+    uploadQueue: nsISupportsType;
     /**
      * Create a new NetworkThrottleListener for a given channel and
      * install it using |setNewListener|.
@@ -105,7 +105,7 @@ declare class NetworkThrottleListener {
      * has ended.
      */
     responseStart(): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     #private;
 }
 declare class NetworkThrottleQueue {

@@ -1,4 +1,5 @@
-export class GeckoViewAutoFillChild {
+/// <reference types="gecko-types" />
+export class GeckoViewAutoFillChild extends GeckoViewActorChild {
     _autofillElements: Map<any, any>;
     _autofillInfos: WeakMap<object, any>;
     handleEvent(aEvent: any): void;
@@ -35,3 +36,4 @@ export class GeckoViewAutoFillChild {
      */
     scanDocument(aDoc: any): void;
 }
+import { GeckoViewActorChild } from "resource://gre/modules/GeckoViewActorChild.sys.mjs";

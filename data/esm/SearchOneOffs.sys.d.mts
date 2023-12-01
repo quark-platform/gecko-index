@@ -29,7 +29,7 @@ export class SearchOneOffs {
      * there is a potential for a race when it's called multiple times in succession.
      */
     _rebuilding: boolean;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     disableOneOffsHorizontalKeyNavigation: boolean;
     addEventListener(...args: any[]): void;
     removeEventListener(...args: any[]): void;

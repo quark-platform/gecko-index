@@ -1,9 +1,10 @@
+/// <reference types="gecko-types" />
 export namespace ExtensionDNRStore {
     function clearOnUninstall(extensionUUID: any): Promise<void>;
     function initExtension(extension: any): Promise<void>;
     function updateDynamicRules(extension: any, updateRuleOptions: any): Promise<void>;
     function updateEnabledStaticRulesets(extension: any, updateRulesetOptions: any): Promise<void>;
-    function _getLastUpdateTag(extensionUUID: any): any;
+    function _getLastUpdateTag(extensionUUID: any): string;
     function _getStoreForTesting(): RulesetsStore;
     function _getStoreDataClassForTesting(): typeof StoreData;
     function _recreateStoreForTesting(): RulesetsStore;
@@ -34,9 +35,9 @@ declare class RulesetsStore {
     _data: Map<any, any>;
     _dataPromises: Map<any, any>;
     _savePromises: Map<any, any>;
-    _dataUpdateQueues: any;
-    _ensureStoreDirectoryPromise: any;
-    _ensureCacheDirectoryPromise: any;
+    _dataUpdateQueues: ExtensionUtils.DefaultMap;
+    _ensureStoreDirectoryPromise: Promise<undefined>;
+    _ensureCacheDirectoryPromise: Promise<undefined>;
     _ensureCacheLoaded: Promise<void>;
     _saveCacheTask: any;
     _startupCacheData: Map<any, any>;
@@ -196,7 +197,7 @@ declare class RulesetsStore {
 declare class StoreData {
     static VERSION: number;
     static getLastUpdateTagPref(extensionUUID: any): string;
-    static getLastUpdateTag(extensionUUID: any): any;
+    static getLastUpdateTag(extensionUUID: any): string;
     static storeLastUpdateTag(extensionUUID: any, lastUpdateTag: any): void;
     static clearLastUpdateTagPref(extensionUUID: any): void;
     static isStaleCacheEntry(extensionUUID: any, cacheStoreData: any): boolean;
@@ -270,4 +271,5 @@ declare class StoreData {
     };
     #private;
 }
+import { ExtensionUtils } from "resource://gre/modules/ExtensionUtils.sys.mjs";
 export {};

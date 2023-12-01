@@ -31,7 +31,7 @@ export namespace WinImpl {
     function _taskFolderName(): string;
     function _taskFolderNameParts(): {
         parentName: string;
-        subName: any;
+        subName: string;
     };
     function _formatTaskName(id: any): string;
     function _matchAppTaskName(name: any): any;

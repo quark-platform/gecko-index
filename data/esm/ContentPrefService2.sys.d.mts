@@ -1,9 +1,11 @@
+/// <reference types="gecko-types" />
+/// <reference types="gecko-types" />
 export function ContentPrefService2(): any;
 export class ContentPrefService2 {
-    classID: any;
+    classID: unknown;
     _destroy(): void;
-    _cache: any;
-    _pbStore: any;
+    _cache: ContentPrefStore;
+    _pbStore: ContentPrefStore;
     _connPromise: null;
     get conn(): any;
     getByName: (name: any, context: any, callback: any) => void;
@@ -21,10 +23,10 @@ export class ContentPrefService2 {
         cachable: boolean;
         params: {};
     };
-    getCachedByDomainAndName: (group: any, name: any, context: any) => any;
-    getCachedBySubdomainAndName: (group: any, name: any, context: any) => any[];
-    getCachedGlobal: (name: any, context: any) => any;
-    _getCached: (group: any, name: any, includeSubdomains: any, context: any) => any[];
+    getCachedByDomainAndName: (group: any, name: any, context: any) => ContentPref;
+    getCachedBySubdomainAndName: (group: any, name: any, context: any) => ContentPref[];
+    getCachedGlobal: (name: any, context: any) => ContentPref;
+    _getCached: (group: any, name: any, includeSubdomains: any, context: any) => ContentPref[];
     set: (group: any, name: any, value: any, context: any, callback: any) => void;
     setGlobal: (name: any, value: any, context: any, callback: any) => void;
     _set: (group: any, name: any, value: any, context: any, callback: any) => void;
@@ -75,7 +77,7 @@ export class ContentPrefService2 {
      * @param callback  A function that will be called when done.
      */
     _reset(callback: any): Promise<void>;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     _dbVersion: number;
     _dbSchema: {
         tables: {
@@ -112,3 +114,5 @@ export class ContentPrefService2 {
     _dbMigrate3To4: (aConn: any) => Promise<void>;
     _dbMigrate4To5(conn: any): Promise<void>;
 }
+import { ContentPrefStore } from "resource://gre/modules/ContentPrefStore.sys.mjs";
+import { ContentPref } from "resource://gre/modules/ContentPrefUtils.sys.mjs";

@@ -16,7 +16,7 @@ export namespace PluginManager {
     function submitCrashReport(pluginCrashID: any, keyVals?: {}): void;
     function getCrashReport(pluginCrashID: any): any;
 }
-export class PluginParent {
+export class PluginParent extends JSWindowActorParent {
     receiveMessage(msg: any): any;
     /**
      * Shows a plugin-crashed notification bar for a browser that has had a

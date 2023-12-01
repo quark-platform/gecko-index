@@ -1,9 +1,5 @@
-export class GeckoViewMediaControl {
-    onInit(): void;
-    onInitBrowser(): void;
-    onDestroyBrowser(): void;
-    onEnable(): void;
-    onDisable(): void;
+/// <reference types="gecko-types" />
+export class GeckoViewMediaControl extends GeckoViewModule {
     get controller(): any;
     onEvent(aEvent: any, aData: any, aCallback: any): void;
     handleEvent(aEvent: any): void;
@@ -14,3 +10,4 @@ export class GeckoViewMediaControl {
     handleMetadataChanged(): void;
     handlePlaybackStateChanged(): void;
 }
+import { GeckoViewModule } from "resource://gre/modules/GeckoViewModule.sys.mjs";

@@ -97,7 +97,7 @@ export namespace ContentSearch {
     function _ensureDataHasProperties(data: any, requiredProperties: any): void;
     function _initService(): any;
 }
-export class ContentSearchParent {
+export class ContentSearchParent extends JSWindowActorParent {
     didDestroy(): void;
     receiveMessage(msg: any): void;
 }

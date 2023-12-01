@@ -16,5 +16,5 @@ export class Target {
      */
     destructor(): void;
     handle(request: any, response: any): Promise<void>;
-    get QueryInterface(): any;
+    get QueryInterface(): MozQueryInterface;
 }

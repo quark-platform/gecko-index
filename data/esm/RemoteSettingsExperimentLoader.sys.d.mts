@@ -62,7 +62,7 @@ export class EnrollmentsContext {
     validatorCache: {};
     missingLocale: any[];
     missingL10nIds: Map<any, any>;
-    locale: any;
+    locale: string;
     getResults(): {
         recipeMismatches: any[];
         invalidRecipes: any[];
@@ -70,7 +70,7 @@ export class EnrollmentsContext {
         invalidFeatures: Map<any, any>;
         missingLocale: any[];
         missingL10nIds: Map<any, any>;
-        locale: any;
+        locale: string;
         validationEnabled: boolean;
     };
     checkRecipe(recipe: any): Promise<boolean>;

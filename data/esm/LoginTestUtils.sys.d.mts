@@ -7,7 +7,7 @@ export namespace LoginTestUtils {
          *        Each property of this object replaces the property of the same name
          *        in the returned nsILoginInfo or nsILoginMetaInfo.
          */
-        function formLogin(modifications: any): any;
+        function formLogin(modifications: any): unknown;
         /**
          * Returns a new nsILoginInfo for use with HTTP authentication.
          *
@@ -15,12 +15,12 @@ export namespace LoginTestUtils {
          *        Each property of this object replaces the property of the same name
          *        in the returned nsILoginInfo or nsILoginMetaInfo.
          */
-        function authLogin(modifications: any): any;
+        function authLogin(modifications: any): unknown;
         /**
          * Returns an array of typical nsILoginInfo that could be stored in the
          * database.
          */
-        function loginList(): any[];
+        function loginList(): unknown[];
     }
     namespace recipes {
         function getRecipeParent(): any;

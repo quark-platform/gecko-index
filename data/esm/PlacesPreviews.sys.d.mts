@@ -4,8 +4,8 @@
  */
 export function PlacesPreviewsHelperService(): void;
 export class PlacesPreviewsHelperService {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     getFilePathForURL(url: any): string;
 }
 /**
@@ -15,9 +15,9 @@ export class PlacesPreviewsHelperService {
  * the roaming profile folder.
  */
 export const PlacesPreviews: {
-    "__#443930@#placesObserver": any;
-    "__#443930@#deletionHandler": any;
-    "__#443930@#recentlyUpdatedPreviews": LimitedSet;
+    "__#1074140@#placesObserver": any;
+    "__#1074140@#deletionHandler": any;
+    "__#1074140@#recentlyUpdatedPreviews": LimitedSet;
     fileExtension: string;
     fileContentType: string;
     handlePlacesEvents(events: any): void;

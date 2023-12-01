@@ -3,7 +3,7 @@
  * component, and for listening for events from that component to perform
  * various migration functions.
  */
-export class MigrationWizardChild {
+export class MigrationWizardChild extends JSWindowActorChild {
     /**
      * General event handler function for events dispatched from the
      * <migration-wizard> component.

@@ -1,7 +1,7 @@
 export function CrashMonitor(): void;
 export class CrashMonitor {
-    classID: any;
+    classID: unknown;
     contractID: string;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     observe(aSubject: any, aTopic: any, aData: any): void;
 }

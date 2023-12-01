@@ -18,8 +18,8 @@ export class ClientEngine {
     _lastFxaDeviceRefresh: number;
     initialize(): Promise<void>;
     _localClientLastModified: number;
-    set _lastModifiedOnProcessCommands(value: any);
-    get _lastModifiedOnProcessCommands(): any;
+    set _lastModifiedOnProcessCommands(value: number);
+    get _lastModifiedOnProcessCommands(): number;
     get isFirstSync(): boolean;
     get enabled(): boolean;
     set lastRecordUpload(value: any);
@@ -40,7 +40,7 @@ export class ClientEngine {
      * may have zero) counts. It almost certainly will include only these 2.
      */
     get deviceTypes(): Map<any, any>;
-    get brandName(): any;
+    get brandName(): string;
     set localName(value: any);
     get localName(): any;
     get localType(): any;

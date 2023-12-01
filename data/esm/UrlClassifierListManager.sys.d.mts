@@ -13,7 +13,7 @@ declare class PROT_ListManager {
     requestBackoffs_: {};
     registered: boolean;
     dbService_: any;
-    idleService_: any;
+    idleService_: unknown;
     /**
      * Register a new table table
      * @param tableName - the name of the table
@@ -118,6 +118,6 @@ declare class PROT_ListManager {
      * Return 0 if we are not in back-off mode.
      */
     getBackOffTime(provider: any): any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 export {};

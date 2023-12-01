@@ -1,4 +1,5 @@
-export class GeckoViewAutoFillParent {
+/// <reference types="gecko-types" />
+export class GeckoViewAutoFillParent extends GeckoViewActorParent {
     sessionId: any;
     get rootActor(): any;
     get autofill(): any;
@@ -9,3 +10,4 @@ export class GeckoViewAutoFillParent {
     clear(): void;
     receiveMessage(aMessage: any): Promise<any>;
 }
+import { GeckoViewActorParent } from "resource://gre/modules/GeckoViewActorParent.sys.mjs";

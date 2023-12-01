@@ -17,14 +17,14 @@ export namespace URICountListener {
      * Resets the number of unique domains visited in this session.
      */
     function resetUniqueDomainsVisitedInPast24Hours(): void;
-    let QueryInterface: any;
+    let QueryInterface: MozQueryInterface;
 }
 export namespace BrowserUsageTelemetry {
     export namespace Policy {
         function getTelemetryClientId(): Promise<any>;
-        function getUpdateDirectory(): any;
-        function readProfileCountFile(path: any): Promise<any>;
-        function writeProfileCountFile(path: any, data: any): Promise<any>;
+        function getUpdateDirectory(): void;
+        function readProfileCountFile(path: any): Promise<string>;
+        function writeProfileCountFile(path: any, data: any): Promise<number>;
     }
     export let _inited: boolean;
     export function init(): void;
@@ -36,7 +36,7 @@ export namespace BrowserUsageTelemetry {
      * Handle subsession splits in the parent process.
      */
     export function afterSubsessionSplit(): void;
-    let QueryInterface_1: any;
+    let QueryInterface_1: MozQueryInterface;
     export { QueryInterface_1 as QueryInterface };
     export function uninit(): void;
     export function observe(subject: any, topic: any, data: any): void;

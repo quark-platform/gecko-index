@@ -1,7 +1,7 @@
 export function PartitioningExceptionListService(): void;
 export class PartitioningExceptionListService {
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     _initialized: boolean;
     lazyInit(): Promise<void>;
     feature: Feature;
@@ -12,7 +12,7 @@ export class PartitioningExceptionListService {
 declare class Feature {
     prefName: string;
     observers: Set<any>;
-    prefValue: any;
+    prefValue: any[];
     remoteEntries: any[];
     addAndRunObserver(observer: any): Promise<void>;
     removeObserver(observer: any): void;

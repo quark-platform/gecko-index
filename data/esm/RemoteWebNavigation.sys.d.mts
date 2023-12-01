@@ -2,7 +2,7 @@ export class RemoteWebNavigation {
     constructor(aBrowser: any);
     _browser: any;
     _cancelContentJSEpoch: number;
-    _currentURI: any;
+    _currentURI: nsIURIType;
     _canGoBack: boolean;
     _canGoForward: boolean;
     referringURI: any;
@@ -19,8 +19,8 @@ export class RemoteWebNavigation {
     reload(aReloadFlags: any): void;
     stop(aStopFlags: any): void;
     get document(): any;
-    set currentURI(aURI: any);
-    get currentURI(): any;
+    set currentURI(aURI: nsIURIType);
+    get currentURI(): nsIURIType;
     set sessionHistory(aValue: void);
     get sessionHistory(): void;
     _sendMessage(aMessage: any, aData: any): void;

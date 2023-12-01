@@ -1,6 +1,6 @@
-export function getDefaultList(): any;
-export function setDefaultList(list: any): any;
-export function createEntryWith(todo: any): any;
+export function getDefaultList(): Promise<any>;
+export function setDefaultList(list: any): Promise<any>;
+export function createEntryWith(todo: any): Promise<any>;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };
 }
@@ -20,17 +20,17 @@ export class TodoList {
      */
     static init(): Promise<TodoList>;
     constructor(opts: any);
-    addItem(todo: any): any;
-    addEntry(entry: any): any;
-    getEntries(): any;
-    getItems(): any;
-    addEntries(entries: any): any;
-    addItems(items: any): any;
-    getLastEntry(): any;
-    getLast(): any;
-    getFirst(): any;
-    clearItem(todo: any): any;
-    makeDefault(): any;
+    addItem(todo: any): Promise<any>;
+    addEntry(entry: any): Promise<any>;
+    getEntries(): Promise<any>;
+    getItems(): Promise<any>;
+    addEntries(entries: any): Promise<any>;
+    addItems(items: any): Promise<any>;
+    getLastEntry(): Promise<any>;
+    getLast(): Promise<any>;
+    getFirst(): Promise<any>;
+    clearItem(todo: any): Promise<any>;
+    makeDefault(): Promise<any>;
     [uniffiObjectPtr]: any;
 }
 export class FfiConverterTypeTodoList extends FfiConverter {

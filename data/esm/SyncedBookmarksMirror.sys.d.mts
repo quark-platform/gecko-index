@@ -69,7 +69,7 @@ export class SyncedBookmarksMirror {
     db: any;
     wasCorrupt: boolean;
     recordValidationTelemetry: any;
-    merger: any;
+    merger: unknown;
     progress: ProgressTracker;
     finalizeController: AbortController;
     finalizeAt: any;

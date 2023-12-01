@@ -88,7 +88,7 @@ export class FormAutoCompleteResult implements nsIAutoCompleteResult {
     entries: any;
     fieldName: any;
     searchString: string;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     externalEntries: any[];
     set fixedEntries(value: any);
     canSearchIncrementally(searchString: any): any;
@@ -103,7 +103,7 @@ export class FormAutoCompleteResult implements nsIAutoCompleteResult {
     get wrappedJSObject(): this;
     errorDescription: string;
     get defaultIndex(): 0 | -1;
-    get searchResult(): any;
+    get searchResult(): 3 | 4;
     get matchCount(): any;
     getValueAt(index: any): any;
     getLabelAt(index: any): any;
@@ -116,15 +116,15 @@ export class FormAutoCompleteResult implements nsIAutoCompleteResult {
     #private;
 }
 export class FormAutoComplete {
-    _prefBranch: any;
-    _debug: any;
-    _enabled: any;
-    classID: any;
-    QueryInterface: any;
+    _prefBranch: nsIPrefBranchType;
+    _debug: boolean;
+    _enabled: boolean;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
     fillRequestId: number;
     observer: {
         _self: any;
-        QueryInterface: any;
+        QueryInterface: MozQueryInterface;
         observe(_subject: any, topic: any, data: any): void;
     };
     get wrappedJSObject(): this;

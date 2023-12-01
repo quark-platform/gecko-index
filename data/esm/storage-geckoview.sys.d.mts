@@ -1,8 +1,8 @@
-export class LoginManagerStorage {
-    static "__#443924@#storage": any;
+/// <reference types="gecko-types" />
+export class LoginManagerStorage extends LoginManagerStorage_json {
+    static "__#1074134@#storage": any;
     static create(callback: any): any;
     get _crypto(): void;
-    initialize(): Promise<void>;
     /**
      * Internal method used by regression tests only.  It is called before
      * replacing this storage module with a new instance.
@@ -17,10 +17,10 @@ export class LoginManagerStorage {
      *
      * @resolve {nsILoginInfo[]}
      */
-    getAllLogins(includeDeleted: any): Promise<any>;
-    searchLoginsAsync(matchData: any, includeDeleted: any): Promise<any>;
-    _baseHostnameFromOrigin(origin: any): any;
-    _getLoginsAsync(matchData: any, includeDeleted: any): Promise<any>;
+    getAllLogins(includeDeleted: any): Promise<any[]>;
+    searchLoginsAsync(matchData: any, includeDeleted: any): Promise<any[]>;
+    _baseHostnameFromOrigin(origin: any): string;
+    _getLoginsAsync(matchData: any, includeDeleted: any): Promise<any[]>;
     /**
      * Convert a modern decrypted vanilla login object to one expected from logins.json.
      *
@@ -36,10 +36,6 @@ export class LoginManagerStorage {
      * Use `searchLoginsAsync` instead.
      */
     searchLogins(matchData: any): void;
-    /**
-     * Removes all logins from storage.
-     */
-    removeAllLogins(): void;
     countLogins(origin: any, formActionOrigin: any, httpRealm: any): void;
     get uiBusy(): boolean;
     get isLoggedIn(): boolean;
@@ -61,3 +57,4 @@ export class LoginManagerStorage {
     getLastSync(): Promise<void>;
     setLastSync(timestamp: any): Promise<void>;
 }
+import { LoginManagerStorage_json } from "resource://gre/modules/storage-json.sys.mjs";

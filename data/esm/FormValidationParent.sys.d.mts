@@ -1,4 +1,4 @@
-export class FormValidationParent {
+export class FormValidationParent extends JSWindowActorParent {
     static hasOpenPopups(): boolean;
     _panel: any;
     _obs: PopupShownObserver;

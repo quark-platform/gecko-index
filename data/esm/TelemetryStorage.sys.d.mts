@@ -5,7 +5,7 @@ export namespace Policy {
     function getUninstallPingPath(id: string): any;
 }
 export namespace TelemetryStorage {
-    const pingDirectoryPath: any;
+    const pingDirectoryPath: string;
     const MAXIMUM_PING_SIZE: number;
     /**
      * Shutdown & block on any outstanding async activity in this module.
@@ -113,7 +113,7 @@ export namespace TelemetryStorage {
      *
      * @return {Promise<sequence>} Resolved with the ping list.
      */
-    function loadPendingPingList(): Promise<sequence>;
+    function loadPendingPingList(): Promise<any>;
     /**
      * Returns a list of the currently pending pings in the format:
      * {
@@ -124,7 +124,7 @@ export namespace TelemetryStorage {
      *
      * @return {sequence} The current pending ping list.
      */
-    function getPendingPingList(): sequence;
+    function getPendingPingList(): any;
     /**
      * Save an aborted-session ping to disk. This goes to a special location so
      * it is not picked up as a pending ping.

@@ -1,4 +1,4 @@
-export class DOMFullscreenParent {
+export class DOMFullscreenParent extends JSWindowActorParent {
     waitingForChildEnterFullscreen: boolean;
     waitingForChildExitFullscreen: boolean;
     nextMsgRecipient: any;

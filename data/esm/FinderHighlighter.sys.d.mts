@@ -17,8 +17,8 @@ export class FinderHighlighter {
      *                         computation, if possible.
      */
     constructor(finder: Finder, useTop?: boolean);
-    _highlightAll: any;
-    _modal: any;
+    _highlightAll: boolean;
+    _modal: boolean;
     _useSubFrames: boolean;
     _useTop: boolean;
     _marksListener: (event: any) => void;
@@ -487,7 +487,7 @@ export class FinderHighlighter {
      */
     _createStateListener(): {
         findbar: this;
-        QueryInterface: any;
+        QueryInterface: MozQueryInterface;
         NotifyDocumentWillBeDestroyed(): void;
         notifyDocumentStateChanged(aDirty: any): void;
     };

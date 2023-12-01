@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 export let Schemas: any;
 /**
  * A root schema namespace containing schema data which is isolated from data in
@@ -283,7 +284,7 @@ declare class InjectionContext extends Context {
     constructor(params: any, schemaRoot: any);
     schemaRoot: any;
     pendingEntries: Set<any>;
-    children: any;
+    children: ExtensionUtils.DefaultWeakMap;
     injectedRoots: Set<any>;
     /**
      * Check whether the API should be injected.
@@ -508,6 +509,7 @@ declare class Context {
     withPath(component: string, callback: Function): any;
     matchManifestVersion(entry: any): boolean;
 }
+import { ExtensionUtils } from "resource://gre/modules/ExtensionUtils.sys.mjs";
 /**
  * Represents a schema entry to be injected into an object. Handles the
  * injection, revocation, and permissions of said entry.

@@ -1,5 +1,5 @@
 export const TelemetryControllerBase: Readonly<{
-    IS_UNIFIED_TELEMETRY: any;
+    IS_UNIFIED_TELEMETRY: boolean;
     Preferences: Readonly<{
         OverridePreRelease: "toolkit.telemetry.testing.overridePreRelease";
         Unified: "toolkit.telemetry.unified";

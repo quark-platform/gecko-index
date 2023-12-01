@@ -1,4 +1,5 @@
-export class GeckoViewPermissionChild {
+/// <reference types="gecko-types" />
+export class GeckoViewPermissionChild extends GeckoViewActorChild {
     getMediaPermission(aPermission: any): any;
     addCameraPermission(): any;
     getAppPermissions(aPermissions: any): any;
@@ -13,3 +14,4 @@ export class GeckoViewPermissionChild {
         };
     }>;
 }
+import { GeckoViewActorChild } from "resource://gre/modules/GeckoViewActorChild.sys.mjs";

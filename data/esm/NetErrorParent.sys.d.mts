@@ -1,4 +1,4 @@
-export class NetErrorParent {
+export class NetErrorParent extends JSWindowActorParent {
     captivePortalObserver: CaptivePortalObserver;
     didDestroy(): void;
     get browser(): any;

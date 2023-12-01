@@ -1,4 +1,4 @@
-export class AboutCertViewerParent {
+export class AboutCertViewerParent extends JSWindowActorParent {
     getCertificates(): {
         1: any[];
         2: any[];

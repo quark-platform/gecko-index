@@ -10,11 +10,11 @@ export class InstallTrigger {
     install(installs: any, callback: any): any;
     startSoftwareUpdate(url: any, flags: any): any;
     installChrome(type: any, url: any, skin: any): any;
-    _resolveURL(url: any): any;
+    _resolveURL(url: any): nsIURIType;
     _checkLoadURIFromScript(uri: any): boolean;
-    classID: any;
+    classID: unknown;
     contractID: string;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 declare function RemoteMediator(window: any): void;
 declare class RemoteMediator {
@@ -27,6 +27,6 @@ declare class RemoteMediator {
     enabled(url: any): any;
     install(install: any, principal: any, callback: any, window: any): any;
     _addCallback(callback: any): string | -1;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 export {};

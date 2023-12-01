@@ -32,7 +32,7 @@ declare class GeolocationPermissionPrompt extends PermissionPromptForRequest {
     get type(): string;
     get permissionKey(): string;
     get popupOptions(): {
-        learnMoreURL: any;
+        learnMoreURL: string;
         displayURI: boolean;
         name: any;
     };
@@ -59,7 +59,7 @@ declare class XRPermissionPrompt extends PermissionPromptForRequest {
     get type(): string;
     get permissionKey(): string;
     get popupOptions(): {
-        learnMoreURL: any;
+        learnMoreURL: string;
         displayURI: boolean;
         name: any;
     };
@@ -125,7 +125,7 @@ declare class PersistentStoragePermissionPrompt extends PermissionPromptForReque
     get promptActions(): ({
         label: any;
         accessKey: any;
-        action: any;
+        action: 1;
         scope: any;
     } | {
         label: any;
@@ -153,11 +153,15 @@ declare class MIDIPermissionPrompt extends SitePermsAddonInstallRequest {
         name: any;
     };
     get message(): any;
-    get promptActions(): {
+    get promptActions(): ({
         label: any;
         accessKey: any;
-        action: any;
-    }[];
+        action: 1;
+    } | {
+        label: any;
+        accessKey: any;
+        action: 2;
+    })[];
 }
 declare class StorageAccessPermissionPrompt extends PermissionPromptForRequest {
     constructor(request: any);
@@ -165,6 +169,7 @@ declare class StorageAccessPermissionPrompt extends PermissionPromptForRequest {
     siteOption: any;
     get type(): string;
     get permissionKey(): string;
+    get temporaryPermissionURI(): nsIURIType;
     prettifyHostPort(hostport: any): any;
     get popupOptions(): {
         learnMoreURL: string;
@@ -173,12 +178,17 @@ declare class StorageAccessPermissionPrompt extends PermissionPromptForRequest {
         escAction: string;
     };
     get message(): any;
-    get promptActions(): {
+    get promptActions(): ({
         label: any;
         accessKey: any;
-        action: any;
+        action: 1;
         callback(state: any): void;
-    }[];
+    } | {
+        label: any;
+        accessKey: any;
+        action: 2;
+        callback(state: any): void;
+    })[];
     get topLevelPrincipal(): any;
     #private;
 }
@@ -409,6 +419,6 @@ declare class SitePermsAddonInstallRequest extends PermissionPromptForRequest {
      * @param {Components.Exception} err
      * @returns {String} The error message
      */
-    getInstallErrorMessage(err: Components.Exception): string;
+    getInstallErrorMessage(err: typeof Components.Exception): string;
 }
 export {};

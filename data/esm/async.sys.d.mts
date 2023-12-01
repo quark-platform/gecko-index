@@ -65,7 +65,7 @@ declare class AsyncQueueCaller {
     constructor(log: any);
     _log: any;
     _queue: Promise<void>;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     /**
      * /!\ Never await on another function that calls enqueueCall /!\
      *     on the same queue or we will deadlock.
@@ -86,7 +86,7 @@ declare class AsyncObserver extends AsyncQueueCaller {
  */
 declare class Watchdog {
     controller: AbortController;
-    timer: any;
+    timer: nsITimerType;
     /**
      * The reason for signaling an abort. `null` if not signaled,
      * `"timeout"` if the watchdog timer fired, or `"shutdown"` if the app is

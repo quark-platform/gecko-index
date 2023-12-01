@@ -61,7 +61,7 @@ declare class HistoryTracker {
     onStart(): void;
     _placesObserver: any;
     onStop(): void;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
     handlePlacesEvents(aEvents: any): void;
     _handlePlacesEvents(aEvents: any): Promise<void>;
 }

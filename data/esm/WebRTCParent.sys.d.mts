@@ -1,4 +1,4 @@
-export class WebRTCParent {
+export class WebRTCParent extends JSWindowActorParent {
     didDestroy(): void;
     getBrowser(): any;
     receiveMessage(aMessage: any): void;

@@ -1,7 +1,8 @@
+/// <reference types="gecko-types" />
 export const libc: any;
 export namespace SubprocessImpl {
     export { Process };
-    export function call(options: any): any;
+    export function call(options: any): Promise<BaseProcess>;
     export function getEnvironment(): Generator<any[], void, unknown>;
     export function isExecutableFile(path: any): Promise<number | false>;
     /**
@@ -22,16 +23,17 @@ export namespace SubprocessImpl {
      */
     export function pathSearch(bin: string, environment: any): Promise<string>;
 }
-declare class Process {
+declare class Process extends BaseProcess {
     static get WORKER_URL(): string;
     static get WorkerClass(): typeof UnixPromiseWorker;
 }
-declare class UnixPromiseWorker {
+import { BaseProcess } from "resource://gre/modules/subprocess/subprocess_common.sys.mjs";
+declare class UnixPromiseWorker extends PromiseWorker {
     constructor(...args: any[]);
     signalFd: any;
     closePipe(): void;
-    onClose(): void;
     signalWorker(): void;
     postMessage(...args: any[]): any;
 }
+import { PromiseWorker } from "resource://gre/modules/subprocess/subprocess_common.sys.mjs";
 export {};

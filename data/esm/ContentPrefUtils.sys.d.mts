@@ -4,7 +4,7 @@ export class ContentPref {
     domain: any;
     name: any;
     value: any;
-    QueryInterface: any;
+    QueryInterface: MozQueryInterface;
 }
 export function cbHandleResult(callback: any, pref: any): void;
 export function cbHandleCompletion(callback: any, reason: any): void;

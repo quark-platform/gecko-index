@@ -1,6 +1,6 @@
 export namespace TabManager {
     const browsers: XULBrowser[];
-    const windows: any;
+    const windows: nsISimpleEnumeratorType;
     const allBrowserUniqueIds: string[];
     /**
      * Get the <code>&lt;xul:browser&gt;</code> for the specified tab.

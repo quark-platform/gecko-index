@@ -1,20 +1,20 @@
 export function URIFixup(): void;
 export class URIFixup {
     _trustExternalProtocolService: boolean;
-    get FIXUP_FLAG_NONE(): any;
-    get FIXUP_FLAG_ALLOW_KEYWORD_LOOKUP(): any;
-    get FIXUP_FLAGS_MAKE_ALTERNATE_URI(): any;
-    get FIXUP_FLAG_PRIVATE_CONTEXT(): any;
-    get FIXUP_FLAG_FIX_SCHEME_TYPOS(): any;
-    getFixupURIInfo(uriString: any, fixupFlags?: any): URIFixupInfo;
-    webNavigationFlagsToFixupFlags(href: any, navigationFlags: any): any;
+    get FIXUP_FLAG_NONE(): 0;
+    get FIXUP_FLAG_ALLOW_KEYWORD_LOOKUP(): 1;
+    get FIXUP_FLAGS_MAKE_ALTERNATE_URI(): 2;
+    get FIXUP_FLAG_PRIVATE_CONTEXT(): 4;
+    get FIXUP_FLAG_FIX_SCHEME_TYPOS(): 8;
+    getFixupURIInfo(uriString: any, fixupFlags?: 0): URIFixupInfo;
+    webNavigationFlagsToFixupFlags(href: any, navigationFlags: any): 0;
     keywordToURI(keyword: any, isPrivateContext: any): URIFixupInfo;
     forceHttpFixup(uriString: any): URIFixupInfo;
     checkHost(uri: any, listener: any, originAttributes: any): void;
     isDomainKnown: typeof isDomainKnown;
     _isKnownExternalProtocol(scheme: any): any;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
 }
 export function URIFixupInfo(originalInput?: string): void;
 export class URIFixupInfo {
@@ -49,8 +49,8 @@ export class URIFixupInfo {
     set postData(postData: any);
     get postData(): any;
     _postData: any;
-    classID: any;
-    QueryInterface: any;
+    classID: unknown;
+    QueryInterface: MozQueryInterface;
 }
 /**
  * Implementation of isDomainKnown, so we don't have to go through the
