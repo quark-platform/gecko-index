@@ -118,7 +118,7 @@ declare class _Interactions {
      * @param {InteractionsStore} store
      *   The interactions store.
      */
-    static "__#567546@#updateInteraction_async"(browser: Browser, activeWindow: DOMWindow, userIsIdle: boolean, interactions: WeakMap<Browser, InteractionInfo>, pageViewStartTime: number, store: InteractionsStore): Promise<void>;
+    static "__#567547@#updateInteraction_async"(browser: Browser, activeWindow: DOMWindow, userIsIdle: boolean, interactions: WeakMap<Browser, InteractionInfo>, pageViewStartTime: number, store: InteractionsStore): Promise<void>;
     DOCUMENT_TYPE: {
         GENERIC: number;
         MEDIA: number;

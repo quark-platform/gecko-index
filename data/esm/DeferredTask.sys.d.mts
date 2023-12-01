@@ -1,45 +1,45 @@
 /**
  * Sets up a task whose execution can be triggered after a delay.
  *
- * @param aTaskFn
+ * @param {() => Promise<void> | void} aTaskFn
  *        Function to execute.  If the function returns a promise, the task is
  *        not considered complete until that promise resolves.  This
  *        task is never re-entered while running.
- * @param aDelayMs
+ * @param {number} aDelayMs
  *        Time between executions, in milliseconds.  Multiple attempts to run
  *        the task before the delay has passed are coalesced.  This time of
  *        inactivity is guaranteed to pass between multiple executions of the
  *        task, except on finalization, when the task may restart immediately
  *        after the previous execution finished.
- * @param aIdleTimeoutMs
+ * @param {number?} aIdleTimeoutMs
  *        The maximum time to wait for an idle slot on the main thread after
  *        aDelayMs have elapsed. If omitted, waits indefinitely for an idle
  *        callback.
  */
-export function DeferredTask(aTaskFn: any, aDelayMs: any, aIdleTimeoutMs: any): void;
+export function DeferredTask(aTaskFn: () => Promise<void> | void, aDelayMs: number, aIdleTimeoutMs: number | null): void;
 export class DeferredTask {
     /**
      * Sets up a task whose execution can be triggered after a delay.
      *
-     * @param aTaskFn
+     * @param {() => Promise<void> | void} aTaskFn
      *        Function to execute.  If the function returns a promise, the task is
      *        not considered complete until that promise resolves.  This
      *        task is never re-entered while running.
-     * @param aDelayMs
+     * @param {number} aDelayMs
      *        Time between executions, in milliseconds.  Multiple attempts to run
      *        the task before the delay has passed are coalesced.  This time of
      *        inactivity is guaranteed to pass between multiple executions of the
      *        task, except on finalization, when the task may restart immediately
      *        after the previous execution finished.
-     * @param aIdleTimeoutMs
+     * @param {number?} aIdleTimeoutMs
      *        The maximum time to wait for an idle slot on the main thread after
      *        aDelayMs have elapsed. If omitted, waits indefinitely for an idle
      *        callback.
      */
-    constructor(aTaskFn: any, aDelayMs: any, aIdleTimeoutMs: any);
+    constructor(aTaskFn: () => Promise<void> | void, aDelayMs: number, aIdleTimeoutMs: number | null);
     _taskFn: null;
     _delayMs: null;
-    _timeoutMs: any;
+    _timeoutMs: number;
     _caller: string;
     /**
      * Indicates whether the task is currently requested to start again later,
