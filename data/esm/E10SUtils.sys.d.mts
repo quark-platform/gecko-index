@@ -102,13 +102,19 @@ export namespace E10SUtils {
     export function isWebRemoteType(aRemoteType: any): any;
     /**
      * Assemble or predict originAttributes from available arguments.
+     * @param {object} options
+     * @param {Window} [options.window]
+     * @param {*} [options.browser]
+     * @param {number} [options.userContextId]
+     * @param {string} [options.geckoViewSessionContextId]
+     * @param {number} [options.privateBrowsingId]
      */
     export function predictOriginAttributes({ window, browser, userContextId, geckoViewSessionContextId, privateBrowsingId, }: {
-        window: any;
-        browser: any;
-        userContextId: any;
-        geckoViewSessionContextId: any;
-        privateBrowsingId: any;
+        window?: Window;
+        browser?: any;
+        userContextId?: number;
+        geckoViewSessionContextId?: string;
+        privateBrowsingId?: number;
     }): any;
 }
 declare const DEFAULT_REMOTE_TYPE: "web";
