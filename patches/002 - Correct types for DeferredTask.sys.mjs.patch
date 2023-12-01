@@ -1,0 +1,37 @@
+From 2cfdc491f13420023d344d776ac89fb82f737069 Mon Sep 17 00:00:00 2001
+From: trickypr <23250792+trickypr@users.noreply.github.com>
+Date: Fri, 1 Dec 2023 16:50:45 +1100
+Subject: [PATCH] 002 - Correct types for DeferredTask.sys.mjs
+
+---
+ toolkit/modules/DeferredTask.sys.mjs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/toolkit/modules/DeferredTask.sys.mjs b/toolkit/modules/DeferredTask.sys.mjs
+index 1711d51d34..1a0c3a7ff5 100644
+--- a/toolkit/modules/DeferredTask.sys.mjs
++++ b/toolkit/modules/DeferredTask.sys.mjs
+@@ -95,17 +95,17 @@ const Timer = Components.Constructor(
+ /**
+  * Sets up a task whose execution can be triggered after a delay.
+  *
+- * @param aTaskFn
++ * @param {() => Promise<void> | void} aTaskFn
+  *        Function to execute.  If the function returns a promise, the task is
+  *        not considered complete until that promise resolves.  This
+  *        task is never re-entered while running.
+- * @param aDelayMs
++ * @param {number} aDelayMs
+  *        Time between executions, in milliseconds.  Multiple attempts to run
+  *        the task before the delay has passed are coalesced.  This time of
+  *        inactivity is guaranteed to pass between multiple executions of the
+  *        task, except on finalization, when the task may restart immediately
+  *        after the previous execution finished.
+- * @param aIdleTimeoutMs
++ * @param {number?} aIdleTimeoutMs
+  *        The maximum time to wait for an idle slot on the main thread after
+  *        aDelayMs have elapsed. If omitted, waits indefinitely for an idle
+  *        callback.
+-- 
+2.42.0
+
