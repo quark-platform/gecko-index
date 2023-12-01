@@ -1,38 +1,34 @@
-export class ClientEnvironment {
-    /**
-     * Fetches information about the client that is calculated on the server,
-     * like geolocation and the current time.
-     *
-     * The server request is made lazily and is cached for the entire browser
-     * session.
-     */
-    static getClientClassification(): Promise<any>;
-    static clearClassifyCache(): void;
-    /**
-     * Test wrapper that mocks the server request for classifying the client.
-     * @param  {Object}   data          Fake server data to use
-     * @param  {Function} testFunction  Test function to execute while mock data is in effect.
-     */
-    static withMockClassify(data: any, testFunction: Function): () => Promise<void>;
-    static get userId(): any;
-    static get country(): Promise<any>;
-    static get request_time(): Promise<any>;
-    static get experiments(): Promise<{
-        all: any[];
-        active: any[];
-        expired: any[];
-    }>;
-    static get studies(): Promise<{
-        pref: {};
-        addon: {};
-    }>;
-    static get rollouts(): Promise<{
-        pref: {};
-        addon: {};
-    }>;
-    static get isFirstRun(): any;
-}
-   isWindows: boolean;
+/**
+ * Create an object that provides general information about the client application.
+ *
+ * Components like Normandy RecipeRunner use this as part of the context for filter expressions,
+ * so avoid adding non-getter functions as attributes, as filter expressions
+ * cannot execute functions.
+ *
+ * Also note that, because filter expressions implicitly resolve promises, you
+ * can add getter functions that return promises for async data.
+ */
+export class ClientEnvironmentBase {
+    static get distribution(): any;
+    static get telemetry(): Promise<{}>;
+    static get liveTelemetry(): {
+        main: any;
+    };
+    static get randomizationId(): any;
+    static get version(): any;
+    static get channel(): any;
+    static get isDefaultBrowser(): any;
+    static get searchEngine(): Promise<any>;
+    static get syncSetup(): any;
+    static get syncDesktopDevices(): any;
+    static get syncMobileDevices(): any;
+    static get syncTotalDevices(): any;
+    static get addons(): Promise<any>;
+    static get plugins(): Promise<any>;
+    static get locale(): any;
+    static get doNotTrack(): any;
+    static get os(): {
+        isWindows: boolean;
         isMac: boolean;
         isLinux: boolean;
         readonly windowsVersion: any;

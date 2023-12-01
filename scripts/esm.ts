@@ -12,6 +12,14 @@ const { geckoDevDir, outFolder } = await getInfo('esm')
 
 const guessRawName = (fileName: string) => fileName.replace('.d.mts', '.mjs')
 
+function chunk<T>(arr: T[], chunkSize: number): T[][] {
+  const res = []
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    res.push(arr.slice(i, i + chunkSize))
+  }
+  return res
+}
+
 function compile(
   fileNames: string[],
   options: ts.CompilerOptions
@@ -34,44 +42,51 @@ export async function generateTypeDefinitions(
   files: string[],
   outFolder: string
 ) {
-  const output = compile(files, {
-    allowJs: true,
-    declaration: true,
-    emitDeclarationOnly: true,
-  })
+  let currentChunk = 0
+  const chunkSize = 100
+  const chunks = chunk(files, chunkSize)
 
-  const outFiles = []
-  const writePromises = []
+  const outFiles: string[] = []
   const exports = []
 
-  for (const [fileName, content] of Object.entries(output)) {
-    const baseName = basename(fileName)
-    outFiles.push(guessRawName(baseName))
-    writePromises.push(writeFile(join(outFolder, baseName), content))
+  for (const chunk of chunks) {
+    console.log(`Compiling chunk ${currentChunk++} of ${chunks.length}`)
 
-    const regex = /^export \w+ (?<keyword>\w*)/gm
-    let match
-    while ((match = regex.exec(content)) !== null) {
-      if (match.groups?.keyword) {
-        exports.push({
-          name: match.groups.keyword,
-          path: guessRawName(baseName),
-        })
+    const output = compile(
+      // If we have already written a specific file, we don't want to overwrite
+      // it
+      chunk.filter((file) => !outFiles.includes(guessRawName(basename(file)))),
+      {
+        allowJs: true,
+        declaration: true,
+        emitDeclarationOnly: true,
+      }
+    )
+
+    for (const [fileName, content] of Object.entries(output)) {
+      const baseName = basename(fileName)
+      outFiles.push(guessRawName(baseName))
+      await writeFile(join(outFolder, baseName), content)
+
+      const regex = /^export \w+ (?<keyword>\w*)/gm
+      let match
+      while ((match = regex.exec(content)) !== null) {
+        if (match.groups?.keyword) {
+          exports.push({
+            name: match.groups.keyword,
+            path: guessRawName(baseName),
+          })
+        }
       }
     }
   }
 
-  writePromises.push(
-    writeFile(
-      join(outFolder, '_exports.json'),
-      JSON.stringify(exports, null, 2)
-    )
-  )
-  writePromises.push(
-    writeFile(join(outFolder, '_.json'), JSON.stringify(outFiles, null, 2))
+  await writeFile(
+    join(outFolder, '_exports.json'),
+    JSON.stringify(exports, null, 2)
   )
 
-  await Promise.all(writePromises)
+  await writeFile(join(outFolder, '_.json'), JSON.stringify(outFiles, null, 2))
 }
 
 // Generate type definitions

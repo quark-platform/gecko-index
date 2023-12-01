@@ -1,8 +1,6 @@
-export namespace Preferences {
-    function init(libDir: any): void;
-    let configurations: {};
-}
-;
+export function Preferences(args: any): void;
+export class Preferences {
+    constructor(args: any);
     _cachedPrefBranch: any;
     _branchStr: any;
     _defaultBranch: any;

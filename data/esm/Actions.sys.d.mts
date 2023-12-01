@@ -1,145 +1,134 @@
-export const MAIN_MESSAGE_TYPE: "ActivityStream:Main";
-export const CONTENT_MESSAGE_TYPE: "ActivityStream:Content";
-export const PRELOAD_MESSAGE_TYPE: "ActivityStream:PreloadedBrowser";
-export const UI_CODE: 1;
-export const BACKGROUND_PROCESS: 2;
-/**
- * globalImportContext - Are we in UI code (i.e. react, a dom) or some kind of background process?
- *                       Use this in action creators if you need different logic
- *                       for ui/background processes.
- */
-export const globalImportContext: 1 | 2;
-export const actionTypes: {};
-export namespace actionCreators {
-    export { BroadcastToContent };
-    export { UserEvent };
-    export { DiscoveryStreamUserEvent };
-    export { ASRouterUserEvent };
-    export { ImpressionStats };
-    export { AlsoToOneContent };
-    export { OnlyToOneContent };
-    export { AlsoToMain };
-    export { OnlyToMain };
-    export { AlsoToPreloaded };
-    export { SetPref };
-    export { WebExtEvent };
-    export { DiscoveryStreamImpressionStats };
-    export { DiscoveryStreamLoadedContent };
+export namespace action {
+    export { State };
+    export { Chain };
 }
-export namespace actionUtils {
-    export function isSendToMain(action: any): boolean;
-    export function isBroadcastToContent(action: any): boolean;
-    export function isSendToOneContent(action: any): boolean;
-    export function isSendToPreloaded(action: any): boolean;
-    export function isFromMain(action: any): boolean;
-    export function getPortIdOfSender(action: any): any;
-    export { _RouteMessage };
+declare class State {
+    /**
+     * A map between input ID and the device state for that input
+     * source, with one entry for each active input source.
+     *
+     * Maps string => InputSource
+     */
+    inputStateMap: Map<any, any>;
+    /**
+     * List of {@link Action} associated with current session.  Used to
+     * manage dispatching events when resetting the state of the input sources.
+     * Reset operations are assumed to be idempotent.
+     */
+    inputsToCancel: TickActions;
+    /**
+     * Map between string input id and numeric pointer id
+     */
+    pointerIdMap: Map<any, any>;
+    toString(): string;
+    /**
+     * Reset state stored in this object.
+     * It is an error to use the State object after calling release().
+     *
+     * @param {WindowProxy} win Current window global.
+     */
+    release(win: WindowProxy): Promise<void>;
+    /**
+     * Get the state for a given input source.
+     *
+     * @param {string} id Input source id.
+     * @returns {InputSource} Input source state.
+     */
+    getInputSource(id: string): InputSource;
+    /**
+     * Find or add state for an input source. The caller should verify
+     * that the returned state is the expected type.
+     *
+     * @param {string} id Input source id.
+     * @param {InputSource} newInputSource Input source state.
+     */
+    getOrAddInputSource(id: string, newInputSource: InputSource): InputSource;
+    /**
+     * Iterate over all input states of a given type
+     *
+     * @param {string} type Input source type name (e.g. "pointer").
+     * @returns {Iterator} Iterator over [id, input source].
+     */
+    inputSourcesByType(type: string): Iterator<any, any, undefined>;
+    /**
+     * Get a numerical pointer id for a given pointer
+     *
+     * Pointer ids are positive integers. Mouse pointers are typically
+     * ids 0 or 1. Non-mouse pointers never get assigned id < 2. Each
+     * pointer gets a unique id.
+     *
+     * @param {string} id Pointer id.
+     * @param {string} type Pointer type.
+     * @returns {number} Numerical pointer id.
+     */
+    getPointerId(id: string, type: string): number;
 }
-/**
- * BroadcastToContent - Creates a message that will be dispatched to main and sent to ALL content processes.
- *
- * @param  {object} action Any redux action (required)
- * @return {object} An action with added .meta properties
- */
-declare function BroadcastToContent(action: object): object;
-/**
- * UserEvent - A telemetry ping indicating a user action. This should only
- *                   be sent from the UI during a user session.
- *
- * @param  {object} data Fields to include in the ping (source, etc.)
- * @return {object} An AlsoToMain action
- */
-declare function UserEvent(data: object): object;
-/**
- * DiscoveryStreamUserEvent - A telemetry ping indicating a user action from Discovery Stream. This should only
- *                     be sent from the UI during a user session.
- *
- * @param  {object} data Fields to include in the ping (source, etc.)
- * @return {object} An AlsoToMain action
- */
-declare function DiscoveryStreamUserEvent(data: object): object;
-/**
- * ASRouterUserEvent - A telemetry ping indicating a user action from AS router. This should only
- *                     be sent from the UI during a user session.
- *
- * @param  {object} data Fields to include in the ping (source, etc.)
- * @return {object} An AlsoToMain action
- */
-declare function ASRouterUserEvent(data: object): object;
-/**
- * ImpressionStats - A telemetry ping indicating an impression stats.
- *
- * @param  {object} data Fields to include in the ping
- * @param  {int} importContext (For testing) Override the import context for testing.
- * #return {object} An action. For UI code, a AlsoToMain action.
- */
-declare function ImpressionStats(data: object, importContext?: int): any;
-/**
- * AlsoToOneContent - Creates a message that will be will be dispatched to the main store
- *                    and also sent to a particular Content process.
- *
- * @param  {object} action Any redux action (required)
- * @param  {string} target The id of a content port
- * @param  {bool} skipMain Used by OnlyToOneContent to skip the main process
- * @return {object} An action with added .meta properties
- */
-declare function AlsoToOneContent(action: object, target: string, skipMain: bool): object;
-/**
- * OnlyToOneContent - Creates a message that will be sent to a particular Content process
- *                    and skip the main reducer.
- *
- * @param  {object} action Any redux action (required)
- * @param  {string} target The id of a content port
- * @return {object} An action with added .meta properties
- */
-declare function OnlyToOneContent(action: object, target: string): object;
-/**
- * AlsoToMain - Creates a message that will be dispatched locally and also sent to the Main process.
- *
- * @param  {object} action Any redux action (required)
- * @param  {object} options
- * @param  {bool}   skipLocal Used by OnlyToMain to skip the main reducer
- * @param  {string} fromTarget The id of the content port from which the action originated. (optional)
- * @return {object} An action with added .meta properties
- */
-declare function AlsoToMain(action: object, fromTarget: string, skipLocal: bool): object;
-/**
- * OnlyToMain - Creates a message that will be sent to the Main process and skip the local reducer.
- *
- * @param  {object} action Any redux action (required)
- * @param  {object} options
- * @param  {string} fromTarget The id of the content port from which the action originated. (optional)
- * @return {object} An action with added .meta properties
- */
-declare function OnlyToMain(action: object, fromTarget: string): object;
-/**
- * AlsoToPreloaded - Creates a message that dispatched to the main reducer and also sent to the preloaded tab.
- *
- * @param  {object} action Any redux action (required)
- * @return {object} An action with added .meta properties
- */
-declare function AlsoToPreloaded(action: object): object;
-declare function SetPref(name: any, value: any, importContext?: number): any;
-declare function WebExtEvent(type: any, data: any, importContext?: number): any;
-/**
- * DiscoveryStreamImpressionStats - A telemetry ping indicating an impression stats in Discovery Stream.
- *
- * @param  {object} data Fields to include in the ping
- * @param  {int} importContext (For testing) Override the import context for testing.
- * #return {object} An action. For UI code, a AlsoToMain action.
- */
-declare function DiscoveryStreamImpressionStats(data: object, importContext?: int): any;
-/**
- * DiscoveryStreamLoadedContent - A telemetry ping indicating a content gets loaded in Discovery Stream.
- *
- * @param  {object} data Fields to include in the ping
- * @param  {int} importContext (For testing) Override the import context for testing.
- * #return {object} An action. For UI code, a AlsoToMain action.
- */
-declare function DiscoveryStreamLoadedContent(data: object, importContext?: int): any;
-declare function _RouteMessage(action: any, options: any): any;
-export {};
-ber, array: any[]) => U_3 | readonly U_3[], thisArg?: This): U_3[];
+declare class Chain extends Array<any> {
+    /**
+     * @param {State} state - Actions state.
+     * @param {Array.<object>} actions - Array of objects that each
+     * represent an action sequence.
+     * @returns {action.Chain} - Object that allows dispatching a chain
+     * of actions.
+     * @throws {InvalidArgumentError} - If actions doesn't correspond to
+     * a valid action chain.
+     */
+    static fromJSON(state: State, actions: Array<object>): {
+        [n: number]: any;
+        toString(): string;
+        /**
+         * Dispatch the action chain to the relevant window.
+         *
+         * @param {State} state - Actions state.
+         * @param {WindowProxy} win - Current window global.
+         * @returns {Promise} - Promise that is resolved once the action
+         * chain is complete.
+         */
+        dispatch(state: State, win: WindowProxy): Promise<any>;
+        length: number;
+        toLocaleString(): string;
+        pop(): any;
+        push(...items: any[]): number;
+        concat(...items: ConcatArray<any>[]): any[];
+        concat(...items: any[]): any[];
+        join(separator?: string): string;
+        reverse(): any[];
+        shift(): any;
+        slice(start?: number, end?: number): any[];
+        sort(compareFn?: (a: any, b: any) => number): any;
+        splice(start: number, deleteCount?: number): any[];
+        splice(start: number, deleteCount: number, ...items: any[]): any[];
+        unshift(...items: any[]): number;
+        indexOf(searchElement: any, fromIndex?: number): number;
+        lastIndexOf(searchElement: any, fromIndex?: number): number;
+        every<S extends any>(predicate: (value: any, index: number, array: any[]) => value is S, thisArg?: any): this is S[];
+        every(predicate: (value: any, index: number, array: any[]) => unknown, thisArg?: any): boolean;
+        some(predicate: (value: any, index: number, array: any[]) => unknown, thisArg?: any): boolean;
+        forEach(callbackfn: (value: any, index: number, array: any[]) => void, thisArg?: any): void;
+        map<U>(callbackfn: (value: any, index: number, array: any[]) => U, thisArg?: any): U[];
+        filter<S_1 extends any>(predicate: (value: any, index: number, array: any[]) => value is S_1, thisArg?: any): S_1[];
+        filter(predicate: (value: any, index: number, array: any[]) => unknown, thisArg?: any): any[];
+        reduce(callbackfn: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any): any;
+        reduce(callbackfn: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any, initialValue: any): any;
+        reduce<U_1>(callbackfn: (previousValue: U_1, currentValue: any, currentIndex: number, array: any[]) => U_1, initialValue: U_1): U_1;
+        reduceRight(callbackfn: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any): any;
+        reduceRight(callbackfn: (previousValue: any, currentValue: any, currentIndex: number, array: any[]) => any, initialValue: any): any;
+        reduceRight<U_2>(callbackfn: (previousValue: U_2, currentValue: any, currentIndex: number, array: any[]) => U_2, initialValue: U_2): U_2;
+        find<S_2 extends any>(predicate: (value: any, index: number, obj: any[]) => value is S_2, thisArg?: any): S_2;
+        find(predicate: (value: any, index: number, obj: any[]) => unknown, thisArg?: any): any;
+        findIndex(predicate: (value: any, index: number, obj: any[]) => unknown, thisArg?: any): number;
+        fill(value: any, start?: number, end?: number): any;
+        copyWithin(target: number, start: number, end?: number): any;
+        entries(): IterableIterator<[number, any]>;
+        /**
+         * List of {@link Action} associated with current session.  Used to
+         * manage dispatching events when resetting the state of the input sources.
+         * Reset operations are assumed to be idempotent.
+         */
+        keys(): IterableIterator<number>;
+        values(): IterableIterator<any>;
+        includes(searchElement: any, fromIndex?: number): boolean;
+        flatMap<U_3, This = undefined>(callback: (this: This, value: any, index: number, array: any[]) => U_3 | readonly U_3[], thisArg?: This): U_3[];
         flat<A, D extends number = 1>(this: A, depth?: D): FlatArray<A, D>[];
         [Symbol.iterator](): IterableIterator<any>;
         readonly [Symbol.unscopables]: {

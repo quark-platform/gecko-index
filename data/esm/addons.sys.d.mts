@@ -1,17 +1,12 @@
-export function Addon(TPS: any, id: any): void;
-export class Addon {
-    constructor(TPS: any, id: any);
-    TPS: any;
-    id: any;
-    addon: null;
-    uninstall(): Promise<void>;
-    find(state: any): Promise<boolean>;
-    install(): Promise<void>;
-    setEnabled(flag: any): Promise<boolean>;
-}
-export const STATE_ENABLED: 1;
-export const STATE_DISABLED: 2;
-or each is documented by that function.
+/**
+ * The AddonsEngine handles synchronization of add-ons between clients.
+ *
+ * The engine maintains an instance of an AddonsReconciler, which is the entity
+ * maintaining state for add-ons. It provides the history and tracking APIs
+ * that AddonManager doesn't.
+ *
+ * The engine instance overrides a handful of functions on the base class. The
+ * rationale for each is documented by that function.
  */
 export function AddonsEngine(service: any): void;
 export class AddonsEngine {

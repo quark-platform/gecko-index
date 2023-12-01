@@ -7,7 +7,7 @@ export class AdmWikipedia {
     get enablingPreferences(): string[];
     get merinoProvider(): string;
     get rustSuggestionTypes(): string[];
-    getSuggestionTelemetryType(suggestion: any): "adm_nonsponsored" | "adm_sponsored";
+    getSuggestionTelemetryType(suggestion: any): "adm_sponsored" | "adm_nonsponsored";
     enable(enabled: any): void;
     queryRemoteSettings(searchString: any): Promise<any>;
     onRemoteSettingsSync(rs: any): Promise<void>;

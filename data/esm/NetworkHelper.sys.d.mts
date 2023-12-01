@@ -282,7 +282,7 @@ export namespace NetworkHelper {
      *         One of TLSv1, TLSv1.1, TLSv1.2, TLSv1.3 if @param version
      *         is valid, Unknown otherwise.
      */
-    function formatSecurityProtocol(version: any): "Unknown" | "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3";
+    function formatSecurityProtocol(version: any): "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3" | "Unknown";
     /**
      * Takes the securityState bitfield and returns reasons for weak connection
      * as an array of strings.

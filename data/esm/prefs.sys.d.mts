@@ -1,39 +1,27 @@
-/**
- * Preference class constructor
- *
- * Initializes instance properties.
- */
-export function Preference(props: any): void;
-export class Preference {
+export class Branch {
     /**
-     * Preference class constructor
-     *
-     * Initializes instance properties.
+     * @param {string=} branch
+     *     Preference subtree.  Uses root tree given `null`.
      */
-    constructor(props: any);
-    name: any;
-    value: any;
+    constructor(branch?: string | undefined);
+    _branch: any;
     /**
-     * Modify
+     * Gets value of `pref` in its known type.
      *
-     * Sets the value of the preference this.name to this.value.
-     * Throws on error.
+     * @param {string} pref
+     *     Preference name.
+     * @param {*=} fallback
+     *     Fallback value to return if `pref` does not exist.
      *
-     * @return nothing
+     * @returns {(string|boolean|number)}
+     *     Value of `pref`, or the `fallback` value if `pref` does
+     *     not exist.
+     *
+     * @throws {TypeError}
+     *     If `pref` is not a recognised preference and no `fallback`
+     *     value has been provided.
      */
-    Modify(): void;
-    /**
-     * Find
-     *
-     * Verifies that the preference this.name has the value
-     * this.value. Throws on error, or if the pref's type or value
-     * doesn't match.
-     *
-     * @return nothing
-     */
-    Find(): void;
-}
- any | undefined): (string | boolean | number);
+    get(pref: string, fallback?: any | undefined): (string | boolean | number);
     /**
      * Sets the value of `pref`.
      *

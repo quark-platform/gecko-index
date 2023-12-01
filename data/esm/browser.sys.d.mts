@@ -1,19 +1,21 @@
-export const browser: typeof BrowserModule;
-declare class BrowserModule {
-    constructor(messageHandler: any);
-    destroy(): void;
-    /**
-     * Commands
-     */
-    /**
-     * Terminate all WebDriver sessions and clean up automation state in the remote browser instance.
-     *
-     * Session clean up and actual broser closure will happen later in WebDriverBiDiConnection class.
-     */
-    close(): Promise<void>;
+export namespace browser {
+    export { Context };
 }
-export {};
-on.
+/**
+ * Variations of Marionette contexts.
+ *
+ * Choosing a context through the <tt>Marionette:SetContext</tt>
+ * command directs all subsequent browsing context scoped commands
+ * to that context.
+ *
+ * @class Marionette.Context
+ */
+export class Context {
+    /**
+     * Gets the correct context from a string.
+     *
+     * @param {string} s
+     *     Context string serialisation.
      *
      * @returns {Context}
      *     Context.

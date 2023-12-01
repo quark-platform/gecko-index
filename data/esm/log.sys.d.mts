@@ -4,9 +4,3 @@ declare class LogModule {
     interceptEvent(name: any, payload: any): any;
 }
 export {};
-ommands
-     */
-    _applySessionData(params: any): void;
-    #private;
-}
-export {};

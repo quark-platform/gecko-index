@@ -1,18 +1,20 @@
-export namespace CustomizeMode {
-    function init(libDir: any): void;
-    namespace configurations {
-        namespace notCustomizing {
-            let selectors: string[];
-            function applyConfig(): Promise<any>;
-        }
-        namespace customizing {
-            let selectors_1: string[];
-            export { selectors_1 as selectors };
-            export function applyConfig(): Promise<any>;
-        }
-    }
-}
-inViewContext: null;
+export function CustomizeMode(aWindow: any): void;
+export class CustomizeMode {
+    constructor(aWindow: any);
+    window: null;
+    document: null;
+    browser: any;
+    areas: null;
+    _translationObserver: any;
+    visiblePalette: any;
+    pongArena: any;
+    _changed: boolean;
+    _transitioning: boolean;
+    _stowedPalette: null;
+    _dragOverItem: null;
+    _customizing: boolean;
+    _skipSourceNodeCheck: null;
+    _mainViewContext: null;
     _enabledCommands: Set<string>;
     get _handler(): any;
     uninit(): void;

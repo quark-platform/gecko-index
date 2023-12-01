@@ -1,15 +1,14 @@
-export const event: typeof EventModule;
-declare class EventModule {
-    destroy(): void;
-    interceptEvent(name: any, payload: any): any;
-    /**
-     * Commands
-     */
-    testEmitWindowGlobalInRootEvent(params: any, destination: any): void;
-}
-export {};
-xport {};
-   let shiftKey: number;
+export namespace event {
+    namespace MouseEvents {
+        let click: number;
+        let dblclick: number;
+        let mousedown: number;
+        let mouseup: number;
+        let mouseover: number;
+        let mouseout: number;
+    }
+    namespace Modifiers {
+        let shiftKey: number;
         let ctrlKey: number;
         let altKey: number;
         let metaKey: number;

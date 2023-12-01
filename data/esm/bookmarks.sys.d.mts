@@ -1,326 +1,189 @@
-export function DumpBookmarks(): Promise<void>;
-/**
- * PlacesItem object.  Base class for places items.
- */
-export function PlacesItem(props: any): void;
+export function PlacesItem(collection: any, id: any, type: any): void;
 export class PlacesItem {
-    /**
-     * PlacesItem object.  Base class for places items.
-     */
-    constructor(props: any);
-    props: PlacesItemProps;
-    updateProps: PlacesItemProps;
-    _bookmarkFolders: {
-        places: any;
-        menu: any;
-        tags: any;
-        unfiled: any;
-        toolbar: any;
-        mobile: any;
-    };
-    _typeMap: Map<any, any>;
-    toString(): string;
-    /**
-     * GetPlacesChildGuid
-     *
-     * Finds the guid of the an item with the specified properties in the places
-     * database under the specified parent.
-     *
-     * @param folder The guid of the folder to search
-     * @param type The type of the item to find, or null to match any item;
-     *        this is one of the PlacesUtils.bookmarks.TYPE_* values
-     * @param title The title of the item to find, or null to match any title
-     * @param uri The uri of the item to find, or null to match any uri
-     *
-     * @return the node id if the item was found, otherwise null
-     */
-    GetPlacesChildGuid(folder: any, type: any, title: any, uri: any): Promise<any>;
-    /**
-     * IsAdjacentTo
-     *
-     * Determines if this object is immediately adjacent to another.
-     *
-     * @param itemName The name of the other object; this may be any kind of
-     *        places item
-     * @param relativePos The relative position of the other object.  If -1,
-     *        it means the other object should precede this one, if +1,
-     *        the other object should come after this one
-     * @return true if this object is immediately adjacent to the other object,
-     *         otherwise false
-     */
-    IsAdjacentTo(itemName: any, relativePos: any): Promise<boolean>;
-    /**
-     * GetItemIndex
-     *
-     * Gets the item index for this places item.
-     *
-     * @return the item index, or -1 if there's an error
-     */
-    GetItemIndex(): Promise<any>;
-    /**
-     * GetFolder
-     *
-     * Gets the folder guid for the specified bookmark folder
-     *
-     * @param location The full path of the folder, which must begin
-     *        with one of the bookmark root folders
-     * @return the folder guid if the folder is found, otherwise null
-     */
-    GetFolder(location: any): Promise<any>;
-    /**
-     * CreateFolder
-     *
-     * Creates a bookmark folder.
-     *
-     * @param location The full path of the folder, which must begin
-     *        with one of the bookmark root folders
-     * @return the folder id if the folder was created, otherwise -1
-     */
-    CreateFolder(location: any): Promise<any>;
-    /**
-     * GetOrCreateFolder
-     *
-     * Locates the specified folder; if not found it is created.
-     *
-     * @param location The full path of the folder, which must begin
-     *        with one of the bookmark root folders
-     * @return the folder id if the folder was found or created, otherwise -1
-     */
-    GetOrCreateFolder(location: any): Promise<any>;
-    /**
-     * CheckPosition
-     *
-     * Verifies the position of this places item.
-     *
-     * @param before The name of the places item that this item should be
-              before, or null if this check should be skipped
-     * @param after The name of the places item that this item should be
-              after, or null if this check should be skipped
-     * @param last_item_pos The index of the places item above this one,
-     *        or null if this check should be skipped
-     * @return true if this item is in the correct position, otherwise false
-     */
-    CheckPosition(before: any, after: any, last_item_pos: any): Promise<boolean>;
-    /**
-     * SetLocation
-     *
-     * Moves this places item to a different folder.
-     *
-     * @param location The full path of the folder to which to move this
-     *        places item, which must begin with one of the bookmark root
-     *        folders; if null, no changes are made
-     * @return nothing if successful, otherwise an exception is thrown
-     */
-    SetLocation(location: any): Promise<void>;
-    /**
-     * SetPosition
-     *
-     * Updates the position of this places item within this item's current
-     * folder.  Use SetLocation to change folders.
-     *
-     * @param position The new index this item should be moved to; if null,
-     *        no changes are made; if -1, this item is moved to the bottom of
-     *        the current folder. Otherwise, must be a string which is the
-     *        title of an existing item in the folder, who's current position
-     *        is used as the index.
-     * @return nothing if successful, otherwise an exception is thrown
-     */
-    SetPosition(position: any): Promise<void>;
-    /**
-     * Update the title of this places item
-     *
-     * @param title The new title to set for this item; if null, no changes
-     *        are made
-     * @return nothing
-     */
-    SetTitle(title: any): Promise<void>;
-}
-/**
- * Bookmark class constructor.  Initializes instance properties.
- */
-export function Bookmark(props: any): void;
-export class Bookmark {
-    /**
-     * Bookmark class constructor.  Initializes instance properties.
-     */
-    constructor(props: any);
-    /**
-     * SetKeyword
-     *
-     * Update this bookmark's keyword.
-     *
-     * @param keyword The keyword to set for this bookmark; if null, no
-     *        changes are made
-     * @return nothing
-     */
-    SetKeyword(keyword: any): Promise<void>;
-    /**
-     * SetUri
-     *
-     * Updates this bookmark's URI.
-     *
-     * @param uri The new URI to set for this boomark; if null, no changes
-     *        are made
-     * @return nothing
-     */
-    SetUri(uri: any): Promise<void>;
-    /**
-     * SetTags
-     *
-     * Updates this bookmark's tags.
-     *
-     * @param tags An array of tags which should be associated with this
-     *        bookmark; any previous tags are removed; if this param is null,
-     *        no changes are made.  If this param is an empty array, all
-     *        tags are removed from this bookmark.
-     * @return nothing
-     */
-    SetTags(tags: any): void;
-    /**
-     * Create
-     *
-     * Creates the bookmark described by this object's properties.
-     *
-     * @return the id of the created bookmark
-     */
-    Create(): Promise<any>;
-    /**
-     * Update
-     *
-     * Updates this bookmark's properties according the properties on this
-     * object's 'updateProps' property.
-     *
-     * @return nothing
-     */
-    Update(): Promise<void>;
-    /**
-     * Find
-     *
-     * Locates the bookmark which corresponds to this object's properties.
-     *
-     * @return the bookmark guid if the bookmark was found, otherwise null
-     */
-    Find(): Promise<any>;
-    /**
-     * Remove
-     *
-     * Removes this bookmark.  The bookmark should have been located previously
-     * by a call to Find.
-     *
-     * @return nothing
-     */
-    Remove(): Promise<void>;
-}
-/**
- * BookmarkFolder class constructor. Initializes instance properties.
- */
-export function BookmarkFolder(props: any): void;
-export class BookmarkFolder {
-    /**
-     * BookmarkFolder class constructor. Initializes instance properties.
-     */
-    constructor(props: any);
-    /**
-     * Create
-     *
-     * Creates the bookmark folder described by this object's properties.
-     *
-     * @return the id of the created bookmark folder
-     */
-    Create(): Promise<any>;
-    /**
-     * Find
-     *
-     * Locates the bookmark folder which corresponds to this object's
-     * properties.
-     *
-     * @return the folder guid if the folder was found, otherwise null
-     */
-    Find(): Promise<any>;
-    /**
-     * Remove
-     *
-     * Removes this folder.  The folder should have been located previously
-     * by a call to Find.
-     *
-     * @return nothing
-     */
-    Remove(): Promise<void>;
-    /**
-     * Update
-     *
-     * Updates this bookmark's properties according the properties on this
-     * object's 'updateProps' property.
-     *
-     * @return nothing
-     */
-    Update(): Promise<void>;
-}
-/**
- * Separator class constructor. Initializes instance properties.
- */
-export function Separator(props: any): void;
-export class Separator {
-    /**
-     * Separator class constructor. Initializes instance properties.
-     */
-    constructor(props: any);
-    /**
-     * Create
-     *
-     * Creates the bookmark separator described by this object's properties.
-     *
-     * @return the id of the created separator
-     */
-    Create(): Promise<any>;
-    /**
-     * Find
-     *
-     * Locates the bookmark separator which corresponds to this object's
-     * properties.
-     *
-     * @return the item guid if the separator was found, otherwise null
-     */
-    Find(): Promise<any>;
-    /**
-     * Update
-     *
-     * Updates this separator's properties according the properties on this
-     * object's 'updateProps' property.
-     *
-     * @return nothing
-     */
-    Update(): Promise<boolean>;
-    /**
-     * Remove
-     *
-     * Removes this separator.  The separator should have been located
-     * previously by a call to Find.
-     *
-     * @return nothing
-     */
-    Remove(): Promise<void>;
-}
-/**
- * PlacesItemProps object, holds properties for places items
- */
-declare function PlacesItemProps(props: any): void;
-declare class PlacesItemProps {
-    /**
-     * PlacesItemProps object, holds properties for places items
-     */
-    constructor(props: any);
-    location: any;
-    uri: any;
-    keyword: any;
-    title: any;
-    after: any;
-    before: any;
-    folder: any;
-    position: any;
-    delete: boolean;
-    tags: any;
-    last_item_pos: any;
+    constructor(collection: any, id: any, type: any);
     type: any;
+    decrypt(keyBundle: any): Promise<any>;
+    getTypeObject: (type: any) => typeof import("./bookmarks.sys.mjs").Bookmark | typeof import("./bookmarks.sys.mjs").BookmarkQuery | typeof import("./bookmarks.sys.mjs").BookmarkFolder | typeof import("./bookmarks.sys.mjs").Livemark | typeof import("./bookmarks.sys.mjs").BookmarkSeparator | typeof import("./bookmarks.sys.mjs").PlacesItem;
+    _logName: string;
+    toSyncBookmark(): {
+        kind: any;
+        recordId: any;
+        parentRecordId: any;
+    };
+    fromSyncBookmark(item: any): void;
+    parentid: any;
+    parentName: any;
+    dateAdded: any;
+}
+export function Bookmark(collection: any, id: any, type: any): void;
+export class Bookmark {
+    constructor(collection: any, id: any, type: any);
+    _logName: string;
+    toSyncBookmark(): any;
+    fromSyncBookmark(item: any): void;
+    title: any;
+    bmkUri: any;
+    description: any;
+    tags: any;
+    keyword: any;
+}
+export function BookmarkQuery(collection: any, id: any): void;
+export class BookmarkQuery {
+    constructor(collection: any, id: any);
+    _logName: string;
+    toSyncBookmark(): any;
+    fromSyncBookmark(item: any): void;
+    folderName: any;
+    queryId: any;
+}
+export function BookmarkFolder(collection: any, id: any, type: any): void;
+export class BookmarkFolder {
+    constructor(collection: any, id: any, type: any);
+    _logName: string;
+    toSyncBookmark(): any;
+    fromSyncBookmark(item: any): void;
+    title: any;
+    description: any;
+    children: any;
+}
+export function Livemark(collection: any, id: any): void;
+export class Livemark {
+    constructor(collection: any, id: any);
+    _logName: string;
+    toSyncBookmark(): any;
+    fromSyncBookmark(item: any): void;
+    feedUri: any;
+    siteUri: any;
+}
+export function BookmarkSeparator(collection: any, id: any): void;
+export class BookmarkSeparator {
+    constructor(collection: any, id: any);
+    _logName: string;
+    fromSyncBookmark(item: any): void;
+    pos: any;
+}
+/**
+ * The bookmarks engine uses a different store that stages downloaded bookmarks
+ * in a separate database, instead of writing directly to Places. The buffer
+ * handles reconciliation, so we stub out `_reconcile`, and wait to pull changes
+ * until we're ready to upload.
+ */
+export function BookmarksEngine(service: any): void;
+export class BookmarksEngine {
+    /**
+     * The bookmarks engine uses a different store that stages downloaded bookmarks
+     * in a separate database, instead of writing directly to Places. The buffer
+     * handles reconciliation, so we stub out `_reconcile`, and wait to pull changes
+     * until we're ready to upload.
+     */
+    constructor(service: any);
+    _recordObj: typeof PlacesItem;
+    _trackerObj: typeof BookmarksTracker;
+    _storeObj: typeof BookmarksStore;
+    version: number;
+    overrideTelemetryName: string;
+    _defaultSort: string;
+    syncPriority: number;
+    allowSkippedRecord: boolean;
+    _ensureCurrentSyncID(newSyncID: any): Promise<void>;
+    ensureCurrentSyncID(newSyncID: any): Promise<any>;
+    getSyncID(): Promise<any>;
+    resetSyncID(): Promise<any>;
+    resetLocalSyncID(): Promise<any>;
+    getLastSync(): Promise<any>;
+    setLastSync(lastSync: any): Promise<void>;
+    _syncStartup(): Promise<void>;
+    _sync(): Promise<void>;
+    _ranMaintenanceOnLastSync: boolean;
+    _syncFinish(): Promise<void>;
+    pullAllChanges(): Promise<any>;
+    trackRemainingChanges(): Promise<void>;
+    _deleteId(id: any): void;
+    _resetClient(): Promise<void>;
+    _shouldDeleteRemotely(incomingItem: any): boolean;
+    emptyChangeset(): BookmarksChangeset;
+    _apply(): Promise<void>;
+    _processIncoming(newitems: any): Promise<void>;
+    _reconcile(item: any): Promise<boolean>;
+    _createRecord(id: any): Promise<Bookmark | BookmarkQuery | BookmarkFolder | Livemark | BookmarkSeparator | PlacesItem>;
+    _doCreateRecord(id: any): Promise<Bookmark | BookmarkQuery | BookmarkFolder | Livemark | BookmarkSeparator | PlacesItem>;
+    _recordFromCleartext(id: any, cleartext: any): Bookmark | BookmarkQuery | BookmarkFolder | Livemark | BookmarkSeparator | PlacesItem;
+    pullChanges(): Promise<{}>;
+    /**
+     * Writes successfully uploaded records back to the mirror, so that the
+     * mirror matches the server. We update the mirror before updating Places,
+     * which has implications for interrupted syncs.
+     *
+     * 1. Sync interrupted during upload; server doesn't support atomic uploads.
+     *    We'll download and reapply everything that we uploaded before the
+     *    interruption. All locally changed items retain their change counters.
+     * 2. Sync interrupted during upload; atomic uploads enabled. The server
+     *    discards the batch. All changed local items retain their change
+     *    counters, so the next sync resumes cleanly.
+     * 3. Sync interrupted during upload; outgoing records can't fit in a single
+     *    batch. We'll download and reapply all records through the most recent
+     *    committed batch. This is a variation of (1).
+     * 4. Sync interrupted after we update the mirror, but before cleanup. The
+     *    mirror matches the server, but locally changed items retain their change
+     *    counters. Reuploading them on the next sync should be idempotent, though
+     *    unnecessary. If another client makes a conflicting remote change before
+     *    we sync again, we may incorrectly prefer the local state.
+     * 5. Sync completes successfully. We'll update the mirror, and reset the
+     *    change counters for all items.
+     */
+    _onRecordsWritten(succeeded: any, failed: any, serverModifiedTime: any): Promise<void>;
+    finalize(): Promise<void>;
+}
+declare function BookmarksTracker(name: any, engine: any): void;
+declare class BookmarksTracker {
+    constructor(name: any, engine: any);
+    onStart(): void;
+    _placesListener: any;
+    onStop(): void;
+    getChangedIDs(): Promise<any>;
+    observe(subject: any, topic: any, data: any): void;
+    QueryInterface: any;
+    _upScore: () => void;
+    handlePlacesEvents(events: any): void;
+}
+/**
+ * The bookmarks store delegates to the mirror for staging and applying
+ * records. Most `Store` methods intentionally remain abstract, so you can't use
+ * this store to create or update bookmarks in Places. All changes must go
+ * through the mirror, which takes care of merging and producing a valid tree.
+ */
+declare function BookmarksStore(name: any, engine: any): void;
+declare class BookmarksStore {
+    /**
+     * The bookmarks store delegates to the mirror for staging and applying
+     * records. Most `Store` methods intentionally remain abstract, so you can't use
+     * this store to create or update bookmarks in Places. All changes must go
+     * through the mirror, which takes care of merging and producing a valid tree.
+     */
+    constructor(name: any, engine: any);
+    _openMirrorPromise: null;
+    _batchChunkSize: number;
+    createRecord(id: any, collection: any): Promise<Bookmark | BookmarkQuery | BookmarkFolder | Livemark | BookmarkSeparator | PlacesItem>;
+    _calculateIndex(record: any): Promise<number>;
+    wipe(): Promise<void>;
+    ensureOpenMirror(): any;
+    _openMirror(): Promise<any>;
+    applyIncomingBatch(records: any, countTelemetry: any): Promise<any[]>;
+    applyIncoming(record: any): Promise<void>;
+    finalize(): Promise<void>;
+}
+/**
+ * A changeset that stores extra metadata in a change record for each ID. The
+ * engine updates this metadata when uploading Sync records, and writes it back
+ * to Places in `BookmarksEngine#trackRemainingChanges`.
+ *
+ * The `synced` property on a change record means its corresponding item has
+ * been uploaded, and we should pretend it doesn't exist in the changeset.
+ */
+declare class BookmarksChangeset {
+    getModifiedTimestamp(id: any): void;
+    has(id: any): void;
+    delete(id: any): void;
+    ids(): any[];
 }
 export {};

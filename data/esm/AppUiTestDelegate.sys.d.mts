@@ -1,24 +1,28 @@
-export const AppUiTestDelegate: Delegate;
-/**
- * The implementation of AppUiTestDelegate. All implementations need to be kept
- * in sync. For details, see:
- * testing/specialpowers/content/AppTestDelegateParent.sys.mjs
- *
- * This implementation mostly forwards calls to TestRunnerApiEngine in
- * mobile/android/test_runner/src/main/java/org/mozilla/geckoview/test_runner/TestRunnerApiEngine.java
- */
-declare class Delegate {
-    _sendMessageToApp(data: any): any;
-    clickPageAction(window: any, extensionId: any): any;
-    clickBrowserAction(window: any, extensionId: any): any;
-    closePageAction(window: any, extensionId: any): any;
-    closeBrowserAction(window: any, extensionId: any): any;
-    awaitExtensionPanel(window: any, extensionId: any): any;
-    removeTab(tab: any): Promise<void>;
-    openNewForegroundTab(window: any, url: any, waitForLoad?: boolean): Promise<any>;
+export namespace AppUiTestInternals {
+    export { awaitBrowserLoaded };
+    export { getBrowserActionWidget };
+    export { getBrowserActionWidgetId };
+    export { getPageActionButton };
+    export { getPageActionPopup };
+    export { getPanelForNode };
+    export { makeWidgetId };
+    export { promiseAnimationFrame };
+    export { promisePopupShown };
+    export { showBrowserAction };
 }
-export {};
-n(window: any, extensionId: any): Promise<any>;
+export namespace AppUiTestDelegate {
+    export { awaitExtensionPanel };
+    export { clickBrowserAction };
+    export { clickPageAction };
+    export { closeBrowserAction };
+    export { closePageAction };
+    export { openNewForegroundTab };
+    export { removeTab };
+}
+declare function awaitBrowserLoaded(browser: any): Promise<any>;
+declare function getBrowserActionWidget(extensionId: any): any;
+declare function getBrowserActionWidgetId(extensionId: any): string;
+declare function getPageActionButton(window: any, extensionId: any): Promise<any>;
 declare function getPageActionPopup(window: any, extensionId: any): any;
 declare function getPanelForNode(node: any): any;
 declare function makeWidgetId(id: any): any;

@@ -7,17 +7,3 @@ declare class InputModule {
     #private;
 }
 export {};
-ontext.
-     *
-     * @param {object=} options
-     * @param {string} options.context
-     *     Id of the browsing context to reset the input state.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>context</var> is not valid type.
-     * @throws {NoSuchFrameError}
-     *     If the browsing context cannot be found.
-     */
-    releaseActions(options?: object | undefined): Promise<{}>;
-}
-export {};

@@ -1,328 +1,250 @@
-export namespace assert {
+/**
+ * This module is based on the
+ * `CommonJS spec <https://wiki.commonjs.org/wiki/Unit_Testing/1.0>`_
+ *
+ * When you see a jsdoc comment that contains a number, it's a reference to a
+ * specific section of the CommonJS spec.
+ *
+ * 1. The assert module provides functions that throw AssertionError's when
+ * particular conditions are not met.
+ *
+ * To use the module you may instantiate it first.
+ *
+ * @param {reporterFunc} reporterFunc
+ *        Allows consumers to override reporting for this instance.
+ * @param {boolean} isDefault
+ *        Used by test suites to set ``reporterFunc`` as the default
+ *        used by the global instance, which is called for example
+ *        by other test-only modules. This is false when the
+ *        reporter is set by content scripts, because they may still
+ *        run in the parent process.
+ *
+ * @class
+ */
+export function Assert(reporterFunc: reporterFunc, isDefault: boolean): void;
+export class Assert {
     /**
-     * Asserts that WebDriver has an active session.
+     * This module is based on the
+     * `CommonJS spec <https://wiki.commonjs.org/wiki/Unit_Testing/1.0>`_
      *
-     * @param {WebDriverSession} session
-     *     WebDriver session instance.
-     * @param {string=} msg
-     *     Custom error message.
+     * When you see a jsdoc comment that contains a number, it's a reference to a
+     * specific section of the CommonJS spec.
      *
-     * @throws {InvalidSessionIDError}
-     *     If session does not exist, or has an invalid id.
+     * 1. The assert module provides functions that throw AssertionError's when
+     * particular conditions are not met.
+     *
+     * To use the module you may instantiate it first.
+     *
+     * @param {reporterFunc} reporterFunc
+     *        Allows consumers to override reporting for this instance.
+     * @param {boolean} isDefault
+     *        Used by test suites to set ``reporterFunc`` as the default
+     *        used by the global instance, which is called for example
+     *        by other test-only modules. This is false when the
+     *        reporter is set by content scripts, because they may still
+     *        run in the parent process.
+     *
+     * @class
      */
-    export function session(session: WebDriverSession, msg?: string): void;
+    constructor(reporterFunc: reporterFunc, isDefault: boolean);
+    _reporter: reporterFunc;
     /**
-     * Asserts that the current browser is Firefox Desktop.
+     * This callback type is used for custom assertion report handling.
      *
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @throws {UnsupportedOperationError}
-     *     If current browser is not Firefox.
+     * @callback reporterFunc
+     * @param {AssertionError|null} err
+     *        An error object when the assertion failed, or null when it passed.
+     * @param {String} message
+     *        Message describing the assertion.
+     * @param {Stack} stack
+     *        Stack trace of the assertion function.
      */
-    export function firefox(msg?: string): void;
     /**
-     * Asserts that the current application is Firefox Desktop or Thunderbird.
+     * Set a custom assertion report handler function.
      *
-     * @param {string=} msg
-     *     Custom error message.
+     * @example
      *
-     * @throws {UnsupportedOperationError}
-     *     If current application is not running on desktop.
+     * Assert.setReporter(function customReporter(err, message, stack) {
+     *   if (err) {
+     *     do_report_result(false, err.message, err.stack);
+     *   } else {
+     *     do_report_result(true, message, stack);
+     *   }
+     * });
+     *
+     * @param {reporterFunc} reporterFunc
+     *        Report handler function.
      */
-    export function desktop(msg?: string): void;
+    setReporter(reporterFunc: reporterFunc): void;
     /**
-     * Asserts that the current application runs on Android.
+     * 3. All of the following functions must throw an AssertionError when a
+     * corresponding condition is not met, with a message that may be undefined if
+     * not provided.  All assertion methods provide both the actual and expected
+     * values to the assertion error for display purposes.
      *
-     * @param {string=} msg
-     *     Custom error message.
+     * This report method only throws errors on assertion failures, as per spec,
+     * but consumers of this module (think: xpcshell-test, mochitest) may want to
+     * override this default implementation.
      *
-     * @throws {UnsupportedOperationError}
-     *     If current application is not running on Android.
+     * @example
+     *
+     * // The following will report an assertion failure.
+     * this.report(1 != 2, 1, 2, "testing JS number math!", "==");
+     *
+     * @param {boolean} failed
+     *        Indicates if the assertion failed or not.
+     * @param {*} actual
+     *        The result of evaluating the assertion.
+     * @param {*} [expected]
+     *        Expected result from the test author.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
+     * @param {String} [operator]
+     *        Operation qualifier used by the assertion method (ex: '==').
+     * @param {boolean} [truncate=true]
+     *        Whether or not ``actual`` and ``expected`` should be truncated when printing.
      */
-    export function mobile(msg?: string): void;
+    report(failed: boolean, actual: any, expected?: any, message?: string, operator?: string, truncate?: boolean): void;
     /**
-     * Asserts that the current <var>context</var> is content.
+     * 4. Pure assertion tests whether a value is truthy, as determined by !!guard.
+     * ``assert.ok(guard, message_opt);``
+     * This statement is equivalent to ``assert.equal(true, !!guard, message_opt);``.
+     * To test strictly for the value true, use ``assert.strictEqual(true, guard,
+     * message_opt);``.
      *
-     * @param {string} context
-     *     Context to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {string}
-     *     <var>context</var> is returned unaltered.
-     *
-     * @throws {UnsupportedOperationError}
-     *     If <var>context</var> is not content.
+     * @param {*} value
+     *        Test subject to be evaluated as truthy.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function content(context: string, msg?: string): string;
+    ok(value: any, message?: string, ...args: any[]): void;
     /**
-     * Asserts that the {@link CanonicalBrowsingContext} is open.
+     * 5. The equality assertion tests shallow, coercive equality with ==.
+     * ``assert.equal(actual, expected, message_opt);``
      *
-     * @param {CanonicalBrowsingContext} browsingContext
-     *     Canonical browsing context to check.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {CanonicalBrowsingContext}
-     *     <var>browsingContext</var> is returned unaltered.
-     *
-     * @throws {NoSuchWindowError}
-     *     If <var>browsingContext</var> is no longer open.
+     * @param {*} actual
+     *        Test subject to be evaluated as equivalent to ``expected``.
+     * @param {*} expected
+     *        Test reference to evaluate against ``actual``.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function open(browsingContext: CanonicalBrowsingContext, msg?: string): CanonicalBrowsingContext;
+    equal(actual: any, expected: any, message?: string): void;
     /**
-     * Asserts that there is no current user prompt.
+     * 6. The non-equality assertion tests for whether two objects are not equal
+     * with ``!=``
      *
-     * @param {modal.Dialog} dialog
-     *     Reference to current dialogue.
-     * @param {string=} msg
-     *     Custom error message.
+     * @example
+     * assert.notEqual(actual, expected, message_opt);
      *
-     * @throws {UnexpectedAlertOpenError}
-     *     If there is a user prompt.
+     * @param {*} actual
+     *        Test subject to be evaluated as NOT equivalent to ``expected``.
+     * @param {*} expected
+     *        Test reference to evaluate against ``actual``.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function noUserPrompt(dialog: modal.Dialog, msg?: string): void;
+    notEqual(actual: any, expected: any, message?: string): void;
     /**
-     * Asserts that <var>obj</var> is defined.
+     * 7. The equivalence assertion tests a deep equality relation.
+     * assert.deepEqual(actual, expected, message_opt);
      *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
+     * We check using the most exact approximation of equality between two objects
+     * to keep the chance of false positives to a minimum.
+     * `JSON.stringify` is not designed to be used for this purpose; objects may
+     * have ambiguous `toJSON()` implementations that would influence the test.
      *
-     * @returns {?}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not defined.
+     * @param {*} actual
+     *        Test subject to be evaluated as equivalent to ``expected``, including nested properties.
+     * @param {*} expected
+     *        Test reference to evaluate against ``actual``.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function defined(obj: any, msg?: string): any;
+    deepEqual(actual: any, expected: any, message?: string): void;
     /**
-     * Asserts that <var>obj</var> is a finite number.
+     * 8. The non-equivalence assertion tests for any deep inequality.
+     * assert.notDeepEqual(actual, expected, message_opt);
      *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {number}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not a number.
+     * @param {*} actual
+     *        Test subject to be evaluated as NOT equivalent to ``expected``, including nested
+     *        properties.
+     * @param {*} expected
+     *        Test reference to evaluate against ``actual``.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function number(obj: any, msg?: string): number;
+    notDeepEqual(actual: any, expected: any, message?: string): void;
     /**
-     * Asserts that <var>obj</var> is a positive number.
+     * 9. The strict equality assertion tests strict equality, as determined by ===.
+     * ``assert.strictEqual(actual, expected, message_opt);``
      *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {number}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not a positive integer.
+     * @param {*} actual
+     *        Test subject to be evaluated as strictly equivalent to ``expected``.
+     * @param {*} expected
+     *        Test reference to evaluate against ``actual``.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function positiveNumber(obj: any, msg?: string): number;
+    strictEqual(actual: any, expected: any, message?: string): void;
     /**
-     * Asserts that <var>obj</var> is a number in the inclusive range <var>lower</var> to <var>upper</var>.
+     * 10. The strict non-equality assertion tests for strict inequality, as
+     * determined by !==. ``assert.notStrictEqual(actual, expected, message_opt);``
      *
-     * @param {?} obj
-     *     Value to test.
-     * @param {Array<number>} range
-     *     Array range [lower, upper]
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {number}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not a number in the specified range.
+     * @param {*} actual
+     *        Test subject to be evaluated as NOT strictly equivalent to ``expected``.
+     * @param {*} expected
+     *        Test reference to evaluate against ``actual``.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function numberInRange(obj: any, range: number[], msg?: string): number;
+    notStrictEqual(actual: any, expected: any, message?: string): void;
     /**
-     * Asserts that <var>obj</var> is callable.
+     * 11. Expected to throw an error:
+     * assert.throws(block, Error_opt, message_opt);
      *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
+     * Example:
+     * ```js
+     * // The following will verify that an error of type TypeError was thrown:
+     * Assert.throws(() => testBody(), TypeError);
+     * // The following will verify that an error was thrown with an error message matching "hello":
+     * Assert.throws(() => testBody(), /hello/);
+     * ```
      *
-     * @returns {Function}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not callable.
+     * @param {Function} block
+     *        Function to evaluate and catch eventual thrown errors.
+     * @param {RegExp|Function} expected
+     *        This parameter can be either a RegExp or a function. The function is
+     *        either the error type's constructor, or it's a method that returns
+     *        a boolean that describes the test outcome.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function callable(obj: any, msg?: string): Function;
+    throws(block: Function, expected: RegExp | Function, message?: string): void;
     /**
-     * Asserts that <var>obj</var> is an unsigned short number.
+     * A promise that is expected to reject:
+     * assert.rejects(promise, expected, message);
      *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {number}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not an unsigned short.
+     * @param {Promise} promise
+     *        A promise that is expected to reject.
+     * @param {?} [expected]
+     *        Test reference to evaluate against the rejection result.
+     * @param {String} [message]
+     *        Short explanation of the expected result.
      */
-    export function unsignedShort(obj: any, msg?: string): number;
+    rejects(promise: Promise<any>, expected?: unknown, message?: string): Promise<any>;
     /**
-     * Asserts that <var>obj</var> is an integer.
+     * The lhs must be greater than the rhs.
+     * assert.greater(lhs, rhs, message_opt);
      *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {number}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not an integer.
+     * @param {Number} lhs
+     *        The left-hand side value.
+     * @param {Number} rhs
+     *        The right-hand side value.
+     * @param {String} [message]
+     *        Short explanation of the comparison result.
      */
-    export function integer(obj: any, msg?: string): number;
-    /**
-     * Asserts that <var>obj</var> is a positive integer.
-     *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {number}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not a positive integer.
-     */
-    export function positiveInteger(obj: any, msg?: string): number;
-    /**
-     * Asserts that <var>obj</var> is an integer in the inclusive range <var>lower</var> to <var>upper</var>.
-     *
-     * @param {?} obj
-     *     Value to test.
-     * @param {Array<number>} range
-     *     Array range [lower, upper]
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {number}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not a number in the specified range.
-     */
-    export function integerInRange(obj: any, range: number[], msg?: string): number;
-    /**
-     * Asserts that <var>obj</var> is a boolean.
-     *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {boolean}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not a boolean.
-     */
-    export function boolean(obj: any, msg?: string): boolean;
-    /**
-     * Asserts that <var>obj</var> is a string.
-     *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {string}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not a string.
-     */
-    export function string(obj: any, msg?: string): string;
-    /**
-     * Asserts that <var>obj</var> is an object.
-     *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {object}
-     *     obj| is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not an object.
-     */
-    export function object(obj: any, msg?: string): any;
-    /**
-     * Asserts that <var>prop</var> is in <var>obj</var>.
-     *
-     * @param {?} prop
-     *     An array element or own property to test if is in <var>obj</var>.
-     * @param {?} obj
-     *     An array or an Object that is being tested.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {?}
-     *     The array element, or the value of <var>obj</var>'s own property
-     *     <var>prop</var>.
-     *
-     * @throws {InvalidArgumentError}
-     *     If the <var>obj</var> was an array and did not contain <var>prop</var>.
-     *     Otherwise if <var>prop</var> is not in <var>obj</var>, or <var>obj</var>
-     *     is not an object.
-     */
-    function _in(prop: any, obj: any, msg?: string): any;
-    export { _in as in };
-    /**
-     * Asserts that <var>obj</var> is an Array.
-     *
-     * @param {?} obj
-     *     Value to test.
-     * @param {string=} msg
-     *     Custom error message.
-     *
-     * @returns {object}
-     *     <var>obj</var> is returned unaltered.
-     *
-     * @throws {InvalidArgumentError}
-     *     If <var>obj</var> is not an Array.
-     */
-    export function array(obj: any, msg?: string): any;
-    /**
-     * Returns a function that is used to assert the |predicate|.
-     *
-     * @param {function(?): boolean} predicate
-     *     Evaluated on calling the return value of this function.  If its
-     *     return value of the inner function is false, <var>error</var>
-     *     is thrown with <var>message</var>.
-     * @param {string=} message
-     *     Custom error message.
-     * @param {Error=} err
-     *     Custom error type by its class.
-     *
-     * @returns {function(?): ?}
-     *     Function that takes and returns the passed in value unaltered,
-     *     and which may throw <var>error</var> with <var>message</var>
-     *     if <var>predicate</var> evaluates to false.
-     */
-    export function that(predicate: (arg0: any) => boolean, message?: string, err?: Error): (arg0: any) => any;
-}
-hs: number, message?: string): void;
+    greater(lhs: number, rhs: number, message?: string): void;
     /**
      * The lhs must be greater than or equal to the rhs.
      * assert.greaterOrEqual(lhs, rhs, message_opt);

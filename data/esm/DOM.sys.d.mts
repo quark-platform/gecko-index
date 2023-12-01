@@ -1,71 +1,64 @@
-export class DOM {
-    constructor(session: any);
-    enabled: boolean;
-    destructor(): void;
-    enable(): Promise<void>;
+export namespace dom {
+    namespace Strategy {
+        let ClassName: string;
+        let Selector: string;
+        let ID: string;
+        let Name: string;
+        let LinkText: string;
+        let PartialLinkText: string;
+        let TagName: string;
+        let XPath: string;
+    }
     /**
-     * Describes node given its id.
+     * Find a single element or a collection of elements starting at the
+     * document root or a given node.
      *
-     * Does not require domain to be enabled. Does not start tracking any objects.
+     * If |timeout| is above 0, an implicit search technique is used.
+     * This will wait for the duration of <var>timeout</var> for the
+     * element to appear in the DOM.
      *
-     * @param {object} options
-     * @param {number=} options.backendNodeId [not supported]
-     *     Identifier of the backend node.
-     * @param {number=} options.depth [not supported]
-     *     The maximum depth at which children should be retrieved, defaults to 1.
-     *     Use -1 for the entire subtree or provide an integer larger than 0.
-     * @param {number=} options.nodeId [not supported]
-     *     Identifier of the node.
-     * @param {string} options.objectId
-     *     JavaScript object id of the node wrapper.
-     * @param {boolean=} options.pierce [not supported]
-     *     Whether or not iframes and shadow roots should be traversed
-     *     when returning the subtree, defaults to false.
+     * See the {@link dom.Strategy} enum for a full list of supported
+     * search strategies that can be passed to <var>strategy</var>.
      *
-     * @returns {DOM.Node}
-     *     Node description.
+     * @param {Object<string, WindowProxy>} container
+     *     Window object.
+     * @param {string} strategy
+     *     Search strategy whereby to locate the element(s).
+     * @param {string} selector
+     *     Selector search pattern.  The selector must be compatible with
+     *     the chosen search <var>strategy</var>.
+     * @param {object=} options
+     * @param {boolean=} options.all
+     *     If true, a multi-element search selector is used and a sequence of
+     *     elements will be returned, otherwise a single element. Defaults to false.
+     * @param {Element=} options.startNode
+     *     Element to use as the root of the search.
+     * @param {number=} options.timeout
+     *     Duration to wait before timing out the search.  If <code>all</code>
+     *     is false, a {@link NoSuchElementError} is thrown if unable to
+     *     find the element within the timeout duration.
+     *
+     * @returns {Promise.<(Element|Array.<Element>)>}
+     *     Single element or a sequence of elements.
+     *
+     * @throws InvalidSelectorError
+     *     If <var>strategy</var> is unknown.
+     * @throws InvalidSelectorError
+     *     If <var>selector</var> is malformed.
+     * @throws NoSuchElementError
+     *     If a single element is requested, this error will throw if the
+     *     element is not found.
      */
-    describeNode(options?: {
-        backendNodeId?: number | undefined;
-        depth?: number | undefined;
-        nodeId?: number | undefined;
-        objectId: string;
-        pierce?: boolean | undefined;
-    }): DOM.Node;
-    disable(): void;
-    getContentQuads(options?: {}): {
-        quads: any;
-    };
-    getBoxModel(options?: {}): {
-        model: {
-            width: number;
-            height: number;
-        };
-    };
+    function find(container: {
+        [x: string]: Window;
+    }, strategy: string, selector: string, options?: any): Promise<Element | Element[]>;
     /**
-     * Resolves the JavaScript node object for a given NodeId or BackendNodeId.
+     * Find a single element by XPath expression.
      *
-     * @param {object} options
-     * @param {number} options.backendNodeId [required for now]
-     *     Backend identifier of the node to resolve.
-     * @param {number=} options.executionContextId
-     *     Execution context in which to resolve the node.
-     * @param {number=} options.nodeId [not supported]
-     *     Id of the node to resolve.
-     * @param {string=} options.objectGroup [not supported]
-     *     Symbolic group name that can be used to release multiple objects.
-     *
-     * @returns {Runtime.RemoteObject}
-     *     JavaScript object wrapper for given node.
-     */
-    resolveNode(options?: {
-        backendNodeId: number;
-        executionContextId?: number | undefined;
-        nodeId?: number | undefined;
-        objectGroup?: string | undefined;
-    }): Runtime.RemoteObject;
-}
- Where in the DOM hiearchy to begin searching.
+     * @param {Document} document
+     *     Document root.
+     * @param {Element} startNode
+     *     Where in the DOM hiearchy to begin searching.
      * @param {string} expression
      *     XPath search expression.
      *

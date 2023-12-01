@@ -1,36 +1,27 @@
+/** E10s compatible wrapper for the standard logger from Log.sys.mjs. */
 export class Log {
-    constructor(session: any);
-    enabled: boolean;
-    destructor(): void;
-    enable(): void;
-    disable(): void;
-    _getLogCategory(category: any): "network" | "other" | "javascript";
+    static TYPES: {
+        CDP: string;
+        MARIONETTE: string;
+        REMOTE_AGENT: string;
+        WEBDRIVER_BIDI: string;
+    };
     /**
-     * Takes all script error messages that do not have an exception attached,
-     * and emits a "Log.entryAdded" event.
+     * Get a logger instance. For each provided type, a dedicated logger instance
+     * will be returned, but all loggers are relying on the same preference.
      *
-     * @param {nsIConsoleMessage} message
-     *     Message originating from the nsIConsoleService.
+     * @param {string} type
+     *     The type of logger to use. Protocol-specific modules should use the
+     *     corresponding logger type. Eg. files under /marionette should use
+     *     Log.TYPES.MARIONETTE.
      */
-    observe(message: nsIConsoleMessage): void;
-    get QueryInterface(): any;
-}
-umber;
-            let ERROR: number;
-            let WARN: number;
-            let INFO: number;
-            let CONFIG: number;
-            let DEBUG: number;
-            let TRACE: number;
-            let ALL: number;
-        }
-    }
-    let repository: any;
-    function _formatError(e: any): string;
-    function exceptionStr(e: any): string;
-    function stackTrace(e: any): any;
-}
-e(): boolean;
+    static get(type?: string): any;
+    /**
+     * Check if the current log level matches the Debug log level, or any level
+     * above that. This should be used to guard logger.debug calls and avoid
+     * instanciating logger instances unnecessarily.
+     */
+    static get isDebugLevelOrMore(): boolean;
     /**
      * Check if the current log level matches the Trace log level, or any level
      * above that. This should be used to guard logger.trace calls and avoid

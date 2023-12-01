@@ -2,7 +2,7 @@ export class FormScenarios {
     /**
      * Caches the scores when running the SignUpFormRuleset against a form
      */
-    static "__#589@#cachedSignUpFormScore": WeakMap<object, any>;
+    static "__#502043@#cachedSignUpFormScore": WeakMap<object, any>;
     /**
      * Detect usage scenarios of the form.
      *
@@ -24,5 +24,5 @@ export class FormScenarios {
      * @param {HTMLFormElement} formElement
      * @returns {boolean} returns true if the calculcated score is higher than the confidenceThreshold
      */
-    static "__#589@#isProbablyASignUpForm"(formElement: HTMLFormElement): boolean;
+    static "__#502043@#isProbablyASignUpForm"(formElement: HTMLFormElement): boolean;
 }

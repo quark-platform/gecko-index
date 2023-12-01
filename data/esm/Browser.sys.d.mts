@@ -1,14 +1,9 @@
-export class Browser {
-    getVersion(): {
-        jsVersion: any;
-        protocolVersion: string;
-        product: string;
-        revision: any;
-        userAgent: any;
-    };
-    close(): void;
-}
-e available masks are defined in
+/**
+ * Quits the application with the provided flags.
+ *
+ * Optional {@link nsIAppStartup} flags may be provided as
+ * an array of masks, and these will be combined by ORing
+ * them with a bitmask. The available masks are defined in
  * https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Reference/Interface/nsIAppStartup.
  *
  * Crucially, only one of the *Quit flags can be specified. The |eRestart|

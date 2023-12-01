@@ -115,7 +115,7 @@ export class LogAdapter {
     error(message: any): void;
 }
 export class BridgeWrapperXPCOM {
-    static "__#540@#promisify"(func: any, ...params: any[]): Promise<any>;
+    static "__#335065@#promisify"(func: any, ...params: any[]): Promise<any>;
     constructor(component: any);
     comp: any;
     get storageVersion(): any;

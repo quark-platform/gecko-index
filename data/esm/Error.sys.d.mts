@@ -1,5 +1,4 @@
-export {};
-s RemoteAgentError extends Error {
+export class RemoteAgentError extends Error {
     static format(e: any, { stack }?: {
         stack?: boolean;
     }): any;

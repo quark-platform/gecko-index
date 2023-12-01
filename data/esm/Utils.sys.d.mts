@@ -1,14 +1,14 @@
 export namespace Utils {
-    function getCachedOriginUsage(): Promise<any>;
-    function shrinkStorageSize(size: any): Promise<any>;
-    function restoreStorageSize(): Promise<any>;
-}
-me, data) for
-     * each frame it encounters, starting with the given root.
+    export const SERVER_URL: any;
+    export let CHANGES_PATH: string;
+    export { log };
+    export const CERT_CHAIN_ROOT_IDENTIFIER: any;
+    export const LOAD_DUMPS: any;
+    export const PREVIEW_MODE: any;
+    /**
+     * Internal method to enable pulling data from preview buckets.
+     * @param enabled
      */
-    restoreFrameTreeData(frame: any, data: any, cb: any): void;
-}>;
-  */
     export function enablePreviewMode(enabled: any): void;
     /**
      * Returns the actual bucket name to be used. When preview mode is enabled,

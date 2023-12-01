@@ -30,4 +30,4 @@ export function assertFirefoxViewTabSelected(win: any): Promise<void>;
 export function openFirefoxViewTab(win: any): Promise<any>;
 export function closeFirefoxViewTab(win: any): void;
 export function isFirefoxViewTabSelectedInWindow(win: any): boolean;
-export function getFirefoxViewURL(): "about:firefoxview" | "about:firefoxview-next";
+export function getFirefoxViewURL(): "about:firefoxview-next" | "about:firefoxview";

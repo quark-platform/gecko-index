@@ -1,7 +1,8 @@
-export function newAppInfo(options?: {}): any;
-export function getAppInfo(): any;
-export function updateAppInfo(options: any): void;
- @typedef {object} RemoteAgent.AppInfo
+/**
+ * Extends Services.appinfo with further properties that are
+ * used by different protocols as handled by the Remote Agent.
+ *
+ * @typedef {object} RemoteAgent.AppInfo
  * @property {boolean} isAndroid - Whether the application runs on Android.
  * @property {boolean} isLinux - Whether the application runs on Linux.
  * @property {boolean} isMac - Whether the application runs on Mac OS.

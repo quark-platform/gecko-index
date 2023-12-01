@@ -1,28 +1,28 @@
-export namespace BrowserTabs {
-    /**
-     * Add
-     *
-     * Opens a new tab in the current browser window for the
-     * given uri. Rejects on error.
-     *
-     * @param uri The uri to load in the new tab
-     * @return Promise
-     */
-    function Add(uri: any): Promise<void>;
-    /**
-     * Find
-     *
-     * Finds the specified uri and title in Weave's list of remote tabs
-     * for the specified profile.
-     *
-     * @param uri The uri of the tab to find
-     * @param title The page title of the tab to find
-     * @param profile The profile to search for tabs
-     * @return true if the specified tab could be found, otherwise false
-     */
-    function Find(uri: any, title: any, profile: any): Promise<boolean>;
-}
-nlock(): void;
+export function TabEngine(service: any): void;
+export class TabEngine {
+    constructor(service: any);
+    _trackerObj: typeof TabTracker;
+    syncPriority: number;
+    prepareTheBridge(isQuickWrite: any): Promise<void>;
+    _syncStartup(): Promise<void>;
+    initialize(): Promise<void>;
+    _rustStore: any;
+    _bridge: any;
+    getChangedIDs(): Promise<{}>;
+    getAllClients(): Promise<any[]>;
+    removeClientData(): Promise<void>;
+    trackRemainingChanges(): Promise<void>;
+    getTabsWithinPayloadSize(): Promise<{
+        title: any;
+        urlHistory: any[];
+        icon: string;
+        lastUsed: number;
+    }[]>;
+    _engineLock: any;
+    _engineLocked: boolean;
+    get locked(): boolean;
+    lock(): boolean;
+    unlock(): void;
     quickWrite(): Promise<any>;
     _doQuickWrite(): Promise<boolean>;
     _sync(): Promise<void>;

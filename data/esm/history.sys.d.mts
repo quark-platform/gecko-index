@@ -1,40 +1,39 @@
-export function DumpHistory(): Promise<void>;
-export namespace HistoryEntry {
-    /**
-     * Add
-     *
-     * Adds visits for a uri to the history database.  Throws on error.
-     *
-     * @param item An object representing one or more visits to a specific uri
-     * @param usSinceEpoch The number of microseconds from Epoch to
-     *        the time the current Crossweave run was started
-     * @return nothing
-     */
-    function Add(item: any, msSinceEpoch: any): Promise<any>;
-    /**
-     * Find
-     *
-     * Finds visits for a uri to the history database.  Throws on error.
-     *
-     * @param item An object representing one or more visits to a specific uri
-     * @param usSinceEpoch The number of microseconds from Epoch to
-     *        the time the current Crossweave run was started
-     * @return true if all the visits for the uri are found, otherwise false
-     */
-    function Find(item: any, msSinceEpoch: any): Promise<boolean>;
-    /**
-     * Delete
-     *
-     * Removes visits from the history database. Throws on error.
-     *
-     * @param item An object representing items to delete
-     * @param usSinceEpoch The number of microseconds from Epoch to
-     *        the time the current Crossweave run was started
-     * @return nothing
-     */
-    function Delete(item: any, msSinceEpoch: any): Promise<void>;
+export function HistoryRec(collection: any, id: any): void;
+export class HistoryRec {
+    constructor(collection: any, id: any);
+    _logName: string;
+    ttl: number;
 }
-event places doing bad things at shutdown.
+export function HistoryEngine(service: any): void;
+export class HistoryEngine {
+    constructor(service: any);
+    _recordObj: typeof HistoryRec;
+    _storeObj: typeof HistoryStore;
+    _trackerObj: typeof HistoryTracker;
+    downloadLimit: any;
+    syncPriority: number;
+    getSyncID(): Promise<any>;
+    ensureCurrentSyncID(newSyncID: any): Promise<any>;
+    resetSyncID(): Promise<any>;
+    resetLocalSyncID(): Promise<any>;
+    getLastSync(): Promise<any>;
+    setLastSync(lastSync: any): Promise<void>;
+    shouldSyncURL(url: any): boolean;
+    pullNewChanges(): Promise<any>;
+    _resetClient(): Promise<void>;
+}
+declare function HistoryStore(name: any, engine: any): void;
+declare class HistoryStore {
+    constructor(name: any, engine: any);
+    MAX_VISITS_PER_INSERT: number;
+    setGUID(uri: any, guid: any): Promise<any>;
+    GUIDForUri(uri: any, create: any): Promise<any>;
+    changeItemID(oldID: any, newID: any): Promise<void>;
+    getAllIDs(): Promise<{}>;
+    applyIncomingBatch(records: any, countTelemetry: any): Promise<any[]>;
+    /**
+     * Returns a generator that splits records into sanely sized chunks suitable
+     * for passing to places to prevent places doing bad things at shutdown.
      */
     _generateChunks(records: any): Generator<any[], void, unknown>;
     _canAddURI(uri: any): any;

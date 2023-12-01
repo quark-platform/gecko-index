@@ -10,6 +10,6 @@
  * a compartment at startup when no JSON is being viewed.
  */
 export class Sniffer {
-    getMIMETypeFromContent(request: any, data: any, length: any): "" | "application/json" | "application/vnd.mozilla.json.view";
+    getMIMETypeFromContent(request: any, data: any, length: any): "" | "application/vnd.mozilla.json.view" | "application/json";
     QueryInterface: any;
 }

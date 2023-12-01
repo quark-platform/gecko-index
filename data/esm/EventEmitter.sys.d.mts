@@ -1,11 +1,11 @@
-export function EventEmitter(): {
-    emit(eventName: any, event: any): void;
-    on(eventName: any, callback: any): void;
-    off(eventName: any, callback: any): void;
-    once(eventName: any, callback: any): void;
-};
-;
-}
+export function EventEmitter(): void;
+export class EventEmitter {
+    /**
+     * Connect a listener.
+     *
+     * @param string event
+     *        The event name to which we're connecting.
+     * @param function listener
      *        Called when the event is fired.
      */
     on(event: any, listener: any): void;

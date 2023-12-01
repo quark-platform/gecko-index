@@ -1,74 +1,61 @@
-/**
- * Password class constructor. Initializes instance properties.
- */
-export function Password(props: any): void;
-export class Password {
-    /**
-     * Password class constructor. Initializes instance properties.
-     */
-    constructor(props: any);
-    props: PasswordProps;
-    updateProps: PasswordProps;
-    /**
-     * Create
-     *
-     * Adds a password entry to the login manager for the password
-     * represented by this object's properties. Throws on error.
-     *
-     * @return the new login guid
-     */
-    Create(): Promise<any>;
-    /**
-     * Find
-     *
-     * Finds a password entry in the login manager, for the password
-     * represented by this object's properties.
-     *
-     * @return the guid of the password if found, otherwise -1
-     */
-    Find(): Promise<any>;
-    /**
-     * Update
-     *
-     * Updates an existing password entry in the login manager with
-     * new properties. Throws on error.  The 'old' properties are this
-     * object's properties, the 'new' properties are the properties in
-     * this object's 'updateProps' object.
-     *
-     * @return nothing
-     */
-    Update(): void;
-    /**
-     * Remove
-     *
-     * Removes an entry from the login manager for a password which
-     * matches this object's properties. Throws on error.
-     *
-     * @return nothing
-     */
-    Remove(): void;
+export function LoginRec(collection: any, id: any): void;
+export class LoginRec {
+    constructor(collection: any, id: any);
+    _logName: string;
+    cleartextToString(): string;
 }
-export function DumpPasswords(): Promise<void>;
-/**
- * PasswordProps object; holds password properties.
- */
-declare function PasswordProps(props: any): void;
-declare class PasswordProps {
-    /**
-     * PasswordProps object; holds password properties.
-     */
-    constructor(props: any);
-    hostname: any;
-    submitURL: any;
-    realm: any;
-    username: string;
-    password: string;
-    usernameField: string;
-    passwordField: string;
-    delete: boolean;
+export function PasswordEngine(service: any): void;
+export class PasswordEngine {
+    constructor(service: any);
+    _storeObj: typeof PasswordStore;
+    _trackerObj: typeof PasswordTracker;
+    _recordObj: typeof LoginRec;
+    syncPriority: number;
+    emptyChangeset(): PasswordsChangeset;
+    ensureCurrentSyncID(newSyncID: any): Promise<any>;
+    getLastSync(): Promise<any>;
+    setLastSync(timestamp: any): Promise<void>;
+    markSynced(guid: any): Promise<void>;
+    pullAllChanges(): Promise<{}>;
+    getChangedIDs(): Promise<{}>;
+    _getChangedIDs(getAll: any): Promise<{}>;
+    trackRemainingChanges(): Promise<void>;
+    _findDupe(item: any): Promise<any>;
+    _deleteId(id: any): void;
+    getValidator(): PasswordValidator;
 }
-export {};
-cord: any): any;
+export class PasswordValidator {
+    getClientItems(): Promise<any>;
+    normalizeClientItem(item: any): {
+        id: any;
+        guid: any;
+        hostname: any;
+        formSubmitURL: any;
+        httpRealm: any;
+        password: any;
+        passwordField: any;
+        username: any;
+        usernameField: any;
+        original: any;
+    };
+    normalizeServerItem(item: any): Promise<any>;
+}
+export class PasswordsChangeset {
+    getModifiedTimestamp(id: any): any;
+    has(id: any): boolean;
+    delete(id: any): void;
+}
+declare function PasswordStore(name: any, engine: any): void;
+declare class PasswordStore {
+    constructor(name: any, engine: any);
+    _nsLoginInfo: any;
+    storage: any;
+    _newPropertyBag(): any;
+    _processUnknownFields(record: any): string;
+    /**
+     * Return an instance of nsILoginInfo (and, implicitly, nsILoginMetaInfo).
+     */
+    _nsLoginInfoFromRecord(record: any): any;
     _getLoginFromGUID(guid: any): Promise<any>;
     applyIncoming(record: any): Promise<void>;
     getAllIDs(): Promise<{}>;

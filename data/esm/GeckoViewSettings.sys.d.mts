@@ -21,5 +21,5 @@ export class GeckoViewSettings {
     set useTrackingProtection(aUse: any);
     get customUserAgent(): any;
     get browsingContext(): any;
-    displayModeSettingToValue(aSetting: any): "browser" | "fullscreen" | "standalone" | "minimal-ui";
+    displayModeSettingToValue(aSetting: any): "browser" | "minimal-ui" | "standalone" | "fullscreen";
 }
