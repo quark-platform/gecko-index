@@ -68,5 +68,5 @@ export type NodeReferenceDetails = {
     browsingContextGroupId: number;
     browsingContextId: number;
     isTopBrowsingContext: boolean;
-    nodeWeakRef: WeakRef;
+    nodeWeakRef: WeakRef<any>;
 };

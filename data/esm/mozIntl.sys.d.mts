@@ -4,7 +4,11 @@ export class MozIntl {
         new (locales?: string | string[], options?: Intl.CollatorOptions): Intl.Collator;
         supportedLocalesOf(locales: string | string[], options?: Intl.CollatorOptions): string[];
     };
-    ListFormat: any;
+    ListFormat: {
+        new (locales?: string | string[], options?: Intl.ListFormatOptions): Intl.ListFormat;
+        prototype: Intl.ListFormat;
+        supportedLocalesOf(locales: string | string[], options?: Pick<Intl.ListFormatOptions, "localeMatcher">): string[];
+    };
     Locale: new (tag: string | Intl.Locale, options?: Intl.LocaleOptions) => Intl.Locale;
     NumberFormat: {
         (locales?: string | string[], options?: Intl.NumberFormatOptions): Intl.NumberFormat;

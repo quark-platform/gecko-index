@@ -233,7 +233,7 @@ declare class Action {
      * A cache of the pre-computed CSS variable values for a given icon
      * URLs object, as passed to _createIconProperties.
      */
-    _iconProperties: WeakMap<object, any>;
+    _iconProperties: WeakMap<WeakKey, any>;
     /**
      * The global values for the action properties.
      */
@@ -249,7 +249,7 @@ declare class Action {
      * A mapping of window-specific action property objects, each of which
      * derives from the _globalProps object.
      */
-    _windowProps: WeakMap<object, any>;
+    _windowProps: WeakMap<WeakKey, any>;
     /**
      * The ID of the action's parent extension (string)
      */

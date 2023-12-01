@@ -5,7 +5,7 @@ export class TranslationsTelemetry {
     /**
      * A cached value to hold the current flowId.
      */
-    static "__#1211373@#flowId": any;
+    static "__#1264039@#flowId": any;
     /**
      * Logs the telemetry event to the console if enabled by
      * the LOG_TELEMETRY_EVENTS constant.
@@ -63,7 +63,7 @@ declare class Panel {
      *
      * This value is set only through the onOpen() function.
      */
-    static "__#1211374@#isFirstUserInteraction": boolean;
+    static "__#1264040@#isFirstUserInteraction": boolean;
     /**
      * True if this is the user's first time interacting with the
      * Translations panel, otherwise false.

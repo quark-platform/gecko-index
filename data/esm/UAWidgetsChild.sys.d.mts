@@ -1,5 +1,5 @@
 export class UAWidgetsChild extends JSWindowActorChild {
-    widgets: WeakMap<object, any>;
+    widgets: WeakMap<WeakKey, any>;
     prefsCache: Map<any, any>;
     observedPrefs: any[];
     observerFunction: (subject: any, topic: any, data: any) => void;

@@ -37,7 +37,7 @@ export class UrlbarInput {
     _suppressStartQuery: boolean;
     _suppressPrimaryAdjustment: boolean;
     _untrimmedValue: string;
-    _searchModesByBrowser: WeakMap<object, any>;
+    _searchModesByBrowser: WeakMap<WeakKey, any>;
     QueryInterface: MozQueryInterface;
     _enableAutofillPlaceholder: boolean;
     inputField: any;

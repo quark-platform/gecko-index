@@ -130,6 +130,15 @@ declare class Chain extends Array<any> {
         includes(searchElement: any, fromIndex?: number): boolean;
         flatMap<U_3, This = undefined>(callback: (this: This, value: any, index: number, array: any[]) => U_3 | readonly U_3[], thisArg?: This): U_3[];
         flat<A, D extends number = 1>(this: A, depth?: D): FlatArray<A, D>[];
+        at(index: number): any;
+        findLast<S_3 extends any>(predicate: (value: any, index: number, array: any[]) => value is S_3, thisArg?: any): S_3;
+        findLast(predicate: (value: any, index: number, array: any[]) => unknown, thisArg?: any): any;
+        findLastIndex(predicate: (value: any, index: number, array: any[]) => unknown, thisArg?: any): number;
+        toReversed(): any[];
+        toSorted(compareFn?: (a: any, b: any) => number): any[];
+        toSpliced(start: number, deleteCount: number, ...items: any[]): any[];
+        toSpliced(start: number, deleteCount?: number): any[];
+        with(index: number, value: any): any[];
         [Symbol.iterator](): IterableIterator<any>;
         readonly [Symbol.unscopables]: {
             [x: number]: boolean;
@@ -165,11 +174,16 @@ declare class Chain extends Array<any> {
             includes?: boolean;
             flatMap?: boolean;
             flat?: boolean;
+            at?: boolean;
+            findLast?: boolean;
+            findLastIndex?: boolean;
+            toReversed?: boolean;
+            toSorted?: boolean;
+            toSpliced?: boolean;
+            with?: boolean;
             [Symbol.iterator]?: boolean;
             readonly [Symbol.unscopables]?: boolean;
-            at?: boolean;
         };
-        at(index: number): any;
     };
     constructor(arrayLength?: number);
     constructor(arrayLength: number);

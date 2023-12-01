@@ -64,7 +64,7 @@ export class LoginRecipesParent {
     onRemoteSettingsSync(aEvent: any): void;
 }
 export namespace LoginRecipesContent {
-    let _recipeCache: WeakMap<object, any>;
+    let _recipeCache: WeakMap<WeakKey, any>;
     function _clearRecipeCache(): void;
     /**
      * Locally caches recipes for a given host.

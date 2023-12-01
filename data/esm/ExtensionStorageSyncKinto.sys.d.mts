@@ -7,7 +7,7 @@ export class ExtensionStorageSyncKinto {
     constructor(fxaService: FXAccounts);
     _fxaService: FXAccounts;
     cryptoCollection: CryptoCollection;
-    listeners: WeakMap<object, any>;
+    listeners: WeakMap<WeakKey, any>;
     /**
      * Get a set of extensions to sync (including the ones with an
      * active extension context that used the storage.sync API and

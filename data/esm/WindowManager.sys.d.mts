@@ -5,7 +5,7 @@ export const windowManager: WindowManager;
  * @class WindowManager
  */
 declare class WindowManager {
-    _chromeWindowHandles: WeakMap<object, any>;
+    _chromeWindowHandles: WeakMap<WeakKey, any>;
     get chromeWindowHandles(): string[];
     get windows(): nsISimpleEnumeratorType;
     /**

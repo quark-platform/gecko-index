@@ -3,7 +3,7 @@ export const MINIMUM_TAB_COUNT_INTERVAL_MS: number;
 export namespace URICountListener {
     let _domainSet: Set<any>;
     let _domain24hrSet: Set<any>;
-    let _restoredURIsMap: WeakMap<object, any>;
+    let _restoredURIsMap: WeakMap<WeakKey, any>;
     let _timeouts: Set<any>;
     function isHttpURI(uri: any): any;
     function addRestoredURI(browser: any, uri: any): void;

@@ -12,7 +12,7 @@ export namespace UIPhases {
     let PREVIEW: number;
 }
 export namespace ScreenshotsUtils {
-    let browserToScreenshotsState: WeakMap<object, any>;
+    let browserToScreenshotsState: WeakMap<WeakKey, any>;
     let initialized: boolean;
     /**
      * Figures out which of various states the screenshots UI is in, for the given browser.

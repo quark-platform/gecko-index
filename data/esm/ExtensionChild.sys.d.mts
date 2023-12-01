@@ -40,7 +40,7 @@ declare class BrowserExtensionContent extends BrowserExtensionContent_base {
     baseURI: nsIURIType;
     baseURL: string;
     principal: nsIPrincipalType;
-    blockedParsingDocuments: WeakSet<object>;
+    blockedParsingDocuments: WeakSet<WeakKey>;
     views: Set<any>;
     devtoolsViews: Set<any>;
     get id(): any;

@@ -1,5 +1,5 @@
 export namespace InsecurePasswordUtils {
-    let _formRootsWarned: WeakMap<object, any>;
+    let _formRootsWarned: WeakMap<WeakKey, any>;
     /**
      * Gets the ID of the inner window of this DOM window.
      *

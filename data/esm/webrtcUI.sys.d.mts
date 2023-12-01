@@ -16,9 +16,9 @@ export namespace webrtcUI {
     let SHARING_NONE: number;
     let SHARING_WINDOW: number;
     let SHARING_SCREEN: number;
-    let sharedBrowserWindows: WeakSet<object>;
+    let sharedBrowserWindows: WeakSet<WeakKey>;
     let sharingScreen: boolean;
-    let allowedSharedBrowsers: WeakSet<object>;
+    let allowedSharedBrowsers: WeakSet<WeakKey>;
     let allowTabSwitchesForSession: boolean;
     let tabSwitchCountForSession: number;
     let sharingDisplay: boolean;

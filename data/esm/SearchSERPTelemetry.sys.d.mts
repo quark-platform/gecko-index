@@ -126,7 +126,7 @@ declare class TelemetryHandler {
     _searchProviderInfo: any;
     _telemetrySettings: any;
     _browserInfoByURL: Map<any, any>;
-    _browserSourceMap: WeakMap<object, any>;
+    _browserSourceMap: WeakMap<WeakKey, any>;
     /**
      * Sets the source of a SERP visit from something that occured in content
      * rather than from the browser.
@@ -140,7 +140,7 @@ declare class TelemetryHandler {
      *   SearchSERPTelemetryUtils.INCONTENT_SOURCES.REFINE_ON_SERP.
      */
     setBrowserContentSource(browser: any, source: string): void;
-    _browserNewtabSessionMap: WeakMap<object, any>;
+    _browserNewtabSessionMap: WeakMap<WeakKey, any>;
     /**
      * Initializes the TelemetryHandler and its ContentHandler. It will add
      * appropriate listeners to the window so that window opening and closing

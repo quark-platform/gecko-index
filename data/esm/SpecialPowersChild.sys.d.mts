@@ -12,7 +12,7 @@ export class SpecialPowersChild extends JSWindowActorChild {
     _consoleListeners: any[];
     _spawnTaskImports: {};
     _mfl: any;
-    _asyncObservers: WeakMap<object, any>;
+    _asyncObservers: WeakMap<WeakKey, any>;
     _xpcomabi: any;
     _os: string;
     _pu: {

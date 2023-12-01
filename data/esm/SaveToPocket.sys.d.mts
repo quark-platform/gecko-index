@@ -9,7 +9,7 @@ export namespace SaveToPocket {
     }
     function onPrefChange(pref: any, oldValue: any, newValue: any): void;
     function updateToolbarNodeState(browserWindow: any): void;
-    const innerWindowIDsByBrowser: WeakMap<object, any>;
+    const innerWindowIDsByBrowser: WeakMap<WeakKey, any>;
     function onLocationChange(browserWindow: any): void;
     /**
      * Functions related to the Pocket panel UI.

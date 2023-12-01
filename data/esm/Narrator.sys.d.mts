@@ -10,7 +10,7 @@ export class Narrator {
     get _doc(): any;
     get _win(): any;
     get _treeWalker(): any;
-    _treeWalkerRef: WeakMap<object, any>;
+    _treeWalkerRef: WeakMap<WeakKey, any>;
     get _timeIntoParagraph(): number;
     get speaking(): any;
     _getVoice(voiceURI: any): any;

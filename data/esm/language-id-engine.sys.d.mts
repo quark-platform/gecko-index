@@ -1,7 +1,7 @@
 export class LanguageIdEngine {
-    static "__#1596108@#cachedEngine": any;
-    static "__#1596108@#cachedEngineTimeoutId": any;
-    static "__#1596108@#cachedEngineTimeoutMS": number;
+    static "__#1666180@#cachedEngine": any;
+    static "__#1666180@#cachedEngineTimeoutId": any;
+    static "__#1666180@#cachedEngineTimeoutMS": number;
     /**
      * Gets a cached engine, or creates a new one. Returns `null` when the engine
      * payload fails to download.
@@ -14,9 +14,9 @@ export class LanguageIdEngine {
      * @param {() => Object} getPayload
      * @returns {Promise<LanguageIdEngine | null>}
      */
-    static "__#1596108@#create"(getPayload: () => any): Promise<LanguageIdEngine | null>;
-    static "__#1596108@#resetCacheTimeout"(): void;
-    static "__#1596108@#clearEngineCache"(): void;
+    static "__#1666180@#create"(getPayload: () => any): Promise<LanguageIdEngine | null>;
+    static "__#1666180@#resetCacheTimeout"(): void;
+    static "__#1666180@#clearEngineCache"(): void;
     /**
      * Construct and initialize the language-id worker.
      *

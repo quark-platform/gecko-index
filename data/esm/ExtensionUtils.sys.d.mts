@@ -98,7 +98,7 @@ declare class DefaultMap extends Map<any, any> {
  * Similar to a WeakMap, but creates a new key with the given
  * constructor if one is not present.
  */
-declare class DefaultWeakMap extends WeakMap<object, any> {
+declare class DefaultWeakMap extends WeakMap<WeakKey, any> {
     constructor(defaultConstructor?: any, init?: any);
     defaultConstructor: any;
     get(key: any): any;

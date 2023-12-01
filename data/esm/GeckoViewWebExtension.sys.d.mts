@@ -47,8 +47,8 @@ export class GeckoViewConnection {
 }
 export const mobileWindowTracker: MobileWindowTracker;
 export namespace GeckoViewWebExtension {
-    let browserActions: WeakMap<object, any>;
-    let pageActions: WeakMap<object, any>;
+    let browserActions: WeakMap<WeakKey, any>;
+    let pageActions: WeakMap<WeakKey, any>;
 }
 declare class EmbedderPort {
     constructor(portId: any, messenger: any);

@@ -55,7 +55,7 @@ export class AsyncTabSwitcher {
     switchInProgress: boolean;
     switchPaintId: number;
     maybeVisibleTabs: Set<any>;
-    warmingTabs: WeakSet<object>;
+    warmingTabs: WeakSet<WeakKey>;
     STATE_UNLOADED: number;
     STATE_LOADING: number;
     STATE_LOADED: number;
@@ -93,7 +93,7 @@ export class AsyncTabSwitcher {
     onTabRemovedImpl(tab: any): void;
     onVisibilityChange(): void;
     onSwapDocShells(ourBrowser: any, otherBrowser: any): void;
-    swapMap: WeakMap<object, any>;
+    swapMap: WeakMap<WeakKey, any>;
     onEndSwapDocShells(ourBrowser: any, otherBrowser: any): void;
     /**
      * Check if the browser should be deactivated. If the browser is a print preivew or

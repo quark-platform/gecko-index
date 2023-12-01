@@ -24,7 +24,7 @@ export namespace AUTOFILL_RESULT {
 export class LoginFormState {
     /** Remove login field highlight when its value is cleared or overwritten.
      */
-    static "__#1074130@#removeFillFieldHighlight"(event: any): void;
+    static "__#1120998@#removeFillFieldHighlight"(event: any): void;
     /**
      * Highlight login fields on autocomplete or autofill on page load.
      * @param {Node} element that needs highlighting.
@@ -48,7 +48,7 @@ export class LoginFormState {
     /**
      * Keeps track of filled fields and values.
      */
-    fillsByRootElement: WeakMap<object, any>;
+    fillsByRootElement: WeakMap<WeakKey, any>;
     /**
      * Keeps track of fields we've filled with generated passwords
      */
@@ -56,8 +56,8 @@ export class LoginFormState {
     /**
      * Keeps track of logins that were last submitted.
      */
-    lastSubmittedValuesByRootElement: WeakMap<object, any>;
-    fieldModificationsByRootElement: WeakMap<object, any>;
+    lastSubmittedValuesByRootElement: WeakMap<WeakKey, any>;
+    fieldModificationsByRootElement: WeakMap<WeakKey, any>;
     /**
      * Anything entered into an <input> that we think might be a username
      */
@@ -70,7 +70,7 @@ export class LoginFormState {
      * Keeps track of the formLike of nodes (form or formless password field)
      * that we are watching when they are removed from DOM.
      */
-    formLikeByObservedNode: WeakMap<object, any>;
+    formLikeByObservedNode: WeakMap<WeakKey, any>;
     /**
      * Keeps track of all formless password fields that have been
      * updated by the user.
@@ -441,9 +441,9 @@ export class LoginManagerChild extends JSWindowActorChild {
     getScenario(inputElement: any): any;
     #private;
 }
-declare class WeakFieldSet extends WeakSet<object> {
-    constructor(values?: readonly object[]);
-    constructor(iterable: Iterable<object>);
+declare class WeakFieldSet extends WeakSet<WeakKey> {
+    constructor(values?: readonly WeakKey[]);
+    constructor(iterable: Iterable<WeakKey>);
     add(value: any): void;
 }
 export {};

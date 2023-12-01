@@ -29,7 +29,7 @@ export class ExtensionShortcuts {
         onCommand: any;
         onShortcutChanged: any;
     });
-    keysetsMap: WeakMap<object, any>;
+    keysetsMap: WeakMap<WeakKey, any>;
     windowOpenListener: (window: any) => void;
     extension: any;
     onCommand: any;

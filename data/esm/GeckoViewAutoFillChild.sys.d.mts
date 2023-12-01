@@ -1,7 +1,7 @@
 /// <reference types="gecko-types" />
 export class GeckoViewAutoFillChild extends GeckoViewActorChild {
     _autofillElements: Map<any, any>;
-    _autofillInfos: WeakMap<object, any>;
+    _autofillInfos: WeakMap<WeakKey, any>;
     handleEvent(aEvent: any): void;
     /**
      * Process an auto-fillable form and send the relevant details of the form

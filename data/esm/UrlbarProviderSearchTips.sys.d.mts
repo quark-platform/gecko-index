@@ -6,7 +6,7 @@ export const UrlbarProviderSearchTips: ProviderSearchTips;
 declare class ProviderSearchTips {
     disableTipsForCurrentSession: boolean;
     showedTipTypeInCurrentEngagement: string;
-    _seenWindows: WeakSet<object>;
+    _seenWindows: WeakSet<WeakKey>;
     /**
      * Enum of the types of search tips.
      *

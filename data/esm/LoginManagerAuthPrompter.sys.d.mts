@@ -7,8 +7,8 @@ export function LoginManagerAuthPromptFactory(): void;
 export class LoginManagerAuthPromptFactory {
     classID: unknown;
     QueryInterface: MozQueryInterface;
-    _pendingPrompts: WeakMap<object, any>;
-    _pendingSavePrompts: WeakMap<object, any>;
+    _pendingPrompts: WeakMap<WeakKey, any>;
+    _pendingSavePrompts: WeakMap<WeakKey, any>;
     _noBrowser: {};
     _uiBusyPromise: null;
     _uiBusyResolve: null;

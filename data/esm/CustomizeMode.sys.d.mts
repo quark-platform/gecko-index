@@ -118,7 +118,7 @@ export class CustomizeMode {
     _dragInitializeTimeout: any;
     _onDragOver(aEvent: any, aOverrideTarget: any): void;
     _onDragDrop(aEvent: any, aOverrideTarget: any): void;
-    _dragSizeMap: WeakMap<object, any>;
+    _dragSizeMap: WeakMap<WeakKey, any>;
     _applyDrop(aEvent: any, aTargetArea: any, aOriginArea: any, aDraggedItemId: any, aTargetNode: any): void;
     _onDragLeave(aEvent: any): void;
     /**

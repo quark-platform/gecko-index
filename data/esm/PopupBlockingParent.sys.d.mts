@@ -6,7 +6,7 @@
 export class PopupBlocker {
     constructor(browser: any);
     _browser: any;
-    _allBlockedPopupCounts: WeakMap<object, any>;
+    _allBlockedPopupCounts: WeakMap<WeakKey, any>;
     _shouldShowNotification: boolean;
     /**
      * Returns whether or not there are new blocked popups for the associated

@@ -5,7 +5,7 @@ export class AboutLoginsParent extends JSWindowActorParent {
 }
 export const _AboutLogins: AboutLoginsInternal;
 declare class AboutLoginsInternal {
-    subscribers: WeakSet<object>;
+    subscribers: WeakSet<WeakKey>;
     authExpirationTime: number;
     observe(subject: any, topic: any, type: any): Promise<void>;
     getAllLogins(): Promise<any>;

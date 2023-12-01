@@ -172,7 +172,7 @@ export class WebDriverSession {
     id: any;
     path: string;
     capabilities: any;
-    navigableSeenNodes: WeakMap<object, any>;
+    navigableSeenNodes: WeakMap<WeakKey, any>;
     destroy(): void;
     execute(module: any, command: any, params: any): Promise<any>;
     get a11yChecks(): any;

@@ -47,12 +47,12 @@ export class PictureInPictureToggleChild extends JSWindowActorChild {
      * and/or disabledKeyboardControls properties.
      */
     static getSiteOverrides(): Array<Array<2>>;
-    weakDocStates: WeakMap<object, any>;
+    weakDocStates: WeakMap<WeakKey, any>;
     toggleEnabled: boolean;
     toggleTesting: boolean;
     observerFunction: (subject: any, topic: any, data: any) => void;
-    eligiblePipVideos: WeakSet<object>;
-    trackingVideos: WeakSet<object>;
+    eligiblePipVideos: WeakSet<WeakKey>;
+    trackingVideos: WeakSet<WeakKey>;
     receiveMessage(message: any): any;
     didDestroy(): void;
     videoWrapper: PictureInPictureChildVideoWrapper;

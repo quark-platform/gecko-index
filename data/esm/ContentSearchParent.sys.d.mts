@@ -2,7 +2,7 @@ export namespace ContentSearch {
     let initialized: boolean;
     let _eventQueue: any[];
     let _currentEventPromise: any;
-    let _suggestionMap: WeakMap<object, any>;
+    let _suggestionMap: WeakMap<WeakKey, any>;
     let _destroyedPromise: any;
     let _currentSuggestion: any;
     function init(): void;

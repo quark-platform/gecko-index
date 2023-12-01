@@ -12,11 +12,11 @@ export class PictureInPictureParent extends JSWindowActorParent {
     receiveMessage(aMessage: any): void;
 }
 export namespace PictureInPicture {
-    let weakPipToWin: WeakMap<object, any>;
-    let weakWinToBrowser: WeakMap<object, any>;
-    let browserWeakMap: WeakMap<object, any>;
-    let originatingWinWeakMap: WeakMap<object, any>;
-    let weakGlobalToEligiblePipCount: WeakMap<object, any>;
+    let weakPipToWin: WeakMap<WeakKey, any>;
+    let weakWinToBrowser: WeakMap<WeakKey, any>;
+    let browserWeakMap: WeakMap<WeakKey, any>;
+    let originatingWinWeakMap: WeakMap<WeakKey, any>;
+    let weakGlobalToEligiblePipCount: WeakMap<WeakKey, any>;
     /**
      * Returns the player window if one exists and if it hasn't yet been closed.
      *

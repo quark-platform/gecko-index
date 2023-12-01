@@ -7,7 +7,7 @@ export namespace TabCrashHandler {
     let pendingSubFrameCrashes: Map<any, any>;
     let pendingSubFrameCrashesIDs: any[];
     let crashedBrowserQueues: Map<any, any>;
-    let restartRequiredBrowsers: WeakSet<object>;
+    let restartRequiredBrowsers: WeakSet<WeakKey>;
     let testBuildIDMismatch: boolean;
     const prefs: nsIPrefBranchType;
     function init(): void;
@@ -262,8 +262,8 @@ export namespace UnsubmittedCrashHandler {
  * permanentKey. If, however, the browser has never gotten a permanentKey,
  * it falls back to keying on the <xul:browser> element itself.
  */
-declare class BrowserWeakMap extends WeakMap<object, any> {
-    constructor(entries?: readonly (readonly [object, any])[]);
+declare class BrowserWeakMap extends WeakMap<WeakKey, any> {
+    constructor(entries?: readonly (readonly [WeakKey, any])[]);
     constructor(iterable: Iterable<readonly [any, any]>);
     get(browser: any): any;
     set(browser: any, value: any): this;
