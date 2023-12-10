@@ -24,7 +24,7 @@ export namespace AUTOFILL_RESULT {
 export class LoginFormState {
     /** Remove login field highlight when its value is cleared or overwritten.
      */
-    static "__#1121005@#removeFillFieldHighlight"(event: any): void;
+    static "__#1120522@#removeFillFieldHighlight"(event: any): void;
     /**
      * Highlight login fields on autocomplete or autofill on page load.
      * @param {Node} element that needs highlighting.

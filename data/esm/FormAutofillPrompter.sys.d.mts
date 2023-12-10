@@ -93,7 +93,7 @@ export class AddressSaveDoorhanger extends AutofillDoorhanger {
 export class AddressUpdateDoorhanger extends AddressSaveDoorhanger {
 }
 export class AddressEditDoorhanger extends AutofillDoorhanger {
-    static "__#1533046@#getInputIdMatchRegexp"(): RegExp;
+    static "__#1532563@#getInputIdMatchRegexp"(): RegExp;
     static getInputId(fieldName: any): string;
     constructor(browser: any, record: any);
     set country(c: any);
