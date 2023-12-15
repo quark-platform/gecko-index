@@ -15,9 +15,9 @@ export class PlacesPreviewsHelperService {
  * the roaming profile folder.
  */
 export const PlacesPreviews: {
-    "__#1120532@#placesObserver": any;
-    "__#1120532@#deletionHandler": any;
-    "__#1120532@#recentlyUpdatedPreviews": LimitedSet;
+    "__#1120558@#placesObserver": any;
+    "__#1120558@#deletionHandler": any;
+    "__#1120558@#recentlyUpdatedPreviews": LimitedSet;
     fileExtension: string;
     fileContentType: string;
     handlePlacesEvents(events: any): void;
