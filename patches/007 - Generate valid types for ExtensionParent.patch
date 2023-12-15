@@ -1,0 +1,41 @@
+From e600b9d35ac04a77720ad6416e7dfebc22529c35 Mon Sep 17 00:00:00 2001
+From: trickypr <23250792+trickypr@users.noreply.github.com>
+Date: Fri, 15 Dec 2023 19:32:50 +1100
+Subject: [PATCH] 007 - Generate valid types for ExtensionParent
+
+---
+ .../extensions/ExtensionParent.sys.mjs         | 18 ------------------
+ 1 file changed, 18 deletions(-)
+
+diff --git a/toolkit/components/extensions/ExtensionParent.sys.mjs b/toolkit/components/extensions/ExtensionParent.sys.mjs
+index 57039b7bbe..f324d1eabf 100644
+--- a/toolkit/components/extensions/ExtensionParent.sys.mjs
++++ b/toolkit/components/extensions/ExtensionParent.sys.mjs
+@@ -2259,24 +2259,6 @@ export var ExtensionParent = {
+   DebugUtils,
+ };
+ 
+-// browserPaintedPromise and browserStartupPromise are promises that
+-// resolve after the first browser window is painted and after browser
+-// windows have been restored, respectively. Alternatively,
+-// browserStartupPromise also resolves from the extensions-late-startup
+-// notification sent by Firefox Reality on desktop platforms, because it
+-// doesn't support SessionStore.
+-// _resetStartupPromises should only be called from outside this file in tests.
+-ExtensionParent._resetStartupPromises = () => {
+-  ExtensionParent.browserPaintedPromise = promiseObserved(
+-    "browser-delayed-startup-finished"
+-  ).then(() => {});
+-  ExtensionParent.browserStartupPromise = Promise.race([
+-    promiseObserved("sessionstore-windows-restored"),
+-    promiseObserved("extensions-late-startup"),
+-  ]).then(() => {});
+-};
+-ExtensionParent._resetStartupPromises();
+-
+ ChromeUtils.defineLazyGetter(ExtensionParent, "PlatformInfo", () => {
+   return Object.freeze({
+     os: (function () {
+-- 
+2.43.0
+
