@@ -20,7 +20,6 @@
       "kind": "INCLUDE",
       "ident": "nsIClipboardOwner"
     },
-    "%{C++\n#include \"mozilla/MozPromise.h\"\n\nusing DataFlavorsPromise = mozilla::MozPromise<nsTArray<nsCString>, nsresult, true>;\n%}\n\n",
     {
       "kind": "interface_main",
       "doc_comment": null,
@@ -28,14 +27,6 @@
       "name": "nsIArray",
       "base": null,
       "body": null
-    },
-    "\n\n",
-    {
-      "kind": "native"
-    },
-    "\n",
-    {
-      "kind": "native"
     },
     "\n\n",
     {
@@ -179,6 +170,14 @@
             "kind": "attributes_$0",
             "attr": {
               "kind": "attribute",
+              "name": "function",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
               "name": "uuid",
               "param": {
                 "kind": "attribute_$0",
@@ -188,7 +187,7 @@
           }
         ]
       },
-      "name": "nsIAsyncSetClipboardDataCallback",
+      "name": "nsIAsyncClipboardRequestCallback",
       "base": {
         "kind": "ifacebase",
         "extends": "nsISupports"
@@ -205,7 +204,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Indicates that the clipboard asyncSetData request has either succeeded or\n   * been canceled.\n   *\n   * @param  aResult\n   *         The result of the request. NS_OK if successful, or another value\n   *         that indicates the reason for failure or cancellation.\n   */"
+                    "contents": "/**\n   * Indicates that the clipboard request has either succeeded, been canceled or\n   * rejected.\n   *\n   * @param  aResult\n   *         The result of the request. NS_OK if successful, or another value\n   *         that indicates the reason for failure or cancellation.\n   */"
                   }
                 ],
                 "code": {
@@ -213,6 +212,233 @@
                   "attributes": null,
                   "return_type": "void",
                   "name": "onComplete",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsresult",
+                      "name": "aResult"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "builtinclass",
+              "param": null
+            }
+          },
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "c18ea2f7-6b6f-4a38-9ab3-a8781fdfcc39"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIAsyncGetClipboardData",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Determines whether this request is still valid (e.g., the clipboard content\n   * associated with this request is not stale).\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": "boolean",
+                  "name": "valid"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * The available flavors in the clipboard.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "attribute_code",
+                  "attributes": null,
+                  "readonly": "readonly",
+                  "type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "flavorList"
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Filters the flavors that `aTransferable` can import (see\n   * `nsITransferable::flavorsTransferableCanImport`). Every specified flavors\n   * must exist in `flavorList`, or the request will be rejected. If the request\n   * remains valid, it retrieves the data for the first flavor. The data is then\n   * set for `aTransferable`.\n   *\n   * @param  aTransferable\n   *         The transferable which contains the flavors to be read.\n   * @param  aCallback\n   *         The nsIAsyncClipboardRequestCallback to be invoked once the get\n   *         request is either successfully completed or rejected.\n   * @result NS_OK if no errors\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "getData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsITransferable",
+                      "name": "aTransferable"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIAsyncClipboardRequestCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "\n\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": {
+        "kind": "attributes",
+        "first_attribute": {
+          "kind": "attribute",
+          "name": "scriptable",
+          "param": null
+        },
+        "other_attributes": [
+          {
+            "kind": "attributes_$0",
+            "attr": {
+              "kind": "attribute",
+              "name": "uuid",
+              "param": {
+                "kind": "attribute_$0",
+                "value": "ce23c1c4-58fd-4c33-8579-fa0796d9652c"
+              }
+            }
+          }
+        ]
+      },
+      "name": "nsIAsyncClipboardGetCallback",
+      "base": {
+        "kind": "ifacebase",
+        "extends": "nsISupports"
+      },
+      "body": {
+        "kind": "ifacebody",
+        "contents": {
+          "kind": "ifacebody_$0",
+          "contents": [
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates that the clipboard get request has succeeded.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onSuccess",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIAsyncGetClipboardData",
+                      "name": "aAsyncGetClipboardData"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Indicates that the clipboard get request has rejected.\n   *\n   * @param  aResult\n   *         The reason for the rejection, can not be NS_OK.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "onError",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
@@ -429,7 +655,7 @@
                             "other_attributes": []
                           },
                           "refType": "in",
-                          "type": "nsIAsyncSetClipboardDataCallback",
+                          "type": "nsIAsyncClipboardRequestCallback",
                           "name": "aCallback"
                         }
                       }
@@ -472,6 +698,59 @@
                           "refType": "in",
                           "type": "long",
                           "name": "aWhichClipboard"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n     * Requests getting data asynchronously from the native clipboard. This does\n     * not actually retreive the data, but returns a nsIAsyncGetClipboardData\n     * contains current avaiable data formats. If the native clipboard is\n     * updated, either by us or other application, the existing\n     * nsIAsyncGetClipboardData becomes invalid.\n     *\n     * @param  aFlavorList\n     *         Specific data formats ('flavors') that can be retrieved from the\n     *         clipboard.\n     * @param  aWhichClipboard\n     *         Specifies the clipboard to which this operation applies.\n     * @param  aCallback\n     *         The callback object that will be notified upon completion.\n     * @result NS_OK if no errors\n     */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "asyncGetData",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "aFlavorList"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "long",
+                          "name": "aWhichClipboard"
+                        }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "nsIAsyncClipboardGetCallback",
+                          "name": "aCallback"
                         }
                       }
                     ]
@@ -586,140 +865,6 @@
                       "name": "aWhichClipboard"
                     },
                     "other": []
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Filters the flavors aTransferable can import (see\n     * `nsITransferable::flavorsTransferableCanImport`) and gets the data for the\n     * first flavor. That data is set for aTransferable.\n     *\n     * @param  aTransferable   The transferable\n     * @param  aWhichClipboard Specifies the clipboard to which this operation applies.\n     * @return MozPromise      The returned promise will resolve when the data is ready or reject\n     *                         if any error occurs.\n     */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": {
-                    "kind": "attributes",
-                    "first_attribute": {
-                      "kind": "attribute",
-                      "name": "noscript",
-                      "param": null
-                    },
-                    "other_attributes": [
-                      {
-                        "kind": "attributes_$0",
-                        "attr": {
-                          "kind": "attribute",
-                          "name": "notxpcom",
-                          "param": null
-                        }
-                      },
-                      {
-                        "kind": "attributes_$0",
-                        "attr": {
-                          "kind": "attribute",
-                          "name": "nostdcall",
-                          "param": null
-                        }
-                      }
-                    ]
-                  },
-                  "return_type": "AsyncGetDataPromise",
-                  "name": "asyncGetData",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "nsITransferable",
-                      "name": "aTransferable"
-                    },
-                    "other": [
-                      {
-                        "kind": "paramlist_$0",
-                        "param": {
-                          "kind": "param",
-                          "attribute": null,
-                          "refType": "in",
-                          "type": "long",
-                          "name": "aWhichClipboard"
-                        }
-                      }
-                    ]
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Check if there is data on the clipboard matching each of the flavors in the\n     * given list.\n     *\n     * @param  aFlavorList     An array of ASCII strings.\n     * @param  aWhichClipboard Specifies the clipboard to which this operation applies.\n     * @return MozPromise      The returned promise will resolve with the list of matched flavors\n     *                         when the check is completed or reject if any error occurs.\n     */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": {
-                    "kind": "attributes",
-                    "first_attribute": {
-                      "kind": "attribute",
-                      "name": "noscript",
-                      "param": null
-                    },
-                    "other_attributes": [
-                      {
-                        "kind": "attributes_$0",
-                        "attr": {
-                          "kind": "attribute",
-                          "name": "notxpcom",
-                          "param": null
-                        }
-                      },
-                      {
-                        "kind": "attributes_$0",
-                        "attr": {
-                          "kind": "attribute",
-                          "name": "nostdcall",
-                          "param": null
-                        }
-                      }
-                    ]
-                  },
-                  "return_type": "AsyncDataFlavorsPromise",
-                  "name": "asyncHasDataMatchingFlavors",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": {
-                        "kind": "IDENTIFIER_$0"
-                      },
-                      "name": "aFlavorList"
-                    },
-                    "other": [
-                      {
-                        "kind": "paramlist_$0",
-                        "param": {
-                          "kind": "param",
-                          "attribute": null,
-                          "refType": "in",
-                          "type": "long",
-                          "name": "aWhichClipboard"
-                        }
-                      }
-                    ]
                   },
                   "raises": null
                 }

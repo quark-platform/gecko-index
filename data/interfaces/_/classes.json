@@ -141,7 +141,6 @@
         "@mozilla.org/network/protocol/about;1?what=neterror",
         "@mozilla.org/network/protocol/about;1?what=networking",
         "@mozilla.org/network/protocol/about;1?what=performance",
-        "@mozilla.org/network/protocol/about;1?what=plugins",
         "@mozilla.org/network/protocol/about;1?what=processes",
         "@mozilla.org/network/protocol/about;1?what=serviceworkers",
         "@mozilla.org/network/protocol/about;1?what=srcdoc",
@@ -151,7 +150,8 @@
         "@mozilla.org/network/protocol/about;1?what=url-classifier",
         "@mozilla.org/network/protocol/about;1?what=webrtc",
         "@mozilla.org/network/protocol/about;1?what=crashes",
-        "@mozilla.org/network/protocol/about;1?what=profiles"
+        "@mozilla.org/network/protocol/about;1?what=profiles",
+        "@mozilla.org/network/protocol/about;1?what=webauthn"
       ],
       "legacy_constructor": "nsAboutRedirector::Create",
       "headers": [
@@ -2066,6 +2066,25 @@
         "GeckoViewExternalAppService.h"
       ],
       "processes": 16
+    },
+    {
+      "componentFile": "../mozilla/mobile/android/components/geckoview/components.conf",
+      "cid": "{a8f4582e-4b47-4e06-970d-b94b76977bf7}",
+      "contract_ids": [
+        "@mozilla.org/network/protocol;1?name=content"
+      ],
+      "type": "GeckoViewContentProtocolHandler",
+      "headers": [
+        "./GeckoViewContentProtocolHandler.h"
+      ],
+      "protocol_config": {
+        "scheme": "content",
+        "flags": [
+          "URI_IS_POTENTIALLY_TRUSTWORTHY",
+          "URI_IS_LOCAL_RESOURCE",
+          "URI_DANGEROUS_TO_LOAD"
+        ]
+      }
     },
     {
       "componentFile": "../mozilla/mobile/android/components/geckoview/components.conf",
@@ -4122,20 +4141,6 @@
     },
     {
       "componentFile": "../mozilla/toolkit/components/build/components.conf",
-      "name": "LoginReputation",
-      "cid": "{91fa9e67-1427-4ee9-8ee0-1a6ed578bee1}",
-      "contract_ids": [
-        "@mozilla.org/reputationservice/login-reputation-service;1"
-      ],
-      "singleton": true,
-      "type": "mozilla::LoginReputationService",
-      "headers": [
-        "/toolkit/components/reputationservice/LoginReputation.h"
-      ],
-      "constructor": "mozilla::LoginReputationService::GetSingleton"
-    },
-    {
-      "componentFile": "../mozilla/toolkit/components/build/components.conf",
       "name": "Alerts",
       "cid": "{a0ccaaf8-09da-44d8-b250-9ac3e93c8117}",
       "contract_ids": [
@@ -4347,6 +4352,18 @@
       "type": "mozilla::ContentBlockingAllowList",
       "headers": [
         "/toolkit/components/antitracking/ContentBlockingAllowList.h"
+      ]
+    },
+    {
+      "componentFile": "../mozilla/toolkit/components/contentanalysis/components.conf",
+      "name": "nsIContentAnalysis",
+      "cid": "{61497587-2bba-4a88-acd3-3fbb2cedf163}",
+      "contract_ids": [
+        "@mozilla.org/contentanalysis;1"
+      ],
+      "type": "mozilla::contentanalysis::ContentAnalysis",
+      "headers": [
+        "/toolkit/components/contentanalysis/ContentAnalysis.h"
       ]
     },
     {
@@ -5804,9 +5821,9 @@
     },
     {
       "componentFile": "../mozilla/widget/cocoa/components.conf",
-      "cid": "{15cc80a9-5329-4fcb-9a0b-c6cf1440ae51}",
+      "cid": "{b148eed2-236d-11d3-b35c-00a0cc3c1cde}",
       "contract_ids": [
-        "@mozilla.org/parent/sound;1"
+        "@mozilla.org/sound;1"
       ],
       "type": "nsSound",
       "processes": 1
@@ -6083,30 +6100,6 @@
     },
     {
       "componentFile": "../mozilla/widget/components.conf",
-      "cid": "{b148eed2-236d-11d3-b35c-00a0cc3c1cde}",
-      "contract_ids": [
-        "@mozilla.org/sound;1"
-      ],
-      "singleton": true,
-      "constructor": "nsSoundSelector",
-      "headers": [
-        "/widget/nsContentProcessWidgetFactory.h"
-      ]
-    },
-    {
-      "componentFile": "../mozilla/widget/components.conf",
-      "cid": "{b02c2470-6e5a-4865-a202-8b5ebae52632}",
-      "type": "nsSoundProxy",
-      "headers": [
-        "/widget/nsSoundProxy.h"
-      ],
-      "contract_ids": [
-        "@mozilla.org/content/sound;1"
-      ],
-      "processes": 2
-    },
-    {
-      "componentFile": "../mozilla/widget/components.conf",
       "cid": "{c401eb80-f9ea-11d3-bb6f-e732b73ebe7c}",
       "contract_ids": [
         "@mozilla.org/gfx/screenmanager;1"
@@ -6206,9 +6199,9 @@
     },
     {
       "componentFile": "../mozilla/widget/gtk/components.conf",
-      "cid": "{e711c28b-c1f1-4b87-8448-e1e0da0a7b7d}",
+      "cid": "{b148eed2-236d-11d3-b35c-00a0cc3c1cde}",
       "contract_ids": [
-        "@mozilla.org/parent/sound;1"
+        "@mozilla.org/sound;1"
       ],
       "singleton": true,
       "type": "nsISound",
@@ -6396,9 +6389,9 @@
     },
     {
       "componentFile": "../mozilla/widget/windows/components.conf",
-      "cid": "{919f1217-073a-4a14-b034-67d461eccacc}",
+      "cid": "{b148eed2-236d-11d3-b35c-00a0cc3c1cde}",
       "contract_ids": [
-        "@mozilla.org/parent/sound;1"
+        "@mozilla.org/sound;1"
       ],
       "singleton": true,
       "type": "nsISound",
