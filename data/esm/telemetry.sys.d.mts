@@ -21,7 +21,7 @@ export class ErrorSanitizer {
         NotFoundError: string;
         NotAllowedError: string;
     };
-    static "__#845830@#cleanOSErrorMessage"(message: any, error?: any): any;
+    static "__#846927@#cleanOSErrorMessage"(message: any, error?: any): any;
     static reProfileDir: RegExp;
     /**
      * Clean an error message, removing PII and normalizing OS-specific messages.

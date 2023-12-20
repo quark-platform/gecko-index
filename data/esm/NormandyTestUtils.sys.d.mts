@@ -19,7 +19,6 @@ export namespace NormandyTestUtils {
             extensionApiId: number;
             extensionHash: string;
             extensionHashAlgorithm: string;
-            enrollmentId: any;
             temporaryErrorDeadline: any;
         };
         function branchedAddonStudyFactory(attrs?: {}): {
@@ -37,7 +36,6 @@ export namespace NormandyTestUtils {
             extensionApiId: number;
             extensionHash: string;
             extensionHashAlgorithm: string;
-            enrollmentId: any;
             temporaryErrorDeadline: any;
         };
         function preferenceStudyFactory(attrs?: {}): {
@@ -48,7 +46,6 @@ export namespace NormandyTestUtils {
             expired: boolean;
             lastSeen: string;
             experimentType: string;
-            enrollmentId: any;
             actionName: string;
         } & {
             preferences: {};
@@ -56,7 +53,6 @@ export namespace NormandyTestUtils {
         function preferenceRolloutFactory(attrs?: {}): {
             slug: string;
             state: string;
-            enrollmentId: any;
         } & {
             preferences: any;
         };

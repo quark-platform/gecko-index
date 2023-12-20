@@ -1,4 +1,3 @@
-export const ADLINK_CHECK_TIMEOUT_MS: 1000;
 export const domainExtractor: DomainExtractor;
 /**
  * SearchTelemetryChild monitors for pages that are partner searches, and

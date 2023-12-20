@@ -14,12 +14,14 @@ export namespace UIPhases {
 export namespace ScreenshotsUtils {
     let browserToScreenshotsState: WeakMap<WeakKey, any>;
     let initialized: boolean;
+    let methodsUsed: {};
     /**
      * Figures out which of various states the screenshots UI is in, for the given browser.
      * @param browser The selected browser
      * @returns One of the `UIPhases` constants
      */
     function getUIPhase(browser: any): number;
+    function resetMethodsUsed(): void;
     function initialize(): void;
     function uninitialize(): void;
     function handleEvent(event: any): void;
@@ -104,7 +106,7 @@ export namespace ScreenshotsUtils {
      * The overlay lives in the child document; so although closing is actually async, we assume success.
      * @param browser The current browser.
      */
-    function closeOverlay(browser: any): void;
+    function closeOverlay(browser: any, options?: {}): void;
     /**
      * Gets the screenshots dialog box
      * @param browser The selected browser
@@ -160,12 +162,11 @@ export namespace ScreenshotsUtils {
      */
     function cropScreenshotRectIfNeeded(rect: any): void;
     /**
-     * Add screenshot-ui to the dialog box and then take the screenshot
+     * Open and add screenshot-ui to the dialog box and then take the screenshot
      * @param browser The current browser.
-     * @param dialog The dialog box to show the screenshot preview.
      * @param type The type of screenshot taken.
      */
-    function doScreenshot(browser: any, dialog: any, type: any): Promise<void>;
+    function doScreenshot(browser: any, type: any): Promise<void>;
     /**
      * Take the screenshot and add the image to the dialog box
      * @param browser The current browser.
@@ -188,10 +189,12 @@ export namespace ScreenshotsUtils {
     function copyScreenshotFromRegion(region: any, browser: any): Promise<void>;
     /**
      * Copy the image to the clipboard
+     * This is called from the preview dialog
      * @param dataUrl The image data
      * @param browser The current browser
+     * @param data Telemetry data
      */
-    function copyScreenshot(dataUrl: any, browser: any): void;
+    function copyScreenshot(dataUrl: any, browser: any, data: any): Promise<void>;
     /**
      * Download the screenshot
      * @param title The title of the current page
@@ -201,10 +204,12 @@ export namespace ScreenshotsUtils {
     function downloadScreenshotFromRegion(title: any, region: any, browser: any): Promise<void>;
     /**
      * Download the screenshot
+     * This is called from the preview dialog
      * @param title The title of the current page or null and getFilename will get the title
      * @param dataUrl The image data
      * @param browser The current browser
+     * @param data Telemetry data
      */
-    function downloadScreenshot(title: any, dataUrl: any, browser: any): Promise<void>;
+    function downloadScreenshot(title: any, dataUrl: any, browser: any, data: any): Promise<void>;
     function recordTelemetryEvent(type: any, object: any, args: any): void;
 }

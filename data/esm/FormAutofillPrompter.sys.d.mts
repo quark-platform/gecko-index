@@ -55,10 +55,11 @@ export class AutofillDoorhanger {
                 Return the mainAction and secondary actions in an array for showing doorhanger
      */
     private static createActions;
-    constructor(browser: any, oldRecord: any, newRecord: any);
+    constructor(browser: any, oldRecord: any, newRecord: any, flowId: any);
     browser: any;
     oldRecord: any;
     newRecord: any;
+    flowId: any;
     get ui(): any;
     get notificationId(): string;
     get panel(): any;
@@ -80,8 +81,10 @@ export class AddressSaveDoorhanger extends AutofillDoorhanger {
     static preferenceURL: string;
     static learnMoreURL: string;
     static editButtonId: string;
+    static telemetryType: any;
+    static telemetryObject: string;
     static editButton(panel: any): any;
-    constructor(browser: any, oldRecord: any, newRecord: any, editAddressCb: any);
+    constructor(browser: any, oldRecord: any, newRecord: any, flowId: any, editAddressCb: any);
     get editButton(): any;
     renderContent(): void;
     #private;
@@ -93,9 +96,11 @@ export class AddressSaveDoorhanger extends AutofillDoorhanger {
 export class AddressUpdateDoorhanger extends AddressSaveDoorhanger {
 }
 export class AddressEditDoorhanger extends AutofillDoorhanger {
-    static "__#1532589@#getInputIdMatchRegexp"(): RegExp;
+    static telemetryType: any;
+    static telemetryObject: string;
+    static "__#1534086@#getInputIdMatchRegexp"(): RegExp;
     static getInputId(fieldName: any): string;
-    constructor(browser: any, record: any);
+    constructor(browser: any, record: any, flowId: any);
     set country(c: any);
     get country(): any;
     get layout(): any;

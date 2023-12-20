@@ -62,6 +62,19 @@ export class PlacesQuery {
      */
     fetchHistory(): Promise<void>;
     /**
+     * Search the database for visits matching a search query. This does not
+     * affect internal caches, and observers will not be notified of search
+     * results obtained from this query.
+     *
+     * @param {string} query
+     *   The search query.
+     * @param {number} [limit]
+     *   The maximum number of visits to return.
+     * @returns {HistoryVisit[]}
+     *   The matching visits.
+     */
+    searchHistory(query: string, limit?: number): HistoryVisit[];
+    /**
      * Append a visit into the container it belongs to.
      *
      * @param {HistoryVisit} visit
@@ -126,6 +139,24 @@ export class PlacesQuery {
      *   The corresponding timestamp.
      */
     getStartOfMonthTimestamp(date: Date): number;
+    /**
+     * Format a database row as a history visit.
+     *
+     * @param {mozIStorageRow} row
+     *   The row to format.
+     * @returns {HistoryVisit}
+     *   The resulting history visit.
+     */
+    formatRowAsVisit(row: mozIStorageRow): HistoryVisit;
+    /**
+     * Format a page visited event as a history visit.
+     *
+     * @param {PlacesEvent} event
+     *   The event to format.
+     * @returns {HistoryVisit}
+     *   The resulting history visit.
+     */
+    formatEventAsVisit(event: PlacesEvent): HistoryVisit;
     #private;
 }
 /**

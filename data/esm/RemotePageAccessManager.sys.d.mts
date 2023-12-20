@@ -54,9 +54,6 @@ export namespace RemotePageAccessManager {
             RPMSendAsyncMessage: string[];
             RPMAddMessageListener: string[];
         };
-        "about:plugins": {
-            RPMSendQuery: string[];
-        };
         "about:pocket-saved": {
             RPMSendAsyncMessage: string[];
             RPMAddMessageListener: string[];

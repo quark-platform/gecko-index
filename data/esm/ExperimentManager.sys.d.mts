@@ -166,7 +166,7 @@ export class _ExperimentManager {
      *
      * @param {Enrollment} experiment
      */
-    sendEnrollmentTelemetry({ slug, branch, experimentType, enrollmentId }: Enrollment): void;
+    sendEnrollmentTelemetry({ slug, branch, experimentType }: Enrollment): void;
     /**
      * Sets Telemetry when activating an experiment.
      *

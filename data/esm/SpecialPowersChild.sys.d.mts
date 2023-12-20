@@ -4057,7 +4057,7 @@ export class SpecialPowersChild extends JSWindowActorChild {
     doCommand(window: any, cmd: any, param: any): any;
     isCommandEnabled(window: any, cmd: any): any;
     /**
-     * See \ref nsIContentViewerEdit.setCommandNode(in Node).
+     * See \ref nsIDocumentViewerEdit.setCommandNode(in Node).
      */
     setCommandNode(window: any, node: any): any;
     doUrlClassify(principal: any, callback: any): any;

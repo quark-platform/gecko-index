@@ -22,8 +22,8 @@ export class FirefoxViewPlacesQuery extends PlacesQuery {
      *   A list of visits for each month.
      */
     get visitsByMonth(): HistoryVisit[][];
-    appendToCache(visit: any): void;
-    insertSortedIntoCache(visit: any): void;
+    formatRowAsVisit(row: any): any;
+    formatEventAsVisit(event: any): any;
     handlePageVisited(event: any): void;
     #private;
 }

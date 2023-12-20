@@ -37,7 +37,7 @@ export class nsContentDispatchChooser {
      * @param {nsIPrincipal} aPrincipal - Principal to test for permission.
      * @returns {boolean} - true if permission is set, false otherwise.
      */
-    _hasProtocolHandlerPermission(scheme: string, aPrincipal: nsIPrincipal): boolean;
+    _hasProtocolHandlerPermission(scheme: string, aPrincipal: nsIPrincipal, aTriggeredExternally: any): boolean;
     /**
      * Get open-protocol-handler permission key for a protocol.
      * @param {string} aProtocolScheme - Scheme of the protocol.

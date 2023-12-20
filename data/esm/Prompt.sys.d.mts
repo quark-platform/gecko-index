@@ -36,6 +36,13 @@ export namespace modal {
          *     Returns string on desktop and Promise on Android.
          */
         getText(): string | Promise<any>;
+        /**
+         * Returns text of the prompt input.
+         *
+         * @returns {string}
+         *     Returns string on desktop and Promise on Android.
+         */
+        getInputText(): string;
     };
     export { Dialog };
 }
@@ -66,5 +73,12 @@ declare class Dialog {
      *     Returns string on desktop and Promise on Android.
      */
     getText(): string | Promise<any>;
+    /**
+     * Returns text of the prompt input.
+     *
+     * @returns {string}
+     *     Returns string on desktop and Promise on Android.
+     */
+    getInputText(): string;
 }
 export {};

@@ -37,9 +37,7 @@ export namespace TalosParentProfiler {
      */
     function searchToObject(locationSearch: any): {};
     /**
-     * A Talos test is about to start. Note that the Gecko Profiler will be
-     * paused immediately after starting and that resume() should be called
-     * in order to collect samples.
+     * A Talos test is about to start.
      *
      * @param testName (string)
      *        The name of the test to use in Profiler markers.
@@ -66,29 +64,25 @@ export namespace TalosParentProfiler {
      */
     function finishStartupProfiling(): any;
     /**
-     * Resumes the Gecko Profiler sampler. Can also simultaneously set a marker.
+     * Set a marker indicating the start of the subtest.
      *
-     * @returns Promise
-     *          Resolves once the Gecko Profiler has resumed.
      */
-    function resume(marker?: string): void;
+    function subtestStart(marker?: string): void;
     /**
-     * Pauses the Gecko Profiler sampler. Can also simultaneously set a marker.
+     * Set a marker indicating the duration of the subtest.
      *
      * @param marker (string, optional)
-     *        If non-empty, will set a marker immediately before pausing.
+     *        If non-empty, will set a marker immediately.
      * @param startTime (number, optional)
      *        Start time, used to create an interval profile marker. If
      *        undefined, a single instance marker will be placed.
-     * @returns Promise
-     *          Resolves once the Gecko Profiler has resumed.
      */
-    function pause(marker?: string, startTime?: any): void;
+    function subtestEnd(marker?: string, startTime?: any): void;
     /**
      * Adds a marker to the profile.
      *
      * @param marker (string, optional)
-     *        If non-empty, will set a marker immediately before pausing.
+     *        If non-empty, will set a marker immediately.
      * @param startTime (number, optional)
      *        Start time, used to create an interval profile marker. If
      *        undefined, a single instance marker will be placed.

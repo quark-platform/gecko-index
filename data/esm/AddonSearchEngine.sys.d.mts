@@ -63,16 +63,13 @@ export class AddonSearchEngine extends SearchEngine {
      *   may be overriding some of the WebExtension's settings.
      * @param {object} [options.extension]
      *   The extension associated with this search engine, if known.
-     * @param {object} [options.manifest]
-     *   The extension's manifest associated with this search engine, if known.
      * @param {string} [options.locale]
      *   The locale to use from the extension for getting details of the search
      *   engine.
      */
-    update({ configuration, extension, manifest, locale }?: {
+    update({ configuration, extension, locale }?: {
         configuration?: object;
         extension?: object;
-        manifest?: object;
         locale?: string;
     }): Promise<void>;
     /**

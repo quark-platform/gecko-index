@@ -1,16 +1,11 @@
 export class AddressResult extends ProfileAutoCompleteResult {
-    constructor(...args: any[]);
     _getSecondaryLabel(focusedFieldName: any, allFieldNames: any, profile: any): any;
     _generateLabels(focusedFieldName: any, allFieldNames: any, profiles: any): any;
 }
 export class CreditCardResult extends ProfileAutoCompleteResult {
-    constructor(...args: any[]);
-    _cardTypes: any;
     _getSecondaryLabel(focusedFieldName: any, allFieldNames: any, profile: any): any;
     _generateLabels(focusedFieldName: any, allFieldNames: any, profiles: any): any;
-    _generateCardTypes(focusedFieldName: any, allFieldNames: any, profiles: any): any;
     getStyleAt(index: any): any;
-    getImageAt(index: any): any;
 }
 declare class ProfileAutoCompleteResult {
     constructor(searchString: any, focusedFieldName: any, allFieldNames: any, matchingProfiles: any, { resultCode, isSecure, isInputAutofilled }: {

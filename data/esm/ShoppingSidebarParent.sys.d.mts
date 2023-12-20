@@ -17,3 +17,24 @@ export class ShoppingSidebarParent extends JSWindowActorParent {
     updateProductURL(uri: any, flags: any): void;
     receiveMessage(message: any): Promise<any>;
 }
+export const ShoppingSidebarManager: ShoppingSidebarManagerClass;
+declare class ShoppingSidebarManagerClass {
+    ensureInitialized(): void;
+    updateSidebarVisibility(): void;
+    enabled: any;
+    updateSidebarVisibilityForWindow(window: any): void;
+    _maybeToggleSidebar(aBrowser: any, aLocationURI: any, aFlags: any): void;
+    _maybeToggleButton(gBrowser: any): void;
+    _updateBCActiveness(aBrowser: any): void;
+    _setShoppingButtonState(aBrowser: any): void;
+    /**
+     * Called by TabsProgressListener whenever any browser navigates from one
+     * URL to another.
+     * Note that this includes hash changes / pushState navigations, because
+     * those can be significant for us.
+     */
+    onLocationChange(aBrowser: any, aLocationURI: any, aFlags: any): void;
+    handleEvent(event: any): void;
+    #private;
+}
+export {};

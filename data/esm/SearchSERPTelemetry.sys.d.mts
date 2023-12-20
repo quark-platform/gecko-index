@@ -1,5 +1,16 @@
+export const ADLINK_CHECK_TIMEOUT_MS: 1000;
 export const TELEMETRY_SETTINGS_KEY: "search-telemetry-v2";
 export const TELEMETRY_CATEGORIZATION_KEY: "search-categorization";
+export namespace TELEMETRY_CATEGORIZATION_DOWNLOAD_SETTINGS {
+    let base: number;
+    let minAdjust: number;
+    let maxAdjust: number;
+    let maxTriesPerSession: number;
+}
+export namespace SEARCH_TELEMETRY_SHARED {
+    let PROVIDER_INFO: string;
+    let LOAD_TIMEOUT: string;
+}
 export namespace SearchSERPTelemetryUtils {
     namespace ACTIONS {
         let CLICKED: string;
@@ -523,5 +534,6 @@ declare class ContentHandler {
         nonAdDomains: Set<any>;
         adDomains: Set<any>;
     }, browser: object): void;
+    #private;
 }
 export {};

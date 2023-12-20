@@ -63,10 +63,4 @@ export type Study = {
      *   unenrollment.
      */
     temporaryErrorDeadline: Date | null;
-    /**
-     *   A random ID generated at time of enrollment. It should be included on all
-     *   telemetry related to this study. It should not be re-used by other studies,
-     *   or any other purpose. May be null on old study.
-     */
-    enrollmentId: string;
 };

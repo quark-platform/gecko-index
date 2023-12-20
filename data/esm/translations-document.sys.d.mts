@@ -19,10 +19,13 @@ export class TranslationsDocument {
      * @param {Document} document
      * @param {string} documentLanguage - The BCP 47 language tag.
      * @param {number} innerWindowId - This is used for better profiler marker reporting.
-     * @param {TranslationFunction} translateHTML
-     * @param {TranslationFunction} translateText
+     * @param {MessagePort} port - The port to the translations engine.
+     * @param {() => void} requestNewPort - Used when an engine times out and a new
+     *                                      translation request comes in.
+     * @param {number} translationsStart
+     * @param {() => number} now
      */
-    constructor(document: Document, documentLanguage: string, innerWindowId: number, translateHTML: TranslationFunction, translateText: TranslationFunction);
+    constructor(document: Document, documentLanguage: string, innerWindowId: number, port: MessagePort, requestNewPort: () => void, translationsStart: number, now: () => number);
     /**
      * The BCP 47 language tag that is used on the page.
      *
@@ -36,14 +39,15 @@ export class TranslationsDocument {
      * @type {Promise<void> | null}
      */
     viewportTranslated: Promise<void> | null;
-    /** @type {TranslationFunction} */
-    translateHTML: TranslationFunction;
-    /** @type {TranslationFunction} */
-    translateText: TranslationFunction;
+    isDestroyed: boolean;
+    /** @type {QueuedTranslator} */
+    translator: QueuedTranslator;
     /** @type {number} */
     innerWindowId: number;
     /** @type {DOMParser} */
     domParser: DOMParser;
+    /** @type {Document} */
+    document: Document;
     /**
      * This selector runs to find child nodes that should be excluded. It should be
      * basically the same implementation of `isExcludedNode`, but as a selector.
@@ -52,6 +56,15 @@ export class TranslationsDocument {
      */
     excludedNodeSelector: string;
     observer: any;
+    /**
+     * Start and stop the translator as the page is shown. For instance, this will
+     * transition into "hidden" when the user tabs away from a document.
+     */
+    handleVisibilityChange: () => void;
+    /**
+     * Remove any dangling event handlers.
+     */
+    destroy(): void;
     /**
      * Helper function for adding a new root to the mutation
      * observer.
@@ -171,3 +184,75 @@ export class TranslationsDocument {
 }
 export type NodeVisibility = import("../translations").NodeVisibility;
 export type TranslationFunction = (message: string) => Promise<string>;
+/**
+ * This contains all of the information needed to perform a translation request.
+ */
+export type TranslationRequest = {
+    node: Node;
+    sourceText: string;
+    isHTML: boolean;
+    resolve: Function;
+    reject: Function;
+};
+/**
+ * This contains all of the information needed to perform a translation request.
+ *
+ * @typedef {Object} TranslationRequest
+ * @prop {Node} node
+ * @prop {string} sourceText
+ * @prop {boolean} isHTML
+ * @prop {Function} resolve
+ * @prop {Function} reject
+ */
+/**
+ * When a page is hidden, mutations may occur in the DOM. It doesn't make sense to
+ * translate those elements while the page is hidden, especially as it may bring
+ * a translations engine back to life, which can be quite expensive. Queue those
+ * messages here.
+ */
+declare class QueuedTranslator {
+    /**
+     * @param {MessagePort} port
+     * @param {Document} document
+     * @param {() => void} actorRequestNewPort
+     */
+    constructor(port: MessagePort, actorRequestNewPort: () => void);
+    /**
+     * @type {"uninitialized" | "ready" | "error" | "closed"}
+     */
+    engineStatus: "uninitialized" | "ready" | "error" | "closed";
+    /**
+     * Note when a new port is being requested so we don't re-request it.
+     */
+    showPage(): void;
+    /**
+     * Hide the page, and move any outstanding translation requests to a queue.
+     */
+    hidePage(): void;
+    /**
+     * Send a request to translate text to the Translations Engine. If it returns `null`
+     * then the request is stale. A rejection means there was an error in the translation.
+     * This request may be queued.
+     *
+     * @param {node} Node
+     * @param {string} sourceText
+     * @param {boolean} isHTML
+     */
+    translate(node: any, sourceText: string, isHTML: boolean): Promise<any>;
+    /**
+     * Close the port and move any pending translations onto a queue.
+     */
+    discardPort(): void;
+    /**
+     * Acquires a port, checks on the engine status, and then starts or resumes
+     * translations.
+     * @param {MessagePort} port
+     */
+    acquirePort(port: MessagePort): void;
+    /**
+     * Close the port and remove any pending or queued requests.
+     */
+    destroy(): void;
+    #private;
+}
+export {};

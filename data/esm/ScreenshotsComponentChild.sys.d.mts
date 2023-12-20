@@ -20,6 +20,7 @@ export class ScreenshotsComponentChild extends JSWindowActorChild {
     hidePanel(): void;
     getDocumentTitle(): string;
     sendOverlaySelection(data: any): void;
+    getMethodsUsed(): any;
     /**
      * Resolves when the document is ready to have an overlay injected into it.
      *
@@ -37,7 +38,7 @@ export class ScreenshotsComponentChild extends JSWindowActorChild {
     /**
      * Removes event listeners and the screenshots overlay.
      */
-    endScreenshotsOverlay(): void;
+    endScreenshotsOverlay(options?: {}): void;
     didDestroy(): void;
     /**
      * Gets the full page bounds for a full page screenshot.

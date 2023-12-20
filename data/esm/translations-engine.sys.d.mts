@@ -1,4 +1,8 @@
 /**
+ * @typedef {import("./translations-document.sys.mjs").TranslationsDocument} TranslationsDocument
+ * @typedef {import("../translations.js").TranslationsEnginePayload} TranslationsEnginePayload
+ */
+/**
  * The TranslationsEngine encapsulates the logic for translating messages. It can
  * only be set up for a single language translation pair. In order to change languages
  * a new engine should be constructed.
@@ -6,63 +10,67 @@
  * The actual work for the translations happens in a worker. This class manages
  * instantiating and messaging the worker.
  *
- * Keep 1 language engine around in the TranslationsEngine.#cachedEngine cache in case
- * page navigation happens and we can re-use the previous engine. The engines are very
- * heavy-weight, so we only want to keep one around at a time.
+ * Keep unused engines around in the TranslationsEngine.#cachedEngine cache in case
+ * page navigation happens and we can re-use previous engines. The engines are very
+ * heavy-weight, so get rid of them after a timeout. Once all are destroyed the
+ * TranslationsEngineParent is notified that it can be destroyed.
  */
 export class TranslationsEngine {
-    /** @type {null | { languagePairKey: string, enginePromise: Promise<TranslationsEngine> }} */
-    static "__#1665732@#cachedEngine": null | {
-        languagePairKey: string;
-        enginePromise: Promise<TranslationsEngine>;
-    };
-    /** @type {null | TimeoutID} */
-    static "__#1665732@#keepAliveTimeout": null | TimeoutID;
+    /**
+     * Maps a language pair key to a cached engine. Engines are kept around for a timeout
+     * before they are removed so that they can be re-used during navigation.
+     *
+     * @type {Map<string, Promise<TranslationsEngine>>}
+     */
+    static "__#1803667@#cachedEngines": Map<string, Promise<TranslationsEngine>>;
     /**
      * Returns a getter function that will create a translations engine on the first
      * call, and then return the cached one. After a timeout when the engine hasn't
      * been used, it is destroyed.
      *
-     * @param {TranslationsChild} actor
      * @param {string} fromLanguage
      * @param {string} toLanguage
-     * @returns {Promise<TranslationsEngine | null>}
+     * @param {number} innerWindowId
+     * @returns {Promise<TranslationsEngine>}
      */
-    static getOrCreate(actor: TranslationsChild, fromLanguage: string, toLanguage: string): Promise<TranslationsEngine | null>;
+    static getOrCreate(fromLanguage: string, toLanguage: string, innerWindowId: number): Promise<TranslationsEngine>;
+    /**
+     * Removes the engine, and if it's the last, call the process to destroy itself.
+     * @param {string} languagePairKey
+     * @param {boolean} force - On forced shutdowns, it's not necessary to notify the
+     *                          parent process.
+     */
+    static "__#1803667@#removeEngineFromCache"(languagePairKey: string, force: boolean): void;
     /**
      * Create a TranslationsEngine and bypass the cache.
      *
-     * @param {TranslationsChild} actor
      * @param {string} fromLanguage
      * @param {string} toLanguage
+     * @param {number} innerWindowId
      * @returns {Promise<TranslationsEngine>}
      */
-    static create(actor: TranslationsChild, fromLanguage: string, toLanguage: string): Promise<TranslationsEngine>;
+    static create(fromLanguage: string, toLanguage: string, innerWindowId: number): Promise<TranslationsEngine>;
     /**
-     * Only get the engine from the cache if it exists.
+     * Signal to the engines that they are being forced to shutdown.
      */
-    static getFromCache(fromLanguage: any, toLanguage: any): Promise<TranslationsEngine>;
+    static forceShutdown(): Promise<PromiseSettledResult<void>[]>;
     /**
-     * @param {string} languagePairKey
-     */
-    static keepAlive(languagePairKey: string): void;
-    /**
-     * Load the translation engine and translate the page.
+     * Applies a function only if a cached engine exists.
      *
-     * @param {TranslationsChild} actor
-     * @param {{fromLanguage: string, toLanguage: string}} langTags
-     * @returns {Promise<void>}
+     * @param {string} fromLanguage
+     * @param {string} toLanguage
+     * @param {(engine: TranslationsEngine) => void} fn
      */
-    static translatePage(actor: TranslationsChild, { fromLanguage, toLanguage }: {
-        fromLanguage: string;
-        toLanguage: string;
-    }): Promise<void>;
+    static withCachedEngine(fromLanguage: string, toLanguage: string, fn: (engine: TranslationsEngine) => void): void;
     /**
-     * Stop processing the translation queue. All in-progress messages will be discarded.
+     * Pause or resume the translations from a cached engine.
      *
+     * @param {boolean} pause
+     * @param {string} fromLanguage
+     * @param {string} toLanguage
      * @param {number} innerWindowId
      */
-    static discardTranslationQueue(innerWindowId: number): void;
+    static pause(pause: boolean, fromLanguage: string, toLanguage: string, innerWindowId: number): void;
     /**
      * Construct and initialize the worker.
      *
@@ -70,14 +78,17 @@ export class TranslationsEngine {
      * @param {string} toLanguage
      * @param {TranslationsEnginePayload} enginePayload - If there is no engine payload
      *   then the engine will be mocked. This allows this class to be used in tests.
-     * @param {number} innerWindowId - This only used for creating profiler markers in
-     *   the initial creation of the engine.
      */
-    constructor(fromLanguage: string, toLanguage: string, enginePayload: TranslationsEnginePayload, innerWindowId: number);
+    constructor(fromLanguage: string, toLanguage: string, enginePayload: TranslationsEnginePayload);
     /**
-     * @type {TranslationsDocument | null}
+     * Terminates the engine and its worker after a timeout.
+     * @param {boolean} force
      */
-    translatedDoc: TranslationsDocument | null;
+    terminate: (force?: boolean) => void;
+    /**
+     * The worker needs to be shutdown after some amount of time of not being used.
+     */
+    keepAlive(): void;
     /** @type {string} */
     fromLanguage: string;
     /** @type {string} */
@@ -86,27 +97,15 @@ export class TranslationsEngine {
     /** @type {Promise<void>} */
     isReady: Promise<void>;
     /**
-     * Translate text without any HTML.
+     * The implementation for translation. Use translateText or translateHTML for the
+     * public API.
      *
-     * @param {string[]} messageBatch
+     * @param {string} sourceText
+     * @param {boolean} isHTML
      * @param {number} innerWindowId
      * @returns {Promise<string[]>}
      */
-    translateText(messageBatch: string[], innerWindowId: number): Promise<string[]>;
-    /**
-     * Translate valid HTML. Note that this method throws if invalid markup is provided.
-     *
-     * @param {string[]} messageBatch
-     * @param {number} innerWindowId
-     * @returns {Promise<string[]>}
-     */
-    translateHTML(messageBatch: string[], innerWindowId: number): Promise<string[]>;
-    /**
-     * The worker should be GCed just fine on its own, but go ahead and signal to
-     * the worker that it's no longer needed. This will immediately cancel any in-progress
-     * translations.
-     */
-    terminate(): void;
+    translate(sourceText: string, isHTML: boolean, innerWindowId: number): Promise<string[]>;
     /**
      * Stop processing the translation queue. All in-progress messages will be discarded.
      *

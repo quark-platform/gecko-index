@@ -13,11 +13,11 @@ export class CookieBannerChild extends JSWindowActorChild {
     handleCookieBanner(): Promise<{
         bannerHandled: boolean;
         bannerDetected: boolean;
-        matchedRule?: undefined;
+        matchedRules?: undefined;
     } | {
         bannerHandled: boolean;
         bannerDetected: boolean;
-        matchedRule: any;
+        matchedRules: any;
     }>;
     #private;
 }

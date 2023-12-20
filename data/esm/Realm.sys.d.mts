@@ -92,6 +92,8 @@ export class WindowRealm extends Realm {
     get globalObjectReference(): any;
     get isSandbox(): boolean;
     get origin(): string;
+    set userActivationEnabled(enable: boolean);
+    get userActivationEnabled(): boolean;
     /**
      * Evaluates a provided expression in the context of the current realm.
      *

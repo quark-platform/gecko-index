@@ -30,6 +30,7 @@ export class TabListView {
     /**
      * Update the element representing an item, ensuring it's in sync with the
      * underlying data.
+     *
      * @param {client} item - Item to use as a source.
      * @param {Element} itemNode - Element to update.
      */
@@ -37,6 +38,7 @@ export class TabListView {
     /**
      * Update the element representing a tab, ensuring it's in sync with the
      * underlying data.
+     *
      * @param {tab} item - Item to use as a source.
      * @param {Element} itemNode - Element to update.
      */
@@ -45,6 +47,7 @@ export class TabListView {
     onClick(event: any): void;
     /**
      * Handle a keydown event on the list box.
+     *
      * @param {Event} event - Triggering event.
      */
     onKeyDown(event: Event): void;
@@ -69,8 +72,9 @@ export class TabListView {
     adjustContextMenu(menu: any): void;
     /**
      * Find the parent item element, from a given child element.
+     *
      * @param {Element} node - Child element.
-     * @return {Element} Element for the item, or null if not found.
+     * @returns {Element} Element for the item, or null if not found.
      */
     _findParentItemNode(node: Element): Element;
     _findParentBranchNode(node: any): any;

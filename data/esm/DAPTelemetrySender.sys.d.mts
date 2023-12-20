@@ -7,7 +7,10 @@
  */
 export const DAPTelemetrySender: {
     startup(): void;
-    sendTestReports(): Promise<void>;
+    _asyncShutdownBlocker: () => Promise<void>;
+    sendTestReports(tasks: any, timeout: any): Promise<void>;
+    timedSendTestReports(tasks: any): Promise<void>;
+    timeout_value(): number;
     /**
      * Creates a DAP report for a specific task from a measurement and sends it.
      *
@@ -16,7 +19,7 @@ export const DAPTelemetrySender: {
      * @param {number} measurement
      *   The measured value for which a report is generated.
      */
-    sendTestReport(task: Task, measurement: number): Promise<void>;
+    sendDAPMeasurement(task: Task, measurement: number, timeout: any): Promise<void>;
     /**
      * Downloads HPKE configs for endpoints and generates report.
      *
@@ -28,7 +31,7 @@ export const DAPTelemetrySender: {
      * @resolves {Uint8Array} The generated binary report data.
      * @rejects {Error} If an exception is thrown while generating the report.
      */
-    generateReport(task: Task, measurement: number): Promise<Uint8Array>;
+    generateReport(task: Task, measurement: number, abortSignal: any): Promise<Uint8Array>;
     /**
      * Fetches TLS encoded HPKE config from a URL.
      *
@@ -38,7 +41,7 @@ export const DAPTelemetrySender: {
      * @resolves {Uint8Array} The binary representation of the endpoint configuration.
      * @rejects {Error} If an exception is thrown while fetching the configuration.
      */
-    getHpkeConfig(endpoint: string): Promise<Uint8Array>;
+    getHpkeConfig(endpoint: string, abortSignal: any): Promise<Uint8Array>;
     /**
      * Sends a report to the leader.
      *
@@ -49,5 +52,5 @@ export const DAPTelemetrySender: {
      * @returns Promise
      * @resolves {undefined} Once the attempt to send the report completes, whether or not it was successful.
      */
-    sendReport(leader_endpoint: string, task_id: any, report: Uint8Array): Promise<void>;
+    sendReport(leader_endpoint: string, task_id: any, report: Uint8Array, abortSignal: any): Promise<void>;
 };

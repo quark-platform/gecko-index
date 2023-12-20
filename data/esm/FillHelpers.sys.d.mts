@@ -7,8 +7,9 @@
  */
 export function showConfirmation(browser: object, messageId: string, anchorId?: string): void;
 export class GenericAutocompleteItem {
-    constructor(icon: any, title: any, subtitle: any, fillMessageName: any, fillMessageData: any);
+    constructor(image: any, title: any, subtitle: any, fillMessageName: any, fillMessageData: any);
     comment: string;
     style: string;
     value: string;
+    image: any;
 }

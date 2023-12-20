@@ -2,8 +2,6 @@ export namespace AddonRollouts {
     let STATE_ACTIVE: string;
     let STATE_ROLLED_BACK: string;
     function init(): Promise<void>;
-    /** When Telemetry is disabled, clear all identifiers from the stored rollouts.  */
-    function onTelemetryDisabled(): Promise<void>;
     /**
      * Add a new rollout
      * @param {AddonRollout} rollout
@@ -86,10 +84,4 @@ export type AddonRollout = {
      *   The algorithm used to hash the XPI file.
      */
     xpiHashAlgorithm: string;
-    /**
-     *   A random ID generated at time of enrollment. It should be included on all
-     *   telemetry related to this rollout. It should not be re-used by other
-     *   rollouts, or any other purpose. May be null on old rollouts.
-     */
-    enrollmentId: string;
 };

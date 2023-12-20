@@ -27,7 +27,7 @@ export function getTrimmedString(str: string): string;
 export function getErrorNameForTelemetry(error: Error | DOMException | typeof Components.Exception): string;
 /**
  * This proxy object provides the telemetry helpers for the currently supported metrics (the ones listed in
- * ExtensionTelemetryHelpers._histograms), the telemetry helpers for a particular metric are lazily created
+ * HISTOGRAMS_IDS), the telemetry helpers for a particular metric are lazily created
  * when the related property is being accessed on this object for the first time, e.g.:
  *
  *      ExtensionTelemetry.extensionStartup.stopwatchStart(extension);

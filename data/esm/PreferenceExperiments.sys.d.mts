@@ -26,8 +26,6 @@ export namespace PreferenceExperiments {
      * data for testing.
      */
     export function withMockExperiments(prefExperiments?: any[]): (testFunction: any) => (args: any) => Promise<void>;
-    /** When Telemetry is disabled, clear all identifiers from the stored experiments.  */
-    export function onTelemetryDisabled(): Promise<void>;
     /**
      * Clear all stored data about active and past experiments.
      */
@@ -232,12 +230,6 @@ export type Experiment = {
      *   The type to report to Telemetry's experiment marker API.
      */
     experimentType: string;
-    /**
-     *   A random ID generated at time of enrollment. It should be included on all
-     *   telemetry related to this experiment. It should not be re-used by other
-     *   studies, or any other purpose. May be null on old experiments.
-     */
-    enrollmentId: string;
     /**
      *   The action who knows about this experiment and is responsible for cleaning
      *   it up. This should correspond to the `name` of some BaseAction subclass.

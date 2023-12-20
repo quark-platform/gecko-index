@@ -2,6 +2,9 @@ export namespace SearchUtils {
     export { BROWSER_SEARCH_PREF };
     export let SETTINGS_IGNORELIST_KEY: string;
     export let SETTINGS_ALLOWLIST_KEY: string;
+    export let OLD_SETTINGS_KEY: string;
+    export let NEW_SETTINGS_KEY: string;
+    export const SETTINGS_KEY: string;
     export let TOPIC_SEARCH_SERVICE: string;
     export let TOPIC_ENGINE_MODIFIED: string;
     export namespace MODIFIED_TYPE {

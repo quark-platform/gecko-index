@@ -22,6 +22,7 @@ export function notifyNavigationStarted(data: any): NavigationInfo;
  * NavigationRegistry has to be a singleton.
  */
 export function notifyNavigationStopped(data: any): NavigationInfo;
+export function registerNavigationId(data: any): string;
 /**
  * The NavigationManager exposes the NavigationRegistry data via a class which
  * needs to be individually instantiated by each consumer. This allow to track

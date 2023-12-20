@@ -5,6 +5,7 @@ export class ScreenshotsOverlay {
     overlayTemplate: any;
     get initialized(): boolean;
     get state(): string;
+    get methodsUsed(): any;
     document: any;
     window: any;
     windowDimensions: any;
@@ -13,7 +14,6 @@ export class ScreenshotsOverlay {
     get content(): any;
     getElementById(id: any): any;
     initialize(): Promise<void>;
-    _content: any;
     /**
      * Get all the elements that will be used.
      */
@@ -38,7 +38,7 @@ export class ScreenshotsOverlay {
     /**
      * Removes all event listeners and removes the overlay from the Anonymous Content
      */
-    tearDown(): void;
+    tearDown(options?: {}): void;
     /**
      * Add required event listeners to the overlay
      */
@@ -47,6 +47,7 @@ export class ScreenshotsOverlay {
      * Remove the events listeners from the overlay
      */
     removeEventListeners(): void;
+    resetMethodsUsed(): void;
     /**
      * Returns the x and y coordinates of the event relative to both the
      * viewport and the page.
@@ -166,6 +167,7 @@ export class ScreenshotsOverlay {
      * @param {Number} pageY The y position relative to the page
      */
     resizingDragEnd(pageX: number, pageY: number, targetId: any): void;
+    maybeRecordRegionSelected(): void;
     /**
      * Draw the preview eyes pointer towards the mouse.
      * @param {Number} clientX The x position relative to the viewport
@@ -174,6 +176,7 @@ export class ScreenshotsOverlay {
     drawPreviewEyes(clientX: number, clientY: number): void;
     showPreviewContainer(): void;
     hidePreviewContainer(): void;
+    updatePreviewContainer(): void;
     /**
      * Update the screenshots overlay container based on the window dimensions.
      */

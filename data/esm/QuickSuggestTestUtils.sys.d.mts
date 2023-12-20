@@ -1,33 +1,3 @@
-/**
- * Mock `RustSuggest` implementation.
- *
- * @param {object} options
- *   Options object
- * @param {Array} options.data
- *   Mock remote settings records.
- */
-export class MockRustSuggest {
-    constructor({ data }: {
-        data?: any[];
-    });
-    /**
-     * Updates the mock data.
-     *
-     * @param {object} options
-     *   Options object
-     * @param {Array} options.data
-     *   Mock remote settings records.
-     */
-    update({ data }: {
-        data: any[];
-    }): Promise<void>;
-    cleanup(): void;
-    ingest(): Promise<void>;
-    interrupt(): void;
-    clear(): void;
-    query(query: any): Promise<any>;
-    #private;
-}
 export const QuickSuggestTestUtils: _QuickSuggestTestUtils;
 /**
  * Test utils for quick suggest.
@@ -50,15 +20,16 @@ declare class _QuickSuggestTestUtils {
     uninit(): void;
     get DEFAULT_CONFIG(): any;
     /**
-     * Waits for quick suggest initialization to finish, ensures its data will not
-     * be updated again during the test, and also optionally sets it up with mock
-     * suggestions.
+     * Sets up local remote settings and Merino servers, registers test
+     * suggestions, and initializes Suggest.
      *
      * @param {object} options
      *   Options object
-     * @param {Array} options.remoteSettingsResults
-     *   Array of remote settings result objects. If not given, no suggestions
-     *   will be present in remote settings.
+     * @param {Array} options.remoteSettingsRecords
+     *   Array of remote settings records. Each item in this array should be a
+     *   realistic remote settings record with some exceptions, e.g.,
+     *   `record.attachment`, if defined, should be the attachment itself and not
+     *   its metadata. For details see `RemoteSettingsServer.addRecords()`.
      * @param {Array} options.merinoSuggestions
      *   Array of Merino suggestion objects. If given, this function will start
      *   the mock Merino server and set `quicksuggest.dataCollection.enabled` to
@@ -66,42 +37,60 @@ declare class _QuickSuggestTestUtils {
      *   Otherwise Merino will not serve suggestions, but you can still set up
      *   Merino without using this function by using `MerinoTestUtils` directly.
      * @param {object} options.config
-     *   The quick suggest configuration object.
-     * @param {object} options.rustEnabled
-     *   Whether the Rust backend should be enabled. If false, the JS backend will
-     *   be used. (There's no way to tell this function not to change the backend.
-     *   If you need that, please modify this function to support it!)
+     *   The Suggest configuration object. This should not be the full remote
+     *   settings record; only pass the object that should be set to the nested
+     *   `configuration` object inside the record.
+     * @param {Array} options.prefs
+     *   An array of Suggest-related prefs to set. This is useful because setting
+     *   some prefs, like feature gates, can cause Suggest to sync from remote
+     *   settings; this function will set them, wait for sync to finish, and clear
+     *   them when the cleanup function is called. Each item in this array should
+     *   itself be a two-element array `[prefName, prefValue]` similar to the
+     *   `set` array passed to `SpecialPowers.pushPrefEnv()`, except here pref
+     *   names are relative to `browser.urlbar`.
      * @returns {Function}
-     *   An async cleanup function. This function is automatically registered as
-     *   a cleanup function, so you only need to call it if your test needs to
-     *   clean up quick suggest before it ends, for example if you have a small
-     *   number of tasks that need quick suggest and it's not enabled throughout
-     *   your test. The cleanup function is idempotent so there's no harm in
-     *   calling it more than once. Be sure to `await` it.
+     *   An async cleanup function. This function is automatically registered as a
+     *   cleanup function, so you only need to call it if your test needs to clean
+     *   up Suggest before it ends, for example if you have a small number of
+     *   tasks that need Suggest and it's not enabled throughout your test. The
+     *   cleanup function is idempotent so there's no harm in calling it more than
+     *   once. Be sure to `await` it.
      */
-    ensureQuickSuggestInit({ remoteSettingsResults, merinoSuggestions, config, rustEnabled, }?: {
-        remoteSettingsResults: any[];
+    ensureQuickSuggestInit({ remoteSettingsRecords, merinoSuggestions, config, prefs, }?: {
+        remoteSettingsRecords: any[];
         merinoSuggestions: any[];
         config: object;
-        rustEnabled: object;
+        prefs: any[];
     }): Function;
     /**
-     * Clears the current remote settings data and adds a new set of data.
-     * This can be used to add remote settings data after
-     * `ensureQuickSuggestInit()` has been called.
+     * Removes all records from the local remote settings server and adds a new
+     * batch of records.
      *
-     * @param {Array} data
-     *   Array of remote settings data objects.
+     * @param {Array} records
+     *   Array of remote settings records. See `ensureQuickSuggestInit()`.
+     * @param {object} options
+     *   Options object.
+     * @param {boolean} options.forceSync
+     *   Whether to force Suggest to sync after updating the records.
      */
-    setRemoteSettingsResults(data: any[]): Promise<void>;
+    setRemoteSettingsRecords(records: any[], { forceSync }?: {
+        forceSync: boolean;
+    }): Promise<void>;
     /**
      * Sets the quick suggest configuration. You should call this again with
      * `DEFAULT_CONFIG` before your test finishes. See also `withConfig()`.
      *
      * @param {object} config
-     *   The config to be applied. See
+     *   The quick suggest configuration object. This should not be the full
+     *   remote settings record; only pass the object that should be set to the
+     *   `configuration` nested object inside the record.
      */
     setConfig(config: object): Promise<void>;
+    /**
+     * Forces Suggest to sync with remote settings. This can be used to ensure
+     * Suggest has finished all sync activity.
+     */
+    forceSync(): Promise<void>;
     /**
      * Sets the quick suggest configuration, calls your callback, and restores the
      * previous configuration.
@@ -236,18 +225,6 @@ declare class _QuickSuggestTestUtils {
      *     in `DEFAULT_PING_PAYLOADS`.
      */
     assertPings(spy: object, pings: any[]): void;
-    /**
-     * Helper for checking contextual services ping payloads.
-     *
-     * @param {object} actualPayload
-     *   The actual payload in the ping.
-     * @param {object} expectedPayload
-     *   An object describing the expected payload. Non-function values in this
-     *   object are checked for equality against the corresponding actual payload
-     *   values. Function values are called and passed the corresponding actual
-     *   values and should return true if the actual values are correct.
-     */
-    _assertPingPayload(actualPayload: object, expectedPayload: object): void;
     /**
      * Asserts that URLs in a result's payload have the timestamp template
      * substring replaced with real timestamps.

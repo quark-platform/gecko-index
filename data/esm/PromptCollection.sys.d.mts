@@ -1,5 +1,6 @@
 /**
  * Implements nsIPromptCollection
+ *
  * @class PromptCollection
  */
 export class PromptCollection {

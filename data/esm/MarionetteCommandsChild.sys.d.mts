@@ -7,11 +7,13 @@ export class MarionetteCommandsChild extends JSWindowActorChild {
     receiveMessage(msg: any): Promise<{
         seenNodeIds: any[];
         serializedValue: any;
+        hasSerializedWindows: any;
         error?: undefined;
     } | {
         error: any;
         seenNodeIds?: undefined;
         serializedValue?: undefined;
+        hasSerializedWindows?: undefined;
     }>;
     /** Clear the text of an element.
      *

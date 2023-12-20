@@ -9,8 +9,7 @@ declare class ProvidersManager {
     queries: Map<any, any>;
     interruptLevel: number;
     muxers: Map<any, any>;
-    CHUNK_HEURISTIC_RESULTS_DELAY_MS: number;
-    CHUNK_OTHER_RESULTS_DELAY_MS: number;
+    CHUNK_RESULTS_DELAY_MS: number;
     /**
      * Registers a provider object with the manager.
      *

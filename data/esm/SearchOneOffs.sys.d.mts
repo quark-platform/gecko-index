@@ -87,7 +87,7 @@ export class SearchOneOffs {
     set query(val: string);
     get query(): string;
     /**
-     * The selected one-off, a xul:button, including the add-engine button
+     * The selected one-off including the add-engine button
      * and the search-settings button.
      *
      * @param {DOMElement|null} val

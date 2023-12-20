@@ -1,7 +1,25 @@
-export namespace TabManager {
-    const browsers: XULBrowser[];
-    const windows: nsISimpleEnumeratorType;
-    const allBrowserUniqueIds: string[];
+export const TabManager: TabManagerClass;
+declare class TabManagerClass {
+    /**
+     * Retrieve all the browser elements from tabs as contained in open windows.
+     *
+     * @returns {Array<XULBrowser>}
+     *     All the found <xul:browser>s. Will return an empty array if
+     *     no windows and tabs can be found.
+     */
+    get browsers(): XULBrowser[];
+    get windows(): nsISimpleEnumeratorType;
+    /**
+     * Array of unique browser ids (UUIDs) for all content browsers of all
+     * windows.
+     *
+     * TODO: Similarly to getBrowserById, we should improve the performance of
+     * this getter in Bug 1750065.
+     *
+     * @returns {Array<string>}
+     *     Array of UUIDs for all content browsers.
+     */
+    get allBrowserUniqueIds(): string[];
     /**
      * Get the <code>&lt;xul:browser&gt;</code> for the specified tab.
      *
@@ -11,7 +29,7 @@ export namespace TabManager {
      * @returns {XULBrowser}
      *     The linked browser for the tab or null if no browser can be found.
      */
-    function getBrowserForTab(tab: Tab): XULBrowser;
+    getBrowserForTab(tab: Tab): XULBrowser;
     /**
      * Return the tab browser for the specified chrome window.
      *
@@ -21,7 +39,7 @@ export namespace TabManager {
      * @returns {Tab}
      *     Tab browser or null if it's not a browser window.
      */
-    function getTabBrowser(win: ChromeWindow): Tab;
+    getTabBrowser(win: ChromeWindow): Tab;
     /**
      * Create a new tab.
      *
@@ -40,9 +58,9 @@ export namespace TabManager {
      *     The window where the new tab will open. Defaults to Services.wm.getMostRecentWindow
      *     if no window is provided. Will be ignored if referenceTab is provided.
      */
-    function addTab(options?: {
-        focus?: boolean;
-        referenceTab?: Tab;
+    addTab(options?: {
+        focus?: boolean | undefined;
+        referenceTab?: Tab | undefined;
         userContextId: number;
         window?: any;
     }): Promise<any>;
@@ -60,7 +78,7 @@ export namespace TabManager {
      *     The <xul:browser> corresponding to the provided id. Will return null if
      *     no matching browser element is found.
      */
-    function getBrowserById(id: string): XULBrowser;
+    getBrowserById(id: string): XULBrowser;
     /**
      * Retrieve the browsing context corresponding to the provided unique id.
      *
@@ -69,7 +87,7 @@ export namespace TabManager {
      * @returns {BrowsingContext=}
      *     The browsing context found for this id, null if none was found.
      */
-    function getBrowsingContextById(id: string): BrowsingContext;
+    getBrowsingContextById(id: string): BrowsingContext;
     /**
      * Retrieve the unique id for the given xul browser element. The id is a
      * dynamically generated uuid associated with the permanentKey property of the
@@ -81,7 +99,7 @@ export namespace TabManager {
      *     The <xul:browser> for which we want to retrieve the id.
      * @returns {string} The unique id for this browser.
      */
-    function getIdForBrowser(browserElement: XULBrowser): string;
+    getIdForBrowser(browserElement: XULBrowser): string;
     /**
      * Retrieve the id of a Browsing Context.
      *
@@ -93,7 +111,7 @@ export namespace TabManager {
      * @returns {string}
      *     The id of the browsing context.
      */
-    function getIdForBrowsingContext(browsingContext?: BrowsingContext): string;
+    getIdForBrowsingContext(browsingContext?: BrowsingContext): string;
     /**
      * Get the navigable for the given browsing context.
      *
@@ -108,8 +126,8 @@ export namespace TabManager {
      * @throws {TypeError}
      *     If `browsingContext` is not a CanonicalBrowsingContext instance.
      */
-    function getNavigableForBrowsingContext(browsingContext: BrowsingContext): any;
-    function getTabCount(): number;
+    getNavigableForBrowsingContext(browsingContext: BrowsingContext): BrowsingContext | XULBrowser;
+    getTabCount(): number;
     /**
      * Retrieve the tab owning a Browsing Context.
      *
@@ -119,7 +137,7 @@ export namespace TabManager {
      * @returns {Tab|null}
      *     The tab owning the Browsing Context.
      */
-    function getTabForBrowsingContext(browsingContext?: BrowsingContext): any;
+    getTabForBrowsingContext(browsingContext?: BrowsingContext): Tab | null;
     /**
      * Retrieve the list of tabs for a given window.
      *
@@ -127,10 +145,11 @@ export namespace TabManager {
      *     Window whose <code>tabs</code> need to be returned.
      *
      * @returns {Array<Tab>}
-     *     The list of tabs. Will return an empty list if tab browser is not available.
+     *     The list of tabs. Will return an empty list if tab browser is not available
+     *     or tabs are undefined.
      */
-    function getTabsForWindow(win: ChromeWindow): Tab[];
-    function getWindowForTab(tab: any): any;
+    getTabsForWindow(win: ChromeWindow): Array<Tab>;
+    getWindowForTab(tab: any): any;
     /**
      * Check if the given argument is a valid canonical browsing context and was not
      * discarded.
@@ -141,14 +160,14 @@ export namespace TabManager {
      * @returns {boolean}
      *     True if the browsing context is valid, false otherwise.
      */
-    function isValidCanonicalBrowsingContext(browsingContext: BrowsingContext): boolean;
+    isValidCanonicalBrowsingContext(browsingContext: BrowsingContext): boolean;
     /**
      * Remove the given tab.
      *
      * @param {Tab} tab
      *     Tab to remove.
      */
-    function removeTab(tab: Tab): Promise<void>;
+    removeTab(tab: Tab): Promise<void>;
     /**
      * Select the given tab.
      *
@@ -158,6 +177,8 @@ export namespace TabManager {
      * @returns {Promise}
      *     Promise that resolves when the given tab has been selected.
      */
-    function selectTab(tab: Tab): Promise<any>;
-    function supportsTabs(): any;
+    selectTab(tab: Tab): Promise<any>;
+    supportsTabs(): any;
+    #private;
 }
+export {};

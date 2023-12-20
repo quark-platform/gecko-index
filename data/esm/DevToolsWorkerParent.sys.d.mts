@@ -19,11 +19,12 @@ export class DevToolsWorkerParent extends JSWindowActorParent {
     /**
      * Communicate to the content process that some data have been added.
      */
-    addSessionDataEntry({ watcherActorID, sessionContext, type, entries }: {
+    addOrSetSessionDataEntry({ watcherActorID, sessionContext, type, entries, updateType, }: {
         watcherActorID: any;
         sessionContext: any;
         type: any;
         entries: any;
+        updateType: any;
     }): Promise<void>;
     /**
      * Communicate to the content process that some data have been removed.

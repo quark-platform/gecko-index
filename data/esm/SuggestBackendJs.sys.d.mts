@@ -70,6 +70,7 @@ export class SuggestBackendJs {
      *   is returned.
      */
     query(searchString: string): any[];
+    _test_syncAll(): Promise<void>;
     #private;
 }
 /**

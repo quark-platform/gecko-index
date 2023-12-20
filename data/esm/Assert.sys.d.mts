@@ -103,8 +103,11 @@ export class Assert {
      *        Operation qualifier used by the assertion method (ex: '==').
      * @param {boolean} [truncate=true]
      *        Whether or not ``actual`` and ``expected`` should be truncated when printing.
+     * @param {nsIStackFrame} [stack]
+     *        The stack trace including the caller of the assertion method,
+     *        if this cannot be inferred automatically (e.g. due to async callbacks).
      */
-    report(failed: boolean, actual: any, expected?: any, message?: string, operator?: string, truncate?: boolean): void;
+    report(failed: boolean, actual: any, expected?: any, message?: string, operator?: string, truncate?: boolean, stack?: nsIStackFrame): void;
     /**
      * 4. Pure assertion tests whether a value is truthy, as determined by !!guard.
      * ``assert.ok(guard, message_opt);``
@@ -325,7 +328,8 @@ export namespace Assert {
      *   actual: actual,
      *   expected: expected,
      *   operator: operator,
-     *   truncate: truncate
+     *   truncate: truncate,
+     *   stack: stack, // Optional, defaults to the current stack.
      * });
      *
      */

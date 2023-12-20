@@ -239,13 +239,6 @@ export class UrlbarView {
     on_resize(): void;
     on_command(event: any): void;
     on_popupshowing(event: any): void;
-    /**
-     * Called when a urlbar pref changes.
-     *
-     * @param {string} pref
-     *   The name of the pref relative to `browser.urlbar`.
-     */
-    onPrefChanged(pref: string): void;
     #private;
 }
 /**

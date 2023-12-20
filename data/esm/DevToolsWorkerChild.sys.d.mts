@@ -53,7 +53,7 @@ export class DevToolsWorkerChild extends JSWindowActorChild {
     }): Promise<void>;
     _destroyTargetActors(watcherActorID: any): void;
     sendPacket(packet: any, prefix: any): Promise<void>;
-    _addSessionDataEntry(watcherActorID: any, type: any, entries: any): Promise<void>;
+    _addOrSetSessionDataEntry(watcherActorID: any, type: any, entries: any, updateType: any): Promise<void>;
     _removeSessionDataEntry(watcherActorID: any, type: any, entries: any): void;
     handleEvent({ type }: {
         type: any;

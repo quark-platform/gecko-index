@@ -92,7 +92,7 @@ export class DevToolsFrameChild extends JSWindowActorChild {
         sessionContext: any;
         browsingContextId: any;
     }): WindowGlobalTargetActor | null;
-    _addSessionDataEntry(watcherActorID: any, sessionContext: any, type: any, entries: any): any;
+    _addOrSetSessionDataEntry(watcherActorID: any, sessionContext: any, type: any, entries: any, updateType: any): any;
     _removeSessionDataEntry(watcherActorID: any, sessionContext: any, type: any, entries: any): any;
     handleEvent({ type, persisted, target }: {
         type: any;

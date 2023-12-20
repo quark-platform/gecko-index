@@ -72,13 +72,10 @@ export class CreditCard {
         month: any;
         year: any;
     };
-    static formatMaskedNumber(maskedNumber: any): {
-        affix: string;
-        label: any;
-    };
-    static getCreditCardLogo(network: any): string;
+    static formatMaskedNumber(maskedNumber: any): string;
     static getMaskedNumber(number: any): string;
     static getLongMaskedNumber(number: any): string;
+    static getCreditCardLogo(network: any): string;
     static isValidNumber(number: any): boolean;
     static isValidNetwork(network: any): boolean;
     static getSupportedNetworks(): readonly string[];

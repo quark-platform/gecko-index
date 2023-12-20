@@ -8,7 +8,6 @@ export const PdfJsDefaultPreferences: Readonly<{
     enablePermissions: false;
     enablePrintAutoRotate: true;
     enableScripting: true;
-    enableStampEditor: true;
     externalLinkTarget: 0;
     historyUpdateUrl: false;
     ignoreDestinationZoom: false;
@@ -20,7 +19,6 @@ export const PdfJsDefaultPreferences: Readonly<{
     scrollModeOnLoad: -1;
     spreadModeOnLoad: -1;
     textLayerMode: 1;
-    viewerCssTheme: 0;
     viewOnLoad: 0;
     disableAutoFetch: false;
     disableFontFace: false;

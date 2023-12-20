@@ -28,20 +28,20 @@ export class AddressTelemetry extends AutofillTelemetryBase {
     };
 }
 export class AutofillTelemetry {
-    static "__#1120541@#creditCardTelemetry": CreditCardTelemetry;
-    static "__#1120541@#addressTelemetry": AddressTelemetry;
+    static "__#1120790@#creditCardTelemetry": CreditCardTelemetry;
+    static "__#1120790@#addressTelemetry": AddressTelemetry;
     static ADDRESS: string;
     static CREDIT_CARD: string;
-    static "__#1120541@#getTelemetryBySection"(section: any): AddressTelemetry | CreditCardTelemetry;
-    static "__#1120541@#getTelemetryByType"(type: any): AddressTelemetry | CreditCardTelemetry;
+    static "__#1120790@#getTelemetryBySection"(section: any): AddressTelemetry | CreditCardTelemetry;
+    static "__#1120790@#getTelemetryByType"(type: any): AddressTelemetry | CreditCardTelemetry;
     /**
      * Utility functions for `doorhanger` event (defined in Events.yaml)
      *
      * Category: address or creditcard
      * Event name: doorhanger
      */
-    static recordDoorhangerShown(type: any, flowId: any, isCapture: any): void;
-    static recordDoorhangerClicked(type: any, method: any, flowId: any, isCapture: any): void;
+    static recordDoorhangerShown(type: any, object: any, flowId: any): void;
+    static recordDoorhangerClicked(type: any, method: any, object: any, flowId: any): void;
     /**
      * Utility functions for form event (defined in Events.yaml)
      *
@@ -92,8 +92,8 @@ declare class AutofillTelemetryBase {
         record: any;
         form: any;
     }): void;
-    recordDoorhangerEvent(method: any, flowId: any, isCapture: any): void;
-    recordManageEvent(method: any, object: any): void;
+    recordDoorhangerEvent(method: any, object: any, flowId: any): void;
+    recordManageEvent(method: any): void;
     recordAutofillProfileCount(count: any): void;
     recordDetectedSectionCount(): void;
     recordSubmittedSectionCount(count: any): void;

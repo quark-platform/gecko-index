@@ -3,4 +3,10 @@
  * needed in AboutTranslations.
  */
 export class AboutTranslationsParent extends JSWindowActorParent {
+    didDestroy(): void;
+    receiveMessage({ name, data }: {
+        name: any;
+        data: any;
+    }): Promise<any>;
+    #private;
 }

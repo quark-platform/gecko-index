@@ -5,6 +5,10 @@ export class AbuseReportError extends Error {
 }
 export namespace AbuseReporter {
     let _lastReportTimestamp: any;
+    const amoFormEnabled: any;
+    function getAMOFormURL({ addonId }: {
+        addonId: any;
+    }): string;
     function updateLastReportTimestamp(): void;
     function getTimeFromLastReport(): number;
     function isSupportedAddonType(addonType: any): boolean;

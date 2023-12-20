@@ -9,8 +9,6 @@ export namespace PreferenceRollouts {
      */
     function recordOriginalValues(originalPreferences: any): Promise<void>;
     function init(): Promise<void>;
-    /** When Telemetry is disabled, clear all identifiers from the stored rollouts.  */
-    function onTelemetryDisabled(): Promise<void>;
     /**
      * Test wrapper that temporarily replaces the stored rollout data with fake
      * data for testing.
@@ -79,12 +77,6 @@ export type PreferenceRollout = {
      *   An array of preferences specifications involved in the rollout.
      */
     preferences: Array<PreferenceSpec>;
-    /**
-     *   A random ID generated at time of enrollment. It should be included on all
-     *   telemetry related to this rollout. It should not be re-used by other
-     *   rollouts, or any other purpose. May be null on old rollouts.
-     */
-    enrollmentId: string;
 };
 /**
  * PreferenceSpec describe how a preference should change during a rollout.

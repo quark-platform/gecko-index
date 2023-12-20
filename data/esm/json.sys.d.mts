@@ -98,4 +98,24 @@ export namespace json {
      *     If the element is stale, indicating it is no longer attached to the DOM.
      */
     function deserialize(value: any, nodeCache: NodeCache, browsingContext: BrowsingContext): any;
+    /**
+     * Convert unique navigable ids to internal browser ids.
+     *
+     * @param {object} serializedData
+     *     The data to process.
+     *
+     * @returns {object}
+     *     The processed data.
+     */
+    function mapFromNavigableIds(serializedData: any): any;
+    /**
+     * Convert browser ids to unique navigable ids.
+     *
+     * @param {object} serializedData
+     *     The data to process.
+     *
+     * @returns {object}
+     *     The processed data.
+     */
+    function mapToNavigableIds(serializedData: any): any;
 }

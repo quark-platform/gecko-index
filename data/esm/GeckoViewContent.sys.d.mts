@@ -12,6 +12,7 @@ export class GeckoViewContent extends GeckoViewModule {
     _requestCreateAnalysis(aData: any, aCallback: any): Promise<void>;
     _requestAnalysisCreationStatus(aData: any, aCallback: any): Promise<void>;
     _pollForAnalysisCompleted(aData: any, aCallback: any): Promise<void>;
+    _sendAttributionEvent(aEvent: any, aData: any, aCallback: any): Promise<void>;
     _requestRecommendations(aData: any, aCallback: any): Promise<void>;
     _hasCookieBannerRuleForBrowsingContextTree(aCallback: any): Promise<void>;
     _findInPage(aData: any, aCallback: any): void;
@@ -39,5 +40,6 @@ export class GeckoViewContent extends GeckoViewModule {
     _clearMatches(): void;
     _displayMatches(aData: any): void;
     _matchDisplayOptions: any;
+    #private;
 }
 import { GeckoViewModule } from "resource://gre/modules/GeckoViewModule.sys.mjs";

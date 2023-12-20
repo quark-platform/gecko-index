@@ -119,7 +119,7 @@ export class UrlbarController {
      * @param {"arrow"|"tab"|"none"} behavior
      *   The behavior the user used.
      */
-    set userSelectionBehavior(behavior: "none" | "tab" | "arrow");
+    set userSelectionBehavior(behavior: "none" | "arrow" | "tab");
     /**
      * Tries to initialize a speculative connection on a result.
      * Speculative connections are only supported for a subset of all the results.

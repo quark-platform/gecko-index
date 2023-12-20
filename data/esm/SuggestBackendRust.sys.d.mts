@@ -44,6 +44,7 @@ export class SuggestBackendRust {
     /**
      * nsITimerCallback
      */
-    notify(): Promise<void>;
+    notify(): void;
+    _test_ingest(): Promise<void>;
     #private;
 }

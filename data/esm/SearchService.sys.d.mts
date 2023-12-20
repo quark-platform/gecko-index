@@ -144,9 +144,9 @@ export class SearchService implements nsISearchService {
      * Test only variable to indicate an error should occur during
      * search service initialization.
      *
-     * @type {boolean}
+     * @type {string}
      */
-    willThrowErrorDuringInitInTest: boolean;
+    errorToThrowInTest: string;
     resetEngineSelector(): void;
     resetToAppDefaultEngine(): void;
     maybeSetAndOverrideDefault(extension: any): Promise<{

@@ -246,6 +246,17 @@ export class UrlbarProvider {
      */
     onEngagement(state: string, queryContext: UrlbarQueryContext, details: object, controller: UrlbarController): void;
     /**
+     * Called before a result from the provider is selected. See `onSelection`
+     * for details on what that means.
+     *
+     * @param {UrlbarResult} result
+     *   The result that was selected.
+     * @param {Element} element
+     *   The element in the result's view that was selected.
+     * @abstract
+     */
+    onBeforeSelection(result: UrlbarResult, element: Element): void;
+    /**
      * Called when a result from the provider is selected. "Selected" refers to
      * the user highlighing the result with the arrow keys/Tab, before it is
      * picked. onSelection is also called when a user clicks a result. In the

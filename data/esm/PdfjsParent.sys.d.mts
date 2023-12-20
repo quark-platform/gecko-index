@@ -24,5 +24,4 @@ export class PdfjsParent extends JSWindowActorParent {
      */
     _hookupEventListeners(aBrowser: any): boolean;
     _removeEventListener(): void;
-    _displayWarning(aMsg: any): void;
 }

@@ -40,6 +40,8 @@ export class UrlbarSearchOneOffs {
      * Query listener method.  Delegates to the superclass.
      */
     onViewOpen(): void;
+    onQueryStarted(queryContext: any): void;
+    onQueryFinished(queryContext: any): void;
     /**
      * Query listener method.  Delegates to the superclass.
      */
@@ -55,13 +57,14 @@ export class UrlbarSearchOneOffs {
      */
     get isViewOpen(): boolean;
     /**
-     * The selected one-off, a xul:button, including the search-settings button.
+     * The selected one-off including the search-settings button.
      *
      * @param {DOMElement|null} button
      *   The selected one-off button. Null if no one-off is selected.
      */
     set selectedButton(button: any);
     get selectedButton(): any;
+    getSelectableButtons(aIncludeNonEngineButtons: any): any;
     set selectedViewIndex(val: number);
     /**
      * The selected index in the view or -1 if there is no selection.
@@ -74,8 +77,7 @@ export class UrlbarSearchOneOffs {
      */
     closeView(): void;
     /**
-     * Called when a one-off is clicked. This is not called for the settings
-     * button.
+     * Called when a one-off is clicked.
      *
      * @param {event} event
      *   The event that triggered the pick.
@@ -138,4 +140,6 @@ export class UrlbarSearchOneOffs {
      *   The contextmenu event.
      */
     _on_contextmenu(event: Event): void;
+    _on_rebuild(): void;
+    #private;
 }

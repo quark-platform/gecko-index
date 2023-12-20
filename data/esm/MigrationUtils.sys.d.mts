@@ -191,8 +191,6 @@ declare class MigrationUtils {
      *   source-selection page will be displayed, either with the default
      *   browser selected, if it could be detected and if there is a
      *   migrator for it, or with the first option selected as a fallback
-     *   (The first option is hardcoded to be the most common browser for
-     *    the OS we run on.  See migration.xhtml).
      * @param {string|null} [aProfileToMigrate=null]
      *   If set, the migration wizard will import from the profile indicated.
      * @throws
@@ -253,16 +251,6 @@ declare class MigrationUtils {
      * @returns {number}
      */
     get MIGRATION_ENTRYPOINTS(): number;
-    /**
-     * Translates an entrypoint string into the proper numeric value for the legacy
-     * FX_MIGRATION_ENTRY_POINT histogram.
-     *
-     * @param {string} entrypoint
-     *   The entrypoint to translate from MIGRATION_ENTRYPOINTS.
-     * @returns {number}
-     *   The numeric value for the legacy FX_MIGRATION_ENTRY_POINT histogram.
-     */
-    getLegacyMigrationEntrypoint(entrypoint: string): number;
     getSourceIdForTelemetry(sourceName: any): any;
     get HISTORY_MAX_AGE_IN_MILLISECONDS(): number;
     /**

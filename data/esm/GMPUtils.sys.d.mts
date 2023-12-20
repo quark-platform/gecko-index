@@ -1,5 +1,6 @@
 export const OPEN_H264_ID: "gmp-gmpopenh264";
-export const WIDEVINE_ID: "gmp-widevinecdm";
+export const WIDEVINE_L1_ID: "gmp-widevinecdm-l1";
+export const WIDEVINE_L3_ID: "gmp-widevinecdm";
 export const GMP_PLUGIN_IDS: string[];
 export namespace GMPUtils {
     /**
@@ -14,7 +15,7 @@ export namespace GMPUtils {
      * @param   aPlugin
      *          The plugin to check.
      */
-    function _isPluginSupported(aPlugin: any): boolean;
+    function _isPluginSupported(aPlugin: any): any;
     /**
      * Checks whether or not a given plugin is visible in the addons manager
      * UI and the "enable DRM" notification box. This can be used to test
@@ -50,6 +51,7 @@ export namespace GMPPrefs {
     let KEY_PLUGIN_VISIBLE: string;
     let KEY_PLUGIN_ABI: string;
     let KEY_PLUGIN_FORCE_SUPPORTED: string;
+    let KEY_PLUGIN_FORCE_INSTALL: string;
     let KEY_PLUGIN_ALLOW_X64_ON_ARM64: string;
     let KEY_URL: string;
     let KEY_URL_OVERRIDE: string;

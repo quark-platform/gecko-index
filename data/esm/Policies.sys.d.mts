@@ -8,10 +8,10 @@
  *
  * @param {string} prefName
  *        The pref to be changed
- * @param {boolean,number,string} prefValue
+ * @param {boolean|number|string} prefValue
  *        The value to set and lock
  */
-export function setAndLockPref(prefName: string, prefValue: any): void;
+export function setAndLockPref(prefName: string, prefValue: boolean | number | string): void;
 /**
  * runOnce
  *
@@ -74,6 +74,9 @@ export const Policies: {
         onBeforeAddons(manager: any, param: any): void;
     };
     Containers: {};
+    ContentAnalysis: {
+        onBeforeUIStartup(manager: any, param: any): void;
+    };
     Cookies: {
         onBeforeUIStartup(manager: any, param: any): void;
     };

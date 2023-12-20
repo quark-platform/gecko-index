@@ -43,7 +43,7 @@ export namespace WatcherRegistry {
      */
     function getWatchersForBrowserId(browserId: number): WatcherActor[];
     /**
-     * Notify that a given watcher added an entry in a given data type.
+     * Notify that a given watcher added or set some entries for given data type.
      *
      * @param WatcherActor watcher
      *               The WatcherActor which starts observing.
@@ -51,8 +51,11 @@ export namespace WatcherRegistry {
      *               The type of data to be added
      * @param Array<Object> entries
      *               The values to be added to this type of data
+     * @param String updateType
+     *               "add" will only add the new entries in the existing data set.
+     *               "set" will update the data set with the new entries.
      */
-    function addSessionDataEntry(watcher: any, type: any, entries: any): void;
+    function addOrSetSessionDataEntry(watcher: any, type: any, entries: any, updateType: any): void;
     /**
      * Notify that a given watcher removed an entry in a given data type.
      *
