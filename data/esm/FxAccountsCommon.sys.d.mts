@@ -33,6 +33,8 @@ export let SCOPE_PROFILE_WRITE: string;
 export let SCOPE_OLD_SYNC: string;
 export let DEPRECATED_SCOPE_ECOSYSTEM_TELEMETRY: string;
 export let FX_MONITOR_OAUTH_CLIENT_ID: string;
+export let FX_RELAY_OAUTH_CLIENT_ID: string;
+export let VPN_OAUTH_CLIENT_ID: string;
 export let UI_REQUEST_SIGN_IN_FLOW: string;
 export let UI_REQUEST_REFRESH_AUTH: string;
 export let WEBCHANNEL_ID: string;

@@ -1,28 +1,28 @@
 export const ReportBrokenSite: {
-    "__#567331@#newReportEndpoint": any;
+    "__#567333@#newReportEndpoint": any;
     readonly sendMoreInfoEndpoint: any;
-    "__#567331@#_enabled": boolean;
+    "__#567333@#_enabled": boolean;
     readonly enabled: boolean;
-    "__#567331@#reasonEnabled": boolean;
-    "__#567331@#reasonIsOptional": boolean;
-    "__#567331@#descriptionIsOptional": boolean;
-    "__#567331@#sendMoreInfoEnabled": boolean;
+    "__#567333@#reasonEnabled": boolean;
+    "__#567333@#reasonIsOptional": boolean;
+    "__#567333@#descriptionIsOptional": boolean;
+    "__#567333@#sendMoreInfoEnabled": boolean;
     readonly reasonEnabled: boolean;
     readonly reasonIsOptional: boolean;
     readonly descriptionIsOptional: boolean;
     canReportURI(uri: any): any;
-    "__#567331@#recordGleanEvent"(name: any, extra: any): void;
+    "__#567333@#recordGleanEvent"(name: any, extra: any): void;
     updateParentMenu(event: any): void;
     init(tabbrowser: any): void;
     enableOrDisableMenuitems(selectedbrowser: any): void;
-    "__#567331@#checkPrefs"(whichChanged: any): void;
-    "__#567331@#initMainView"(state: any): void;
-    "__#567331@#initReportSentView"(state: any): void;
-    "__#567331@#onMainViewShown"(source: any, selectedBrowser: any): Promise<void>;
-    "__#567331@#queryActor"(msg: any, params: any, browser: any): Promise<any>;
-    "__#567331@#loadTab"(tabbrowser: any, url: any, triggeringPrincipal: any): Promise<any>;
-    "__#567331@#openWebCompatTab"(tabbrowser: any): Promise<any>;
-    "__#567331@#sendReportAsGleanPing"({ currentTabWebcompatDetailsPromise, description, reason, url, }: {
+    "__#567333@#checkPrefs"(whichChanged: any): void;
+    "__#567333@#initMainView"(state: any): void;
+    "__#567333@#initReportSentView"(state: any): void;
+    "__#567333@#onMainViewShown"(source: any, selectedBrowser: any): Promise<void>;
+    "__#567333@#queryActor"(msg: any, params: any, browser: any): Promise<any>;
+    "__#567333@#loadTab"(tabbrowser: any, url: any, triggeringPrincipal: any): Promise<any>;
+    "__#567333@#openWebCompatTab"(tabbrowser: any): Promise<any>;
+    "__#567333@#sendReportAsGleanPing"({ currentTabWebcompatDetailsPromise, description, reason, url, }: {
         currentTabWebcompatDetailsPromise: any;
         description: any;
         reason: any;

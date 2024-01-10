@@ -22,7 +22,7 @@ export class TranslationsEngine {
      *
      * @type {Map<string, Promise<TranslationsEngine>>}
      */
-    static "__#1803667@#cachedEngines": Map<string, Promise<TranslationsEngine>>;
+    static "__#1803669@#cachedEngines": Map<string, Promise<TranslationsEngine>>;
     /**
      * Returns a getter function that will create a translations engine on the first
      * call, and then return the cached one. After a timeout when the engine hasn't
@@ -40,7 +40,7 @@ export class TranslationsEngine {
      * @param {boolean} force - On forced shutdowns, it's not necessary to notify the
      *                          parent process.
      */
-    static "__#1803667@#removeEngineFromCache"(languagePairKey: string, force: boolean): void;
+    static "__#1803669@#removeEngineFromCache"(languagePairKey: string, force: boolean): void;
     /**
      * Create a TranslationsEngine and bypass the cache.
      *

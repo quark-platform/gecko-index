@@ -98,7 +98,7 @@ export class AddressUpdateDoorhanger extends AddressSaveDoorhanger {
 export class AddressEditDoorhanger extends AutofillDoorhanger {
     static telemetryType: any;
     static telemetryObject: string;
-    static "__#1534086@#getInputIdMatchRegexp"(): RegExp;
+    static "__#1534088@#getInputIdMatchRegexp"(): RegExp;
     static getInputId(fieldName: any): string;
     constructor(browser: any, record: any, flowId: any);
     set country(c: any);
