@@ -17,7 +17,7 @@
     },
     {
       "kind": "INCLUDE",
-      "ident": "nsICommandLine"
+      "ident": "nsISupports"
     },
     {
       "kind": "interface_main",
@@ -229,6 +229,57 @@
                   "attributes": null,
                   "return_type": "void",
                   "name": "setDefaultBrowserUserChoice",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aAumid"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "aExtraFileExtensions"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * Set the default browser and optionally additional file extensions via the\n  * UserChoice registry keys, asynchronously. Does the actual work on a\n  * background thread.\n  *\n  * @param {AString} aAumid\n  *        Suffix to be appended to ProgIDs when registering system defaults.\n  * @param {Array<AString>} aExtraFileExtensions\n  *        Additional optional file extensions to register specified as argument\n  *        pairs: the first element is the file extension, the second element is\n  *        the root of a ProgID, which will be suffixed with `-{aAumid}`.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "setDefaultBrowserUserChoiceAsync",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {

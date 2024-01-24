@@ -173,6 +173,28 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Searches the %USERPROFILE%\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\n   * folder and returns an array with the path of all shortcuts with a target matching the\n   * current Firefox install location. The AUMID isn't required here as we are only looking\n   * for the currently running binary, whether that's firefox.exe or the private browsing\n   * proxy executable.\n   *\n   * It is possible to return an empty array if no shortcuts are found.\n   *\n   * @return An array of paths for all launch on login shortcuts.s\n   *\n   * @throws NS_ERROR_ABORT\n   *         if instance cannot be created.\n   * @throws NS_ERROR_FILE_NOT_FOUND\n   *         if %USERPROFILE%\\AppData\\Roaming\\ cannot be opened.\n   * @throws NS_ERROR_FAILURE\n   *         if the executable file cannot be found.\n   * @throws NS_ERROR_FILE_UNRECOGNIZED_PATH\n   *         if the executable file cannot be converted into a string.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": {
+                    "kind": "IDENTIFIER_$0"
+                  },
+                  "name": "getLaunchOnLoginShortcuts",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
                     "contents": "/*\n   * Pin the current app to the taskbar. If aPrivateBrowsing is true, the\n   * Private Browsing version of the app (with a different icon and launch\n   * arguments) will be pinned instead.\n   *\n   * This MUST only be used in response to an active request from the user.\n   *\n   * If it exists, uses an existing shortcut on the Desktop or Start Menu,\n   * which would have been created by the installer (for All Users or\n   * Current User). If none can be found, one will be created with the correct\n   * AUMID for proper launching and grouping.\n   *\n   * NOTE: It is possible for the shortcut match to fail even when a\n   * shortcut refers to the current executable, if the paths differ due\n   * to e.g. symlinks. This should be rare.\n   *\n   * This will definitely fail on an OS before Windows 10 build 1809\n   * (October 2018 Update).\n   *\n   * NOTE: Can only run on the main thread, but the actual work occurs on a\n   * background thread.\n   *\n   * @throws NS_ERROR_NOT_SAME_THREAD\n   *         if called off main thread.\n   * @throws NS_ERROR_NOT_AVAILABLE\n   *         if OS is not at least Windows 10 build 1809, or if creating the\n   *         Taskband Pin object fails\n   * @throws NS_ERROR_FAILURE\n   *         for unexpected errors\n   *\n   * @rejects NS_ERROR_FILE_NOT_FOUND\n   *         if a shortcut matching this app's AUMID and exe path wasn't found\n   *\n   * @returns {Promise<void>} A promise that resolves to |undefined| if\n   *                          successful or rejects with an nserror.\n   */"
                   }
                 ],
@@ -273,6 +295,66 @@
                       "refType": "in",
                       "type": "AString",
                       "name": "aumid"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * Similar to createShortcut except it removes most of the checking in that\n   * function that ensures we are pinning a Firefox executable instead allowing\n   * any shortcut to be pinned.\n   *\n   * This function should not be called unless it is certain that it's\n   * necessary given how few checks there are within.\n   * @param  aShortcutPath\n   *         A path to the .lnk file that should be pinned to the taskbar.\n   * @throws NS_ERROR_FAILURE\n   *         If the COM service could not be initialized\n   * @throws NS_ERROR_FILE_NOT_FOUND\n   *         If aShortcutPath cannot be found\n   * @throws NS_ERROR_NOT_AVAILABLE\n   *         If the taskbar pinning service cannot be initialized\n   * @throws NS_ERROR_FILE_ACCESS_DENIED\n   *         If the taskbar pins cannot be modified\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "pinShortcutToTaskbar",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aShortcutPath"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/*\n   * This function is a counterpart to pinShortcutToTaskbar and allows\n   * the unpinning of any shortcut, including non-Firefox executables,\n   * without the checks of createShortcut.\n   *\n   * This function should not be called unless it is certain that it's\n   * necessary given how few checks there are within.\n   * @param  aShortcutPath\n   *         A path to the .lnk file that should be pinned to the taskbar.\n   * @throws NS_ERROR_FAILURE\n   *         If the COM service could not be initialized\n   * @throws NS_ERROR_FILE_NOT_FOUND\n   *         If aShortcutPath cannot be found\n   * @throws NS_ERROR_NOT_AVAILABLE\n   *         If the taskbar pinning service cannot be initialized\n   * @throws NS_ERROR_FILE_ACCESS_DENIED\n   *         If the taskbar pins cannot be modified\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "unpinShortcutFromTaskbar",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aShortcutPath"
                     },
                     "other": []
                   },

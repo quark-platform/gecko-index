@@ -74,7 +74,7 @@
       "kind": "interface_main",
       "doc_comment": null,
       "attrs": null,
-      "name": "nsIContentViewer",
+      "name": "nsIContentSecurityPolicy",
       "base": null,
       "body": null
     },
@@ -83,7 +83,7 @@
       "kind": "interface_main",
       "doc_comment": null,
       "attrs": null,
-      "name": "nsIContentSecurityPolicy",
+      "name": "nsIDocumentViewer",
       "base": null,
       "body": null
     },
@@ -276,7 +276,10 @@
     "\n\n",
     {
       "kind": "interface_main",
-      "doc_comment": null,
+      "doc_comment": {
+        "kind": "DOC_COMMENT",
+        "contents": "/**\n * nsIDocShell is an interface corresponding to the native nsDocShell object,\n * which is a legacy in-process object roughly corresponding to a 'browsing\n * context', as created for a browser tab or an iframe, for example.\n *\n * nsIDocShell has a 1:1 relationship with its paired dom::BrowsingContext and\n * nsGlobalWindowOuter. It may be replaced during navigation.\n *\n * See also the comment documenting dom::BrowsingContext and the documentation\n * at:\n *\n * https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context\n * https://firefox-source-docs.mozilla.org/dom/navigation/embedding.html\n * https://firefox-source-docs.mozilla.org/dom/navigation/nav_replace.html\n */"
+      },
       "attrs": {
         "kind": "attributes",
         "first_attribute": {
@@ -662,7 +665,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Content Viewer that is currently loaded for this DocShell.  This may\n   * change as the underlying content changes.\n   */"
+                    "contents": "/**\n   * Document Viewer that is currently loaded for this DocShell.  This may\n   * change as the underlying content changes.\n   */"
                   }
                 ],
                 "code": {
@@ -677,8 +680,8 @@
                     "other_attributes": []
                   },
                   "readonly": "readonly",
-                  "type": "nsIContentViewer",
-                  "name": "contentViewer"
+                  "type": "nsIDocumentViewer",
+                  "name": "docViewer"
                 }
               }
             },
@@ -1533,7 +1536,7 @@
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "nsIContentViewer",
+                      "type": "nsIDocumentViewer",
                       "name": "viewer"
                     },
                     "other": [
@@ -1965,7 +1968,7 @@
                   "kind": "func",
                   "attributes": null,
                   "return_type": "void",
-                  "name": "createAboutBlankContentViewer",
+                  "name": "createAboutBlankDocumentViewer",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
@@ -2488,26 +2491,6 @@
                   "readonly": "readonly",
                   "type": "boolean",
                   "name": "isTopLevelContentDocShell"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Like nsIDocShellTreeItem::GetSameTypeParent, except this ignores <iframe\n   * mozbrowser> boundaries. Which no longer exist.\n   *\n   * @deprecated: Use `BrowsingContext::GetParent()` in the future.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "nsIDocShell",
-                  "name": "getSameTypeInProcessParentIgnoreBrowserBoundaries",
-                  "params": null,
-                  "raises": null
                 }
               }
             },

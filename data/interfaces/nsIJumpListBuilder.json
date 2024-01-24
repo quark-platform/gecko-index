@@ -23,7 +23,7 @@
       "kind": "interface_main",
       "doc_comment": null,
       "attrs": null,
-      "name": "nsIArray",
+      "name": "nsIURI",
       "base": null,
       "body": null
     },
@@ -43,82 +43,10 @@
             "kind": "attributes_$0",
             "attr": {
               "kind": "attribute",
-              "name": "function",
-              "param": null
-            }
-          },
-          {
-            "kind": "attributes_$0",
-            "attr": {
-              "kind": "attribute",
               "name": "uuid",
               "param": {
                 "kind": "attribute_$0",
-                "value": "5131a62a-e99f-4631-9138-751f8aad1ae4"
-              }
-            }
-          }
-        ]
-      },
-      "name": "nsIJumpListCommittedCallback",
-      "base": {
-        "kind": "ifacebase",
-        "extends": "nsISupports"
-      },
-      "body": {
-        "kind": "ifacebody",
-        "contents": {
-          "kind": "ifacebody_$0",
-          "contents": [
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "done",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "boolean",
-                      "name": "result"
-                    },
-                    "other": []
-                  },
-                  "raises": null
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
-    "\n\n",
-    {
-      "kind": "interface_main",
-      "doc_comment": null,
-      "attrs": {
-        "kind": "attributes",
-        "first_attribute": {
-          "kind": "attribute",
-          "name": "scriptable",
-          "param": null
-        },
-        "other_attributes": [
-          {
-            "kind": "attributes_$0",
-            "attr": {
-              "kind": "attribute",
-              "name": "uuid",
-              "param": {
-                "kind": "attribute_$0",
-                "value": "1FE6A9CD-2B18-4dd5-A176-C2B32FA4F683"
+                "value": "5769F08D-0303-4E38-8FE6-86B5473022F6"
               }
             }
           }
@@ -141,113 +69,26 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * JumpLists\n   *\n   * Jump lists are built and then applied. Modifying an applied jump list is not\n   * permitted. Callers should begin the creation of a new jump list using\n   * initListBuild, add sub lists using addListToBuild, then commit the jump list\n   * using commitListBuild. Lists are built in real-time during the sequence of\n   * build calls, make sure to check for errors on each individual step.\n   *\n   * The default number of allowed items in a jump list is ten. Users can change\n   * the number through system preferences. User may also pin items to jump lists,\n   * which take up additional slots. Applications do not have control over the\n   * number of items allowed in jump lists; excess items added are dropped by the\n   * system. Item insertion priority is defined as first to last added.\n   *\n   * Users may remove items from jump lists after they are commited. The system\n   * tracks removed items between commits. A list of these items is returned by\n   * a call to initListBuild. nsIJumpListBuilder does not filter entries added that\n   * have been removed since the last commit. To prevent repeatedly adding entries\n   * users have removed, applications are encoraged to track removed items\n   * internally.\n   *\n   * Each list is made up of an array of nsIJumpListItem representing items\n   * such as shortcuts, links, and separators. See nsIJumpListItem for information\n   * on adding additional jump list types.\n   */"
-                  },
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * List Types\n   */"
-                  },
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Task List\n   *\n   * Tasks are common actions performed by users within the application. A task\n   * can be represented by an application shortcut and associated command line\n   * parameters or a URI. Task lists should generally be static lists that do not\n   * change often, if at all - similar to an application menu.\n   *\n   * Tasks are given the highest priority of all lists when space is limited.\n   */"
+                    "contents": "/**\n   * Returns the local filesystem path for a favicon for a page hosted at\n   * faviconURL if we happen to have written one to disk before. If we have not,\n   * then a background thread retrieves the favicon and will write it to disk\n   * and NS_ERROR_NOT_AVAILABLE will be thrown.\n   *\n   * @param {nsIURI} faviconURL\n   *   The URL for the web page for which we would like a filesystem path for\n   *   the favicon.\n   * @returns {AString}\n   *   The local filesystem path for the favicon if it has been cached before.\n   *   If it has not been cached before, this method will throw\n   *   NS_ERROR_NOT_AVAILABLE.\n   * @throws NS_ERROR_NOT_AVAILABLE\n   *   In the event that the favicon has never been cached to disk before.\n   */"
                   }
                 ],
                 "code": {
-                  "kind": "const_code",
-                  "type": "short",
-                  "name": "JUMPLIST_CATEGORY_TASKS",
-                  "value": "0"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Recent or Frequent list\n   *\n   * Recent and frequent lists are based on Window's recent document lists. The\n   * lists are generated automatically by Windows. Applications that use recent\n   * or frequent lists should keep document use tracking up to date by calling\n   * the SHAddToRecentDocs shell api.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "const_code",
-                  "type": "short",
-                  "name": "JUMPLIST_CATEGORY_RECENT",
-                  "value": "1"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [],
-                "code": {
-                  "kind": "const_code",
-                  "type": "short",
-                  "name": "JUMPLIST_CATEGORY_FREQUENT",
-                  "value": "2"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Custom Lists\n   *\n   * Custom lists can be made up of tasks, links, and separators. The title of\n   * of the list is passed through the optional string parameter of addBuildList.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "const_code",
-                  "type": "short",
-                  "name": "JUMPLIST_CATEGORY_CUSTOMLIST",
-                  "value": "3"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Indicates whether jump list taskbar features are supported by the current\n   * host.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "attribute_code",
+                  "kind": "func",
                   "attributes": null,
-                  "readonly": "readonly",
-                  "type": "short",
-                  "name": "available"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * JumpList management\n   *\n   * @throw NS_ERROR_NOT_AVAILABLE on all calls if taskbar functionality\n   * is not supported by the operating system.\n   */"
+                  "return_type": "AString",
+                  "name": "obtainAndCacheFavicon",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "nsIURI",
+                      "name": "faviconURL"
+                    },
+                    "other": []
                   },
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Indicates if a commit has already occurred in this session.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "attribute_code",
-                  "attributes": null,
-                  "readonly": "readonly",
-                  "type": "boolean",
-                  "name": "isListCommitted"
+                  "raises": null
                 }
               }
             },
@@ -258,26 +99,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * The maximum number of jump list items the current desktop can support.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "attribute_code",
-                  "attributes": null,
-                  "readonly": "readonly",
-                  "type": "short",
-                  "name": "maxListItems"
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Initializes a jump list build and returns a promise with the list of\n   * items the user removed since the last time a jump list was committed.\n   * Removed items can become state after initListBuild is called, lists\n   * should be built in single-shot fasion.\n   *\n   * @returns a promise with the list of items that were removed by the user\n   * since the last commit.\n   */"
+                    "contents": "/**\n   * Returns a Promise that resolves with whether or not the Jump List backend\n   * on the background thread is up and running.\n   *\n   * @returns {Promise<boolean>}\n   *   Resolves to true if the backend is ready to accept\n   *   WindowsJumpListShortcutDescriptions. False, otherwise.\n   * @throws NS_ERROR_FAILURE\n   *   If an attempt to communicate with the background thread fails.\n   */"
                   }
                 ],
                 "code": {
@@ -292,7 +114,7 @@
                     "other_attributes": []
                   },
                   "return_type": "Promise",
-                  "name": "initListBuild",
+                  "name": "isAvailable",
                   "params": null,
                   "raises": null
                 }
@@ -305,58 +127,82 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Adds a list and if required, a set of items for the list.\n   *\n   * @param aCatType\n   *        The type of list to add.\n   * @param items\n   *        An array of nsIJumpListItem items to add to the list.\n   * @param catName\n   *        For custom lists, the title of the list.\n   *\n   * @returns true if the operation completed successfully.\n   *\n   * @throw NS_ERROR_INVALID_ARG if incorrect parameters are passed for\n   * a particular category or item type.\n   * @throw NS_ERROR_ILLEGAL_VALUE if an item is added that was removed\n   * since the last commit.\n   * @throw NS_ERROR_UNEXPECTED on internal errors.\n   */"
+                    "contents": "/**\n   * Asks the Windows Jump List API for any items that might have been removed\n   * by the user from the Jump List UI.\n   *\n   * Important: This should be called prior to any attempt to call\n   * `populateJumpList` to ensure that any passed in\n   * WindowsJumpListShortcutDescriptions do not describe items that the user has\n   * just removed. Failing to do so will cause the Promise returned from\n   * `populateJumpList` to reject. This is a constraint of the underlying win32\n   * API. Please see\n   * https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-icustomdestinationlist-beginlist\n   * for more details.\n   *\n   * @returns {Promise<string[], nsresult>}\n   *   On success, will return an array of strings for URLs of history that\n   *   have been removed by the user via the Windows Jump List. These items will\n   *   also have had their cached favicons removed from the disk off of the\n   *   main thread. On failure, this will reject with the nsresult failure code.\n   * @throws NS_ERROR_FAILURE\n   *   If an attempt to communicate with the background thread fails.\n   */"
                   }
                 ],
                 "code": {
                   "kind": "func",
-                  "attributes": null,
-                  "return_type": "boolean",
-                  "name": "addListToBuild",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "checkForRemovals",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Writes a new set of items to the Windows Jump List. This occurs\n   * asynchronously, off of the main thread.\n   *\n   * Important: Callers should first call `checkForRemovals` to remove any\n   * browsing history items that the user chose to remove in the Jump List\n   *  Only then should any WindowsJumpListShortcutDescriptions be created\n   * and passed to this method. Any attempt to add\n   * WindowsJumpListShortcutDescriptions matching items that have been removed\n   * by the user will result in the returned Promise rejecting. This is a\n   * constraint of the underlying win32 API. Please see\n   * https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-icustomdestinationlist-beginlist\n   * for more details.\n   *\n   * @param {WindowsJumpListShortcutDescription[]} aTaskDescriptions\n   *   0 or more WindowsJumpListShortcutDescriptions to place items within the\n   *   \"tasks\" section of the Jump List.\n   * @param {AString} aCustomTitle\n   *   An optional title for a custom sub-list within the Jump List that will be\n   *   populated via aCustomDescriptions. This must be supplied if\n   *   aCustomDescriptions is not empty.\n   * @param {WindowsJumpListShortcutDescription[]} aCustomDescriptions\n   *   0 or more WindowsJumpListShortcutDescriptions to place items within the\n   *   custom section of the Jump List. aCustomTitle must be supplied if this\n   *   array is non-empty.\n   * @returns {Promise<undefined, nsresult>}\n   *   Returns a Promise that resolves if the Jump List was properly written\n   *   to, and rejects otherwise with the nsresult of the failure.\n   * @throws NS_ERROR_INVALID_ARG\n   *   If any of the passed arguments do not meet the requirements set out\n   *   above.\n   * @throws NS_ERROR_FAILURE\n   *   If an attempt to communicate with the background thread fails.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "Promise",
+                  "name": "populateJumpList",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {
                       "kind": "param",
                       "attribute": null,
                       "refType": "in",
-                      "type": "short",
-                      "name": "aCatType"
+                      "type": {
+                        "kind": "IDENTIFIER_$0"
+                      },
+                      "name": "aTaskDescriptions"
                     },
                     "other": [
                       {
                         "kind": "paramlist_$0",
                         "param": {
                           "kind": "param",
-                          "attribute": {
-                            "kind": "attributes",
-                            "first_attribute": {
-                              "kind": "attribute",
-                              "name": "optional",
-                              "param": null
-                            },
-                            "other_attributes": []
-                          },
+                          "attribute": null,
                           "refType": "in",
-                          "type": "nsIArray",
-                          "name": "items"
+                          "type": "AString",
+                          "name": "aCustomTitle"
                         }
                       },
                       {
                         "kind": "paramlist_$0",
                         "param": {
                           "kind": "param",
-                          "attribute": {
-                            "kind": "attributes",
-                            "first_attribute": {
-                              "kind": "attribute",
-                              "name": "optional",
-                              "param": null
-                            },
-                            "other_attributes": []
-                          },
+                          "attribute": null,
                           "refType": "in",
-                          "type": "AString",
-                          "name": "catName"
+                          "type": {
+                            "kind": "IDENTIFIER_$0"
+                          },
+                          "name": "aCustomDescriptions"
                         }
                       }
                     ]
@@ -372,98 +218,23 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Aborts and clears the current jump list build.\n   */"
+                    "contents": "/**\n   * Removes all items from the Jump List.\n   *\n   * @returns {Promise<undefined, nsresult>}\n   *   Resolves with undefined on successfully clearing the Jump List. If it\n   *   fails to do so, it will reject with the failure code.\n   * @throws NS_ERROR_FAILURE\n   *   If an attempt to communicate with the background thread fails.\n   */"
                   }
                 ],
                 "code": {
                   "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "abortListBuild",
-                  "params": null,
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Commits the current jump list build to the Taskbar.\n   *\n   * @param callback\n   *        Receives one argument, which is true if the operation completed\n   *        successfully, otherwise it is false.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "commitListBuild",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": {
-                        "kind": "attributes",
-                        "first_attribute": {
-                          "kind": "attribute",
-                          "name": "optional",
-                          "param": null
-                        },
-                        "other_attributes": []
-                      },
-                      "refType": "in",
-                      "type": "nsIJumpListCommittedCallback",
-                      "name": "callback"
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "implicit_jscontext",
+                      "param": null
                     },
-                    "other": []
+                    "other_attributes": []
                   },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Deletes any currently applied taskbar jump list for this application.\n   * Common uses would be the enabling of a privacy mode and uninstallation.\n   *\n   * @returns true if the operation completed successfully.\n   *\n   * @throw NS_ERROR_UNEXPECTED on internal errors.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "boolean",
-                  "name": "deleteActiveList",
+                  "return_type": "Promise",
+                  "name": "clearJumpList",
                   "params": null,
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "setAppUserModelID",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "AString",
-                      "name": "aAppUserModelId"
-                    },
-                    "other": []
-                  },
                   "raises": null
                 }
               }

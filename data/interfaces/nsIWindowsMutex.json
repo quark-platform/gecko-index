@@ -5,7 +5,7 @@
       "kind": "ANY_COMMENT_$0",
       "doc": {
         "kind": "DOC_COMMENT",
-        "contents": "/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */"
+        "contents": "/* -*- Mode: IDL; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */"
       }
     },
     {
@@ -17,22 +17,13 @@
     },
     {
       "kind": "INCLUDE",
-      "ident": "nsIStreamListener"
+      "ident": "nsISupports"
     },
-    {
-      "kind": "interface_main",
-      "doc_comment": null,
-      "attrs": null,
-      "name": "nsIDirIndex",
-      "base": null,
-      "body": null
-    },
-    "\n\n",
     {
       "kind": "interface_main",
       "doc_comment": {
         "kind": "DOC_COMMENT",
-        "contents": "/**\n * This interface is used to receive contents of directory index listings\n * from a protocol. They can then be transformed into an output format\n * (such as rdf, html, etc)\n */"
+        "contents": "/**\n* Interact with Windows named mutexes.\n*\n* Generally you don't want a Windows named mutex, you want one of the many Gecko\n* locking primitives. But when you do want cross-application instance or even\n* cross-installation coordination, a Windows named mutex might be an\n* appropriate tool.\n*/"
       },
       "attrs": {
         "kind": "attributes",
@@ -49,13 +40,13 @@
               "name": "uuid",
               "param": {
                 "kind": "attribute_$0",
-                "value": "fae4e9a8-1dd1-11b2-b53c-8f3aa1bbf8f5"
+                "value": "26f09999-c26e-4b72-8747-5adaefa0914c"
               }
             }
           }
         ]
       },
-      "name": "nsIDirIndexListener",
+      "name": "nsIWindowsMutex",
       "base": {
         "kind": "ifacebase",
         "extends": "nsISupports"
@@ -72,36 +63,15 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Called for each directory entry\n     *\n     * @param request - the request\n     * @param index - new index to add\n     */"
+                    "contents": "/**\n  * Locks the mutex.\n  *\n  * Note that this will not block waiting to lock. It attempts to lock the mutex\n  * and if it can't immediately, NS_ERROR_NOT_AVAILABLE will be thrown.\n  *\n  * This function succeeds when an abandoned mutex is found, therefore is\n  * inappropriate for use if an abandoned mutex might imply the locked resource\n  * is in a corrupt state.\n  *\n  * @throws NS_ERROR_NOT_AVAILABLE\n  *         If unable to lock the mutex.\n  */"
                   }
                 ],
                 "code": {
                   "kind": "func",
                   "attributes": null,
                   "return_type": "void",
-                  "name": "onIndexAvailable",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "nsIRequest",
-                      "name": "aRequest"
-                    },
-                    "other": [
-                      {
-                        "kind": "paramlist_$0",
-                        "param": {
-                          "kind": "param",
-                          "attribute": null,
-                          "refType": "in",
-                          "type": "nsIDirIndex",
-                          "name": "aIndex"
-                        }
-                      }
-                    ]
-                  },
+                  "name": "tryLock",
+                  "params": null,
                   "raises": null
                 }
               }
@@ -113,36 +83,35 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * Called for each information line\n     *\n     * @param request - the request\n     * @param info - new info to add\n     */"
+                    "contents": "/**\n  * Returns whether the mutex is locked.\n  *\n  * @return {boolean} true if locked, false if unlocked.\n  */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "bool",
+                  "name": "isLocked",
+                  "params": null,
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n  * Unlocks the mutex.\n  * @throws NS_ERROR_UNEXPECTED\n  *         If unable to release mutex.\n  */"
                   }
                 ],
                 "code": {
                   "kind": "func",
                   "attributes": null,
                   "return_type": "void",
-                  "name": "onInformationAvailable",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "nsIRequest",
-                      "name": "aRequest"
-                    },
-                    "other": [
-                      {
-                        "kind": "paramlist_$0",
-                        "param": {
-                          "kind": "param",
-                          "attribute": null,
-                          "refType": "in",
-                          "type": "AString",
-                          "name": "aInfo"
-                        }
-                      }
-                    ]
-                  },
+                  "name": "unlock",
+                  "params": null,
                   "raises": null
                 }
               }
@@ -154,10 +123,7 @@
     "\n\n",
     {
       "kind": "interface_main",
-      "doc_comment": {
-        "kind": "DOC_COMMENT",
-        "contents": "/**\n * A parser for application/http-index-format\n */"
-      },
+      "doc_comment": null,
       "attrs": {
         "kind": "attributes",
         "first_attribute": {
@@ -173,16 +139,16 @@
               "name": "uuid",
               "param": {
                 "kind": "attribute_$0",
-                "value": "38e3066c-1dd2-11b2-9b59-8be515c1ee3f"
+                "value": "d54fe2b7-438f-4629-9706-1acda5b51088"
               }
             }
           }
         ]
       },
-      "name": "nsIDirIndexParser",
+      "name": "nsIWindowsMutexFactory",
       "base": {
         "kind": "ifacebase",
-        "extends": "nsIStreamListener"
+        "extends": "nsISupports"
       },
       "body": {
         "kind": "ifacebody",
@@ -196,15 +162,26 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n     * The interface to use as a callback for new entries\n     */"
+                    "contents": "/**\n  * Creates a Windows named mutex.\n  *\n  * @param {AString} aName\n  *        The system-wide name of the mutex.\n  * @return {nsIWindowsMutex}\n  *         The created Windows mutex.\n  * @throws NS_ERROR_NOT_AVAILABLE\n  *         If unable to create mutex.\n  */"
                   }
                 ],
                 "code": {
-                  "kind": "attribute_code",
+                  "kind": "func",
                   "attributes": null,
-                  "readonly": null,
-                  "type": "nsIDirIndexListener",
-                  "name": "listener"
+                  "return_type": "nsIWindowsMutex",
+                  "name": "createMutex",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AString",
+                      "name": "aName"
+                    },
+                    "other": []
+                  },
+                  "raises": null
                 }
               }
             }

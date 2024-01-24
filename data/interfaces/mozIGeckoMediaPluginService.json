@@ -23,6 +23,15 @@
       "kind": "INCLUDE",
       "ident": "nsIThread"
     },
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
+      "name": "nsIFile",
+      "base": null,
+      "body": null
+    },
+    "\n\n",
     "%{C++\n#include \"mozilla/UniquePtr.h\"\n#include \"nsTArray.h\"\n#include \"nsString.h\"\nclass GMPDecryptorProxy;\nclass GMPVideoDecoderProxy;\nclass GMPVideoEncoderProxy;\nclass GMPVideoHost;\n\nnamespace mozilla {\nclass GMPCrashHelper;\n}\n\ntemplate<class T>\nclass GMPGetterCallback\n{\npublic:\n  GMPGetterCallback() { MOZ_COUNT_CTOR(GMPGetterCallback<T>); }\n  virtual ~GMPGetterCallback() { MOZ_COUNT_DTOR(GMPGetterCallback<T>); }\n  virtual void Done(T*) = 0;\n};\ntemplate<class T>\nclass GMPVideoGetterCallback\n{\npublic:\n  GMPVideoGetterCallback() { MOZ_COUNT_CTOR(GMPVideoGetterCallback<T>); }\n  virtual ~GMPVideoGetterCallback() { MOZ_COUNT_DTOR(GMPVideoGetterCallback<T>); }\n  virtual void Done(T*, GMPVideoHost*) = 0;\n};\ntypedef GMPGetterCallback<GMPDecryptorProxy> GetGMPDecryptorCallback;\ntypedef GMPVideoGetterCallback<GMPVideoDecoderProxy> GetGMPVideoDecoderCallback;\ntypedef GMPVideoGetterCallback<GMPVideoEncoderProxy> GetGMPVideoEncoderCallback;\nclass GetNodeIdCallback\n{\npublic:\n  MOZ_COUNTED_DEFAULT_CTOR(GetNodeIdCallback)\n  MOZ_COUNTED_DTOR_VIRTUAL(GetNodeIdCallback)\n  virtual void Done(nsresult aResult, const nsACString& aNodeId) = 0;\n};\n%}\n\n",
     {
       "kind": "native"
@@ -169,6 +178,55 @@
                   },
                   "return_type": "boolean",
                   "name": "hasPluginForAPI",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "ACString",
+                      "name": "api"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": null,
+                          "refType": "in",
+                          "type": "ConstTagArrayRef",
+                          "name": "tags"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Get the plugin directory for a plugin that supports the specified tags.\n   * Callable on any thread\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": {
+                    "kind": "attributes",
+                    "first_attribute": {
+                      "kind": "attribute",
+                      "name": "noscript",
+                      "param": null
+                    },
+                    "other_attributes": []
+                  },
+                  "return_type": "nsIFile",
+                  "name": "findPluginDirectoryForAPI",
                   "params": {
                     "kind": "paramlist",
                     "first_param": {

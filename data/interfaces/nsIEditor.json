@@ -1338,36 +1338,6 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * While setting the flag with this method to false,  DeleteRangeTransaction,\n   * DeleteTextTransaction, InsertNodeTransaction, InsertTextTransaction and\n   * SplitNodeTransaction won't change Selection after modifying the DOM tree.\n   * Note that calling this with false does not guarantee that Selection won't\n   * be changed because other transaction may ignore this flag, editor itself\n   * may change selection, and current selection may become invalid after\n   * changing the DOM tree, etc.\n   * After calling this method with true, the caller should guarantee that\n   * Selection should be positioned where user expects.\n   *\n   * @param should    false if you don't want above transactions to modify\n   *                  Selection automatically after modifying the DOM tree.\n   *                  Note that calling this with false does not guarantee\n   *                  that Selection is never changed.\n   */"
-                  }
-                ],
-                "code": {
-                  "kind": "func",
-                  "attributes": null,
-                  "return_type": "void",
-                  "name": "setShouldTxnSetSelection",
-                  "params": {
-                    "kind": "paramlist",
-                    "first_param": {
-                      "kind": "param",
-                      "attribute": null,
-                      "refType": "in",
-                      "type": "boolean",
-                      "name": "should"
-                    },
-                    "other": []
-                  },
-                  "raises": null
-                }
-              }
-            },
-            {
-              "kind": "ifacebody_$0_$0",
-              "contents": {
-                "kind": "member_$0",
-                "docComment": [
-                  {
-                    "kind": "DOC_COMMENT",
                     "contents": "/* ------------ Inline Spell Checking methods -------------- */"
                   },
                   {
@@ -1903,7 +1873,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * insertNode inserts aNode into aParent at aPosition.\n   * No checking is done to verify the legality of the insertion.\n   * That is the responsibility of the caller.\n   * @param aNode     The DOM Node to insert.\n   * @param aParent   The node to insert the new object into\n   * @param aPosition The place in aParent to insert the new node\n   *                  0=first child, 1=second child, etc.\n   *                  any number > number of current children = last child\n   */"
+                    "contents": "/**\n   * insertNode inserts aNode into aParent at aPosition and this operation is\n   * undoable.\n   * No checking is done to verify the legality of the insertion.\n   * That is the responsibility of the caller.\n   * TODO: Move this method to nsIHTMLEditor, TextEditor does not allow chrome\n   * script to customize its anonymous subtree.\n   *\n   * @param aNode               The DOM Node to insert.\n   * @param aParent             The node to insert the new object into\n   * @param aPosition           The place in aParent to insert the new node\n   *                            0=first child, 1=second child, etc.\n   *                            If larger than number of children of aParent,\n   *                            this will append aNode into aParent.\n   * @param aPreseveSelection   The default value is false.  If set to true,\n   *                            the insert node handler does not update\n   *                            Selection.\n   *                            FYI: If somebody handles `beforeinput` event or\n   *                            `input` event caused by this and it does\n   *                            something undoable, selection may be changed by\n   *                            that.\n   */"
                   }
                 ],
                 "code": {
@@ -1912,10 +1882,19 @@
                     "kind": "attributes",
                     "first_attribute": {
                       "kind": "attribute",
-                      "name": "can_run_script",
+                      "name": "optional_argc",
                       "param": null
                     },
-                    "other_attributes": []
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "can_run_script",
+                          "param": null
+                        }
+                      }
+                    ]
                   },
                   "return_type": "void",
                   "name": "insertNode",
@@ -1948,6 +1927,24 @@
                           "type": "unsigned long",
                           "name": "aPosition"
                         }
+                      },
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aPreserveSelection"
+                        }
                       }
                     ]
                   },
@@ -1962,7 +1959,7 @@
                 "docComment": [
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * deleteNode removes aChild from aParent.\n   * @param aChild    The node to delete\n   */"
+                    "contents": "/**\n   * deleteNode removes aChild from aParent and this operation is undobable.\n   * TODO: Move this method to nsIHTMLEditor, TextEditor does not allow chrome\n   * script to customize its anonymous subtree.\n   *\n   * @param aChild              The node to delete\n   * @param aPreseveSelection   The default value is false.  If set to true,\n   *                            the insert node handler does not update\n   *                            Selection.\n   *                            FYI: If somebody handles `beforeinput` event or\n   *                            `input` event caused by this and it does\n   *                            something undoable, selection may be changed by\n   *                            that.\n   */"
                   }
                 ],
                 "code": {
@@ -1971,10 +1968,19 @@
                     "kind": "attributes",
                     "first_attribute": {
                       "kind": "attribute",
-                      "name": "can_run_script",
+                      "name": "optional_argc",
                       "param": null
                     },
-                    "other_attributes": []
+                    "other_attributes": [
+                      {
+                        "kind": "attributes_$0",
+                        "attr": {
+                          "kind": "attribute",
+                          "name": "can_run_script",
+                          "param": null
+                        }
+                      }
+                    ]
                   },
                   "return_type": "void",
                   "name": "deleteNode",
@@ -1987,7 +1993,26 @@
                       "type": "Node",
                       "name": "child"
                     },
-                    "other": []
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "boolean",
+                          "name": "aPreserveSelection"
+                        }
+                      }
+                    ]
                   },
                   "raises": null
                 }

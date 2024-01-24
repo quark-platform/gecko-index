@@ -36,6 +36,15 @@
       "kind": "interface_main",
       "doc_comment": null,
       "attrs": null,
+      "name": "nsIJumpListBuilder",
+      "base": null,
+      "body": null
+    },
+    "\n",
+    {
+      "kind": "interface_main",
+      "doc_comment": null,
+      "attrs": null,
       "name": "nsITaskbarTabPreview",
       "base": null,
       "body": null
@@ -81,7 +90,7 @@
       "kind": "interface_main",
       "doc_comment": null,
       "attrs": null,
-      "name": "nsIJumpListBuilder",
+      "name": "nsILegacyJumpListBuilder",
       "base": null,
       "body": null
     },
@@ -99,7 +108,7 @@
       "kind": "interface_main",
       "doc_comment": {
         "kind": "DOC_COMMENT",
-        "contents": "/*\n * nsIWinTaskbar\n *\n * This interface represents a service which exposes the APIs provided by the\n * Windows taskbar to applications.\n *\n * Starting in Windows 7, applications gain some control over their appearance\n * in the taskbar. By default, there is one taskbar preview per top level\n * window (excluding popups). This preview is represented by an\n * nsITaskbarWindowPreview object.\n *\n * An application can register its own \"tab\" previews. Such previews will hide\n * the corresponding nsITaskbarWindowPreview automatically (though this is not\n * reflected in the visible attribute of the nsITaskbarWindowPreview). These\n * tab previews do not have to correspond to tabs in the application - they can\n * vary in size, shape and location. They do not even need to be actual GUI\n * elements on the window. Unlike window previews, tab previews require most of\n * the functionality of the nsITaskbarPreviewController to be implemented.\n *\n * Applications can also show progress on their taskbar icon. This does not\n * interact with the taskbar previews except if the nsITaskbarWindowPreview is\n * made invisible in which case the progress is naturally not shown on that\n * window.\n *\n * When taskbar icons are combined as is the default in Windows 7, the progress\n * for those windows is also combined as defined here:\n * http://msdn.microsoft.com/en-us/library/dd391697%28VS.85%29.aspx\n *\n * Applications may also define custom taskbar jump lists on application shortcuts.\n * See nsIJumpListBuilder for more information.\n */"
+        "contents": "/*\n * nsIWinTaskbar\n *\n * This interface represents a service which exposes the APIs provided by the\n * Windows taskbar to applications.\n *\n * Starting in Windows 7, applications gain some control over their appearance\n * in the taskbar. By default, there is one taskbar preview per top level\n * window (excluding popups). This preview is represented by an\n * nsITaskbarWindowPreview object.\n *\n * An application can register its own \"tab\" previews. Such previews will hide\n * the corresponding nsITaskbarWindowPreview automatically (though this is not\n * reflected in the visible attribute of the nsITaskbarWindowPreview). These\n * tab previews do not have to correspond to tabs in the application - they can\n * vary in size, shape and location. They do not even need to be actual GUI\n * elements on the window. Unlike window previews, tab previews require most of\n * the functionality of the nsITaskbarPreviewController to be implemented.\n *\n * Applications can also show progress on their taskbar icon. This does not\n * interact with the taskbar previews except if the nsITaskbarWindowPreview is\n * made invisible in which case the progress is naturally not shown on that\n * window.\n *\n * When taskbar icons are combined as is the default in Windows 7, the progress\n * for those windows is also combined as defined here:\n * http://msdn.microsoft.com/en-us/library/dd391697%28VS.85%29.aspx\n *\n * Applications may also define custom taskbar jump lists on application shortcuts.\n * See nsILegacyJumpListBuilder for more information.\n */"
       },
       "attrs": {
         "kind": "attributes",
@@ -343,7 +352,37 @@
                   },
                   {
                     "kind": "DOC_COMMENT",
-                    "contents": "/**\n   * Retrieve a taskbar jump list builder\n   *\n   * Fails if a jump list build operation has already been initiated, developers\n   * should make use of a single instance of nsIJumpListBuilder for building lists\n   * within an application.\n   *\n   * @throw NS_ERROR_ALREADY_INITIALIZED if an nsIJumpListBuilder instance is\n   * currently building a list.\n   */"
+                    "contents": "/**\n   * Retrieve a legacy taskbar jump list builder. This jump list builder backend\n   * is in the process of being phased out.\n   *\n   * Fails if a jump list build operation has already been initiated, developers\n   * should make use of a single instance of nsILegacyJumpListBuilder for building lists\n   * within an application.\n   *\n   * @throws NS_ERROR_ALREADY_INITIALIZED if an nsILegacyJumpListBuilder instance is\n   * currently building a list.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "nsILegacyJumpListBuilder",
+                  "name": "createLegacyJumpListBuilder",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "boolean",
+                      "name": "aPrivateBrowsing"
+                    },
+                    "other": []
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Retrieves a Windows Jump List builder. This jump list builder can be used\n   * to asynchronously add, remove, and update items in the Windows Jump List.\n   *\n   * @throws NS_ERROR_UNEXPECTED if the builder failed to be created.\n   */"
                   }
                 ],
                 "code": {

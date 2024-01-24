@@ -616,6 +616,55 @@
                 "kind": "member_$0",
                 "docComment": [
                   {
+                    "kind": "DOC_COMMENT",
+                    "contents": "/**\n   * Loads a Sqlite Run-Time Loadable Extension as defined at\n   * https://www.sqlite.org/loadext.html.\n   * Only a predetermined list of extensions can be loaded, that are statically\n   * linked in the shared library containing SQLite. The currently supported\n   * extensions are:\n   *   - fts5\n   *     A Full-Text search module, see https://www.sqlite.org/fts5.html\n   *\n   * New extensions can be added to the third_party/sqlite3/ext/ folder and then\n   * to this list, after a Storage peer has reviewed the request by verifying\n   * licensing, and code reliability.\n   * Extensions that must be loaded for all the connections should instead use\n   * sqlite3_auto_extension() (this must happen after sqlite3_config(), as it\n   * implicitly calls sqlite3_initialize()).\n   *\n   * @param aExtensionName\n   *        The extension to load, see the above list for supported values.\n   * @param aCallback\n   *        A callback that will be notified when the operation is complete,\n   *        with the following arguments:\n   *        - status: the status of the operation, use this to check if loading\n   *          the extension was successful as it may be partly asynchronous.\n   *        - value: unused.\n   * @throws NS_ERROR_INVALID_ARG\n   *         For unsupported extension names.\n   * @throws NS_ERROR_NOT_INITIALIZED\n   *         If the connection is not open.\n   * @throws NS_ERROR_UEXPECTED\n   *         If it was not possible to enable extensions loading.\n   */"
+                  }
+                ],
+                "code": {
+                  "kind": "func",
+                  "attributes": null,
+                  "return_type": "void",
+                  "name": "loadExtension",
+                  "params": {
+                    "kind": "paramlist",
+                    "first_param": {
+                      "kind": "param",
+                      "attribute": null,
+                      "refType": "in",
+                      "type": "AUTF8String",
+                      "name": "aExtensionName"
+                    },
+                    "other": [
+                      {
+                        "kind": "paramlist_$0",
+                        "param": {
+                          "kind": "param",
+                          "attribute": {
+                            "kind": "attributes",
+                            "first_attribute": {
+                              "kind": "attribute",
+                              "name": "optional",
+                              "param": null
+                            },
+                            "other_attributes": []
+                          },
+                          "refType": "in",
+                          "type": "mozIStorageCompletionCallback",
+                          "name": "aCallback"
+                        }
+                      }
+                    ]
+                  },
+                  "raises": null
+                }
+              }
+            },
+            {
+              "kind": "ifacebody_$0_$0",
+              "contents": {
+                "kind": "member_$0",
+                "docComment": [
+                  {
                     "kind": "SINGLE_LINE_COMMENT"
                   },
                   {
