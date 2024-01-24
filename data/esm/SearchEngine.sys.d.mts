@@ -278,6 +278,7 @@ export class SearchEngine {
         encoding?: string;
         search_form?: string;
     }, configuration?: object): void;
+    clickUrl: any;
     checkSearchUrlMatchesManifest(details: any): boolean;
     /**
      * Overrides the urls/parameters with those of the provided extension.

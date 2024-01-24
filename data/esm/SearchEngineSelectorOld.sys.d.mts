@@ -11,6 +11,7 @@ export class SearchEngineSelectorOld {
     constructor(listener: Function);
     QueryInterface: MozQueryInterface;
     _remoteConfig: any;
+    _remoteConfigOverrides: any;
     _listenerAdded: boolean;
     /**
      * Handles updating of the configuration. Note that the search service is
@@ -28,13 +29,34 @@ export class SearchEngineSelectorOld {
             current: any[];
         };
     }): void;
+    /**
+     * Handles updating of the configuration. Note that the search service is
+     * only updated after a period where the user is observed to be idle.
+     *
+     * @param {object} options
+     *   The options object
+     * @param {object} options.data
+     *   The data to update
+     * @param {Array} options.data.current
+     *   The new configuration object
+     */
+    _onConfigurationOverridesUpdated({ data: { current } }: {
+        data: {
+            current: any[];
+        };
+    }): void;
     _changeListener: Function;
     /**
      * Handles getting the configuration from remote settings.
      */
     getEngineConfiguration(): Promise<any[]>;
+    _getConfigurationPromise: Promise<[any[], any[]]>;
     _configuration: any[];
-    _getConfigurationPromise: any[];
+    _configurationOverrides: any[];
+    /**
+     * Used by tests to get the configuration overrides.
+     */
+    getEngineConfigurationOverrides(): Promise<any[]>;
     /**
      * Obtains the configuration from remote settings. This includes
      * verifying the signature of the record within the database.
@@ -52,6 +74,14 @@ export class SearchEngineSelectorOld {
      *   could be obtained.
      */
     _getConfiguration(firstTime?: boolean): any[];
+    /**
+     * Obtains the configuration overrides from remote settings.
+     *
+     * @returns {Array}
+     *   An array of objects in the database, or an empty array if none
+     *   could be obtained.
+     */
+    _getConfigurationOverrides(): any[];
     /**
      * @param {object} options
      *   The options object
@@ -109,7 +139,7 @@ export class SearchEngineSelectorOld {
      * Object.assign but ignore some keys
      *
      * @param {object} target - Object to copy to.
-     * @param {object} source - Object top copy from.
+     * @param {object} source - Object to copy from.
      * @returns {object} - The source object.
      */
     _copyObject(target: object, source: object): object;

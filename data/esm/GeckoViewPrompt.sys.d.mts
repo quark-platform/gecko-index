@@ -30,6 +30,7 @@ export class PromptFactory {
     promptAuth(...args: any[]): any;
     promptAuthBC(...args: any[]): any;
     asyncPromptAuth(...args: any[]): any;
+    confirmUserPaste(...args: any[]): any;
     classID: unknown;
     QueryInterface: MozQueryInterface;
 }

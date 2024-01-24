@@ -4,17 +4,14 @@
  * search configuration.
  */
 export class AppProvidedSearchEngine extends SearchEngine {
+    static URL_TYPE_MAP: Map<string, any>;
     /**
-     * @param {object} options
-     *   The options object
-     * @param {object} [options.details]
-     *   An object that simulates the engine object from the config.
+     * @param {object} config
+     *   The engine config from Remote Settings.
      */
-    constructor({ details }?: {
-        details?: object;
-    });
+    constructor(config: object);
     _extensionID: any;
-    _locale: any;
+    _locale: string;
     /**
      * Update this engine based on new config, used during
      * config upgrades.

@@ -1,3 +1,4 @@
+export function getTimeoutMultiplier(): 1 | 4 | 8;
 /**
  * Extends Services.appinfo with further properties that are
  * used by different protocols as handled by the Remote Agent.

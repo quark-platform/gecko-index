@@ -1,7 +1,7 @@
 export function add(a: any, b: any): Promise<any>;
-export function sub(a: any, b: any): Promise<any>;
 export function div(dividend: any, divisor: any): Promise<any>;
 export function equal(a: any, b: any): Promise<any>;
+export function sub(a: any, b: any): Promise<any>;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };
 }

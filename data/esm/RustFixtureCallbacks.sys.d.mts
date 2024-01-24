@@ -18,7 +18,7 @@ export class FfiConverterString extends FfiConverter {
     static read(dataStream: any): any;
     static computeSize(value: any): number;
 }
-export class FfiConverterCallbackInterfaceLogger extends FfiConverter {
+export class FfiConverterTypeLogger extends FfiConverter {
     static lower(callbackObj: any): int;
     static lift(handleId: any): obj;
     static read(dataStream: any): obj;

@@ -59,10 +59,10 @@ export class SuggestStore {
      */
     static init(path: any, settingsConfig?: any): SuggestStore;
     constructor(opts: any);
-    query(query: any): Promise<any>;
-    interrupt(): any;
-    ingest(constraints: any): Promise<any>;
     clear(): Promise<any>;
+    ingest(constraints: any): Promise<any>;
+    interrupt(): any;
+    query(query: any): Promise<any>;
     [uniffiObjectPtr]: any;
 }
 export class FfiConverterTypeSuggestStore extends FfiConverter {

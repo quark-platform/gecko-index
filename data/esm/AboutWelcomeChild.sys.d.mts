@@ -4,6 +4,7 @@ export class AboutWelcomeChild extends JSWindowActorChild {
     actorCreated(): void;
     /**
      * Send event that can be handled by the page
+     *
      * @param {{type: string, data?: any}} action
      */
     sendToPage(action: {
@@ -34,11 +35,13 @@ export class AboutWelcomeChild extends JSWindowActorChild {
     AWGetSelectedTheme(): any;
     /**
      * Send Event Telemetry
+     *
      * @param {object} eventData
      */
     AWSendEventTelemetry(eventData: object): void;
     /**
      * Send message that can be handled by AboutWelcomeParent.jsm
+     *
      * @param {string} type
      * @param {any=} data
      * @returns {Promise<unknown>}

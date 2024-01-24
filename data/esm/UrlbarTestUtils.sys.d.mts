@@ -94,8 +94,10 @@ declare class TestProvider {
      *   {@link UrlbarView.#selectElement} method is called.
      * @param {Function} [options.onEngagement]
      *   If given, a function that will be called when engagement.
+     * @param {Function} [options.delayResultsPromise]
+     *   If given, we'll await on this before returning results.
      */
-    constructor({ results, name, type, priority, addTimeout, onCancel, onSelection, onEngagement, }?: {
+    constructor({ results, name, type, priority, addTimeout, onCancel, onSelection, onEngagement, delayResultsPromise, }?: {
         results: any[];
         name?: string;
         type?: UrlbarUtils.PROVIDER_TYPE;
@@ -104,17 +106,19 @@ declare class TestProvider {
         onCancel?: Function;
         onSelection?: Function;
         onEngagement?: Function;
+        delayResultsPromise?: Function;
     });
     _results: any[];
     _name: string;
-    _type: UrlbarUtils.PROVIDER_TYPE;
+    _type: any;
     _priority: number;
     _addTimeout: number;
     _onCancel: Function;
     _onSelection: Function;
     _onEngagement: Function;
+    _delayResultsPromise: Function;
     get name(): string;
-    get type(): UrlbarUtils.PROVIDER_TYPE;
+    get type(): any;
     getPriority(context: any): number;
     isActive(context: any): boolean;
     startQuery(context: any, addCallback: any): Promise<void>;

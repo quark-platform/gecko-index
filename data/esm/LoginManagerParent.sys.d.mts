@@ -54,7 +54,7 @@ export class LoginManagerParent extends JSWindowActorParent {
         guid: any;
         showPrimaryPassword: any;
     }): Promise<any>;
-    doAutocompleteSearch(formOrigin: any, { actionOrigin, searchString, previousResult, forcePasswordGeneration, hasBeenTypePassword, isProbablyANewPasswordField, scenarioName, inputMaxLength, }: {
+    doAutocompleteSearch(formOrigin: any, { actionOrigin, searchString, previousResult, forcePasswordGeneration, hasBeenTypePassword, isProbablyANewPasswordField, scenarioName, inputMaxLength, isWebAuthn, }: {
         actionOrigin: any;
         searchString: any;
         previousResult: any;
@@ -63,6 +63,7 @@ export class LoginManagerParent extends JSWindowActorParent {
         isProbablyANewPasswordField: any;
         scenarioName: any;
         inputMaxLength: any;
+        isWebAuthn: any;
     }): Promise<{
         logins: any[];
         generatedPassword?: undefined;
@@ -72,7 +73,7 @@ export class LoginManagerParent extends JSWindowActorParent {
     } | {
         generatedPassword: any;
         importable: any;
-        autocompleteItems: any;
+        autocompleteItems: any[];
         logins: any;
         willAutoSaveGeneratedPassword: boolean;
     }>;

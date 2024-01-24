@@ -107,6 +107,9 @@ export function executeSoon(fn: Function): void;
  * @param {Condition} func
  *     Function to run off the main thread.
  * @param {object=} options
+ * @param {string=} options.errorMessage
+ *     Message to use to send a warning if ``timeout`` is over.
+ *     Defaults to `PollPromise timed out`.
  * @param {number=} options.timeout
  *     Desired timeout if wanted.  If 0 or less than the runtime evaluation
  *     time of ``func``, ``func`` is guaranteed to run at least once.
@@ -126,4 +129,4 @@ export function executeSoon(fn: Function): void;
  * @throws {RangeError}
  *     If `timeout` or `interval` are not unsigned integers.
  */
-export function PollPromise(func: Condition, { timeout, interval }?: object | undefined): Promise<any>;
+export function PollPromise(func: Condition, options?: object | undefined): Promise<any>;

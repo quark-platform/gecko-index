@@ -7,14 +7,20 @@ export class PictureInPictureLauncherChild extends JSWindowActorChild {
      * Picture-in-Picture window existing, this tells the parent to
      * close it before opening the new one.
      *
-     * @param {Object} pipObject An object containing the video and reason
-     * for toggling the PiP video
+     * @param {Object} pipObject
+     * @param {HTMLVideoElement} pipObject.video
+     * @param {String} pipObject.reason What toggled PiP, e.g. "shortcut"
+     * @param {Object} pipObject.eventExtraKeys Extra telemetry keys to record
      *
      * @return {Promise}
      * @resolves {undefined} Once the new Picture-in-Picture window
      * has been requested.
      */
-    togglePictureInPicture(pipObject: any): Promise<any>;
+    togglePictureInPicture(pipObject: {
+        video: HTMLVideoElement;
+        reason: string;
+        eventExtraKeys: any;
+    }): Promise<any>;
     /**
      * The keyboard was used to attempt to open Picture-in-Picture. If a video is focused,
      * select that video. Otherwise find the first playing video, or if none, the largest
@@ -82,7 +88,7 @@ export class PictureInPictureToggleChild extends JSWindowActorChild {
     registerVideo(video: Element): void;
     updatePipVideoEligibility(video: any): void;
     handleEligiblePipVideoMutation(mutationList: any): void;
-    urlbarToggle(): void;
+    urlbarToggle(eventExtraKeys: any): void;
     isVideoPiPEligible(video: any): boolean;
     /**
      * Changes from the first-time toggle to the icon toggle if the Nimbus variable `displayDuration`'s

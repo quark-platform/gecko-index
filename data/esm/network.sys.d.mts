@@ -3,6 +3,11 @@ export type AuthChallenge = {
     scheme: string;
     realm: string;
 };
+export type AuthCredentials = {
+    type: 'password';
+    username: string;
+    password: string;
+};
 export type BaseParameters = {
     context?: string | undefined;
     intercepts: Array<string> | null;
@@ -245,6 +250,26 @@ declare class NetworkModule {
      *     Raised if an argument is of an invalid type or value.
      */
     addIntercept(options?: object | undefined): object;
+    /**
+     * Continues a response that is blocked by a network intercept at the
+     * authRequired phase.
+     *
+     * @param {object=} options
+     * @param {string} options.request
+     *     The id of the blocked request that should be continued.
+     * @param {string} options.action
+     *     The continueWithAuth action, one of ContinueWithAuthAction.
+     * @param {AuthCredentials=} options.credentials
+     *     The credentials to use for the ContinueWithAuthAction.ProvideCredentials
+     *     action.
+     *
+     * @throws {InvalidArgumentError}
+     *     Raised if an argument is of an invalid type or value.
+     * @throws {NoSuchRequestError}
+     *     Raised if the request id does not match any request in the blocked
+     *     requests map.
+     */
+    continueWithAuth(options?: object | undefined): Promise<void>;
     /**
      * Removes an existing network intercept.
      *

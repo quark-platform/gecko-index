@@ -22,11 +22,13 @@ export namespace FormAutofillContent {
      * 3. Number of filled fields is less than autofill threshold
      *
      * @param {HTMLElement} formElement Root element which receives submit event.
+     * @param {string} formSubmissionReason Reason for invoking the form submission
+     *                 (see options for FORM_SUBMISSION_REASON in FormAutofillChild))
      * @param {Window} domWin Content window; passed for unit tests and when
      *                 invoked by the FormAutofillSection
      * @param {object} handler FormAutofillHander, if known by caller
      */
-    function formSubmitted(formElement: HTMLElement, domWin?: Window, handler?: any): void;
+    function formSubmitted(formElement: HTMLElement, formSubmissionReason: string, domWin?: Window, handler?: any): void;
     function _showPopup(): void;
     function handleEvent(evt: any): void;
     /**
@@ -39,7 +41,16 @@ export namespace FormAutofillContent {
      */
     function updateActiveInput(element: HTMLElement): void;
     let autofillPending: any;
-    function identifyAutofillFields(element: any): void;
+    /**
+     * Identifies and marks each autofill field
+     *
+     * @param {HTMLElement} element
+     *        Element that serves as an anchor for the formautofill heuristics to retrieve
+     *        the root form and run the formautofill heuristics on the form elements
+     * @returns {boolean}
+     *        whether any autofill fields were identified
+     */
+    function identifyAutofillFields(element: HTMLElement): boolean;
     function clearForm(): void;
     function previewProfile(doc: any): void;
     function onPopupClosed(selectedRowStyle: any): void;

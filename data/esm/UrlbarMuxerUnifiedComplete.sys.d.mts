@@ -169,13 +169,15 @@ declare class MuxerUnifiedComplete {
      *   group-relative suggestedIndex results, this should be the final list of
      *   results in the group before group-relative suggestedIndex results are
      *   inserted.
+     * @param {object} limits
+     *   An object defining span and count limits. See `_fillGroup()`.
      * @param {object} state
      *   Global state that we use to make decisions during this sort.
      * @returns {object}
      *   A `usedLimits` object that describes the total span and count of all the
      *   added results. See `_addResults`.
      */
-    _addSuggestedIndexResults(suggestedIndexResults: any[], sortedResults: any[], state: object): object;
+    _addSuggestedIndexResults(suggestedIndexResults: any[], sortedResults: any[], limits: object, state: object): object;
     /**
      * Checks exposure eligibility and visibility for the given result.
      * If the result passes the exposure check, we set two properties
@@ -191,5 +193,6 @@ declare class MuxerUnifiedComplete {
      *   A boolean indicating if this is a hidden exposure result.
      */
     _checkAndSetExposureProperties(result: UrlbarResult): boolean;
+    #private;
 }
 export {};

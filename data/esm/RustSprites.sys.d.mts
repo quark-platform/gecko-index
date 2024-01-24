@@ -33,8 +33,8 @@ export class Sprite {
     static newRelativeTo(reference: any, direction: any): Promise<Sprite>;
     constructor(opts: any);
     getPosition(): Promise<any>;
-    moveTo(position: any): Promise<any>;
     moveBy(direction: any): Promise<any>;
+    moveTo(position: any): Promise<any>;
     [uniffiObjectPtr]: any;
 }
 export class FfiConverterTypeSprite extends FfiConverter {

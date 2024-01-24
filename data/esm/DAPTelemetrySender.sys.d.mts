@@ -8,7 +8,7 @@
 export const DAPTelemetrySender: {
     startup(): void;
     _asyncShutdownBlocker: () => Promise<void>;
-    sendTestReports(tasks: any, timeout: any): Promise<void>;
+    sendTestReports(tasks: any, timeout: any, reason: any): Promise<void>;
     timedSendTestReports(tasks: any): Promise<void>;
     timeout_value(): number;
     /**
@@ -19,7 +19,7 @@ export const DAPTelemetrySender: {
      * @param {number} measurement
      *   The measured value for which a report is generated.
      */
-    sendDAPMeasurement(task: Task, measurement: number, timeout: any): Promise<void>;
+    sendDAPMeasurement(task: Task, measurement: number, timeout: any, reason: any): Promise<void>;
     /**
      * Downloads HPKE configs for endpoints and generates report.
      *
@@ -52,5 +52,5 @@ export const DAPTelemetrySender: {
      * @returns Promise
      * @resolves {undefined} Once the attempt to send the report completes, whether or not it was successful.
      */
-    sendReport(leader_endpoint: string, task_id: any, report: Uint8Array, abortSignal: any): Promise<void>;
+    sendReport(leader_endpoint: string, task_id: any, report: Uint8Array, abortSignal: any, reason: any): Promise<void>;
 };

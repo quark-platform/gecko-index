@@ -3979,7 +3979,7 @@ export class SpecialPowersChild extends JSWindowActorChild {
     set xpcshellScope(val: any);
     get xpcshellScope(): any;
     _xpcshellScope: any;
-    evictAllContentViewers(): Promise<void>;
+    evictAllDocumentViewers(): Promise<void>;
     /**
      * Sets this actor as the default assertion result handler for tasks
      * which originate in a window without a test harness.

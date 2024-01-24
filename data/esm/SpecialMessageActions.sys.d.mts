@@ -26,7 +26,7 @@ export namespace SpecialMessageActions {
      *
      *  @param {Window} window Reference to a window object
      */
-    function setDefaultBrowser(window: Window): void;
+    function setDefaultBrowser(window: Window): Promise<void>;
     /**
      * Set browser as the default PDF handler.
      *

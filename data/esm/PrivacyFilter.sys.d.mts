@@ -11,7 +11,7 @@ export const PrivacyFilter: Readonly<{
      * @param data The session storage data as collected from a tab.
      * @return object
      */
-    filterSessionStorageData(data: any): {};
+    filterSessionStorageData(data: any): any;
     /**
      * Filters the given (serialized) form |data| according to the current
      * privacy level and returns a new object containing only data that we're
@@ -20,9 +20,7 @@ export const PrivacyFilter: Readonly<{
      * @param data The form data as collected from a tab.
      * @return object
      */
-    filterFormData(data: any): {
-        children: any;
-    };
+    filterFormData(data: any): any;
     /**
      * Removes any private windows and tabs from a given browser state object.
      *

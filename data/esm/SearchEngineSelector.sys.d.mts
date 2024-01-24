@@ -9,7 +9,6 @@ export class SearchEngineSelector {
      *   A listener for configuration update changes.
      */
     constructor(listener: Function);
-    QueryInterface: MozQueryInterface;
     _remoteConfig: any;
     _listenerAdded: boolean;
     /**
@@ -65,7 +64,7 @@ export class SearchEngineSelector {
      *   The distribution ID of the application.
      * @param {string} [options.experiment]
      *   Any associated experiment id.
-     * @param {string} [options.name]
+     * @param {string} [options.appName]
      *   The name of the application.
      * @param {string} [options.version]
      *   The version of the application.
@@ -74,53 +73,29 @@ export class SearchEngineSelector {
      *   optionally "privateDefault" which is an object containing the engine
      *   details for the engine which should be the default in Private Browsing mode.
      */
-    fetchEngineConfiguration({ locale, region, channel, distroID, experiment, name, version, }: {
+    fetchEngineConfiguration({ locale, region, channel, distroID, experiment, appName, version, }: {
         locale: string;
         region: string;
         channel?: string;
         distroID?: string;
         experiment?: string;
-        name?: string;
+        appName?: string;
         version?: string;
     }): object;
-    _sort(defaultEngine: any, privateEngine: any, a: any, b: any): number;
+    _sort(defaultEngine: any, defaultPrivateEngine: any, a: any, b: any): number;
     /**
      * Create an index order to ensure default (and backup default)
      * engines are ordered correctly.
      *
      * @param {object} obj
-     *   Object representing the engine configation.
+     *   Object representing the engine configuration.
      * @param {object} defaultEngine
      *   The default engine, for comparison to obj.
-     * @param {object} privateEngine
-     *   The private engine, for comparison to obj.
+     * @param {object} defaultPrivateEngine
+     *   The default private engine, for comparison to obj.
      * @returns {integer}
      *  Number indicating how this engine should be sorted.
      */
-    _sortIndex(obj: object, defaultEngine: object, privateEngine: object): integer;
-    /**
-     * Is the engine marked to be the default search engine.
-     *
-     * @param {object} obj - Object representing the engine configation.
-     * @returns {boolean} - Whether the engine should be default.
-     */
-    _isDefault(obj: object): boolean;
-    /**
-     * Object.assign but ignore some keys
-     *
-     * @param {object} target - Object to copy to.
-     * @param {object} source - Object top copy from.
-     * @returns {object} - The source object.
-     */
-    _copyObject(target: object, source: object): object;
-    /**
-     * Determines wether the section of the config applies to a user
-     * given what region + locale they are using.
-     *
-     * @param {string} region - The region the user is in.
-     * @param {string} locale - The language the user has configured.
-     * @param {object} config - Section of configuration.
-     * @returns {boolean} - Does the section apply for the region + locale.
-     */
-    _isInSection(region: string, locale: string, config: object): boolean;
+    _sortIndex(obj: object, defaultEngine: object, defaultPrivateEngine: object): integer;
+    #private;
 }

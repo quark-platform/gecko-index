@@ -42,7 +42,7 @@ export namespace ReaderMode {
     function log(msg: any): void;
     /**
      * Attempts to parse a document into an article. Heavy lifting happens
-     * in readerWorker.js.
+     * in Reader.worker.js.
      *
      * @param doc The document to parse.
      * @return {Promise}

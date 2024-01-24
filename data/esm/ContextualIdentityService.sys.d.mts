@@ -6,8 +6,7 @@ declare class _ContextualIdentityService {
     _userIdentities: {
         icon: string;
         color: string;
-        l10nID: string;
-        accessKey: string;
+        l10nId: string;
     }[];
     _systemIdentities: ({
         public: boolean;
@@ -57,6 +56,7 @@ declare class _ContextualIdentityService {
     getPrivateIdentity(name: any): any;
     getDefaultPrivateIdentity(name: any): any;
     getPublicIdentityFromId(userContextId: any): any;
+    formatContextLabel(l10nId: any): any;
     getUserContextLabel(userContextId: any): any;
     setTabStyle(tab: any): void;
     countContainerTabs(userContextId?: number): number;
@@ -67,5 +67,6 @@ declare class _ContextualIdentityService {
     deleteContainerData(): void;
     migrate2to3(data: any): any;
     migrate3to4(data: any): any;
+    migrate4to5(data: any): any;
 }
 export {};

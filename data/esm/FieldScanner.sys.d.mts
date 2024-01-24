@@ -14,6 +14,7 @@ export class FieldDetail {
     section: string;
     addressType: string;
     contactType: string;
+    credentialType: string;
     part: any;
     confidence: any;
     get element(): any;

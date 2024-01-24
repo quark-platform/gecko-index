@@ -478,6 +478,18 @@ export class Prompter {
     asyncPromptAuth(browsingContext: BrowsingContext, modalType: number, ...promptArgs: any[]): Promise<nsIPropertyBag<{
         ok: boolean;
     }>>;
+    /**
+     * Displays a contextmenu to get user confirmation for clipboard read. Only
+     * one context menu can be opened at a time.
+     *
+     * @param {WindowContext} windowContext - The window context that initiates
+     *        the clipboard operation.
+     * @returns {Promise<nsIPropertyBag<{ ok: Boolean }>>}
+     *          A promise which resolves when the contextmenu is dismissed.
+     */
+    confirmUserPaste(...args: any[]): Promise<nsIPropertyBag<{
+        ok: boolean;
+    }>>;
 }
 export function AuthPromptAdapterFactory(): void;
 export class AuthPromptAdapterFactory {

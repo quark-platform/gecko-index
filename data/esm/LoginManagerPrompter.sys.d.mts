@@ -37,17 +37,16 @@ export class LoginManagerPrompter {
      */
     static _updateLogin(login: any, aNewLogin: any): void;
     /**
-     * Can be called as:
-     *   _getLocalizedString("key1");
-     *   _getLocalizedString("key2", ["arg1"]);
-     *   _getLocalizedString("key3", ["arg1", "arg2"]);
-     *   (etc)
+     * Retrieves the message of the given id from fluent
+     * and extracts the label and accesskey
      *
-     * Returns the localized string for the specified key,
-     * formatted if required.
-     *
+     * @param {String} id message id
+     * @returns label and accesskey
      */
-    static _getLocalizedString(key: any, formatArgs: any): any;
+    static getLabelAndAccessKey(id: string): {
+        label: any;
+        accessKey: any;
+    };
     /**
      * Converts a login's origin field to a short string for
      * prompting purposes. Eg, "http://foo.com" --> "foo.com", or

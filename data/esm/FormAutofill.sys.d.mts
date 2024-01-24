@@ -2,6 +2,7 @@ export namespace FormAutofill {
     export { ENABLED_AUTOFILL_ADDRESSES_PREF };
     export { ENABLED_AUTOFILL_ADDRESSES_CAPTURE_PREF };
     export { ENABLED_AUTOFILL_ADDRESSES_CAPTURE_V2_PREF };
+    export { ENABLED_AUTOFILL_CAPTURE_ON_FORM_REMOVAL };
     export { ENABLED_AUTOFILL_CREDITCARDS_PREF };
     export { ENABLED_AUTOFILL_CREDITCARDS_REAUTH_PREF };
     export { AUTOFILL_CREDITCARDS_AUTOCOMPLETE_OFF_PREF };
@@ -32,6 +33,7 @@ export namespace FormAutofill {
 declare const ENABLED_AUTOFILL_ADDRESSES_PREF: "extensions.formautofill.addresses.enabled";
 declare const ENABLED_AUTOFILL_ADDRESSES_CAPTURE_PREF: "extensions.formautofill.addresses.capture.enabled";
 declare const ENABLED_AUTOFILL_ADDRESSES_CAPTURE_V2_PREF: "extensions.formautofill.addresses.capture.v2.enabled";
+declare const ENABLED_AUTOFILL_CAPTURE_ON_FORM_REMOVAL: "extensions.formautofill.heuristics.captureOnFormRemoval";
 declare const ENABLED_AUTOFILL_CREDITCARDS_PREF: "extensions.formautofill.creditCards.enabled";
 declare const ENABLED_AUTOFILL_CREDITCARDS_REAUTH_PREF: "extensions.formautofill.reauth.enabled";
 declare const AUTOFILL_CREDITCARDS_AUTOCOMPLETE_OFF_PREF: "extensions.formautofill.creditCards.ignoreAutocompleteOff";

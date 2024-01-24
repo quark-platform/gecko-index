@@ -21,6 +21,7 @@
  */
 export class NetworkObserver {
     constructor(options?: {});
+    setAuthPromptListenerEnabled(enabled: any): void;
     setSaveRequestAndResponseBodies(save: any): void;
     getThrottleData(): any;
     setThrottleData(value: any): void;

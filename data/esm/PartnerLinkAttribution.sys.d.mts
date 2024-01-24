@@ -29,21 +29,4 @@ export namespace PartnerLinkAttribution {
      *   The target URL to filter and include in the attribution.
      */
     function makeSearchEngineRequest(engine: nsISearchEngine, targetUrl: nsIURI): Promise<void>;
-    /**
-     * Sends a Contextual Services ping to the Mozilla data pipeline.
-     *
-     * Note:
-     *   * All Contextual Services pings are sent as custom pings
-     *     (https://docs.telemetry.mozilla.org/cookbooks/new_ping.html#sending-a-custom-ping)
-     *
-     *   * The full event list can be found at https://github.com/mozilla-services/mozilla-pipeline-schemas
-     *     under the "contextual-services" namespace
-     *
-     * @param {object} payload
-     *   The ping payload to be sent to the Mozilla Structured Ingestion endpoint
-     * @param {String} pingType
-     *   The ping type. Must be one of CONTEXTUAL_SERVICES_PING_TYPES
-     */
-    function sendContextualServicesPing(payload: any, pingType: string): void;
-    const _pingCentre: any;
 }

@@ -30,9 +30,9 @@ export class RemoteSettings {
      */
     static init(remoteSettingsConfig: any): RemoteSettings;
     constructor(opts: any);
+    downloadAttachmentToPath(attachmentId: any, path: any): Promise<any>;
     getRecords(): Promise<any>;
     getRecordsSince(timestamp: any): Promise<any>;
-    downloadAttachmentToPath(attachmentId: any, path: any): Promise<any>;
     [uniffiObjectPtr]: any;
 }
 export class FfiConverterTypeRemoteSettings extends FfiConverter {

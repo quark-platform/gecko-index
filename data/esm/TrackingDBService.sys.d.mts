@@ -10,7 +10,7 @@ export class TrackingDBService {
     _initialize(): Promise<void>;
     _shutdown(): Promise<void>;
     recordContentBlockingLog(data: any): Promise<void>;
-    identifyType(events: any): 2 | 1 | 3 | 4 | 5;
+    identifyType(events: any): any;
     /**
      * Saves data rows to the DB.
      * @param data

@@ -106,5 +106,6 @@ export class NetworkEventRecord {
      *     The server timings.
      */
     addServerTimings(serverTimings: any[]): void;
+    onAuthPrompt(authDetails: any, authCallbacks: any): void;
     #private;
 }

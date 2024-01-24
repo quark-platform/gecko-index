@@ -34,6 +34,10 @@ export class ScreenshotsOverlay {
     rightBackgroundEl: any;
     bottomBackgroundEl: any;
     highlightEl: any;
+    topLeftMover: any;
+    topRightMover: any;
+    bottomLeftMover: any;
+    bottomRightMover: any;
     selectionSize: any;
     /**
      * Removes all event listeners and removes the overlay from the Anonymous Content
@@ -79,6 +83,62 @@ export class ScreenshotsOverlay {
      * @param {Event} event The pointerup event
      */
     handlePointerUp(event: Event): void;
+    /**
+     * Handles when a keydown occurs in the screenshots component.
+     * @param {Event} event The keydown event
+     */
+    handleKeyDown(event: Event): void;
+    /**
+     * Gets the accel key depending on the platform.
+     * metaKey for macOS. ctrlKey for Windows and Linux.
+     * @param {Event} event The keydown event
+     * @returns {Boolean} True if the accel key is pressed, false otherwise.
+     */
+    getAccelKey(event: Event): boolean;
+    /**
+     * Move the region or its left or right side to the left.
+     * Just the arrow key will move the region by 1px.
+     * Arrow key + shift will move the region by 10px.
+     * Arrow key + control/meta will move to the edge of the window.
+     * @param {Event} event The keydown event
+     */
+    handleArrowLeftKeyDown(event: Event): void;
+    /**
+     * Move the region or its top or bottom side upward.
+     * Just the arrow key will move the region by 1px.
+     * Arrow key + shift will move the region by 10px.
+     * Arrow key + control/meta will move to the edge of the window.
+     * @param {Event} event The keydown event
+     */
+    handleArrowUpKeyDown(event: Event): void;
+    /**
+     * Move the region or its left or right side to the right.
+     * Just the arrow key will move the region by 1px.
+     * Arrow key + shift will move the region by 10px.
+     * Arrow key + control/meta will move to the edge of the window.
+     * @param {Event} event The keydown event
+     */
+    handleArrowRightKeyDown(event: Event): void;
+    /**
+     * Move the region or its top or bottom side downward.
+     * Just the arrow key will move the region by 1px.
+     * Arrow key + shift will move the region by 10px.
+     * Arrow key + control/meta will move to the edge of the window.
+     * @param {Event} event The keydown event
+     */
+    handleArrowDownKeyDown(event: Event): void;
+    /**
+     * We lock focus to the overlay when a region is selected.
+     * Can still escape with shift + F6.
+     * @param {Event} event The keydown event
+     */
+    maybeLockFocus(event: Event): void;
+    /**
+     * Handles when a keydown occurs in the screenshots component.
+     * All we need to do on keyup is set the state to selected.
+     * @param {Event} event The keydown event
+     */
+    handleKeyUp(event: Event): void;
     /**
      * Hide hover element, selection and buttons containers.
      * Show the preview container and the panel.
@@ -166,7 +226,7 @@ export class ScreenshotsOverlay {
      * @param {Number} pageX The x position relative to the page
      * @param {Number} pageY The y position relative to the page
      */
-    resizingDragEnd(pageX: number, pageY: number, targetId: any): void;
+    resizingDragEnd(pageX: number, pageY: number): void;
     maybeRecordRegionSelected(): void;
     /**
      * Draw the preview eyes pointer towards the mouse.

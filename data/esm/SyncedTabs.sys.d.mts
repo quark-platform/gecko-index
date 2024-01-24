@@ -6,6 +6,7 @@ export namespace SyncedTabs {
     export const hasSyncedThisSession: any;
     export function getTabClients(query: any): Promise<any[]>;
     export function syncTabs(force: any): Promise<boolean>;
+    export function createRecentTabsList(clients: any, maxCount: any, extraParams: any): any;
     export function sortTabClientsByLastUsed(clients: any): void;
     export function recordSyncedTabsTelemetry(object: any, tabEvent: any, extraOptions: any): void;
     export function getRecentTabs(maxCount: any, extraParams: any): Promise<any>;

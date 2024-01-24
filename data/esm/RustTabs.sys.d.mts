@@ -17,18 +17,18 @@ export class FfiConverterString extends FfiConverter {
 }
 export class TabsBridgedEngine {
     constructor(opts: any);
-    lastSync(): Promise<any>;
-    setLastSync(lastSync: any): Promise<any>;
-    syncId(): Promise<any>;
-    resetSyncId(): Promise<any>;
-    ensureCurrentSyncId(newSyncId: any): Promise<any>;
-    prepareForSync(clientData: any): Promise<any>;
-    syncStarted(): Promise<any>;
-    storeIncoming(incomingEnvelopesAsJson: any): Promise<any>;
     apply(): Promise<any>;
-    setUploaded(newTimestamp: any, uploadedIds: any): Promise<any>;
-    syncFinished(): Promise<any>;
+    ensureCurrentSyncId(newSyncId: any): Promise<any>;
+    lastSync(): Promise<any>;
+    prepareForSync(clientData: any): Promise<any>;
     reset(): Promise<any>;
+    resetSyncId(): Promise<any>;
+    setLastSync(lastSync: any): Promise<any>;
+    setUploaded(newTimestamp: any, uploadedIds: any): Promise<any>;
+    storeIncoming(incomingEnvelopesAsJson: any): Promise<any>;
+    syncFinished(): Promise<any>;
+    syncId(): Promise<any>;
+    syncStarted(): Promise<any>;
     wipe(): Promise<any>;
     [uniffiObjectPtr]: any;
 }
@@ -48,10 +48,10 @@ export class TabsStore {
      */
     static init(path: any): Promise<TabsStore>;
     constructor(opts: any);
-    getAll(): Promise<any>;
-    setLocalTabs(remoteTabs: any): Promise<any>;
-    registerWithSyncManager(): Promise<any>;
     bridgedEngine(): Promise<any>;
+    getAll(): Promise<any>;
+    registerWithSyncManager(): Promise<any>;
+    setLocalTabs(remoteTabs: any): Promise<any>;
     [uniffiObjectPtr]: any;
 }
 export class FfiConverterTypeTabsStore extends FfiConverter {

@@ -23,7 +23,7 @@ declare class ShoppingSidebarManagerClass {
     updateSidebarVisibility(): void;
     enabled: any;
     updateSidebarVisibilityForWindow(window: any): void;
-    _maybeToggleSidebar(aBrowser: any, aLocationURI: any, aFlags: any): void;
+    _maybeToggleSidebar(aBrowser: any, aLocationURI: any, aFlags: any, aIsNavigation: any): void;
     _maybeToggleButton(gBrowser: any): void;
     _updateBCActiveness(aBrowser: any): void;
     _setShoppingButtonState(aBrowser: any): void;

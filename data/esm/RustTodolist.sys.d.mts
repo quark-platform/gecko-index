@@ -1,6 +1,6 @@
+export function createEntryWith(todo: any): Promise<any>;
 export function getDefaultList(): Promise<any>;
 export function setDefaultList(list: any): Promise<any>;
-export function createEntryWith(todo: any): Promise<any>;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };
 }
@@ -20,16 +20,16 @@ export class TodoList {
      */
     static init(): Promise<TodoList>;
     constructor(opts: any);
-    addItem(todo: any): Promise<any>;
-    addEntry(entry: any): Promise<any>;
-    getEntries(): Promise<any>;
-    getItems(): Promise<any>;
     addEntries(entries: any): Promise<any>;
+    addEntry(entry: any): Promise<any>;
+    addItem(todo: any): Promise<any>;
     addItems(items: any): Promise<any>;
-    getLastEntry(): Promise<any>;
-    getLast(): Promise<any>;
-    getFirst(): Promise<any>;
     clearItem(todo: any): Promise<any>;
+    getEntries(): Promise<any>;
+    getFirst(): Promise<any>;
+    getItems(): Promise<any>;
+    getLast(): Promise<any>;
+    getLastEntry(): Promise<any>;
     makeDefault(): Promise<any>;
     [uniffiObjectPtr]: any;
 }

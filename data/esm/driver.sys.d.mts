@@ -136,15 +136,6 @@ export class GeckoDriver {
      */
     addBrowser(win: ChromeWindow): string;
     /**
-     * Recursively get all labeled text.
-     *
-     * @param {Element} el
-     *     The parent element.
-     * @param {Array.<string>} lines
-     *      Array that holds the text lines.
-     */
-    getVisibleText(el: Element, lines: Array<string>): void;
-    /**
      * Handles registration of new content browsers.  Depending on
      * their type they are either accepted or ignored.
      *

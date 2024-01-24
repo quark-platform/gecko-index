@@ -192,40 +192,6 @@ declare class _QuickSuggestTestUtils {
      */
     assertEvents(expectedEvents: any[], filterOverrides?: object, options?: object): void;
     /**
-     * Creates a `sinon.sandbox` and `sinon.spy` that can be used to instrument
-     * the quick suggest custom telemetry pings. If `init` was called with a test
-     * scope where `registerCleanupFunction` is defined, the sandbox will
-     * automically be restored at the end of the test.
-     *
-     * @returns {object}
-     *   An object: { sandbox, spy, spyCleanup }
-     *   `spyCleanup` is a cleanup function that should be called if you're in a
-     *   browser chrome test and you did not also call `init`, or if you need to
-     *   remove the spy before the test ends for some other reason. You can ignore
-     *   it otherwise.
-     */
-    createTelemetryPingSpy(): object;
-    /**
-     * Asserts that custom telemetry pings are recorded in the order they appear
-     * in the given `pings` array and that no other pings are recorded.
-     *
-     * @param {object} spy
-     *   A `sinon.spy` object. See `createTelemetryPingSpy()`. This method resets
-     *   the spy before returning.
-     * @param {Array} pings
-     *   The expected pings in the order they are expected to be recorded. Each
-     *   item in this array should be an object: `{ type, payload }`
-     *
-     *   {string} type
-     *     The ping's expected type, one of the `CONTEXTUAL_SERVICES_PING_TYPES`
-     *     values.
-     *   {object} payload
-     *     The ping's expected payload. For convenience, you can leave out
-     *     properties whose values are expected to be the default values defined
-     *     in `DEFAULT_PING_PAYLOADS`.
-     */
-    assertPings(spy: object, pings: any[]): void;
-    /**
      * Asserts that URLs in a result's payload have the timestamp template
      * substring replaced with real timestamps.
      *

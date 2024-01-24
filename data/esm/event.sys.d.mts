@@ -18,14 +18,6 @@ export namespace event {
         function isAuxiliary(button: any): boolean;
         function isSecondary(button: any): boolean;
     }
-    namespace DoubleClickTracker {
-        let firstClick: boolean;
-        function isClicked(): boolean;
-        function setClick(): void;
-        function resetClick(): void;
-        function startTimer(): void;
-        function cancelTimer(): void;
-    }
     /**
      * Synthesise a mouse event at a point.
      *

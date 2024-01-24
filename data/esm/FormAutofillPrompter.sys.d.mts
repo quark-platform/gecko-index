@@ -24,6 +24,7 @@ export class AutofillDoorhanger {
     static description(panel: any): any;
     static content(panel: any): any;
     static menuButton(panel: any): any;
+    static menuPopup(panel: any): any;
     static preferenceButton(panel: any): any;
     static learnMoreButton(panel: any): any;
     /**
@@ -50,7 +51,7 @@ export class AutofillDoorhanger {
      *         Parameters for main action.
      * @param  {Array<object>} secondaryActionParams
      *         Array of the parameters for secondary actions.
-     * @param  {Function} resolve Should be called in action callback.
+     * @param  {Function} onClick Should be called in action callback.
      * @returns {Array<object>}
                 Return the mainAction and secondary actions in an array for showing doorhanger
      */
@@ -69,13 +70,22 @@ export class AutofillDoorhanger {
     get description(): any;
     get content(): any;
     get menuButton(): any;
+    get menuPopup(): any;
     get preferenceURL(): any;
     get learnMoreURL(): any;
     onMenuItemClick(evt: any): void;
     render(): void;
     renderHeader(): void;
     renderDescription(): void;
-    show(resolve: any, callback?: any): any;
+    onEventCallback(state: any): void;
+    show(): Promise<any>;
+    resolve: (value: any) => void;
+    /**
+     * Closes the doorhanger with a given action.
+     * This method is specifically intended for closing the doorhanger in scenarios
+     * other than clicking the main or secondary buttons.
+     */
+    closeDoorhanger(action: any): void;
 }
 export class AddressSaveDoorhanger extends AutofillDoorhanger {
     static preferenceURL: string;
@@ -84,9 +94,9 @@ export class AddressSaveDoorhanger extends AutofillDoorhanger {
     static telemetryType: any;
     static telemetryObject: string;
     static editButton(panel: any): any;
-    constructor(browser: any, oldRecord: any, newRecord: any, flowId: any, editAddressCb: any);
     get editButton(): any;
     renderContent(): void;
+    recordToSave(): any;
     #private;
 }
 /**
@@ -98,14 +108,19 @@ export class AddressUpdateDoorhanger extends AddressSaveDoorhanger {
 export class AddressEditDoorhanger extends AutofillDoorhanger {
     static telemetryType: any;
     static telemetryObject: string;
-    static "__#1534088@#getInputIdMatchRegexp"(): RegExp;
     static getInputId(fieldName: any): string;
+    static "__#1530969@#getInputIdMatchRegexp"(): RegExp;
     constructor(browser: any, record: any, flowId: any);
     set country(c: any);
     get country(): any;
     get layout(): any;
     renderContent(): void;
-    getRecord(): {};
+    /**
+     * Collects data from all visible address field inputs within the doorhanger.
+     * Since address fields may vary by country, only fields present for the
+     * current country's address format are included in the record.
+     */
+    recordToSave(): {};
     #private;
 }
 export namespace FormAutofillPrompter {
@@ -144,7 +159,7 @@ export namespace FormAutofillPrompter {
         options: any;
     }): void;
     function promptToSaveCreditCard(browser: any, storage: any, record: any, flowId: any): Promise<void>;
-    function _updateStorageAfterInteractWithPrompt(state: any, storage: any, record: any, guid?: any): Promise<void>;
+    function _updateStorageAfterInteractWithPrompt(browser: any, storage: any, type: any, oldRecord: any, newRecord: any): Promise<void>;
     function _getUpdatedCCIcon(network: any): any;
     /**
      * Show different types of doorhanger by leveraging PopupNotifications.
@@ -174,23 +189,4 @@ export namespace FormAutofillPrompter {
         oldRecord?: any;
         newRecord?: any;
     }): Promise<void>;
-    /**
-     * Show save address doorhanger or update address doorhanger.
-     *
-     * @param {XULElement} browser Target browser element for showing doorhanger.
-     * @param {string} flowId guid used to correlate events relating to the same form
-     * @param {object} [options = {}] a list of options for this method
-     * @param {object} options.oldRecord the saved address record that can be merged with
-     *                                   the new address record
-     * @param {object} options.newRecord The new address record users just submitted
-     * @returns {Promise} Resolved with action type when action callback is triggered.
-     */
-    function _showAddressCaptureDoorhanger(browser: XULElement, flowId: string, { oldRecord, newRecord }?: {
-        oldRecord: any;
-        newRecord: any;
-    }): Promise<any>;
-    function _showAddressEditDoorhanger(browser: any, flowId: any, record: any): Promise<{
-        state: any;
-        editedRecord: any;
-    }>;
 }

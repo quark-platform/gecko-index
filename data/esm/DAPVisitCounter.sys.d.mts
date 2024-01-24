@@ -5,6 +5,6 @@ export const DAPVisitCounter: {
     counters: any[];
     timed_send(): Promise<void>;
     timeout_value(): number;
-    send(timeout: any): Promise<void>;
+    send(timeout: any, reason: any): Promise<void>;
     show(): any[];
 };

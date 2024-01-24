@@ -113,6 +113,7 @@ export class ContentPrefService2 {
     _dbMigrate2To3: (aConn: any) => Promise<void>;
     _dbMigrate3To4: (aConn: any) => Promise<void>;
     _dbMigrate4To5(conn: any): Promise<void>;
+    _dbMigrate5To6(conn: any): Promise<void>;
 }
 import { ContentPrefStore } from "resource://gre/modules/ContentPrefStore.sys.mjs";
 import { ContentPref } from "resource://gre/modules/ContentPrefUtils.sys.mjs";

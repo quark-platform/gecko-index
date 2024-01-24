@@ -1,4 +1,5 @@
 export function gradient(value: any): Promise<any>;
+export function intersection(ln1: any, ln2: any): Promise<any>;
 export namespace UnitTestObjs {
     export { uniffiObjectPtr };
 }
@@ -17,6 +18,11 @@ export class FfiConverterString extends FfiConverter {
     static computeSize(value: any): number;
 }
 export class FfiConverterOptionalTypeLine extends FfiConverterArrayBuffer {
+    static read(dataStream: any): any;
+    static write(dataStream: any, value: any): void;
+    static computeSize(value: any): any;
+}
+export class FfiConverterOptionalTypePoint extends FfiConverterArrayBuffer {
     static read(dataStream: any): any;
     static write(dataStream: any, value: any): void;
     static computeSize(value: any): any;

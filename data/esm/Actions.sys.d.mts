@@ -2,7 +2,24 @@ export namespace action {
     export { State };
     export { Chain };
 }
+export const CLICK_INTERVAL: 640;
+export class ClickTracker {
+    get count(): number;
+    /**
+     * Reset tracking mouse click counter.
+     */
+    reset(): void;
+    /**
+     * Track |button| click to identify possible double or triple click.
+     *
+     * @param {number} button
+     *     A positive integer that refers to a mouse button.
+     */
+    setClick(button: number): void;
+    #private;
+}
 declare class State {
+    clickTracker: ClickTracker;
     /**
      * A map between input ID and the device state for that input
      * source, with one entry for each active input source.
@@ -120,11 +137,6 @@ declare class Chain extends Array<any> {
         fill(value: any, start?: number, end?: number): any;
         copyWithin(target: number, start: number, end?: number): any;
         entries(): IterableIterator<[number, any]>;
-        /**
-         * List of {@link Action} associated with current session.  Used to
-         * manage dispatching events when resetting the state of the input sources.
-         * Reset operations are assumed to be idempotent.
-         */
         keys(): IterableIterator<number>;
         values(): IterableIterator<any>;
         includes(searchElement: any, fromIndex?: number): boolean;

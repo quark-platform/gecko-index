@@ -91,5 +91,6 @@ declare class BrowserSearchTelemetryHandler {
      */
     _handleSearchAndUrlbar(browser: any, engine: nsISearchEngine, source: string, details: object): void;
     _recordSearch(browser: any, engine: any, url: any, source: any, action?: any): void;
+    #private;
 }
 export {};

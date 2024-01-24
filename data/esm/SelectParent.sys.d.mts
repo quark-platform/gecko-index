@@ -51,7 +51,7 @@ export namespace SelectParentHelper {
      * @param {Number}         nthChildIndex
      * @returns {Number}
      */
-    function populateChildren(menulist: Element, options: Element[], uniqueOptionStyles: any[], selectedIndex: number, parentElement?: Element, isGroupDisabled?: boolean, addSearch?: boolean, nthChildIndex?: number): number;
+    function populateChildren(menulist: Element, custom: any, options: Element[], uniqueOptionStyles: any[], selectedIndex: number, parentElement?: Element, isGroupDisabled?: boolean, addSearch?: boolean, nthChildIndex?: number): number;
     function onSearchKeydown(event: any, menulist: any): void;
     function onSearchInput(event: any): void;
     function onSearchFocus(event: any): void;

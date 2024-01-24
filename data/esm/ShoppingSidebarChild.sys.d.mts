@@ -8,8 +8,9 @@ export class ShoppingSidebarChild {
     set productURI(uri: any);
     set product(product: any);
     get canFetchAndShowData(): boolean;
+    get adsEnabled(): any;
+    get adsEnabledByUser(): any;
     get canFetchAndShowAd(): any;
-    get userHasAdsEnabled(): any;
     optedInStateChanged(): void;
     adsEnabledByUserChanged(): void;
     getProductURI(): any;
@@ -29,7 +30,7 @@ export class ShoppingSidebarChild {
      * @param {bool} options.isPolledRequest = false
      *
      */
-    updateContent({ haveUpdatedURI, isPolledRequest, }?: object | null): Promise<void>;
+    updateContent({ haveUpdatedURI, isPolledRequest, focusCloseButton, }?: object | null): Promise<void>;
     /**
      * Utility function to determine if we should request ads.
      */

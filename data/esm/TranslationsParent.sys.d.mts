@@ -42,48 +42,48 @@ export class TranslationsParent extends JSWindowActorParent {
      *
      * @type {LangTags | null} previousDetectedLanguages
      */
-    static "__#1803665@#previousDetectedLanguages": LangTags | null;
+    static "__#1800566@#previousDetectedLanguages": LangTags | null;
     /**
      * A map of the TranslationModelRecord["id"] to the record of the model in Remote Settings.
      * Used to coordinate the downloads.
      *
      * @type {null | Promise<Map<string, TranslationModelRecord>>}
      */
-    static "__#1803665@#translationModelRecords": null | Promise<Map<string, TranslationModelRecord>>;
+    static "__#1800566@#translationModelRecords": null | Promise<Map<string, TranslationModelRecord>>;
     /**
      * The RemoteSettingsClient that downloads the translation models.
      *
      * @type {RemoteSettingsClient | null}
      */
-    static "__#1803665@#translationModelsRemoteClient": RemoteSettingsClient | null;
+    static "__#1800566@#translationModelsRemoteClient": RemoteSettingsClient | null;
     /**
      * The RemoteSettingsClient that downloads the wasm binaries.
      *
      * @type {RemoteSettingsClient | null}
      */
-    static "__#1803665@#translationsWasmRemoteClient": RemoteSettingsClient | null;
+    static "__#1800566@#translationsWasmRemoteClient": RemoteSettingsClient | null;
     /**
      * The page may auto-translate due to user settings. On a page restore, always
      * skip the page restore logic.
      */
-    static "__#1803665@#isPageRestored": boolean;
+    static "__#1800566@#isPageRestored": boolean;
     /**
      * Allows the actor's behavior to be changed when the translations engine is mocked via
      * a dummy RemoteSettingsClient.
      *
      * @type {bool}
      */
-    static "__#1803665@#isTranslationsEngineMocked": bool;
+    static "__#1800566@#isTranslationsEngineMocked": bool;
     /**
      * @type {null | Promise<boolean>}
      */
-    static "__#1803665@#isTranslationsEngineSupported": null | Promise<boolean>;
+    static "__#1800566@#isTranslationsEngineSupported": null | Promise<boolean>;
     /**
      * When reloading the page, store the translation pair that needs translating.
      *
      * @type {null | TranslationPair}
      */
-    static "__#1803665@#translateOnPageReload": null | TranslationPair;
+    static "__#1800566@#translateOnPageReload": null | TranslationPair;
     /**
      * An ordered list of preferred languages based on:
      *   1. App languages
@@ -92,17 +92,17 @@ export class TranslationsParent extends JSWindowActorParent {
      *
      * @type {null | string[]}
      */
-    static "__#1803665@#preferredLanguages": null | string[];
+    static "__#1800566@#preferredLanguages": null | string[];
     /**
      * The value of navigator.languages.
      *
      * @type {null | Set<string>}
      */
-    static "__#1803665@#webContentLanguages": null | Set<string>;
-    static "__#1803665@#observingLanguages": boolean;
+    static "__#1800566@#webContentLanguages": null | Set<string>;
+    static "__#1800566@#observingLanguages": boolean;
     static MAX_CONCURRENT_DOWNLOADS: number;
     static MAX_DOWNLOAD_RETRIES: number;
-    static "__#1803665@#hostsOffered": Set<any>;
+    static "__#1800566@#hostsOffered": Set<any>;
     static testAutomaticPopup: boolean;
     /**
      * Gecko preference for always translating a language.
@@ -129,7 +129,7 @@ export class TranslationsParent extends JSWindowActorParent {
     /**
      * @type {Promise<{ hiddenFrame: HiddenFrame, actor: TranslationsEngineParent }> | null}
      */
-    static "__#1803665@#engine": Promise<{
+    static "__#1800566@#engine": Promise<{
         hiddenFrame: HiddenFrame;
         actor: TranslationsEngineParent;
     }> | null;
@@ -141,7 +141,7 @@ export class TranslationsParent extends JSWindowActorParent {
     /**
      * @type {Promise<{ hiddenFrame: HiddenFrame, actor: TranslationsEngineParent }> | null}
      */
-    static "__#1803665@#getEngineProcessImpl"(): Promise<{
+    static "__#1800566@#getEngineProcessImpl"(): Promise<{
         hiddenFrame: any;
         browser: any;
         actor: any;
@@ -156,15 +156,9 @@ export class TranslationsParent extends JSWindowActorParent {
      * use the feature. This function also respects mocks and simulating unsupported
      * engines.
      *
-     * @type {Promise<boolean>}
+     * @type {boolean}
      */
-    static getIsTranslationsEngineSupported(): Promise<boolean>;
-    /**
-     * Invokes the provided callback after retrieving whether the translations engine is supported.
-     * @param {function(boolean)} callback - The callback which takes a boolean argument that will
-     *                                       be true if the engine is supported and false otherwise.
-     */
-    static onIsTranslationsEngineSupported(callback: (arg0: boolean) => any): void;
+    static getIsTranslationsEngineSupported(): boolean | Promise<boolean>;
     /**
      * Only translate pages that match certain protocols, that way internal pages like
      * about:* pages will not be translated. Keep this logic up to date with the "matches"
@@ -173,8 +167,8 @@ export class TranslationsParent extends JSWindowActorParent {
      * @param {string} scheme - The URI spec
      * @returns {boolean}
      */
-    static isRestrictedPage(scheme: string): boolean;
-    static "__#1803665@#resetPreferredLanguages"(): void;
+    static isRestrictedPage(gBrowser: any): boolean;
+    static "__#1800566@#resetPreferredLanguages"(): void;
     static observe(_subject: any, topic: any, _data: any): Promise<void>;
     /**
      * Provide a way for tests to override the system locales.
@@ -219,7 +213,7 @@ export class TranslationsParent extends JSWindowActorParent {
      * @param {LangTags} langTags
      * @returns {boolean}
      */
-    static "__#1803665@#maybeAutoTranslate"(langTags: LangTags): boolean;
+    static "__#1800566@#maybeAutoTranslate"(langTags: LangTags): boolean;
     /**
      * Creates a lookup key that is unique to each fromLanguage-toLanguage pair.
      *
@@ -232,7 +226,7 @@ export class TranslationsParent extends JSWindowActorParent {
      * The cached language pairs.
      * @type {Promise<Array<LanguagePair>> | null}
      */
-    static "__#1803665@#languagePairs": Promise<Array<LanguagePair>> | null;
+    static "__#1800566@#languagePairs": Promise<Array<LanguagePair>> | null;
     /**
      * Get the list of translation pairs supported by the translations engine.
      *
@@ -267,7 +261,7 @@ export class TranslationsParent extends JSWindowActorParent {
      * @param {TranslationModelRecord[]} event.data.updated
      * @param {TranslationModelRecord[]} event.data.deleted
      */
-    static "__#1803665@#handleTranslationsModelsSync"({ data: { created, updated, deleted }, }: {
+    static "__#1800566@#handleTranslationsModelsSync"({ data: { created, updated, deleted }, }: {
         data: {
             created: TranslationModelRecord[];
             updated: TranslationModelRecord[];
@@ -279,7 +273,7 @@ export class TranslationsParent extends JSWindowActorParent {
      *
      * @returns {RemoteSettingsClient}
      */
-    static "__#1803665@#getTranslationModelsRemoteClient"(): RemoteSettingsClient;
+    static "__#1800566@#getTranslationModelsRemoteClient"(): RemoteSettingsClient;
     /**
      * Retrieves the maximum major version of each record in the RemoteSettingsClient.
      *
@@ -319,7 +313,7 @@ export class TranslationsParent extends JSWindowActorParent {
      *
      * @returns {Promise<Map<string, TranslationModelRecord>>}
      */
-    static "__#1803665@#getTranslationModelRecords"(): Promise<Map<string, TranslationModelRecord>>;
+    static "__#1800566@#getTranslationModelRecords"(): Promise<Map<string, TranslationModelRecord>>;
     /**
      * This implementation assumes that every language pair has access to the
      * pivot language. If any languages are added without a pivot language, or the
@@ -335,9 +329,23 @@ export class TranslationsParent extends JSWindowActorParent {
      *
      * @returns {RemoteSettingsClient}
      */
-    static "__#1803665@#getTranslationsWasmRemoteClient"(): RemoteSettingsClient;
+    static "__#1800566@#getTranslationsWasmRemoteClient"(): RemoteSettingsClient;
     /** @type {Promise<WasmRecord> | null} */
-    static "__#1803665@#bergamotWasmRecord": Promise<WasmRecord> | null;
+    static "__#1800566@#bergamotWasmRecord": Promise<WasmRecord> | null;
+    /** @type {boolean} */
+    static "__#1800566@#lookForLocalWasmBuild": boolean;
+    /**
+     * This is used to load a local copy of the Bergamot translations engine, if it exists.
+     * From a local build of Firefox:
+     *
+     * 1. Run the python script:
+     *   ./toolkit/components/translations/bergamot-translator/build-bergamot.py --debug
+     *
+     * 2. Uncomment the .wasm file in: toolkit/components/translations/jar.mn
+     * 3. Run: ./mach build
+     * 4. Run: ./mach run
+     */
+    static "__#1800566@#maybeFetchLocalBergamotWasmArrayBuffer"(): Promise<ArrayBuffer>;
     /**
      * Bergamot is the translation engine that has been compiled to wasm. It is shipped
      * to the user via Remote Settings.
@@ -347,7 +355,7 @@ export class TranslationsParent extends JSWindowActorParent {
     /**
      * @returns {Promise<ArrayBuffer>}
      */
-    static "__#1803665@#getBergamotWasmArrayBuffer"(): Promise<ArrayBuffer>;
+    static "__#1800566@#getBergamotWasmArrayBuffer"(): Promise<ArrayBuffer>;
     /**
      * Deletes language files that match a language.
      *
@@ -430,7 +438,7 @@ export class TranslationsParent extends JSWindowActorParent {
     /**
      * Keep track of when the location changes.
      */
-    static "__#1803665@#locationChangeId": number;
+    static "__#1800566@#locationChangeId": number;
     static onLocationChange(browser: any): void;
     /**
      * Is this actor active for the current location change?
@@ -502,6 +510,35 @@ export class TranslationsParent extends JSWindowActorParent {
      *  False if never-translate was disabled for this language.
      */
     static toggleNeverTranslateLanguagePref(langTag: string): boolean;
+    /**
+     * Sets the never-translate site permissions by creating a principal from the URL origin
+     * and setting or unsetting the DENY_ACTION on the permission.
+     *
+     * @param {string} neverTranslate - The never translate setting to use.
+     * @param {string} urlOrigin - The url origin to set the permission for.
+     * @returns {boolean}
+     *  True if never-translate was enabled for this origin.
+     *  False if never-translate was disabled for this origin.
+     */
+    static setNeverTranslateSiteByOrigin(neverTranslate: string, urlOrigin: string): boolean;
+    /**
+     * Sets the never-translate site permissions by adding DENY_ACTION to
+     * the specified site principal.
+     *
+     * @param {string} neverTranslate - The never translate setting.
+     * @param {string} principal - The principal that should have the permission attached.
+     * @returns {boolean}
+     *  True if never-translate was enabled for this principal.
+     *  False if never-translate was disabled for this principal.
+     */
+    static "__#1800566@#setNeverTranslateSiteByPrincipal"(neverTranslate: string, principal: string): boolean;
+    /**
+     * Creates a list of URLs that have a translations permission set on the resource.
+     * These are the sites to never translate.
+     *
+     * @returns {Array<string>} String array with the URL of the sites that have the never translate permission.
+     */
+    static listNeverTranslateSites(): Array<string>;
     /**
      * Contains the state that would affect UI. Anytime this state is changed, a dispatch
      * event is sent so that UI can react to it. The actor is inside of /toolkit and

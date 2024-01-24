@@ -485,7 +485,6 @@ export namespace CFRMessageProvider {
                                 topsites: boolean;
                                 highlights: boolean;
                                 topstories: boolean;
-                                snippets: boolean;
                             };
                             url?: undefined;
                             telemetrySource?: undefined;

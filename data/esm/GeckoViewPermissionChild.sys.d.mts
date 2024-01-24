@@ -4,13 +4,22 @@ export class GeckoViewPermissionChild extends GeckoViewActorChild {
     addCameraPermission(): any;
     getAppPermissions(aPermissions: any): any;
     mediaRecordingStatusChanged(aDevices: any): any;
+    checkIfGrantedByExtensionPermissions(perm: any, aRequest: any): {
+        allow: boolean;
+        permission?: undefined;
+    } | {
+        allow: boolean;
+        permission: {
+            [x: number]: uint32_t;
+        };
+    };
     promptPermission(aRequest: any): Promise<{
         allow: boolean;
         permission?: undefined;
     } | {
-        allow: true;
+        allow: boolean;
         permission: {
-            "storage-access": string;
+            [x: number]: uint32_t;
         };
     }>;
 }

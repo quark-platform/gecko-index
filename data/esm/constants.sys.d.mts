@@ -1,4 +1,4 @@
-export const WEAVE_VERSION: "1.123.0";
+export const WEAVE_VERSION: "1.124.0";
 export const SYNC_API_VERSION: "1.5";
 export const STORAGE_VERSION: 5;
 export const PREFS_BRANCH: "services.sync.";

@@ -11,9 +11,11 @@ export class GeckoViewContent extends GeckoViewModule {
     _requestAnalysis(aData: any, aCallback: any): Promise<void>;
     _requestCreateAnalysis(aData: any, aCallback: any): Promise<void>;
     _requestAnalysisCreationStatus(aData: any, aCallback: any): Promise<void>;
+    _requestAnalysisStatus(aData: any, aCallback: any): Promise<void>;
     _pollForAnalysisCompleted(aData: any, aCallback: any): Promise<void>;
     _sendAttributionEvent(aEvent: any, aData: any, aCallback: any): Promise<void>;
     _requestRecommendations(aData: any, aCallback: any): Promise<void>;
+    _reportBackInStock(aData: any, aCallback: any): Promise<void>;
     _hasCookieBannerRuleForBrowsingContextTree(aCallback: any): Promise<void>;
     _findInPage(aData: any, aCallback: any): void;
     _finderListener: {

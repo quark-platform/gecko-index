@@ -19,13 +19,9 @@ export namespace INITIAL_STATE {
         let initialized_1: boolean;
         export { initialized_1 as initialized };
     }
-    namespace Snippets {
+    namespace TopSites {
         let initialized_2: boolean;
         export { initialized_2 as initialized };
-    }
-    namespace TopSites {
-        let initialized_3: boolean;
-        export { initialized_3 as initialized };
         export let rows: any[];
         export let editForm: any;
         export let showSearchShortcutsForm: boolean;
@@ -36,8 +32,8 @@ export namespace INITIAL_STATE {
         }
     }
     namespace Prefs {
-        let initialized_4: boolean;
-        export { initialized_4 as initialized };
+        let initialized_3: boolean;
+        export { initialized_3 as initialized };
         export namespace values {
             let featureConfig: {};
         }
@@ -88,8 +84,8 @@ export namespace INITIAL_STATE {
     namespace Personalization {
         let lastUpdated_1: any;
         export { lastUpdated_1 as lastUpdated };
-        let initialized_5: boolean;
-        export { initialized_5 as initialized };
+        let initialized_4: boolean;
+        export { initialized_4 as initialized };
     }
     namespace Search {
         let fakeFocus: boolean;
@@ -100,7 +96,6 @@ export namespace reducers {
     export { TopSites };
     export { App };
     export { ASRouter };
-    export { Snippets };
     export { Prefs };
     export { Dialog };
     export { Sections };
@@ -147,9 +142,6 @@ declare function App_1(prevState: {
     customizeMenuVisible: boolean;
 }, action: any): any;
 declare function ASRouter_1(prevState: {
-    initialized: boolean;
-}, action: any): any;
-declare function Snippets_1(prevState: {
     initialized: boolean;
 }, action: any): any;
 declare function Prefs_1(prevState: {

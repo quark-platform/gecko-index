@@ -20,7 +20,7 @@ export class DevToolsWorkerChild extends JSWindowActorChild {
      * to the DevToolsWorkerParent via the DevToolsWorkerChild:workerTargetAvailable message.
      *
      * @param {Object} options
-     * @param {Integer} options.watcherActorID: The ID of the WatcherActor who requested to
+     * @param {String} options.watcherActorID: The ID of the WatcherActor who requested to
      *        observe and create these target actors.
      * @param {String} options.parentConnectionPrefix: The prefix of the DevToolsServerConnection
      *        of the Watcher Actor. This is used to compute a unique ID for the target actor.
@@ -29,7 +29,7 @@ export class DevToolsWorkerChild extends JSWindowActorChild {
      *        of properties.
      */
     _watchWorkerTargets({ watcherActorID, parentConnectionPrefix, sessionData, }: {
-        watcherActorID: Integer;
+        watcherActorID: string;
         parentConnectionPrefix: string;
         sessionData: any;
     }): Promise<void>;
