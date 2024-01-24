@@ -703,6 +703,74 @@
       },
       {
         "type": "method",
+        "name": "getWMFContentDecryptionModuleInformation",
+        "trivia": "Returns the information about all Media Foundation based content decryption\nmodules, which would include key system names and their capabilities.",
+        "introduced": "122.0",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CDMInformation"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
+        "name": "getGMPContentDecryptionModuleInformation",
+        "trivia": "Returns the information about the GMP based content decryption\nmodules, which would include key system names and their capabilities.",
+        "introduced": "122.0",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "Promise",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CDMInformation"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "method",
         "name": "originAttributesToSuffix",
         "trivia": "",
         "introduced": "104.0.2",
@@ -4193,6 +4261,19 @@
         "trivia": "",
         "introduced": "104.0.2",
         "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "document",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "Document"
+            }
+          },
           {
             "optional": false,
             "varadic": false,
@@ -9424,6 +9505,187 @@
           "nullable": false,
           "union": false,
           "idlType": "ConsoleInstance"
+        }
+      }
+    ]
+  },
+  "FuzzingFunctions": {
+    "attributes": [],
+    "methods": [
+      {
+        "type": "method",
+        "name": "garbageCollect",
+        "trivia": "",
+        "introduced": "122.0",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "garbageCollectCompacting",
+        "trivia": "",
+        "introduced": "122.0",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "crash",
+        "trivia": "",
+        "introduced": "122.0",
+        "arguments": [
+          {
+            "defaultValue": {
+              "type": "string",
+              "value": ""
+            },
+            "optional": true,
+            "varadic": false,
+            "name": "reason",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "cycleCollect",
+        "trivia": "",
+        "introduced": "122.0",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "memoryPressure",
+        "trivia": "",
+        "introduced": "122.0",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "enableAccessibility",
+        "trivia": "Enable accessibility.",
+        "introduced": "122.0",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "signalIPCReady",
+        "trivia": "",
+        "introduced": "122.0",
+        "arguments": [],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        }
+      },
+      {
+        "type": "method",
+        "name": "synthesizeKeyboardEvents",
+        "trivia": "synthesizeKeyboardEvents() synthesizes a set of \"keydown\",\n\"keypress\" (only when it's necessary) and \"keyup\" events in top DOM window\nin current process (and the synthesized events will be retargeted to\nfocused window/document/element).  I.e, this is currently not dispatched\nvia the main process if you call this in a content process.  Therefore, in\nthe case, some default action handlers which are only in the main process\nwill never run.  Note that this does not allow to synthesize keyboard\nevents if this is called from a keyboard event or composition event\nlistener.\n\n@param aKeyValue          If you want to synthesize non-printable key\nevents, you need to set one of key values\ndefined by \"UI Events KeyboardEvent key Values\".\nYou can check our current support values in\ndom/events/KeyNameList.h\nIf you want to synthesize printable key events,\nyou can set any string value including empty\nstring.\nNote that |key| value in aDictionary is always\nignored.\n@param aDictionary        If you want to synthesize simple key press\nwithout any modifiers, you can omit this.\nOtherwise, specify this with proper values.\nIf |code| is omitted or empty string, this\nguesses proper code value in US-English\nkeyboard.  Otherwise, the value must be empty\nstring or known code value defined by \"UI Events\nKeyboardEvent code Values\".  You can check our\ncurrent support values in\ndom/events/PhysicalKeyCodeNameList.h.\nIf |keyCode| is omitted or 0, this guesses\nproper keyCode value in US-English keyboard.\nIf |location| is omitted or 0, this assumes\nthat left modifier key is pressed if aKeyValue\nis one of such modifier keys.\n|key|, |isComposing|, |charCode| and |which|\nare always ignored.\nModifier states like |shiftKey|, |altKey|,\n|modifierAltGraph|, |modifierCapsLock| and\n|modifierNumLock| are not adjusted for\naKeyValue.  Please specify them manually if\nnecessary.\nNote that this API does not allow to dispatch\nknown key events with empty |code| value and\n0 |keyCode| value since it's unsual situation\nespecially 0 |keyCode| value with known key.\nNote that when you specify only one of |code|\nand |keyCode| value, the other will be guessed\nfrom US-English keyboard layout.  So, if you\nwant to emulate key press with another keyboard\nlayout, you should specify both values.\n\nFor example:\n// Synthesize \"Tab\" key events.\nsynthesizeKeyboardEvents(\"Tab\");\n// Synthesize Shift + Tab key events.\nsynthesizeKeyboardEvents(\"Tab\", { shiftKey: true });\n// Synthesize Control + A key events.\nsynthesizeKeyboardEvents(\"a\", { controlKey: true });\n// Synthesize Control + Shift + A key events.\nsynthesizeKeyboardEvents(\"A\", { controlKey: true,\nshitKey: true });\n// Synthesize \"Enter\" key on numpad.\nsynthesizeKeyboardEvents(\"Enter\", { code: \"NumpadEnter\" });\n// Synthesize right \"Shift\" key.\nsynthesizeKeyboardEvents(\"Shift\", { code: \"ShiftRight\" });\n// Synthesize \"1\" on numpad.\nsynthesizeKeyboardEvents(\"1\", { code: \"Numpad1\",\nmodifierNumLock: true });\n// Synthesize \"End\" on numpad.\nsynthesizeKeyboardEvents(\"End\", { code: \"Numpad1\" });\n// Synthesize \"%\" key of US-English keyboard layout.\nsynthesizeKeyboardEvents(\"%\", { shiftKey: true });\n// Synthesize \"*\" key of Japanese keyboard layout.\nsynthesizeKeyboardEvents(\"*\", { code: \"Quote\",\nshiftKey: true,\nkeyCode: KeyboardEvent.DOM_VK_COLON });",
+        "introduced": "122.0",
+        "arguments": [
+          {
+            "optional": false,
+            "varadic": false,
+            "name": "aKeyValue",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          },
+          {
+            "defaultValue": {
+              "type": "dictionary"
+            },
+            "optional": true,
+            "varadic": false,
+            "name": "aDictionary",
+            "type": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "KeyboardEventInit"
+            }
+          }
+        ],
+        "special": "",
+        "return": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
         }
       }
     ]
