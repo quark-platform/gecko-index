@@ -1,8 +1,9 @@
+/// <reference types="gecko-types" />
 export namespace Normandy {
     let studyPrefsChanged: {};
     let rolloutPrefsChanged: {};
-    let defaultPrefsHaveBeenApplied: any;
-    let uiAvailableNotificationObserved: any;
+    let defaultPrefsHaveBeenApplied: import("resource://gre/modules/PromiseUtils.sys.mjs").Deferred;
+    let uiAvailableNotificationObserved: import("resource://gre/modules/PromiseUtils.sys.mjs").Deferred;
     /** Initialization that needs to happen before the first paint on startup. */
     function init({ runAsync }?: {
         runAsync?: boolean;

@@ -1,9 +1,9 @@
 /// <reference types="gecko-types" />
 export class GeckoViewPermissionChild extends GeckoViewActorChild {
     getMediaPermission(aPermission: any): any;
-    addCameraPermission(): any;
-    getAppPermissions(aPermissions: any): any;
-    mediaRecordingStatusChanged(aDevices: any): any;
+    addCameraPermission(): Promise<any>;
+    getAppPermissions(aPermissions: any): Promise<any>;
+    mediaRecordingStatusChanged(aDevices: any): void;
     checkIfGrantedByExtensionPermissions(perm: any, aRequest: any): {
         allow: boolean;
         permission?: undefined;

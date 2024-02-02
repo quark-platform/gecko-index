@@ -11,7 +11,7 @@ export class SelectionActionDelegateChild extends GeckoViewActorChild {
     _actions: {
         id: string;
         predicate: (e: any) => any;
-        perform: (_: any) => any;
+        perform: (_: any) => void;
     }[];
     receiveMessage({ name, data }: {
         name: any;

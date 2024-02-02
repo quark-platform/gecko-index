@@ -517,7 +517,16 @@ export class SitePermission extends ExtensionData {
     startup(reason: any): Promise<void>;
     shutdown(reason: any): Promise<void>;
 }
-export var Management: any;
+export var Management: {
+    [x: string]: any;
+    initialized: Promise<any>;
+    getModuleJSONURLs(): any[];
+    lazyInit(): Promise<any>;
+    receiveMessage({ target }: {
+        target: any;
+    }): any;
+    _callHandlers(ids: any, event: any, method: any): void;
+};
 declare class BootstrapScope {
     install(data: any, reason: any): void;
     uninstall(data: any, reason: any): void;

@@ -1,5 +1,6 @@
+/// <reference types="gecko-types" />
 export namespace RecipeRunner {
-    let initializedPromise: any;
+    let initializedPromise: import("resource://gre/modules/PromiseUtils.sys.mjs").Deferred;
     function init(): Promise<void>;
     function enable(): void;
     function disable(): void;

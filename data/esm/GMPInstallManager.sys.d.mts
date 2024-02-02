@@ -1,3 +1,4 @@
+/// <reference types="gecko-types" />
 /**
  * Provides an easy API for downloading and installing GMP Addons
  */
@@ -6,7 +7,7 @@ export class GMPInstallManager {
     /**
      * Obtains a URL with replacement of vars
      */
-    _getURL(): Promise<any>;
+    _getURL(): Promise<string>;
     /**
      * Records telemetry results on if fetching update.xml from Balrog succeeded
      * when content signature was used to verify the response from Balrog.
@@ -45,7 +46,7 @@ export class GMPInstallManager {
      *           type: Sometimes specifies type of rejection
      */
     checkForAddons(): Promise<any>;
-    _deferred: any;
+    _deferred: import("resource://gre/modules/PromiseUtils.sys.mjs").Deferred;
     /**
      * Installs the specified addon and calls a callback when done.
      * @param gmpAddon The GMPAddon object to install
@@ -57,12 +58,12 @@ export class GMPInstallManager {
      *           type: A string to represent the type of error
      *                 downloaderr, verifyerr or previouserrorencountered
      */
-    installAddon(gmpAddon: any): any;
+    installAddon(gmpAddon: any): Promise<any>;
     gmpDownloader: GMPDownloader;
     _getTimeSinceLastCheck(): number;
-    get _isEMEEnabled(): any;
-    _isAddonEnabled(aAddon: any): any;
-    _isAddonUpdateEnabled(aAddon: any): any;
+    get _isEMEEnabled(): boolean;
+    _isAddonEnabled(aAddon: any): boolean;
+    _isAddonUpdateEnabled(aAddon: any): boolean;
     _updateLastCheck(): void;
     _versionchangeOccurred(): boolean;
     /**
@@ -105,6 +106,7 @@ export class GMPAddon {
      * @param addon The ProductAddonChecker `addon` object
      */
     constructor(addon: any);
+    usedFallback: boolean;
     /**
      * Returns a string representation of the addon
      */
@@ -121,7 +123,7 @@ export class GMPAddon {
      * @return true if the addon has been previously installed and this is
      * a new version, if this is a fresh install return false
      */
-    get isUpdate(): any;
+    get isUpdate(): boolean;
 }
 /**
  * Constructs a GMPExtractor object which is used to extract a GMP zip
@@ -149,8 +151,8 @@ export class GMPExtractor {
      * @return a promise which will be resolved or rejected
      *         See GMPInstallManager.installAddon for resolve/rejected info
      */
-    install(): any;
-    _deferred: any;
+    install(): Promise<any>;
+    _deferred: import("resource://gre/modules/PromiseUtils.sys.mjs").Deferred;
 }
 /**
  * Constructs an object which downloads and initiates an install of
@@ -171,5 +173,5 @@ export class GMPDownloader {
      * @return a promise which will be resolved or rejected
      *         See GMPInstallManager.installAddon for resolve/rejected info
      */
-    start(): any;
+    start(): Promise<any>;
 }

@@ -1,6 +1,6 @@
 /// <reference types="gecko-types" />
 export class LoginManagerStorage extends LoginManagerStorage_json {
-    static "__#1117597@#storage": any;
+    static "__#1123181@#storage": any;
     static create(callback: any): any;
     get _crypto(): void;
     /**
