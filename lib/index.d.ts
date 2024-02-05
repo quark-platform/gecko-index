@@ -107,7 +107,7 @@ declare module 'gecko-index' {
    * Types taken from:
    * {@link https://firefox-source-docs.mozilla.org/build/buildsystem/defining-xpcom-components.html#defining-xpcom-components}
    */
-  interface ClassDefinition {
+  export interface ClassDefinition {
     /**
      * This is the path to the original components.conf file. It might only be
      * valid on the generating computer.
@@ -258,7 +258,7 @@ declare module 'gecko-index' {
   export async function getInterfaceFileList(): Promise<string[]>
 
   export async function getInterfaceFile(
-    filename: string
+    filename: string,
   ): Promise<idlParser.idlfile>
 
   export async function getAllInterfaces(): Promise<
