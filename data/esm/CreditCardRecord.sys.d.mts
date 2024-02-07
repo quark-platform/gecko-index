@@ -5,8 +5,8 @@
  */
 export class CreditCardRecord {
     static normalizeFields(creditCard: any): void;
-    static "__#1669429@#normalizeCCNameFields"(creditCard: any): void;
-    static "__#1669429@#normalizeCCNumberFields"(creditCard: any): void;
-    static "__#1669429@#normalizeCCExpirationDateFields"(creditCard: any): void;
-    static "__#1669429@#normalizeCCTypeFields"(creditCard: any): void;
+    static "__#1669442@#normalizeCCNameFields"(creditCard: any): void;
+    static "__#1669442@#normalizeCCNumberFields"(creditCard: any): void;
+    static "__#1669442@#normalizeCCExpirationDateFields"(creditCard: any): void;
+    static "__#1669442@#normalizeCCTypeFields"(creditCard: any): void;
 }

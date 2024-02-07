@@ -28,12 +28,12 @@ export class AddressTelemetry extends AutofillTelemetryBase {
     };
 }
 export class AutofillTelemetry {
-    static "__#1123170@#creditCardTelemetry": CreditCardTelemetry;
-    static "__#1123170@#addressTelemetry": AddressTelemetry;
+    static "__#1123183@#creditCardTelemetry": CreditCardTelemetry;
+    static "__#1123183@#addressTelemetry": AddressTelemetry;
     static ADDRESS: string;
     static CREDIT_CARD: string;
-    static "__#1123170@#getTelemetryBySection"(section: any): AddressTelemetry | CreditCardTelemetry;
-    static "__#1123170@#getTelemetryByType"(type: any): AddressTelemetry | CreditCardTelemetry;
+    static "__#1123183@#getTelemetryBySection"(section: any): AddressTelemetry | CreditCardTelemetry;
+    static "__#1123183@#getTelemetryByType"(type: any): AddressTelemetry | CreditCardTelemetry;
     /**
      * Utility functions for `doorhanger` event (defined in Events.yaml)
      *

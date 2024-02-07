@@ -109,7 +109,7 @@ export class AddressEditDoorhanger extends AutofillDoorhanger {
     static telemetryType: any;
     static telemetryObject: string;
     static getInputId(fieldName: any): string;
-    static "__#1538542@#getInputIdMatchRegexp"(): RegExp;
+    static "__#1538555@#getInputIdMatchRegexp"(): RegExp;
     constructor(browser: any, record: any, flowId: any);
     set country(c: any);
     get country(): any;

@@ -5,10 +5,12 @@ export const ReportBrokenSite: {
     readonly enabled: boolean;
     "__#566588@#reasonEnabled": boolean;
     "__#566588@#reasonIsOptional": boolean;
+    "__#566588@#randomizeReasons": boolean;
     "__#566588@#descriptionIsOptional": boolean;
     "__#566588@#sendMoreInfoEnabled": boolean;
     readonly reasonEnabled: boolean;
     readonly reasonIsOptional: boolean;
+    readonly randomizeReasons: boolean;
     readonly descriptionIsOptional: boolean;
     canReportURI(uri: any): any;
     "__#566588@#recordGleanEvent"(name: any, extra: any): void;
